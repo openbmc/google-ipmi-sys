@@ -48,7 +48,8 @@ ipmi_ret_t PsuHardReset(const uint8_t* reqBuf, uint8_t* replyBuf,
 {
     if ((*dataLen) < sizeof(struct PsuResetRequest))
     {
-        fprintf(stderr, "Invalid command length: %lu\n", (*dataLen));
+        fprintf(stderr, "Invalid command length: %u\n",
+                static_cast<uint32_t>(*dataLen));
         return IPMI_CC_INVALID;
     }
 

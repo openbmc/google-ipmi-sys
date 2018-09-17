@@ -56,7 +56,8 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
     // This command is expecting: [0x00][len][if_name]
     if ((*dataLen) < sizeof(struct CableRequest) + sizeof(uint8_t))
     {
-        fprintf(stderr, "Invalid command length: %lu\n", (*dataLen));
+        fprintf(stderr, "Invalid command length: %u\n",
+                static_cast<uint32_t>(*dataLen));
         return IPMI_CC_INVALID;
     }
 
@@ -73,7 +74,8 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
     // Verify the request buffer contains the object and the string.
     if ((*dataLen) < (sizeof(struct CableRequest) + request->if_name_len))
     {
-        fprintf(stderr, "*dataLen too small: %lu\n", (*dataLen));
+        fprintf(stderr, "*dataLen too small: %u\n",
+                static_cast<uint32_t>(*dataLen));
         return IPMI_CC_INVALID;
     }
 
