@@ -51,7 +51,8 @@ static ipmi_ret_t HandleSysCommand(ipmi_cmd_t cmd, const uint8_t* reqBuf,
     // Verify it's at least as long as it needs to be for a subcommand.
     if ((*dataLen) < 1)
     {
-        fprintf(stderr, "*dataLen too small: %lu\n", (*dataLen));
+        fprintf(stderr, "*dataLen too small: %u\n",
+                static_cast<uint32_t>(*dataLen));
         return IPMI_CC_INVALID;
     }
 
