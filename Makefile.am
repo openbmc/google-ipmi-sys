@@ -1,5 +1,10 @@
 AM_DEFAULT_SOURCE_EXT = .cpp
 
+if HAVE_SYSTEMD
+systemdsystemunit_DATA = \
+  gbmc-psu-hardreset.target
+endif
+
 libsyscmdsdir = ${libdir}/ipmid-providers
 libsyscmds_LTLIBRARIES = libsyscmds.la
 libsyscmds_la_SOURCES = main.cpp cable.cpp cpld.cpp eth.cpp psu.cpp
