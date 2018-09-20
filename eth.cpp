@@ -19,6 +19,7 @@
 #include "main.hpp"
 
 #include <cstdint>
+#include <cstring>
 #include <string>
 
 namespace google
@@ -70,21 +71,21 @@ ipmi_ret_t GetEthDevice(const uint8_t* reqBuf, uint8_t* replyBuf,
 {
     if ((*dataLen) < sizeof(struct EthDeviceRequest))
     {
-        fprintf(stderr, "Invalid command length: %u\n",
-                static_cast<uint32_t>(*dataLen));
+        std::fprintf(stderr, "Invalid command length: %u\n",
+                     static_cast<uint32_t>(*dataLen));
         return IPMI_CC_INVALID;
     }
 
     std::string device = NCSI_IF_NAME_STR;
     if (device.length() == 0)
     {
-        fprintf(stderr, "Invalid eth string\n");
+        std::fprintf(stderr, "Invalid eth string\n");
         return IPMI_CC_INVALID;
     }
 
     if ((sizeof(struct EthDeviceReply) + device.length()) > MAX_IPMI_BUFFER)
     {
-        fprintf(stderr, "Response would overflow response buffer\n");
+        std::fprintf(stderr, "Response would overflow response buffer\n");
         return IPMI_CC_INVALID;
     }
 
@@ -93,7 +94,7 @@ ipmi_ret_t GetEthDevice(const uint8_t* reqBuf, uint8_t* replyBuf,
     reply->subcommand = SysGetEthDevice;
     reply->channel = NCSI_IPMI_CHANNEL;
     reply->if_name_len = device.length();
-    memcpy(reply->if_name, device.c_str(), device.length());
+    std::memcpy(reply->if_name, device.c_str(), device.length());
 
     (*dataLen) = sizeof(struct EthDeviceReply) + device.length();
 

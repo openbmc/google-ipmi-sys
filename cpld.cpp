@@ -18,6 +18,7 @@
 
 #include "main.hpp"
 
+#include <cstring>
 #include <experimental/filesystem>
 #include <fstream>
 #include <sstream>
@@ -51,8 +52,8 @@ ipmi_ret_t CpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
 {
     if ((*dataLen) < sizeof(struct CpldRequest))
     {
-        fprintf(stderr, "Invalid command length: %u\n",
-                static_cast<uint32_t>(*dataLen));
+        std::fprintf(stderr, "Invalid command length: %u\n",
+                     static_cast<uint32_t>(*dataLen));
         return IPMI_CC_INVALID;
     }
 
@@ -75,7 +76,8 @@ ipmi_ret_t CpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
     std::error_code ec;
     if (!fs::exists(opath.str(), ec))
     {
-        fprintf(stderr, "Path: '%s' doesn't exist.\n", opath.str().c_str());
+        std::fprintf(stderr, "Path: '%s' doesn't exist.\n",
+                     opath.str().c_str());
         return IPMI_CC_INVALID;
     }
     // We're uninterested in the state of ec.
@@ -104,7 +106,7 @@ ipmi_ret_t CpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
         sscanf(value.c_str(), "%d.%d.%d.%d", &major, &minor, &point, &subpoint);
     if (num_fields == 0)
     {
-        fprintf(stderr, "Invalid version.\n");
+        std::fprintf(stderr, "Invalid version.\n");
         return IPMI_CC_INVALID;
     }
 
@@ -116,7 +118,7 @@ ipmi_ret_t CpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
     reply.point = static_cast<uint8_t>(point);
     reply.subpoint = static_cast<uint8_t>(subpoint);
 
-    memcpy(&replyBuf[0], &reply, sizeof(struct CpldReply));
+    std::memcpy(&replyBuf[0], &reply, sizeof(struct CpldReply));
     (*dataLen) = sizeof(struct CpldReply);
 
     return IPMI_CC_OK;

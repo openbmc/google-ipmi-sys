@@ -51,8 +51,8 @@ static ipmi_ret_t HandleSysCommand(ipmi_cmd_t cmd, const uint8_t* reqBuf,
     // Verify it's at least as long as it needs to be for a subcommand.
     if ((*dataLen) < 1)
     {
-        fprintf(stderr, "*dataLen too small: %u\n",
-                static_cast<uint32_t>(*dataLen));
+        std::fprintf(stderr, "*dataLen too small: %u\n",
+                     static_cast<uint32_t>(*dataLen));
         return IPMI_CC_INVALID;
     }
 
@@ -67,7 +67,7 @@ static ipmi_ret_t HandleSysCommand(ipmi_cmd_t cmd, const uint8_t* reqBuf,
         case SysPsuHardReset:
             return PsuHardReset(reqBuf, replyCmdBuf, dataLen);
         default:
-            fprintf(stderr, "Invalid subcommand: 0x%x\n", reqBuf[0]);
+            std::fprintf(stderr, "Invalid subcommand: 0x%x\n", reqBuf[0]);
             return IPMI_CC_INVALID;
     }
 }
@@ -78,8 +78,9 @@ void setupGlobalOemCableCheck()
 {
     oem::Router* oemRouter = oem::mutableRouter();
 
-    fprintf(stderr, "Registering OEM:[%#08X], Cmd:[%#04X] for Sys Commands\n",
-            oem::googOemNumber, oem::google::sysCmd);
+    std::fprintf(stderr,
+                 "Registering OEM:[%#08X], Cmd:[%#04X] for Sys Commands\n",
+                 oem::googOemNumber, oem::google::sysCmd);
 
     oemRouter->registerHandler(oem::googOemNumber, oem::google::sysCmd,
                                HandleSysCommand);

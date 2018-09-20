@@ -19,6 +19,7 @@
 #include "main.hpp"
 
 #include <cstdint>
+#include <cstring>
 #include <fstream>
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/bus.hpp>
@@ -48,26 +49,26 @@ ipmi_ret_t PsuHardReset(const uint8_t* reqBuf, uint8_t* replyBuf,
 {
     if ((*dataLen) < sizeof(struct PsuResetRequest))
     {
-        fprintf(stderr, "Invalid command length: %u\n",
-                static_cast<uint32_t>(*dataLen));
+        std::fprintf(stderr, "Invalid command length: %u\n",
+                     static_cast<uint32_t>(*dataLen));
         return IPMI_CC_INVALID;
     }
 
     struct PsuResetRequest request;
-    memcpy(&request, &reqBuf[0], sizeof(struct PsuResetRequest));
+    std::memcpy(&request, &reqBuf[0], sizeof(struct PsuResetRequest));
 
     std::ofstream ofs;
     ofs.open(TIME_DELAY_FILENAME, std::ofstream::out);
     if (!ofs.good())
     {
-        fprintf(stderr, "Unable to open file for output.\n");
+        std::fprintf(stderr, "Unable to open file for output.\n");
         return IPMI_CC_INVALID;
     }
 
     ofs << "PSU_HARDRESET_DELAY=" << request.delay << std::endl;
     if (ofs.fail())
     {
-        fprintf(stderr, "Write failed\n");
+        std::fprintf(stderr, "Write failed\n");
         ofs.close();
         return IPMI_CC_INVALID;
     }

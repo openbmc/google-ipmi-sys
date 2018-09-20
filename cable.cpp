@@ -19,6 +19,7 @@
 #include "main.hpp"
 
 #include <cstdint>
+#include <cstring>
 #include <experimental/filesystem>
 #include <fstream>
 #include <sstream>
@@ -56,8 +57,8 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
     // This command is expecting: [0x00][len][if_name]
     if ((*dataLen) < sizeof(struct CableRequest) + sizeof(uint8_t))
     {
-        fprintf(stderr, "Invalid command length: %u\n",
-                static_cast<uint32_t>(*dataLen));
+        std::fprintf(stderr, "Invalid command length: %u\n",
+                     static_cast<uint32_t>(*dataLen));
         return IPMI_CC_INVALID;
     }
 
@@ -67,15 +68,16 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
     // Sanity check the object contents.
     if (request->if_name_len == 0)
     {
-        fprintf(stderr, "Invalid string length: %d\n", request->if_name_len);
+        std::fprintf(stderr, "Invalid string length: %d\n",
+                     request->if_name_len);
         return IPMI_CC_INVALID;
     }
 
     // Verify the request buffer contains the object and the string.
     if ((*dataLen) < (sizeof(struct CableRequest) + request->if_name_len))
     {
-        fprintf(stderr, "*dataLen too small: %u\n",
-                static_cast<uint32_t>(*dataLen));
+        std::fprintf(stderr, "*dataLen too small: %u\n",
+                     static_cast<uint32_t>(*dataLen));
         return IPMI_CC_INVALID;
     }
 
@@ -84,7 +86,7 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
     std::ostringstream opath;
 
     // Copy the string out of the request buffer.
-    memcpy(&nameBuf[0], request->if_name, request->if_name_len);
+    std::memcpy(&nameBuf[0], request->if_name, request->if_name_len);
     std::string name = nameBuf;
 
     // Minor sanity & security check (of course, I'm less certain if unicode
@@ -93,7 +95,7 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
     // Basically you can't easily inject ../ or /../ into the path below.
     if (name.find("/") != std::string::npos)
     {
-        fprintf(stderr, "Invalid or illegal name: '%s'\n", nameBuf);
+        std::fprintf(stderr, "Invalid or illegal name: '%s'\n", nameBuf);
         return IPMI_CC_INVALID;
     }
 
@@ -103,7 +105,7 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
     std::error_code ec;
     if (!fs::exists(path, ec))
     {
-        fprintf(stderr, "Path: '%s' doesn't exist.\n", path.c_str());
+        std::fprintf(stderr, "Path: '%s' doesn't exist.\n", path.c_str());
         return IPMI_CC_INVALID;
     }
     // We're uninterested in the state of ec.
@@ -130,7 +132,7 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
     reply.value = (count > 0) ? 1 : 0;
 
     // Return the subcommand and the result.
-    memcpy(&replyBuf[0], &reply, sizeof(struct CableReply));
+    std::memcpy(&replyBuf[0], &reply, sizeof(struct CableReply));
     (*dataLen) = sizeof(struct CableReply);
 
     return IPMI_CC_OK;
