@@ -24,13 +24,9 @@
 #include <host-ipmid/ipmid-api.h>
 
 #include <cstdint>
-#include <experimental/filesystem>
-#include <fstream>
+#include <cstdio>
 #include <host-ipmid/iana.hpp>
 #include <host-ipmid/oemrouter.hpp>
-#include <sstream>
-#include <string>
-#include <system_error>
 
 namespace oem
 {
