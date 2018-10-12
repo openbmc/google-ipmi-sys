@@ -15,6 +15,10 @@ enum SysOEMCommands
     SysGetEthDevice = 2,
     // The Sys psu hard reset command.
     SysPsuHardReset = 3,
+    // The Sys pcie slot count command.
+    SysPcieSlotCount = 4,
+    // The Sys pcie slot to i2c bus mapping command.
+    SysPcieSlotI2cBusMapping = 5,
 };
 
 } // namespace ipmi
