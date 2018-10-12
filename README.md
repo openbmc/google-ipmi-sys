@@ -87,6 +87,46 @@ Response
 |--------|-------|----
 |0x00|0x03|Subcommand
 
+### GetPCIeSlotsCount - SubCommand 0x04 {#getpcieslotscount-0x04}
+
+Sys can get the total number of PCIe slots from BMC using this command. When BMC receives this command, BMC can enumerate over all the PCIe slots and create a hashmap with all the available PCIe slot name - I2C bus number mappings. BMC can then send the total number of PCIe slots as part of this command response.
+
+Request
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x04|Subcommand
+
+
+Response
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x04|Subcommand
+|0x01|Total number of PCIe slots|Total number of PCIe slots
+
+
+### GetPCIeSlotI2cBusMapping - SubCommand 0x05 {#getpciesloti2cbusmapping-0x05}
+
+If Sys gets N total slots as part of the above command, then Sys can send this command N times with Entry IDs ranging from 1 to N. Say, Sys sends this command with Entry ID as 1, BMC can go and fetch the first PCIe slot name - I2C bus number mapping from the hashmap created above and then send the PCIe slot name and I2C bus number as part of the command response.
+
+Request
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x05|Subcommand
+|0x01|Entry ID|Entry ID ranging from 1 to N
+
+
+Response
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x05|Subcommand
+|0x01|I2C bus number|The I2C bus number which is input to the above PCIe slot
+|0x02|PCIe slot name length|The PCIe slot name length
+|0x03...|PCIe slot name|The PCIe slot name without null terminator
+
 ### Nemorad Setting (0x34) {#nemora-setting-0x34}
 
 It's a security requirement that the BMC must be able to persist a setting to disable plaintext console transmission via Nemora.  The setting is stored in the BMC read-write filesystem, and Nemorad has a utility class to read and write that setting, which this OEM command uses.  The command can be used for read-only as well as a read-then-write to ensure the state of the file.
