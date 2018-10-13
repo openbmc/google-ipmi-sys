@@ -126,7 +126,6 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
 
     struct CableReply reply;
     reply.subcommand = SysCableCheck;
-    reply.value = 0x00; // Default false
 
     // If we have received packets then there is a cable present.
     reply.value = (count > 0) ? 1 : 0;
