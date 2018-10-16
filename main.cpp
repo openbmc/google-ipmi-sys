@@ -19,6 +19,7 @@
 #include "cable.hpp"
 #include "cpld.hpp"
 #include "eth.hpp"
+#include "pcie_i2c.hpp"
 #include "psu.hpp"
 
 #include <host-ipmid/ipmid-api.h>
@@ -52,6 +53,8 @@ static ipmi_ret_t HandleSysCommand(ipmi_cmd_t cmd, const uint8_t* reqBuf,
         return IPMI_CC_INVALID;
     }
 
+    std::fprintf(stderr, "*dataLen too small\n");
+
     switch (reqBuf[0])
     {
         case SysCableCheck:
@@ -62,6 +65,10 @@ static ipmi_ret_t HandleSysCommand(ipmi_cmd_t cmd, const uint8_t* reqBuf,
             return GetEthDevice(reqBuf, replyCmdBuf, dataLen);
         case SysPsuHardReset:
             return PsuHardReset(reqBuf, replyCmdBuf, dataLen);
+        case SysPcieSlotCount:
+            return PcieSlotCount(reqBuf, replyCmdBuf, dataLen);
+        case SysPcieSlotI2cBusMapping:
+            return PcieSlotI2cBusMapping(reqBuf, replyCmdBuf, dataLen);
         default:
             std::fprintf(stderr, "Invalid subcommand: 0x%x\n", reqBuf[0]);
             return IPMI_CC_INVALID;
