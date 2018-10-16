@@ -50,7 +50,9 @@ struct CpldReply
 ipmi_ret_t CpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
                        size_t* dataLen)
 {
-    if ((*dataLen) < sizeof(struct CpldRequest))
+    struct CpldRequest request;
+
+    if ((*dataLen) < sizeof(request))
     {
         std::fprintf(stderr, "Invalid command length: %u\n",
                      static_cast<uint32_t>(*dataLen));
@@ -64,13 +66,10 @@ ipmi_ret_t CpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
     // since I would expect int(uint8(0xff)) to be -1.  So, just cast it
     // unsigned. we're casting to an int width to avoid it thinking it's a
     // letter, because it does that.
-
-    const auto request =
-        reinterpret_cast<const struct CpldRequest*>(&reqBuf[0]);
+    std::memcpy(&request, &reqBuf[0], sizeof(request));
 
     std::ostringstream opath;
-    opath << "/run/cpld" << static_cast<unsigned int>(request->id)
-          << ".version";
+    opath << "/run/cpld" << static_cast<unsigned int>(request.id) << ".version";
     // Check for file
 
     std::error_code ec;
@@ -118,8 +117,8 @@ ipmi_ret_t CpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
     reply.point = static_cast<uint8_t>(point);
     reply.subpoint = static_cast<uint8_t>(subpoint);
 
-    std::memcpy(&replyBuf[0], &reply, sizeof(struct CpldReply));
-    (*dataLen) = sizeof(struct CpldReply);
+    std::memcpy(&replyBuf[0], &reply, sizeof(reply));
+    (*dataLen) = sizeof(reply);
 
     return IPMI_CC_OK;
 }

@@ -47,14 +47,15 @@ static constexpr auto PSU_HARDRESET_TARGET = "gbmc-psu-hardreset.target";
 ipmi_ret_t PsuHardReset(const uint8_t* reqBuf, uint8_t* replyBuf,
                         size_t* dataLen)
 {
-    if ((*dataLen) < sizeof(struct PsuResetRequest))
+    struct PsuResetRequest request;
+
+    if ((*dataLen) < sizeof(request))
     {
         std::fprintf(stderr, "Invalid command length: %u\n",
                      static_cast<uint32_t>(*dataLen));
         return IPMI_CC_INVALID;
     }
 
-    struct PsuResetRequest request;
     std::memcpy(&request, &reqBuf[0], sizeof(struct PsuResetRequest));
 
     std::ofstream ofs;
