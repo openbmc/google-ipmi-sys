@@ -17,4 +17,5 @@ libsyscmds_la_LDFLAGS = \
 
 libsyscmds_la_CXXFLAGS = \
 	$(SDBUSPLUS_CFLAGS) \
-	$(PHOSPHOR_LOGGING_CFLAGS)
+	$(PHOSPHOR_LOGGING_CFLAGS) \
+	-flto
