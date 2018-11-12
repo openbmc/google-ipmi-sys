@@ -73,20 +73,20 @@ ipmi_ret_t GetEthDevice(const uint8_t* reqBuf, uint8_t* replyBuf,
     {
         std::fprintf(stderr, "Invalid command length: %u\n",
                      static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_INVALID;
+        return IPMI_CC_REQ_DATA_LEN_INVALID;
     }
 
     std::string device = NCSI_IF_NAME_STR;
     if (device.length() == 0)
     {
         std::fprintf(stderr, "Invalid eth string\n");
-        return IPMI_CC_INVALID;
+        return IPMI_CC_REQ_DATA_LEN_INVALID;
     }
 
     if ((sizeof(struct EthDeviceReply) + device.length()) > MAX_IPMI_BUFFER)
     {
         std::fprintf(stderr, "Response would overflow response buffer\n");
-        return IPMI_CC_INVALID;
+        return IPMI_CC_REQ_DATA_LEN_INVALID;
     }
 
     // Fill in the response buffer.

@@ -56,7 +56,7 @@ ipmi_ret_t CpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
     {
         std::fprintf(stderr, "Invalid command length: %u\n",
                      static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_INVALID;
+        return IPMI_CC_REQ_DATA_LEN_INVALID;
     }
 
     // reqBuf[0] is the subcommand.
@@ -77,7 +77,7 @@ ipmi_ret_t CpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
     {
         std::fprintf(stderr, "Path: '%s' doesn't exist.\n",
                      opath.str().c_str());
-        return IPMI_CC_INVALID;
+        return IPMI_CC_INVALID_FIELD_REQUEST;
     }
     // We're uninterested in the state of ec.
 
@@ -92,7 +92,7 @@ ipmi_ret_t CpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
     }
     catch (std::ios_base::failure& fail)
     {
-        return IPMI_CC_INVALID;
+        return IPMI_CC_UNSPECIFIED_ERROR;
     }
 
     // If value parses as expected, return version.
@@ -106,7 +106,7 @@ ipmi_ret_t CpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
     if (num_fields == 0)
     {
         std::fprintf(stderr, "Invalid version.\n");
-        return IPMI_CC_INVALID;
+        return IPMI_CC_UNSPECIFIED_ERROR;
     }
 
     // Truncate if the version is too high (documented).
