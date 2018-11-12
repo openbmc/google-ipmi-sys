@@ -59,7 +59,7 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
     {
         std::fprintf(stderr, "Invalid command length: %u\n",
                      static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_INVALID;
+        return IPMI_CC_REQ_DATA_LEN_INVALID;
     }
 
     const auto request =
@@ -70,7 +70,7 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
     {
         std::fprintf(stderr, "Invalid string length: %d\n",
                      request->if_name_len);
-        return IPMI_CC_INVALID;
+        return IPMI_CC_REQ_DATA_LEN_INVALID;
     }
 
     // Verify the request buffer contains the object and the string.
@@ -78,7 +78,7 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
     {
         std::fprintf(stderr, "*dataLen too small: %u\n",
                      static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_INVALID;
+        return IPMI_CC_REQ_DATA_LEN_INVALID;
     }
 
     // Maximum length one can specify, plus null terminator.
@@ -96,7 +96,7 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
     if (name.find("/") != std::string::npos)
     {
         std::fprintf(stderr, "Invalid or illegal name: '%s'\n", nameBuf);
-        return IPMI_CC_INVALID;
+        return IPMI_CC_INVALID_FIELD_REQUEST;
     }
 
     opath << "/sys/class/net/" << name << "/statistics/rx_packets";
@@ -106,7 +106,7 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
     if (!fs::exists(path, ec))
     {
         std::fprintf(stderr, "Path: '%s' doesn't exist.\n", path.c_str());
-        return IPMI_CC_INVALID;
+        return IPMI_CC_INVALID_FIELD_REQUEST;
     }
     // We're uninterested in the state of ec.
 
@@ -121,7 +121,7 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
     }
     catch (std::ios_base::failure& fail)
     {
-        return IPMI_CC_INVALID;
+        return IPMI_CC_UNSPECIFIED_ERROR;
     }
 
     struct CableReply reply;
