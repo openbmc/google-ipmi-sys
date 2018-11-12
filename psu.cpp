@@ -53,7 +53,7 @@ ipmi_ret_t PsuHardReset(const uint8_t* reqBuf, uint8_t* replyBuf,
     {
         std::fprintf(stderr, "Invalid command length: %u\n",
                      static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_INVALID;
+        return IPMI_CC_REQ_DATA_LEN_INVALID;
     }
 
     std::memcpy(&request, &reqBuf[0], sizeof(struct PsuResetRequest));
@@ -63,7 +63,7 @@ ipmi_ret_t PsuHardReset(const uint8_t* reqBuf, uint8_t* replyBuf,
     if (!ofs.good())
     {
         std::fprintf(stderr, "Unable to open file for output.\n");
-        return IPMI_CC_INVALID;
+        return IPMI_CC_UNSPECIFIED_ERROR;
     }
 
     ofs << "PSU_HARDRESET_DELAY=" << request.delay << std::endl;
@@ -71,7 +71,7 @@ ipmi_ret_t PsuHardReset(const uint8_t* reqBuf, uint8_t* replyBuf,
     {
         std::fprintf(stderr, "Write failed\n");
         ofs.close();
-        return IPMI_CC_INVALID;
+        return IPMI_CC_UNSPECIFIED_ERROR;
     }
 
     // Write succeeded, please continue.
@@ -92,7 +92,7 @@ ipmi_ret_t PsuHardReset(const uint8_t* reqBuf, uint8_t* replyBuf,
     catch (const sdbusplus::exception::SdBusError& ex)
     {
         log<level::ERR>("Failed to call PSU hard reset");
-        return IPMI_CC_INVALID;
+        return IPMI_CC_UNSPECIFIED_ERROR;
     }
 
     replyBuf[0] = SysPsuHardReset;
