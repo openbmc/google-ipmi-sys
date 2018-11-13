@@ -68,9 +68,9 @@ static ipmi_ret_t HandleSysCommand(ipmi_cmd_t cmd, const uint8_t* reqBuf,
     }
 }
 
-void setupGlobalOemCableCheck() __attribute__((constructor));
+void setupGoogleOemSysCommands() __attribute__((constructor));
 
-void setupGlobalOemCableCheck()
+void setupGoogleOemSysCommands()
 {
     oem::Router* oemRouter = oem::mutableRouter();
 
