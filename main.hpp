@@ -19,6 +19,8 @@ enum SysOEMCommands
     SysPcieSlotCount = 4,
     // The Sys pcie slot to i2c bus mapping command.
     SysPcieSlotI2cBusMapping = 5,
+    // The Sys "entity id:entity instance" to entity name mapping command.
+    SysEntityName = 6,
 };
 
 } // namespace ipmi

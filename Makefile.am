@@ -7,7 +7,7 @@ endif
 
 libsyscmdsdir = ${libdir}/ipmid-providers
 libsyscmds_LTLIBRARIES = libsyscmds.la
-libsyscmds_la_SOURCES = main.cpp cable.cpp cpld.cpp eth.cpp psu.cpp pcie_i2c.cpp
+libsyscmds_la_SOURCES = main.cpp cable.cpp cpld.cpp eth.cpp psu.cpp pcie_i2c.cpp entity_name.cpp
 
 libsyscmds_la_LDFLAGS = \
 	$(SDBUSPLUS_LIBS) \

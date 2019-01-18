@@ -139,3 +139,25 @@ Response
 |0x01|I2C bus number|The I2C bus number which is input to the above PCIe slot
 |0x02|PCIe slot name length|The PCIe slot name length
 |0x03...|PCIe slot name|The PCIe slot name without null terminator
+
+### GetEntityName - SubCommand 0x06
+
+Gsys can get the "Entity ID:Entity Instance" to Entity name mapping from BMC
+using this command. When BMC receives this command, BMC can check the related
+JSON file and then send the name for that particular entity as this command
+response.
+
+Request
+
+|Byte(s) |Value |Data
+|--------|------|----
+|0x00|0x06|Subcommand
+|0x01|Entity ID|Entity ID
+|0x02|Entity Instance|Entity Instance
+
+Response
+
+|Byte(s) |Value |Data
+|0x00|0x06|Subcommand
+|0x01|Entity name length (say N)|Entity name length
+|0x02...0x02 + N - 1|Entity name|Entity name without null terminator

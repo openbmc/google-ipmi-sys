@@ -18,6 +18,7 @@
 
 #include "cable.hpp"
 #include "cpld.hpp"
+#include "entity_name.hpp"
 #include "eth.hpp"
 #include "pcie_i2c.hpp"
 #include "psu.hpp"
@@ -67,6 +68,8 @@ static ipmi_ret_t HandleSysCommand(ipmi_cmd_t cmd, const uint8_t* reqBuf,
             return PcieSlotCount(reqBuf, replyCmdBuf, dataLen);
         case SysPcieSlotI2cBusMapping:
             return PcieSlotI2cBusMapping(reqBuf, replyCmdBuf, dataLen);
+        case SysEntityName:
+            return GetEntityName(reqBuf, replyCmdBuf, dataLen);
         default:
             std::fprintf(stderr, "Invalid subcommand: 0x%x\n", reqBuf[0]);
             return IPMI_CC_INVALID;
