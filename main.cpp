@@ -23,12 +23,12 @@
 #include "pcie_i2c.hpp"
 #include "psu.hpp"
 
-#include <host-ipmid/ipmid-api.h>
+#include <ipmid/api.h>
 
 #include <cstdint>
 #include <cstdio>
-#include <host-ipmid/iana.hpp>
-#include <host-ipmid/oemrouter.hpp>
+#include <ipmid/iana.hpp>
+#include <ipmid/oemrouter.hpp>
 
 namespace oem
 {

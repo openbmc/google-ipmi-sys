@@ -29,14 +29,16 @@ PKG_CHECK_MODULES(
     [],
     [AC_MSG_ERROR([The openbmc/phosphor-logging package is required])]
 )
+PKG_CHECK_MODULES(
+    [LIBIPMID],
+    [libipmid],
+    [],
+    [AC_MSG_ERROR([Could not find libipmid...openbmc/phosphor-host-ipmid package required])]
+)
 AC_CHECK_HEADER(
     experimental/filesystem,
     [],
     [AC_MSG_ERROR([Could not find experimental/filesystem...libstdc++fs developement package required])]
-)
-AC_CHECK_HEADER(
-    [host-ipmid],
-    [AC_MSG_ERROR(["phosphor-host-ipmid required and not found."])]
 )
 
 # Checks for library functions.
