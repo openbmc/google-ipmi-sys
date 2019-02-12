@@ -38,6 +38,11 @@ AC_CHECK_HEADER(
     [host-ipmid],
     [AC_MSG_ERROR(["phosphor-host-ipmid required and not found."])]
 )
+AC_CHECK_HEADER(
+    nlohmann/json.hpp,
+    [],
+    [AC_MSG_ERROR([Could not find nlohmann/json.hpp])]
+)
 
 # Checks for library functions.
 LT_INIT # Required for systemd linking
