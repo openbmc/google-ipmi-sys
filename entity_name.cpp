@@ -59,8 +59,11 @@ static constexpr auto configFile =
 static const std::map<uint8_t, std::string> entityIdToName{
     {0x03, "cpu"},
     {0x04, "storage_device"},
+    {0x06, "system_management_module"},
+    {0x08, "memory_module"},
     {0x0B, "add_in_card"},
-    {0x20, "memory_module"}};
+    {0x17, "system_chassis"},
+    {0x20, "memory_device"}};
 
 Json parse_config()
 {

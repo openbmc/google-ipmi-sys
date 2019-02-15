@@ -158,6 +158,7 @@ Request
 Response
 
 |Byte(s) |Value |Data
+|--------|------|----
 |0x00|0x06|Subcommand
 |0x01|Entity name length (say N)|Entity name length
 |0x02...0x02 + N - 1|Entity name|Entity name without null terminator
