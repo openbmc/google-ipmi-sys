@@ -32,18 +32,6 @@ struct EthDeviceRequest
     uint8_t subcommand;
 } __attribute__((packed));
 
-// The reply to the ethdevice command specifies the
-// IPMI channel number and the if_name used for the
-// ncis connection.
-struct EthDeviceReply
-{
-    uint8_t subcommand;
-    uint8_t channel;
-    // if_name_len doesn't include the null-terminator.
-    uint8_t if_name_len;
-    uint8_t if_name[0];
-} __attribute__((packed));
-
 // The phosphor-host-ipmi daemon requires a configuration that maps
 // the if_name to the IPMI LAN channel.  However, that doesn't strictly
 // define which is meant to be used for NCSI.
