@@ -10,12 +10,19 @@ Makefile.in
 /test-driver
 /ylwrap
 
+# Code Coverage
+*.gcda
+*.gcno
+*.trs
+*-coverage*
+
 # http://www.gnu.org/software/autoconf
 
 /autom4te.cache
 /autoscan.log
 /autoscan-*.log
 /aclocal.m4
+/aminclude_static.am
 /compile
 /config.guess
 /config.h.in
