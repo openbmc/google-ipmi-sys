@@ -15,6 +15,10 @@ AM_LDFLAGS = \
 check_PROGRAMS =
 TESTS = $(check_PROGRAMS)
 
+check_PROGRAMS += handler_unittest
+handler_unittest_SOURCES = handler_unittest.cpp
+handler_unittest_LDADD = $(top_builddir)/libsyscmds_common.la
+
 check_PROGRAMS += eth_unittest
 eth_unittest_SOURCES = eth_unittest.cpp
 eth_unittest_LDADD = $(top_builddir)/libsyscmds_common.la
