@@ -22,3 +22,7 @@ handler_unittest_LDADD = $(top_builddir)/libsyscmds_common.la
 check_PROGRAMS += eth_unittest
 eth_unittest_SOURCES = eth_unittest.cpp
 eth_unittest_LDADD = $(top_builddir)/libsyscmds_common.la
+
+check_PROGRAMS += cable_unittest
+cable_unittest_SOURCES = cable_unittest.cpp
+cable_unittest_LDADD = $(top_builddir)/libsyscmds_common.la
