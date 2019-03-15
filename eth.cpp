@@ -16,11 +16,13 @@
 
 #include "eth.hpp"
 
+#include "handler.hpp"
 #include "main.hpp"
 
 #include <cstdint>
 #include <cstring>
 #include <string>
+#include <tuple>
 
 namespace google
 {
@@ -32,30 +34,14 @@ struct EthDeviceRequest
     uint8_t subcommand;
 } __attribute__((packed));
 
-// The phosphor-host-ipmi daemon requires a configuration that maps
-// the if_name to the IPMI LAN channel.  However, that doesn't strictly
-// define which is meant to be used for NCSI.
-#ifndef NCSI_IPMI_CHANNEL
-#define NCSI_IPMI_CHANNEL 1
-#endif
-
-#ifndef NCSI_IF_NAME
-#define NCSI_IF_NAME eth0
-#endif
-
 // TOOD(venture): The ipmid.h has this macro, which is a header we
 // can't normally access.
 #ifndef MAX_IPMI_BUFFER
 #define MAX_IPMI_BUFFER 64
 #endif
 
-// To deal with receiving a string without quotes.
-#define QUOTE(name) #name
-#define STR(macro) QUOTE(macro)
-#define NCSI_IF_NAME_STR STR(NCSI_IF_NAME)
-
 ipmi_ret_t GetEthDevice(const uint8_t* reqBuf, uint8_t* replyBuf,
-                        size_t* dataLen)
+                        size_t* dataLen, const HandlerInterface* handler)
 {
     if ((*dataLen) < sizeof(struct EthDeviceRequest))
     {
@@ -64,7 +50,9 @@ ipmi_ret_t GetEthDevice(const uint8_t* reqBuf, uint8_t* replyBuf,
         return IPMI_CC_REQ_DATA_LEN_INVALID;
     }
 
-    std::string device = NCSI_IF_NAME_STR;
+    std::tuple<std::uint8_t, std::string> details = handler->getEthDetails();
+
+    std::string device = std::get<1>(details);
     if (device.length() == 0)
     {
         std::fprintf(stderr, "Invalid eth string\n");
@@ -80,7 +68,7 @@ ipmi_ret_t GetEthDevice(const uint8_t* reqBuf, uint8_t* replyBuf,
     // Fill in the response buffer.
     auto reply = reinterpret_cast<struct EthDeviceReply*>(&replyBuf[0]);
     reply->subcommand = SysGetEthDevice;
-    reply->channel = NCSI_IPMI_CHANNEL;
+    reply->channel = std::get<0>(details);
     reply->if_name_len = device.length();
     std::memcpy(reply->if_name, device.c_str(), device.length());
 

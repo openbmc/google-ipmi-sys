@@ -1,5 +1,7 @@
 #pragma once
 
+#include "handler.hpp"
+
 #include <ipmid/api.h>
 
 namespace google
@@ -23,7 +25,8 @@ struct EthDeviceReply
 // Sys can query the if_name and IPMI channel of the BMC's NCSI ethernet
 // device.
 ipmi_ret_t GetEthDevice(const uint8_t* reqBuf, uint8_t* replyBuf,
-                        size_t* dataLen);
+                        size_t* dataLen,
+                        const HandlerInterface* handler = &handlerImpl);
 
 } // namespace ipmi
 } // namespace google
