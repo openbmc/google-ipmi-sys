@@ -40,7 +40,7 @@ else
 endif
 
 noinst_LTLIBRARIES = libsyscmds_common.la
-libsyscmds_common_la_SOURCES = cable.cpp cpld.cpp eth.cpp psu.cpp pcie_i2c.cpp entity_name.cpp
+libsyscmds_common_la_SOURCES = cable.cpp cpld.cpp eth.cpp psu.cpp pcie_i2c.cpp entity_name.cpp handler.cpp
 libsyscmds_common_la_CXXFLAGS = \
 	$(SDBUSPLUS_CFLAGS) \
 	$(PHOSPHOR_LOGGING_CFLAGS) \
