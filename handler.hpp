@@ -39,6 +39,14 @@ class HandlerInterface
      */
     virtual std::tuple<std::uint8_t, std::uint8_t, std::uint8_t, std::uint8_t>
         getCpldVersion(unsigned int id) const = 0;
+
+    /**
+     * Set the PSU Reset delay.
+     *
+     * @param[in] delay - delay in seconds.
+     * @throw IpmiException on failure.
+     */
+    virtual void psuResetDelay(std::uint32_t delay) const = 0;
 };
 
 class Handler : public HandlerInterface
@@ -51,6 +59,7 @@ class Handler : public HandlerInterface
     std::int64_t getRxPackets(const std::string& name) const override;
     std::tuple<std::uint8_t, std::uint8_t, std::uint8_t, std::uint8_t>
         getCpldVersion(unsigned int id) const override;
+    void psuResetDelay(std::uint32_t delay) const override;
 };
 
 extern Handler handlerImpl;
