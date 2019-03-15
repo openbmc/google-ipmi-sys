@@ -9,6 +9,9 @@ namespace google
 namespace ipmi
 {
 
+using VersionTuple =
+    std::tuple<std::uint8_t, std::uint8_t, std::uint8_t, std::uint8_t>;
+
 class HandlerInterface
 {
   public:
@@ -29,6 +32,15 @@ class HandlerInterface
      * @throw IpmiException on failure.
      */
     virtual std::int64_t getRxPackets(const std::string& name) const = 0;
+
+    /**
+     * Return the values from a cpld version file.
+     *
+     * @param[in] id - the cpld id number.
+     * @return the quad of numbers as a tuple (maj,min,pt,subpt)
+     * @throw IpmiException on failure.
+     */
+    virtual VersionTuple getCpldVersion(unsigned int id) const = 0;
 };
 
 class Handler : public HandlerInterface
@@ -39,6 +51,7 @@ class Handler : public HandlerInterface
 
     std::tuple<std::uint8_t, std::string> getEthDetails() const override;
     std::int64_t getRxPackets(const std::string& name) const override;
+    VersionTuple getCpldVersion(unsigned int id) const override;
 };
 
 extern Handler handlerImpl;
