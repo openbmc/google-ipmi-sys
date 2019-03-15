@@ -20,6 +20,7 @@ class HandlerMock : public HandlerInterface
     MOCK_CONST_METHOD1(getCpldVersion,
                        std::tuple<std::uint8_t, std::uint8_t, std::uint8_t,
                                   std::uint8_t>(unsigned int));
+    MOCK_CONST_METHOD1(psuResetDelay, void(std::uint32_t));
 };
 
 } // namespace ipmi
