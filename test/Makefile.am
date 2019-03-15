@@ -26,3 +26,7 @@ eth_unittest_LDADD = $(top_builddir)/libsyscmds_common.la
 check_PROGRAMS += cable_unittest
 cable_unittest_SOURCES = cable_unittest.cpp
 cable_unittest_LDADD = $(top_builddir)/libsyscmds_common.la
+
+check_PROGRAMS += cpld_unittest
+cpld_unittest_SOURCES = cpld_unittest.cpp
+cpld_unittest_LDADD = $(top_builddir)/libsyscmds_common.la
