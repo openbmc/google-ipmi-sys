@@ -23,6 +23,8 @@
 #include <cstdio>
 #include <filesystem>
 #include <fstream>
+#include <phosphor-logging/log.hpp>
+#include <sdbusplus/bus.hpp>
 #include <sstream>
 #include <string>
 #include <tuple>
@@ -141,6 +143,54 @@ std::tuple<std::uint8_t, std::uint8_t, std::uint8_t, std::uint8_t>
     return std::make_tuple(
         static_cast<uint8_t>(major), static_cast<uint8_t>(minor),
         static_cast<uint8_t>(point), static_cast<uint8_t>(subpoint));
+}
+
+static constexpr auto TIME_DELAY_FILENAME = "/run/psu_timedelay";
+static constexpr auto SYSTEMD_SERVICE = "org.freedesktop.systemd1";
+static constexpr auto SYSTEMD_ROOT = "/org/freedesktop/systemd1";
+static constexpr auto SYSTEMD_INTERFACE = "org.freedesktop.systemd1.Manager";
+static constexpr auto PSU_HARDRESET_TARGET = "gbmc-psu-hardreset.target";
+
+void Handler::psuResetDelay(std::uint32_t delay) const
+{
+    using namespace phosphor::logging;
+
+    std::ofstream ofs;
+    ofs.open(TIME_DELAY_FILENAME, std::ofstream::out);
+    if (!ofs.good())
+    {
+        std::fprintf(stderr, "Unable to open file for output.\n");
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    ofs << "PSU_HARDRESET_DELAY=" << delay << std::endl;
+    if (ofs.fail())
+    {
+        std::fprintf(stderr, "Write failed\n");
+        ofs.close();
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    // Write succeeded, please continue.
+    ofs.flush();
+    ofs.close();
+
+    auto bus = sdbusplus::bus::new_default();
+    auto method = bus.new_method_call(SYSTEMD_SERVICE, SYSTEMD_ROOT,
+                                      SYSTEMD_INTERFACE, "StartUnit");
+
+    method.append(PSU_HARDRESET_TARGET);
+    method.append("replace");
+
+    try
+    {
+        bus.call_noreply(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        log<level::ERR>("Failed to call PSU hard reset");
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
 }
 
 Handler handlerImpl;
