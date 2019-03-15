@@ -30,3 +30,7 @@ cable_unittest_LDADD = $(top_builddir)/libsyscmds_common.la
 check_PROGRAMS += cpld_unittest
 cpld_unittest_SOURCES = cpld_unittest.cpp
 cpld_unittest_LDADD = $(top_builddir)/libsyscmds_common.la
+
+check_PROGRAMS += psu_unittest
+psu_unittest_SOURCES = psu_unittest.cpp
+psu_unittest_LDADD = $(top_builddir)/libsyscmds_common.la
