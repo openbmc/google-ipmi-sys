@@ -20,6 +20,15 @@ class HandlerInterface
      * @return tuple of ethernet details (channel, if name).
      */
     virtual std::tuple<std::uint8_t, std::string> getEthDetails() const = 0;
+
+    /**
+     * Return the value of rx_packets, given a if_name.
+     *
+     * @param[in] name, the interface name.
+     * @return the number of packets received.
+     * @throw IpmiException on failure.
+     */
+    virtual std::int64_t getRxPackets(const std::string& name) const = 0;
 };
 
 class Handler : public HandlerInterface
@@ -29,6 +38,7 @@ class Handler : public HandlerInterface
     ~Handler() = default;
 
     std::tuple<std::uint8_t, std::string> getEthDetails() const override;
+    std::int64_t getRxPackets(const std::string& name) const override;
 };
 
 extern Handler handlerImpl;

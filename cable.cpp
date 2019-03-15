@@ -16,21 +16,18 @@
 
 #include "cable.hpp"
 
+#include "errors.hpp"
+#include "handler.hpp"
 #include "main.hpp"
 
 #include <cstdint>
 #include <cstring>
-#include <filesystem>
-#include <fstream>
-#include <sstream>
 #include <string>
-#include <system_error>
 
 namespace google
 {
 namespace ipmi
 {
-namespace fs = std::filesystem;
 
 struct CableRequest
 {
@@ -39,13 +36,8 @@ struct CableRequest
     uint8_t if_name[0];
 } __attribute__((packed));
 
-struct CableReply
-{
-    uint8_t subcommand;
-    uint8_t value;
-} __attribute__((packed));
-
-ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
+ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen,
+                      const HandlerInterface* handler)
 {
     // There is an IPMI LAN channel statistics command which could be used for
     // this type of check, however, we're not able to wait for the OpenBMC
@@ -83,45 +75,18 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen)
 
     // Maximum length one can specify, plus null terminator.
     char nameBuf[256] = {};
-    std::ostringstream opath;
-
     // Copy the string out of the request buffer.
     std::memcpy(&nameBuf[0], request->if_name, request->if_name_len);
     std::string name = nameBuf;
+    int64_t count;
 
-    // Minor sanity & security check (of course, I'm less certain if unicode
-    // comes into play here.
-    //
-    // Basically you can't easily inject ../ or /../ into the path below.
-    if (name.find("/") != std::string::npos)
-    {
-        std::fprintf(stderr, "Invalid or illegal name: '%s'\n", nameBuf);
-        return IPMI_CC_INVALID_FIELD_REQUEST;
-    }
-
-    opath << "/sys/class/net/" << name << "/statistics/rx_packets";
-    std::string path = opath.str();
-
-    std::error_code ec;
-    if (!fs::exists(path, ec))
-    {
-        std::fprintf(stderr, "Path: '%s' doesn't exist.\n", path.c_str());
-        return IPMI_CC_INVALID_FIELD_REQUEST;
-    }
-    // We're uninterested in the state of ec.
-
-    // Read the file and check the result.
-    int64_t count = 0;
-    std::ifstream ifs;
-    ifs.exceptions(std::ifstream::failbit);
     try
     {
-        ifs.open(path);
-        ifs >> count;
+        count = handler->getRxPackets(name);
     }
-    catch (std::ios_base::failure& fail)
+    catch (const IpmiException& e)
     {
-        return IPMI_CC_UNSPECIFIED_ERROR;
+        return e.getIpmiError();
     }
 
     struct CableReply reply;
