@@ -16,6 +16,7 @@ class HandlerMock : public HandlerInterface
     ~HandlerMock() = default;
 
     MOCK_CONST_METHOD0(getEthDetails, std::tuple<std::uint8_t, std::string>());
+    MOCK_CONST_METHOD1(getRxPackets, std::int64_t(const std::string&));
 };
 
 } // namespace ipmi
