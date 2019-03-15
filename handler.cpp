@@ -94,6 +94,54 @@ std::int64_t Handler::getRxPackets(const std::string& name) const
     return count;
 }
 
+VersionTuple Handler::getCpldVersion(unsigned int id) const
+{
+    std::ostringstream opath;
+    opath << "/run/cpld" << id << ".version";
+    // Check for file
+
+    std::error_code ec;
+    if (!fs::exists(opath.str(), ec))
+    {
+        std::fprintf(stderr, "Path: '%s' doesn't exist.\n",
+                     opath.str().c_str());
+        throw IpmiException(IPMI_CC_INVALID_FIELD_REQUEST);
+    }
+    // We're uninterested in the state of ec.
+
+    // If file exists, read.
+    std::ifstream ifs;
+    ifs.exceptions(std::ifstream::failbit);
+    std::string value;
+    try
+    {
+        ifs.open(opath.str());
+        ifs >> value;
+    }
+    catch (std::ios_base::failure& fail)
+    {
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    // If value parses as expected, return version.
+    int major = 0;
+    int minor = 0;
+    int point = 0;
+    int subpoint = 0;
+
+    int num_fields = std::sscanf(value.c_str(), "%d.%d.%d.%d", &major, &minor,
+                                 &point, &subpoint);
+    if (num_fields == 0)
+    {
+        std::fprintf(stderr, "Invalid version.\n");
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    return std::make_tuple(
+        static_cast<uint8_t>(major), static_cast<uint8_t>(minor),
+        static_cast<uint8_t>(point), static_cast<uint8_t>(subpoint));
+}
+
 Handler handlerImpl;
 
 } // namespace ipmi
