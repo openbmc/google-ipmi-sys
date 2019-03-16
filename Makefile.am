@@ -47,7 +47,8 @@ libsyscmds_common_la_SOURCES = \
 	psu.cpp \
 	pcie_i2c.cpp \
 	entity_name.cpp \
-	handler.cpp
+	handler.cpp \
+	util.cpp
 libsyscmds_common_la_CXXFLAGS = \
 	$(SDBUSPLUS_CFLAGS) \
 	$(PHOSPHOR_LOGGING_CFLAGS) \
