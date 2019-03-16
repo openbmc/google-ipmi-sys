@@ -21,6 +21,7 @@ class HandlerMock : public HandlerInterface
                        std::tuple<std::uint8_t, std::uint8_t, std::uint8_t,
                                   std::uint8_t>(unsigned int));
     MOCK_CONST_METHOD1(psuResetDelay, void(std::uint32_t));
+    MOCK_METHOD2(getEntityName, std::string(std::uint8_t, std::uint8_t));
 };
 
 } // namespace ipmi
