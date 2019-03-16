@@ -49,6 +49,20 @@ class HandlerInterface
      * @throw IpmiException on failure.
      */
     virtual void psuResetDelay(std::uint32_t delay) const = 0;
+
+    /**
+     * Return the entity name.
+     * On the first call to this method it'll build the list of entities.
+     * @todo Consider moving the list building to construction time (and ignore
+     * failures).
+     *
+     * @param[in] id - the entity id value
+     * @param[in] instance - the entity instance
+     * @return the entity's name
+     * @throw IpmiException on failure.
+     */
+    virtual std::string getEntityName(std::uint8_t id,
+                                      std::uint8_t instance) = 0;
 };
 
 class Handler : public HandlerInterface
@@ -61,6 +75,7 @@ class Handler : public HandlerInterface
     std::int64_t getRxPackets(const std::string& name) const override;
     VersionTuple getCpldVersion(unsigned int id) const override;
     void psuResetDelay(std::uint32_t delay) const override;
+    std::string getEntityName(std::uint8_t id, std::uint8_t instance) override;
 };
 
 extern Handler handlerImpl;
