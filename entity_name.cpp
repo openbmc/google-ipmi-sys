@@ -22,14 +22,11 @@
 #include <cstring>
 #include <filesystem>
 #include <fstream>
+#include <map>
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
-#include <regex>
-#include <sstream>
 #include <string>
-#include <system_error>
-#include <unordered_map>
 #include <vector>
 #include <xyz/openbmc_project/Common/error.hpp>
 
