@@ -161,8 +161,6 @@ static constexpr auto PSU_HARDRESET_TARGET = "gbmc-psu-hardreset.target";
 
 void Handler::psuResetDelay(std::uint32_t delay) const
 {
-    using namespace phosphor::logging;
-
     std::ofstream ofs;
     ofs.open(TIME_DELAY_FILENAME, std::ofstream::out);
     if (!ofs.good())
