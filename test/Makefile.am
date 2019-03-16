@@ -38,3 +38,7 @@ psu_unittest_LDADD = $(top_builddir)/libsyscmds_common.la
 check_PROGRAMS += entity_unittest
 entity_unittest_SOURCES = entity_unittest.cpp
 entity_unittest_LDADD = $(top_builddir)/libsyscmds_common.la
+
+check_PROGRAMS += pcie_unittest
+pcie_unittest_SOURCES = pcie_unittest.cpp
+pcie_unittest_LDADD = $(top_builddir)/libsyscmds_common.la

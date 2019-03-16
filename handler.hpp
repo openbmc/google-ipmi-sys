@@ -5,6 +5,7 @@
 #include <nlohmann/json.hpp>
 #include <string>
 #include <tuple>
+#include <vector>
 
 namespace google
 {
@@ -67,6 +68,27 @@ class HandlerInterface
      */
     virtual std::string getEntityName(std::uint8_t id,
                                       std::uint8_t instance) = 0;
+
+    /**
+     * Populate the i2c-pcie mapping vector.
+     */
+    virtual void buildI2cPcieMapping() = 0;
+
+    /**
+     * Return the size of the i2c-pcie mapping vector.
+     *
+     * @return the size of the vector holding the i2c-pcie mapping tuples.
+     */
+    virtual size_t getI2cPcieMappingSize() const = 0;
+
+    /**
+     * Return a copy of the entry in the vector.
+     *
+     * @param[in] entry - the index into the vector.
+     * @return the tuple at that index.
+     */
+    virtual std::tuple<std::uint32_t, std::string>
+        getI2cEntry(unsigned int entry) const = 0;
 };
 
 class Handler : public HandlerInterface
@@ -81,6 +103,10 @@ class Handler : public HandlerInterface
     VersionTuple getCpldVersion(unsigned int id) const override;
     void psuResetDelay(std::uint32_t delay) const override;
     std::string getEntityName(std::uint8_t id, std::uint8_t instance) override;
+    void buildI2cPcieMapping() override;
+    size_t getI2cPcieMappingSize() const override;
+    std::tuple<std::uint32_t, std::string>
+        getI2cEntry(unsigned int entry) const override;
 
   private:
     std::string _configFile;
@@ -97,6 +123,8 @@ class Handler : public HandlerInterface
         {0x20, "memory_device"}};
 
     nlohmann::json _entityConfig{};
+
+    std::vector<std::tuple<uint32_t, std::string>> _pcie_i2c_map;
 };
 
 /**
