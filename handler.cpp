@@ -17,6 +17,7 @@
 #include "handler.hpp"
 
 #include "errors.hpp"
+#include "util.hpp"
 
 #include <ipmid/api.h>
 
@@ -161,8 +162,6 @@ static constexpr auto PSU_HARDRESET_TARGET = "gbmc-psu-hardreset.target";
 
 void Handler::psuResetDelay(std::uint32_t delay) const
 {
-    using namespace phosphor::logging;
-
     std::ofstream ofs;
     ofs.open(TIME_DELAY_FILENAME, std::ofstream::out);
     if (!ofs.good())
@@ -201,43 +200,48 @@ void Handler::psuResetDelay(std::uint32_t delay) const
     }
 }
 
-static Json config{};
-static bool parsed = false;
-static const std::map<uint8_t, std::string> entityIdToName{
-    {0x03, "cpu"},
-    {0x04, "storage_device"},
-    {0x06, "system_management_module"},
-    {0x08, "memory_module"},
-    {0x0B, "add_in_card"},
-    {0x17, "system_chassis"},
-    {0x20, "memory_device"}};
-static constexpr auto configFile =
-    "/usr/share/ipmi-entity-association/entity_association_map.json";
-
-Json parse_config()
+std::string Handler::getEntityName(std::uint8_t id, std::uint8_t instance)
 {
-    std::ifstream jsonFile(configFile);
-    if (!jsonFile.is_open())
+    // Check if we support this Entity ID.
+    auto it = _entityIdToName.find(id);
+    if (it == _entityIdToName.end())
     {
-        log<level::ERR>("Entity association JSON file not found");
-        elog<InternalFailure>();
+        log<level::ERR>("Unknown Entity ID", entry("ENTITY_ID=%d", id));
+        throw IpmiException(IPMI_CC_INVALID_FIELD_REQUEST);
     }
 
-    auto data = Json::parse(jsonFile, nullptr, false);
-    if (data.is_discarded())
+    std::string entityName;
+    try
     {
-        log<level::ERR>("Entity association JSON parser failure");
-        elog<InternalFailure>();
+        // Parse the JSON config file.
+        if (!_entityConfigParsed)
+        {
+            _entityConfig = parseConfig(_configFile);
+            _entityConfigParsed = true;
+        }
+
+        // Find the "entity id:entity instance" mapping to entity name.
+        entityName = readNameFromConfig(it->second, instance, _entityConfig);
+        if (entityName.empty())
+        {
+            throw IpmiException(IPMI_CC_INVALID_FIELD_REQUEST);
+        }
+    }
+    catch (InternalFailure& e)
+    {
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
     }
 
-    return data;
+    return entityName;
 }
 
-std::string read(const std::string& type, uint8_t instance, const Json& config)
+std::string readNameFromConfig(const std::string& type, uint8_t instance,
+                               const Json& config)
 {
     static const std::vector<Json> empty{};
     std::vector<Json> readings = config.value(type, empty);
     std::string name = "";
+
     for (const auto& j : readings)
     {
         uint8_t instanceNum = j.value("instance", 0);
@@ -252,41 +256,12 @@ std::string read(const std::string& type, uint8_t instance, const Json& config)
 
         break;
     }
+
     return name;
 }
 
-std::string Handler::getEntityName(std::uint8_t id, std::uint8_t instance)
-{
-    // Check if we support this Entity ID.
-    auto it = entityIdToName.find(id);
-    if (it == entityIdToName.end())
-    {
-        log<level::ERR>("Unknown Entity ID", entry("ENTITY_ID=%d", id));
-        throw IpmiException(IPMI_CC_INVALID_FIELD_REQUEST);
-    }
-
-    std::string entityName;
-    try
-    {
-        // Parse the JSON config file.
-        if (!parsed)
-        {
-            config = parse_config();
-            parsed = true;
-        }
-
-        // Find the "entity id:entity instance" mapping to entity name.
-        entityName = read(it->second, instance, config);
-        if (entityName.empty())
-            throw IpmiException(IPMI_CC_INVALID_FIELD_REQUEST);
-    }
-    catch (InternalFailure& e)
-    {
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
-    }
-
-    return entityName;
-}
+const std::string defaultConfigFile =
+    "/usr/share/ipmi-entity-association/entity_association_map.json";
 
 Handler handlerImpl;
 
