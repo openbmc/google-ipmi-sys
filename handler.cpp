@@ -259,6 +259,22 @@ std::string readNameFromConfig(const std::string& type, uint8_t instance,
     return name;
 }
 
+void Handler::buildI2cPcieMapping()
+{
+    _pcie_i2c_map = buildPcieMap();
+}
+
+size_t Handler::getI2cPcieMappingSize() const
+{
+    return _pcie_i2c_map.size();
+}
+
+std::tuple<std::uint32_t, std::string>
+    Handler::getI2cEntry(unsigned int entry) const
+{
+    return _pcie_i2c_map[entry];
+}
+
 const std::string defaultConfigFile =
     "/usr/share/ipmi-entity-association/entity_association_map.json";
 
