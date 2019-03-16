@@ -1,6 +1,8 @@
 #pragma once
 
 #include <cstdint>
+#include <map>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <tuple>
 
@@ -8,6 +10,8 @@ namespace google
 {
 namespace ipmi
 {
+
+extern const std::string defaultConfigFile;
 
 class HandlerInterface
 {
@@ -66,7 +70,8 @@ class HandlerInterface
 class Handler : public HandlerInterface
 {
   public:
-    Handler() = default;
+    explicit Handler(const std::string& entityConfigPath = defaultConfigFile) :
+        _configFile(entityConfigPath){};
     ~Handler() = default;
 
     std::tuple<std::uint8_t, std::string> getEthDetails() const override;
@@ -75,7 +80,34 @@ class Handler : public HandlerInterface
         getCpldVersion(unsigned int id) const override;
     void psuResetDelay(std::uint32_t delay) const override;
     std::string getEntityName(std::uint8_t id, std::uint8_t instance) override;
+
+  private:
+    std::string _configFile;
+
+    bool _entityConfigParsed = false;
+
+    const std::map<uint8_t, std::string> _entityIdToName{
+        {0x03, "cpu"},
+        {0x04, "storage_device"},
+        {0x06, "system_management_module"},
+        {0x08, "memory_module"},
+        {0x0B, "add_in_card"},
+        {0x17, "system_chassis"},
+        {0x20, "memory_device"}};
+
+    nlohmann::json _entityConfig{};
 };
+
+/**
+ * Given a type, entity instance, and a configuration, return the name.
+ *
+ * @param[in] type - the entity type
+ * @param[in] instance - the entity instance
+ * @param[in] config - the json object holding the entity mapping
+ * @return the name of the entity from the map
+ */
+std::string readNameFromConfig(const std::string& type, uint8_t instance,
+                               const nlohmann::json& config);
 
 extern Handler handlerImpl;
 
