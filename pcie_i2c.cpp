@@ -30,16 +30,9 @@ namespace google
 namespace ipmi
 {
 
-namespace
-{
-
 #ifndef MAX_IPMI_BUFFER
 #define MAX_IPMI_BUFFER 64
 #endif
-
-std::vector<std::tuple<uint32_t, std::string>> pcie_i2c_map;
-
-} // namespace
 
 struct PcieSlotCountRequest
 {
@@ -67,7 +60,7 @@ struct PcieSlotI2cBusMappingReply
 } __attribute__((packed));
 
 ipmi_ret_t PcieSlotCount(const uint8_t* reqBuf, uint8_t* replyBuf,
-                         size_t* dataLen)
+                         size_t* dataLen, HandlerInterface* handler)
 {
     if ((*dataLen) < sizeof(struct PcieSlotCountRequest))
     {
@@ -77,12 +70,12 @@ ipmi_ret_t PcieSlotCount(const uint8_t* reqBuf, uint8_t* replyBuf,
     }
 
     // If there are already entries in the vector, clear them.
-    pcie_i2c_map = buildPcieMap();
+    handler->buildI2cPcieMapping();
 
     struct PcieSlotCountReply reply;
     reply.subcommand = SysPcieSlotCount;
     // Fill the pcie slot count as the number of entries in the vector.
-    reply.value = pcie_i2c_map.size();
+    reply.value = handler->getI2cPcieMappingSize();
 
     std::memcpy(&replyBuf[0], &reply, sizeof(reply));
 
@@ -93,7 +86,7 @@ ipmi_ret_t PcieSlotCount(const uint8_t* reqBuf, uint8_t* replyBuf,
 }
 
 ipmi_ret_t PcieSlotI2cBusMapping(const uint8_t* reqBuf, uint8_t* replyBuf,
-                                 size_t* dataLen)
+                                 size_t* dataLen, HandlerInterface* handler)
 {
     struct PcieSlotI2cBusMappingRequest request;
 
@@ -105,7 +98,8 @@ ipmi_ret_t PcieSlotI2cBusMapping(const uint8_t* reqBuf, uint8_t* replyBuf,
     }
 
     // If there are no entries in the vector return error.
-    if (pcie_i2c_map.empty())
+    size_t mapSize = handler->getI2cPcieMappingSize();
+    if (mapSize == 0)
     {
         return IPMI_CC_INVALID_RESERVATION_ID;
     }
@@ -114,14 +108,15 @@ ipmi_ret_t PcieSlotI2cBusMapping(const uint8_t* reqBuf, uint8_t* replyBuf,
 
     // The valid entries range from 0 to N - 1, N being the total number of
     // entries in the vector.
-    if (request.entry >= pcie_i2c_map.size())
+    if (request.entry >= mapSize)
     {
         return IPMI_CC_PARM_OUT_OF_RANGE;
     }
 
     // Get the i2c bus number and the pcie slot name from the vector.
-    uint32_t i2c_bus_number = std::get<0>(pcie_i2c_map[request.entry]);
-    std::string pcie_slot_name = std::get<1>(pcie_i2c_map[request.entry]);
+    auto i2cEntry = handler->getI2cEntry(request.entry);
+    uint32_t i2c_bus_number = std::get<0>(i2cEntry);
+    std::string pcie_slot_name = std::get<1>(i2cEntry);
 
     int length =
         sizeof(struct PcieSlotI2cBusMappingReply) + pcie_slot_name.length();
