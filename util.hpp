@@ -17,5 +17,13 @@ namespace ipmi
  */
 nlohmann::json parseConfig(const std::string& file);
 
+/**
+ * Read a dts property file and return the contents.
+ *
+ * @param[in] file - the path to the file to parse.
+ * @return the property value or an empty string on failure.
+ */
+std::string readPropertyFile(const std::string& fileName);
+
 } // namespace ipmi
 } // namespace google
