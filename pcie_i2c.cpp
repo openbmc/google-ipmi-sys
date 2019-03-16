@@ -17,6 +17,7 @@
 #include "pcie_i2c.hpp"
 
 #include "main.hpp"
+#include "util.hpp"
 
 #include <cstdint>
 #include <cstring>
@@ -42,36 +43,6 @@ namespace
 #endif
 
 std::vector<std::tuple<uint32_t, std::string>> pcie_i2c_map;
-
-std::string read_file(const std::string& file_name)
-{
-    std::ifstream ifs(file_name);
-    std::string file_content;
-    if (!ifs.is_open())
-    {
-        std::fprintf(stderr, "Unable to open file %s.\n", file_name.c_str());
-    }
-    else
-    {
-        if (ifs >> file_content)
-        {
-            // If the last character is a null terminator; remove it.
-            if (!file_content.empty())
-            {
-                char const& back = file_content.back();
-                if (back == '\0')
-                    file_content.pop_back();
-            }
-            return file_content;
-        }
-        else
-        {
-            std::fprintf(stderr, "Unable to read file %s.\n",
-                         file_name.c_str());
-        }
-    }
-    return "";
-}
 
 } // namespace
 
@@ -128,7 +99,7 @@ ipmi_ret_t PcieSlotCount(const uint8_t* reqBuf, uint8_t* replyBuf,
             std::string pcie_slot_path = i2c_dev_path + "/of_node/pcie-slot";
             std::string pcie_slot;
             // Read the "pcie-slot" name from the "pcie-slot" file.
-            pcie_slot = read_file(pcie_slot_path);
+            pcie_slot = readPropertyFile(pcie_slot_path);
             if (pcie_slot.empty())
             {
                 continue;
@@ -140,7 +111,7 @@ ipmi_ret_t PcieSlotCount(const uint8_t* reqBuf, uint8_t* replyBuf,
             pcie_slot_full_path.append(pcie_slot);
             // Read the "label" which contains the pcie slot name.
             pcie_slot_full_path.append("/label");
-            pcie_slot_name = read_file(pcie_slot_full_path);
+            pcie_slot_name = readPropertyFile(pcie_slot_full_path);
             if (pcie_slot_name.empty())
             {
                 continue;
