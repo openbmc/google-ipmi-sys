@@ -1,7 +1,10 @@
 #pragma once
 
+#include <cstdint>
 #include <nlohmann/json.hpp>
 #include <string>
+#include <tuple>
+#include <vector>
 
 namespace google
 {
@@ -24,6 +27,13 @@ nlohmann::json parseConfig(const std::string& file);
  * @return the property value or an empty string on failure.
  */
 std::string readPropertyFile(const std::string& fileName);
+
+/**
+ * Build a map of the i2c bus numbers to their PCIe slot names.
+ *
+ * @return list of pairs of i2c bus with their corresponding slot names.
+ */
+std::vector<std::tuple<std::uint32_t, std::string>> buildPcieMap();
 
 } // namespace ipmi
 } // namespace google
