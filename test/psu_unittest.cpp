@@ -25,7 +25,7 @@ TEST(PsuCommandTest, InvalidRequestLength)
 
     HandlerMock hMock;
     EXPECT_EQ(IPMI_CC_REQ_DATA_LEN_INVALID,
-              PsuHardReset(request.data(), reply, &dataLen, &hMock));
+              psuHardReset(request.data(), reply, &dataLen, &hMock));
 }
 
 TEST(PsuCommandTest, ValidRequest)
@@ -43,7 +43,7 @@ TEST(PsuCommandTest, ValidRequest)
     HandlerMock hMock;
     EXPECT_CALL(hMock, psuResetDelay(delayValue));
     EXPECT_EQ(IPMI_CC_OK,
-              PsuHardReset(request.data(), reply, &dataLen, &hMock));
+              psuHardReset(request.data(), reply, &dataLen, &hMock));
 }
 
 } // namespace ipmi

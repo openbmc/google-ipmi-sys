@@ -40,7 +40,7 @@ struct EthDeviceRequest
 #define MAX_IPMI_BUFFER 64
 #endif
 
-ipmi_ret_t GetEthDevice(const uint8_t* reqBuf, uint8_t* replyBuf,
+ipmi_ret_t getEthDevice(const uint8_t* reqBuf, uint8_t* replyBuf,
                         size_t* dataLen, const HandlerInterface* handler)
 {
     if ((*dataLen) < sizeof(struct EthDeviceRequest))
@@ -69,8 +69,8 @@ ipmi_ret_t GetEthDevice(const uint8_t* reqBuf, uint8_t* replyBuf,
     auto reply = reinterpret_cast<struct EthDeviceReply*>(&replyBuf[0]);
     reply->subcommand = SysGetEthDevice;
     reply->channel = std::get<0>(details);
-    reply->if_name_len = device.length();
-    std::memcpy(reply->if_name, device.c_str(), device.length());
+    reply->ifNameLength = device.length();
+    std::memcpy(reply->ifName, device.c_str(), device.length());
 
     (*dataLen) = sizeof(struct EthDeviceReply) + device.length();
 

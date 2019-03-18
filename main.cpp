@@ -43,7 +43,7 @@ namespace google
 namespace ipmi
 {
 
-static ipmi_ret_t HandleSysCommand(ipmi_cmd_t cmd, const uint8_t* reqBuf,
+static ipmi_ret_t handleSysCommand(ipmi_cmd_t cmd, const uint8_t* reqBuf,
                                    uint8_t* replyCmdBuf, size_t* dataLen)
 {
     // Verify it's at least as long as it needs to be for a subcommand.
@@ -57,19 +57,19 @@ static ipmi_ret_t HandleSysCommand(ipmi_cmd_t cmd, const uint8_t* reqBuf,
     switch (reqBuf[0])
     {
         case SysCableCheck:
-            return CableCheck(reqBuf, replyCmdBuf, dataLen);
+            return cableCheck(reqBuf, replyCmdBuf, dataLen);
         case SysCpldVersion:
-            return CpldVersion(reqBuf, replyCmdBuf, dataLen);
+            return cpldVersion(reqBuf, replyCmdBuf, dataLen);
         case SysGetEthDevice:
-            return GetEthDevice(reqBuf, replyCmdBuf, dataLen);
+            return getEthDevice(reqBuf, replyCmdBuf, dataLen);
         case SysPsuHardReset:
-            return PsuHardReset(reqBuf, replyCmdBuf, dataLen);
+            return psuHardReset(reqBuf, replyCmdBuf, dataLen);
         case SysPcieSlotCount:
-            return PcieSlotCount(reqBuf, replyCmdBuf, dataLen);
+            return pcieSlotCount(reqBuf, replyCmdBuf, dataLen);
         case SysPcieSlotI2cBusMapping:
-            return PcieSlotI2cBusMapping(reqBuf, replyCmdBuf, dataLen);
+            return pcieSlotI2cBusMapping(reqBuf, replyCmdBuf, dataLen);
         case SysEntityName:
-            return GetEntityName(reqBuf, replyCmdBuf, dataLen);
+            return getEntityName(reqBuf, replyCmdBuf, dataLen);
         default:
             std::fprintf(stderr, "Invalid subcommand: 0x%x\n", reqBuf[0]);
             return IPMI_CC_INVALID;
@@ -87,7 +87,7 @@ void setupGoogleOemSysCommands()
                  oem::googOemNumber, oem::google::sysCmd);
 
     oemRouter->registerHandler(oem::googOemNumber, oem::google::sysCmd,
-                               HandleSysCommand);
+                               handleSysCommand);
 }
 
 } // namespace ipmi

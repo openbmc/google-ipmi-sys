@@ -32,11 +32,11 @@ namespace ipmi
 struct CableRequest
 {
     uint8_t subcommand;
-    uint8_t if_name_len;
-    uint8_t if_name[0];
+    uint8_t ifNameLength;
+    uint8_t ifName[0];
 } __attribute__((packed));
 
-ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen,
+ipmi_ret_t cableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen,
                       const HandlerInterface* handler)
 {
     // There is an IPMI LAN channel statistics command which could be used for
@@ -46,7 +46,7 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen,
     // There is a link status file, but it is "unknown" to start with...
     // The path we're checking: /sys/class/net/eth1/statistics/rx_packets
 
-    // This command is expecting: [0x00][len][if_name]
+    // This command is expecting: [0x00][len][ifName]
     if ((*dataLen) < sizeof(struct CableRequest) + sizeof(uint8_t))
     {
         std::fprintf(stderr, "Invalid command length: %u\n",
@@ -58,15 +58,15 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen,
         reinterpret_cast<const struct CableRequest*>(&reqBuf[0]);
 
     // Sanity check the object contents.
-    if (request->if_name_len == 0)
+    if (request->ifNameLength == 0)
     {
         std::fprintf(stderr, "Invalid string length: %d\n",
-                     request->if_name_len);
+                     request->ifNameLength);
         return IPMI_CC_REQ_DATA_LEN_INVALID;
     }
 
     // Verify the request buffer contains the object and the string.
-    if ((*dataLen) < (sizeof(struct CableRequest) + request->if_name_len))
+    if ((*dataLen) < (sizeof(struct CableRequest) + request->ifNameLength))
     {
         std::fprintf(stderr, "*dataLen too small: %u\n",
                      static_cast<uint32_t>(*dataLen));
@@ -76,7 +76,7 @@ ipmi_ret_t CableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen,
     // Maximum length one can specify, plus null terminator.
     char nameBuf[256] = {};
     // Copy the string out of the request buffer.
-    std::memcpy(&nameBuf[0], request->if_name, request->if_name_len);
+    std::memcpy(&nameBuf[0], request->ifName, request->ifNameLength);
     std::string name = nameBuf;
     int64_t count;
 

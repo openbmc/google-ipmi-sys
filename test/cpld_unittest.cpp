@@ -25,7 +25,7 @@ TEST(CpldCommandTest, RequestTooSmall)
 
     HandlerMock hMock;
     EXPECT_EQ(IPMI_CC_REQ_DATA_LEN_INVALID,
-              CpldVersion(request.data(), reply, &dataLen, &hMock));
+              cpldVersion(request.data(), reply, &dataLen, &hMock));
 }
 
 TEST(CpldCommandTest, ValidRequestReturnsHappy)
@@ -43,7 +43,7 @@ TEST(CpldCommandTest, ValidRequestReturnsHappy)
         .WillOnce(Return(std::make_tuple(expectedMaj, expectedMin, expectedPt,
                                          expectedSbPtr)));
 
-    EXPECT_EQ(IPMI_CC_OK, CpldVersion(request.data(), reply, &dataLen, &hMock));
+    EXPECT_EQ(IPMI_CC_OK, cpldVersion(request.data(), reply, &dataLen, &hMock));
     EXPECT_EQ(expectedMaj, reply[1]);
     EXPECT_EQ(expectedMin, reply[2]);
     EXPECT_EQ(expectedPt, reply[3]);
