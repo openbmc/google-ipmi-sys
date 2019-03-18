@@ -59,7 +59,7 @@ struct PcieSlotI2cBusMappingReply
     uint8_t pcie_slot_name[0];
 } __attribute__((packed));
 
-ipmi_ret_t PcieSlotCount(const uint8_t* reqBuf, uint8_t* replyBuf,
+ipmi_ret_t pcieSlotCount(const uint8_t* reqBuf, uint8_t* replyBuf,
                          size_t* dataLen, HandlerInterface* handler)
 {
     if ((*dataLen) < sizeof(struct PcieSlotCountRequest))
@@ -85,7 +85,7 @@ ipmi_ret_t PcieSlotCount(const uint8_t* reqBuf, uint8_t* replyBuf,
     return IPMI_CC_OK;
 }
 
-ipmi_ret_t PcieSlotI2cBusMapping(const uint8_t* reqBuf, uint8_t* replyBuf,
+ipmi_ret_t pcieSlotI2cBusMapping(const uint8_t* reqBuf, uint8_t* replyBuf,
                                  size_t* dataLen, HandlerInterface* handler)
 {
     struct PcieSlotI2cBusMappingRequest request;

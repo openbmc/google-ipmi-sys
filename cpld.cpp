@@ -45,7 +45,7 @@ struct CpldReply
 //
 // Handle reading the cpld version from the tmpfs.
 //
-ipmi_ret_t CpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
+ipmi_ret_t cpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
                        size_t* dataLen, const HandlerInterface* handler)
 {
     struct CpldRequest request;

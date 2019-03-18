@@ -27,7 +27,7 @@ TEST(CableCommandTest, RequestTooSmall)
     HandlerMock hMock;
 
     EXPECT_EQ(IPMI_CC_REQ_DATA_LEN_INVALID,
-              CableCheck(request.data(), reply, &dataLen, &hMock));
+              cableCheck(request.data(), reply, &dataLen, &hMock));
 }
 
 TEST(CableCommandTest, FailsLengthSanityCheck)
@@ -42,7 +42,7 @@ TEST(CableCommandTest, FailsLengthSanityCheck)
     HandlerMock hMock;
 
     EXPECT_EQ(IPMI_CC_REQ_DATA_LEN_INVALID,
-              CableCheck(request.data(), reply, &dataLen, &hMock));
+              cableCheck(request.data(), reply, &dataLen, &hMock));
 }
 
 TEST(CableCommandTest, LengthTooLongForPacket)
@@ -57,7 +57,7 @@ TEST(CableCommandTest, LengthTooLongForPacket)
     HandlerMock hMock;
 
     EXPECT_EQ(IPMI_CC_REQ_DATA_LEN_INVALID,
-              CableCheck(request.data(), reply, &dataLen, &hMock));
+              cableCheck(request.data(), reply, &dataLen, &hMock));
 }
 
 TEST(CableCommandTest, ValidRequestValidReturn)
@@ -71,7 +71,7 @@ TEST(CableCommandTest, ValidRequestValidReturn)
     HandlerMock hMock;
 
     EXPECT_CALL(hMock, getRxPackets(StrEq("a"))).WillOnce(Return(0));
-    EXPECT_EQ(IPMI_CC_OK, CableCheck(request.data(), reply, &dataLen, &hMock));
+    EXPECT_EQ(IPMI_CC_OK, cableCheck(request.data(), reply, &dataLen, &hMock));
 
     // Check results.
     struct CableReply expectedReply, actualReply;

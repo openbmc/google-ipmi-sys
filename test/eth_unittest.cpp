@@ -37,12 +37,12 @@ TEST(EthCommandTest, ValidRequestReturnsSuccess)
                         expectedAnswer + sizeof(expectedAnswer)))));
 
     EXPECT_EQ(IPMI_CC_OK,
-              GetEthDevice(request.data(), &reply[0], &dataLen, &hMock));
+              getEthDevice(request.data(), &reply[0], &dataLen, &hMock));
     struct EthDeviceReply check;
     std::memcpy(&check, &reply[0], sizeof(check));
     EXPECT_EQ(check.subcommand, SysOEMCommands::SysGetEthDevice);
     EXPECT_EQ(check.channel, expectedChannel);
-    EXPECT_EQ(check.if_name_len, sizeof(expectedAnswer));
+    EXPECT_EQ(check.ifNameLength, sizeof(expectedAnswer));
     EXPECT_EQ(0, std::memcmp(expectedAnswer, &reply[sizeof(check)],
                              sizeof(expectedAnswer)));
 }

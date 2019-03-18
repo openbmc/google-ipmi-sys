@@ -27,7 +27,7 @@ TEST(EntityNameCommandTest, InvalidCommandLength)
 
     HandlerMock hMock;
     EXPECT_EQ(IPMI_CC_REQ_DATA_LEN_INVALID,
-              GetEntityName(request.data(), reply, &dataLen, &hMock));
+              getEntityName(request.data(), reply, &dataLen, &hMock));
 }
 
 TEST(EntityNameCommandTest, ValidRequest)
@@ -44,7 +44,7 @@ TEST(EntityNameCommandTest, ValidRequest)
     EXPECT_CALL(hMock, getEntityName(entityId, entityInstance))
         .WillOnce(Return(entityName));
     EXPECT_EQ(IPMI_CC_OK,
-              GetEntityName(request.data(), reply, &dataLen, &hMock));
+              getEntityName(request.data(), reply, &dataLen, &hMock));
     EXPECT_EQ(reply[1], entityName.length());
     EXPECT_EQ(0, std::memcmp(&reply[2], entityName.c_str(), reply[1]));
 }

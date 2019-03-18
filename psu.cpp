@@ -28,7 +28,7 @@ namespace google
 namespace ipmi
 {
 
-ipmi_ret_t PsuHardReset(const uint8_t* reqBuf, uint8_t* replyBuf,
+ipmi_ret_t psuHardReset(const uint8_t* reqBuf, uint8_t* replyBuf,
                         size_t* dataLen, const HandlerInterface* handler)
 {
     struct PsuResetRequest request;

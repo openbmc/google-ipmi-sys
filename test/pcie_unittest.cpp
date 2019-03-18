@@ -29,7 +29,7 @@ TEST(PcieI2cCommandTest, PcieSlotCountTest)
     EXPECT_CALL(hMock, buildI2cPcieMapping());
     EXPECT_CALL(hMock, getI2cPcieMappingSize()).WillOnce(Return(expectedSize));
     EXPECT_EQ(IPMI_CC_OK,
-              PcieSlotCount(request.data(), reply, &dataLen, &hMock));
+              pcieSlotCount(request.data(), reply, &dataLen, &hMock));
     EXPECT_EQ(expectedSize, reply[1]);
 }
 
@@ -42,7 +42,7 @@ TEST(PcieI2cCommandTest, PcieSlotEntryRequestTooShort)
 
     HandlerMock hMock;
     EXPECT_EQ(IPMI_CC_REQ_DATA_LEN_INVALID,
-              PcieSlotI2cBusMapping(request.data(), reply, &dataLen, &hMock));
+              pcieSlotI2cBusMapping(request.data(), reply, &dataLen, &hMock));
 }
 
 TEST(PcieI2cCommandTest, PcieSlotEntryRequestUnsupportedByPlatform)
@@ -56,7 +56,7 @@ TEST(PcieI2cCommandTest, PcieSlotEntryRequestUnsupportedByPlatform)
     HandlerMock hMock;
     EXPECT_CALL(hMock, getI2cPcieMappingSize()).WillOnce(Return(0));
     EXPECT_EQ(IPMI_CC_INVALID_RESERVATION_ID,
-              PcieSlotI2cBusMapping(request.data(), reply, &dataLen, &hMock));
+              pcieSlotI2cBusMapping(request.data(), reply, &dataLen, &hMock));
 }
 
 TEST(PcieI2cCommandTest, PcieSlotEntryRequestInvalidIndex)
@@ -70,7 +70,7 @@ TEST(PcieI2cCommandTest, PcieSlotEntryRequestInvalidIndex)
     HandlerMock hMock;
     EXPECT_CALL(hMock, getI2cPcieMappingSize()).WillOnce(Return(1));
     EXPECT_EQ(IPMI_CC_PARM_OUT_OF_RANGE,
-              PcieSlotI2cBusMapping(request.data(), reply, &dataLen, &hMock));
+              pcieSlotI2cBusMapping(request.data(), reply, &dataLen, &hMock));
 }
 
 TEST(PcieI2cCommandTest, PcieSlotEntryRequestValidIndex)
@@ -89,7 +89,7 @@ TEST(PcieI2cCommandTest, PcieSlotEntryRequestValidIndex)
     EXPECT_CALL(hMock, getI2cEntry(index))
         .WillOnce(Return(std::make_tuple(busNum, slotName)));
     EXPECT_EQ(IPMI_CC_OK,
-              PcieSlotI2cBusMapping(request.data(), reply, &dataLen, &hMock));
+              pcieSlotI2cBusMapping(request.data(), reply, &dataLen, &hMock));
     EXPECT_EQ(busNum, reply[1]);
     EXPECT_EQ(slotName.length(), reply[2]);
     EXPECT_EQ(0, std::memcmp(slotName.c_str(), &reply[3], reply[2]));

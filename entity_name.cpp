@@ -43,18 +43,18 @@ namespace
 struct GetEntityNameRequest
 {
     uint8_t subcommand;
-    uint8_t entity_id;
-    uint8_t entity_instance;
+    uint8_t entityId;
+    uint8_t entityInstance;
 } __attribute__((packed));
 
 struct GetEntityNameReply
 {
     uint8_t subcommand;
-    uint8_t entity_name_len;
-    uint8_t entity_name[0];
+    uint8_t entityNameLength;
+    uint8_t entityName[0];
 } __attribute__((packed));
 
-ipmi_ret_t GetEntityName(const uint8_t* reqBuf, uint8_t* replyBuf,
+ipmi_ret_t getEntityName(const uint8_t* reqBuf, uint8_t* replyBuf,
                          size_t* dataLen, HandlerInterface* handler)
 {
     struct GetEntityNameRequest request;
@@ -71,7 +71,7 @@ ipmi_ret_t GetEntityName(const uint8_t* reqBuf, uint8_t* replyBuf,
     try
     {
         entityName =
-            handler->getEntityName(request.entity_id, request.entity_instance);
+            handler->getEntityName(request.entityId, request.entityInstance);
     }
     catch (const IpmiException& e)
     {
@@ -89,8 +89,8 @@ ipmi_ret_t GetEntityName(const uint8_t* reqBuf, uint8_t* replyBuf,
 
     auto reply = reinterpret_cast<struct GetEntityNameReply*>(&replyBuf[0]);
     reply->subcommand = SysEntityName;
-    reply->entity_name_len = entityName.length();
-    std::memcpy(reply->entity_name, entityName.c_str(), entityName.length());
+    reply->entityNameLength = entityName.length();
+    std::memcpy(reply->entityName, entityName.c_str(), entityName.length());
 
     (*dataLen) = length;
     return IPMI_CC_OK;

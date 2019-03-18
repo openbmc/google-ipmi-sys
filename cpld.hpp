@@ -10,7 +10,7 @@ namespace ipmi
 {
 
 // Given a cpld identifier, return a version if available.
-ipmi_ret_t CpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
+ipmi_ret_t cpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
                        size_t* dataLen,
                        const HandlerInterface* handler = &handlerImpl);
 
