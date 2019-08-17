@@ -3,7 +3,7 @@ AC_PREREQ([2.69])
 AC_INIT([sys-ipmi], [0.1], [https://www.github.com/google-ipmi-sys/issues])
 AC_LANG([C++])
 AC_CONFIG_HEADERS([config.h])
-AM_INIT_AUTOMAKE([subdir-objects -Wall -Werror foreign dist-xz])
+AM_INIT_AUTOMAKE([subdir-objects -Wall -Werror -Wno-portability foreign dist-xz])
 AM_SILENT_RULES([yes])
 
 # Make sure the default CFLAGS of `-O2 -g` don't override CODE_COVERAGE_CFLAGS
