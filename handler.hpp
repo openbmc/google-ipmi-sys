@@ -122,8 +122,10 @@ class Handler : public HandlerInterface
         {0x0B, "add_in_card"},
         {0x0E, "power_system_board"},
         {0x10, "system_internal_expansion_board"},
+        {0x11, "other_system_board"},
         {0x17, "system_chassis"},
         {0x1D, "fan"},
+        {0x1E, "cooling_unit"},
         {0x20, "memory_device"}};
 
     nlohmann::json _entityConfig{};
