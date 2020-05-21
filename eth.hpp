@@ -25,8 +25,7 @@ struct EthDeviceReply
 // Sys can query the ifName and IPMI channel of the BMC's NCSI ethernet
 // device.
 ipmi_ret_t getEthDevice(const uint8_t* reqBuf, uint8_t* replyBuf,
-                        size_t* dataLen,
-                        const HandlerInterface* handler = &handlerImpl);
+                        size_t* dataLen, const HandlerInterface* handler);
 
 } // namespace ipmi
 } // namespace google

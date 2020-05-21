@@ -1,5 +1,6 @@
 #include "errors.hpp"
 #include "handler.hpp"
+#include "handler_impl.hpp"
 
 #include <fstream>
 #include <nlohmann/json.hpp>

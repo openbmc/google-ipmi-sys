@@ -20,6 +20,7 @@
 #include "cpld.hpp"
 #include "entity_name.hpp"
 #include "eth.hpp"
+#include "handler_impl.hpp"
 #include "pcie_i2c.hpp"
 #include "psu.hpp"
 
@@ -43,6 +44,8 @@ namespace google
 namespace ipmi
 {
 
+Handler handlerImpl;
+
 static ipmi_ret_t handleSysCommand(ipmi_cmd_t cmd, const uint8_t* reqBuf,
                                    uint8_t* replyCmdBuf, size_t* dataLen)
 {
@@ -57,19 +60,20 @@ static ipmi_ret_t handleSysCommand(ipmi_cmd_t cmd, const uint8_t* reqBuf,
     switch (reqBuf[0])
     {
         case SysCableCheck:
-            return cableCheck(reqBuf, replyCmdBuf, dataLen);
+            return cableCheck(reqBuf, replyCmdBuf, dataLen, &handlerImpl);
         case SysCpldVersion:
-            return cpldVersion(reqBuf, replyCmdBuf, dataLen);
+            return cpldVersion(reqBuf, replyCmdBuf, dataLen, &handlerImpl);
         case SysGetEthDevice:
-            return getEthDevice(reqBuf, replyCmdBuf, dataLen);
+            return getEthDevice(reqBuf, replyCmdBuf, dataLen, &handlerImpl);
         case SysPsuHardReset:
-            return psuHardReset(reqBuf, replyCmdBuf, dataLen);
+            return psuHardReset(reqBuf, replyCmdBuf, dataLen, &handlerImpl);
         case SysPcieSlotCount:
-            return pcieSlotCount(reqBuf, replyCmdBuf, dataLen);
+            return pcieSlotCount(reqBuf, replyCmdBuf, dataLen, &handlerImpl);
         case SysPcieSlotI2cBusMapping:
-            return pcieSlotI2cBusMapping(reqBuf, replyCmdBuf, dataLen);
+            return pcieSlotI2cBusMapping(reqBuf, replyCmdBuf, dataLen,
+                                         &handlerImpl);
         case SysEntityName:
-            return getEntityName(reqBuf, replyCmdBuf, dataLen);
+            return getEntityName(reqBuf, replyCmdBuf, dataLen, &handlerImpl);
         default:
             std::fprintf(stderr, "Invalid subcommand: 0x%x\n", reqBuf[0]);
             return IPMI_CC_INVALID;

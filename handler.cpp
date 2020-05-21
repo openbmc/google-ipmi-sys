@@ -17,6 +17,7 @@
 #include "handler.hpp"
 
 #include "errors.hpp"
+#include "handler_impl.hpp"
 #include "util.hpp"
 
 #include <ipmid/api.h>
@@ -275,8 +276,6 @@ std::tuple<std::uint32_t, std::string>
 
 const std::string defaultConfigFile =
     "/usr/share/ipmi-entity-association/entity_association_map.json";
-
-Handler handlerImpl;
 
 } // namespace ipmi
 } // namespace google

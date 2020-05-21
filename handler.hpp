@@ -15,8 +15,6 @@ namespace ipmi
 using VersionTuple =
     std::tuple<std::uint8_t, std::uint8_t, std::uint8_t, std::uint8_t>;
 
-extern const std::string defaultConfigFile;
-
 class HandlerInterface
 {
   public:
@@ -91,48 +89,6 @@ class HandlerInterface
         getI2cEntry(unsigned int entry) const = 0;
 };
 
-class Handler : public HandlerInterface
-{
-  public:
-    explicit Handler(const std::string& entityConfigPath = defaultConfigFile) :
-        _configFile(entityConfigPath){};
-    ~Handler() = default;
-
-    std::tuple<std::uint8_t, std::string> getEthDetails() const override;
-    std::int64_t getRxPackets(const std::string& name) const override;
-    VersionTuple getCpldVersion(unsigned int id) const override;
-    void psuResetDelay(std::uint32_t delay) const override;
-    std::string getEntityName(std::uint8_t id, std::uint8_t instance) override;
-    void buildI2cPcieMapping() override;
-    size_t getI2cPcieMappingSize() const override;
-    std::tuple<std::uint32_t, std::string>
-        getI2cEntry(unsigned int entry) const override;
-
-  private:
-    std::string _configFile;
-
-    bool _entityConfigParsed = false;
-
-    const std::map<uint8_t, std::string> _entityIdToName{
-        {0x03, "cpu"},
-        {0x04, "storage_device"},
-        {0x06, "system_management_module"},
-        {0x07, "system_board"},
-        {0x08, "memory_module"},
-        {0x0B, "add_in_card"},
-        {0x0E, "power_system_board"},
-        {0x10, "system_internal_expansion_board"},
-        {0x11, "other_system_board"},
-        {0x17, "system_chassis"},
-        {0x1D, "fan"},
-        {0x1E, "cooling_unit"},
-        {0x20, "memory_device"}};
-
-    nlohmann::json _entityConfig{};
-
-    std::vector<std::tuple<uint32_t, std::string>> _pcie_i2c_map;
-};
-
 /**
  * Given a type, entity instance, and a configuration, return the name.
  *
@@ -143,8 +99,6 @@ class Handler : public HandlerInterface
  */
 std::string readNameFromConfig(const std::string& type, uint8_t instance,
                                const nlohmann::json& config);
-
-extern Handler handlerImpl;
 
 } // namespace ipmi
 } // namespace google

@@ -19,7 +19,7 @@ struct CableReply
 // Handle the cablecheck.  Sys must supply which ethernet device they're
 // interested in.
 ipmi_ret_t cableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen,
-                      const HandlerInterface* handler = &handlerImpl);
+                      const HandlerInterface* handler);
 
 } // namespace ipmi
 } // namespace google
