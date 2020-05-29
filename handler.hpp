@@ -2,7 +2,6 @@
 
 #include <cstdint>
 #include <map>
-#include <nlohmann/json.hpp>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -88,17 +87,6 @@ class HandlerInterface
     virtual std::tuple<std::uint32_t, std::string>
         getI2cEntry(unsigned int entry) const = 0;
 };
-
-/**
- * Given a type, entity instance, and a configuration, return the name.
- *
- * @param[in] type - the entity type
- * @param[in] instance - the entity instance
- * @param[in] config - the json object holding the entity mapping
- * @return the name of the entity from the map
- */
-std::string readNameFromConfig(const std::string& type, uint8_t instance,
-                               const nlohmann::json& config);
 
 } // namespace ipmi
 } // namespace google
