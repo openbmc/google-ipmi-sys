@@ -1,0 +1,9 @@
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Code-Review+1: Benjamin Fair <benjaminfair@google.com>
+Code-Review+2: Patrick Venture <venture@google.com>
+Submitted-by: Patrick Venture <venture@google.com>
+Submitted-at: Fri, 29 May 2020 04:02:57 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/google-ipmi-sys/+/32668
+Project: openbmc/google-ipmi-sys
+Branch: refs/heads/master
