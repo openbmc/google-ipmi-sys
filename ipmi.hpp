@@ -2,6 +2,8 @@
 
 #include "handler.hpp"
 
+#include <ipmid/api.h>
+
 namespace google
 {
 namespace ipmi
