@@ -18,7 +18,7 @@
 
 #include "errors.hpp"
 #include "handler.hpp"
-#include "main.hpp"
+#include "ipmi.hpp"
 
 #include <cstdint>
 #include <cstring>

@@ -16,7 +16,7 @@
 
 #include "pcie_i2c.hpp"
 
-#include "main.hpp"
+#include "ipmi.hpp"
 
 #include <cstdint>
 #include <cstring>

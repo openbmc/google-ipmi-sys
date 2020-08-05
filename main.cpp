@@ -14,20 +14,14 @@
  * limitations under the License.
  */
 
-#include "main.hpp"
-
-#include "cable.hpp"
-#include "cpld.hpp"
-#include "entity_name.hpp"
-#include "eth.hpp"
 #include "handler_impl.hpp"
-#include "pcie_i2c.hpp"
-#include "psu.hpp"
+#include "ipmi.hpp"
 
 #include <ipmid/api.h>
 
 #include <cstdint>
 #include <cstdio>
+#include <functional>
 #include <ipmid/iana.hpp>
 #include <ipmid/oemrouter.hpp>
 
@@ -46,40 +40,6 @@ namespace ipmi
 
 Handler handlerImpl;
 
-static ipmi_ret_t handleSysCommand(ipmi_cmd_t cmd, const uint8_t* reqBuf,
-                                   uint8_t* replyCmdBuf, size_t* dataLen)
-{
-    // Verify it's at least as long as it needs to be for a subcommand.
-    if ((*dataLen) < 1)
-    {
-        std::fprintf(stderr, "*dataLen too small: %u\n",
-                     static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_REQ_DATA_LEN_INVALID;
-    }
-
-    switch (reqBuf[0])
-    {
-        case SysCableCheck:
-            return cableCheck(reqBuf, replyCmdBuf, dataLen, &handlerImpl);
-        case SysCpldVersion:
-            return cpldVersion(reqBuf, replyCmdBuf, dataLen, &handlerImpl);
-        case SysGetEthDevice:
-            return getEthDevice(reqBuf, replyCmdBuf, dataLen, &handlerImpl);
-        case SysPsuHardReset:
-            return psuHardReset(reqBuf, replyCmdBuf, dataLen, &handlerImpl);
-        case SysPcieSlotCount:
-            return pcieSlotCount(reqBuf, replyCmdBuf, dataLen, &handlerImpl);
-        case SysPcieSlotI2cBusMapping:
-            return pcieSlotI2cBusMapping(reqBuf, replyCmdBuf, dataLen,
-                                         &handlerImpl);
-        case SysEntityName:
-            return getEntityName(reqBuf, replyCmdBuf, dataLen, &handlerImpl);
-        default:
-            std::fprintf(stderr, "Invalid subcommand: 0x%x\n", reqBuf[0]);
-            return IPMI_CC_INVALID;
-    }
-}
-
 void setupGoogleOemSysCommands() __attribute__((constructor));
 
 void setupGoogleOemSysCommands()
@@ -90,8 +50,10 @@ void setupGoogleOemSysCommands()
                  "Registering OEM:[%#08X], Cmd:[%#04X] for Sys Commands\n",
                  oem::googOemNumber, oem::google::sysCmd);
 
-    oemRouter->registerHandler(oem::googOemNumber, oem::google::sysCmd,
-                               handleSysCommand);
+    using namespace std::placeholders;
+    oemRouter->registerHandler(
+        oem::googOemNumber, oem::google::sysCmd,
+        std::bind(handleSysCommand, &handlerImpl, _1, _2, _3, _4));
 }
 
 } // namespace ipmi

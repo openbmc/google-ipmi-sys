@@ -1,6 +1,6 @@
 #include "entity_name.hpp"
 #include "handler_mock.hpp"
-#include "main.hpp"
+#include "ipmi.hpp"
 
 #include <cstdint>
 #include <cstring>
