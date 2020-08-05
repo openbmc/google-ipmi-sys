@@ -1,6 +1,6 @@
 #include "cpld.hpp"
 #include "handler_mock.hpp"
-#include "main.hpp"
+#include "ipmi.hpp"
 
 #include <cstdint>
 #include <tuple>
