@@ -17,6 +17,7 @@
 #include "ipmi.hpp"
 
 #include "cable.hpp"
+#include "commands.hpp"
 #include "cpld.hpp"
 #include "entity_name.hpp"
 #include "eth.hpp"

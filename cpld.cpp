@@ -16,9 +16,9 @@
 
 #include "cpld.hpp"
 
+#include "commands.hpp"
 #include "errors.hpp"
 #include "handler.hpp"
-#include "ipmi.hpp"
 
 #include <cstring>
 

@@ -1,6 +1,6 @@
+#include "commands.hpp"
 #include "eth.hpp"
 #include "handler_mock.hpp"
-#include "ipmi.hpp"
 
 #include <cstdint>
 #include <cstring>

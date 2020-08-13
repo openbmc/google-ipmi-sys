@@ -16,9 +16,9 @@
 
 #include "psu.hpp"
 
+#include "commands.hpp"
 #include "errors.hpp"
 #include "handler.hpp"
-#include "ipmi.hpp"
 
 #include <cstdint>
 #include <cstring>
