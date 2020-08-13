@@ -21,7 +21,7 @@
 #include "cpld.hpp"
 #include "entity_name.hpp"
 #include "eth.hpp"
-#include "handler_impl.hpp"
+#include "handler.hpp"
 #include "pcie_i2c.hpp"
 #include "psu.hpp"
 
