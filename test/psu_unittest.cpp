@@ -1,5 +1,5 @@
+#include "commands.hpp"
 #include "handler_mock.hpp"
-#include "ipmi.hpp"
 #include "psu.hpp"
 
 #include <cstdint>

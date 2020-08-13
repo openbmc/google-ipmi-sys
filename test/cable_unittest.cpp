@@ -1,6 +1,6 @@
 #include "cable.hpp"
+#include "commands.hpp"
 #include "handler_mock.hpp"
-#include "ipmi.hpp"
 
 #include <cstdint>
 #include <cstring>

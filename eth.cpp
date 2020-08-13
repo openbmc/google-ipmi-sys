@@ -16,8 +16,8 @@
 
 #include "eth.hpp"
 
+#include "commands.hpp"
 #include "handler.hpp"
-#include "ipmi.hpp"
 
 #include <cstdint>
 #include <cstring>

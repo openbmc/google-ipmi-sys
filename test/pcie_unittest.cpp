@@ -1,5 +1,5 @@
+#include "commands.hpp"
 #include "handler_mock.hpp"
-#include "ipmi.hpp"
 #include "pcie_i2c.hpp"
 
 #include <cstdint>
