@@ -2,6 +2,11 @@
 
 #include "handler.hpp"
 
+#include <cstddef>
+#include <cstdint>
+#include <string>
+#include <tuple>
+
 #include <gmock/gmock.h>
 
 namespace google
