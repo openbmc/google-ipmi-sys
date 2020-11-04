@@ -33,6 +33,7 @@
 #include <sdbusplus/bus.hpp>
 #include <sstream>
 #include <string>
+#include <string_view>
 #include <tuple>
 #include <xyz/openbmc_project/Common/error.hpp>
 
@@ -231,6 +232,47 @@ std::string Handler::getEntityName(std::uint8_t id, std::uint8_t instance)
     }
 
     return entityName;
+}
+
+std::string getMachineName()
+{
+    const char* path = "/etc/os-release";
+    std::ifstream ifs(path);
+    if (ifs.fail())
+    {
+        std::fprintf(stderr, "Failed to open: %s\n", path);
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    std::string line;
+    while (true)
+    {
+        std::getline(ifs, line);
+        if (ifs.eof())
+        {
+            std::fprintf(stderr, "Failed to find OPENBMC_TARGET_MACHINE: %s\n",
+                         path);
+            throw IpmiException(IPMI_CC_INVALID);
+        }
+        if (ifs.fail())
+        {
+            std::fprintf(stderr, "Failed to read: %s\n", path);
+            throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        }
+        std::string_view lineView(line);
+        constexpr std::string_view prefix = "OPENBMC_TARGET_MACHINE=";
+        if (lineView.substr(0, prefix.size()) != prefix)
+        {
+            continue;
+        }
+        lineView.remove_prefix(prefix.size());
+        lineView.remove_prefix(
+            std::min(lineView.find_first_not_of('"'), lineView.size()));
+        lineView.remove_suffix(
+            lineView.size() - 1 -
+            std::min(lineView.find_last_not_of('"'), lineView.size() - 1));
+        return std::string(lineView);
+    }
 }
 
 std::string readNameFromConfig(const std::string& type, uint8_t instance,

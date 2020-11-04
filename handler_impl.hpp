@@ -28,6 +28,7 @@ class Handler : public HandlerInterface
     VersionTuple getCpldVersion(unsigned int id) const override;
     void psuResetDelay(std::uint32_t delay) const override;
     std::string getEntityName(std::uint8_t id, std::uint8_t instance) override;
+    std::string getMachineName() override;
     void buildI2cPcieMapping() override;
     size_t getI2cPcieMappingSize() const override;
     std::tuple<std::uint32_t, std::string>

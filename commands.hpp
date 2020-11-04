@@ -21,6 +21,8 @@ enum SysOEMCommands
     SysPcieSlotI2cBusMapping = 5,
     // The Sys "entity id:entity instance" to entity name mapping command.
     SysEntityName = 6,
+    // Returns the machine name of the image
+    SysMachineName = 7,
 };
 
 } // namespace ipmi

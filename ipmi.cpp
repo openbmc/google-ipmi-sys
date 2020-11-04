@@ -22,6 +22,7 @@
 #include "entity_name.hpp"
 #include "eth.hpp"
 #include "handler.hpp"
+#include "machine_name.hpp"
 #include "pcie_i2c.hpp"
 #include "psu.hpp"
 
@@ -63,6 +64,8 @@ ipmi_ret_t handleSysCommand(HandlerInterface* handler, ipmi_cmd_t cmd,
             return pcieSlotI2cBusMapping(reqBuf, replyCmdBuf, dataLen, handler);
         case SysEntityName:
             return getEntityName(reqBuf, replyCmdBuf, dataLen, handler);
+        case SysMachineName:
+            return getMachineName(reqBuf, replyCmdBuf, dataLen, handler);
         default:
             std::fprintf(stderr, "Invalid subcommand: 0x%x\n", reqBuf[0]);
             return IPMI_CC_INVALID;
