@@ -67,6 +67,14 @@ class HandlerInterface
                                       std::uint8_t instance) = 0;
 
     /**
+     * Return the name of the machine, parsed from release information.
+     *
+     * @return the machine name
+     * @throw IpmiException on failure.
+     */
+    virtual std::string getMachineName() = 0;
+
+    /**
      * Populate the i2c-pcie mapping vector.
      */
     virtual void buildI2cPcieMapping() = 0;

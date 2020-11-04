@@ -162,3 +162,22 @@ Response
 |0x00|0x06|Subcommand
 |0x01|Entity name length (say N)|Entity name length
 |0x02...0x02 + N - 1|Entity name|Entity name without null terminator
+
+### GetMachineName - SubCommand 0x07
+
+The BMC parses /etc/os-release for the OPENBMC_TARGET_MACHINE field and returns
+its value.
+
+Request
+
+|Byte(s) |Value |Data
+|--------|------|----
+|0x00|0x06|Subcommand
+
+Response
+
+|Byte(s) |Value |Data
+|--------|------|----
+|0x00|0x06|Subcommand
+|0x01|Model name length (say N)|Model name length
+|0x02...0x02 + N - 1|Model name|Model name without null terminator
