@@ -14,7 +14,8 @@ namespace google
 namespace ipmi
 {
 
-extern const std::string defaultConfigFile;
+constexpr char defaultConfigFile[] =
+    "/usr/share/ipmi-entity-association/entity_association_map.json";
 
 class Handler : public HandlerInterface
 {

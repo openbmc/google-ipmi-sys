@@ -316,8 +316,5 @@ std::tuple<std::uint32_t, std::string>
     return _pcie_i2c_map[entry];
 }
 
-const std::string defaultConfigFile =
-    "/usr/share/ipmi-entity-association/entity_association_map.json";
-
 } // namespace ipmi
 } // namespace google

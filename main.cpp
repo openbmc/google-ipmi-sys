@@ -38,12 +38,11 @@ namespace google
 namespace ipmi
 {
 
-Handler handlerImpl;
-
 void setupGoogleOemSysCommands() __attribute__((constructor));
 
 void setupGoogleOemSysCommands()
 {
+    static Handler handlerImpl;
     oem::Router* oemRouter = oem::mutableRouter();
 
     std::fprintf(stderr,
