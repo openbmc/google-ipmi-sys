@@ -53,6 +53,13 @@ class HandlerInterface
     virtual void psuResetDelay(std::uint32_t delay) const = 0;
 
     /**
+     * Arm for PSU reset on host shutdown.
+     *
+     * @throw IpmiException on failure.
+     */
+    virtual void psuResetOnShutdown() const = 0;
+
+    /**
      * Return the entity name.
      * On the first call to this method it'll build the list of entities.
      * @todo Consider moving the list building to construction time (and ignore
