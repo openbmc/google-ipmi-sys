@@ -56,5 +56,34 @@ ipmi_ret_t psuHardReset(const uint8_t* reqBuf, uint8_t* replyBuf,
     return IPMI_CC_OK;
 }
 
+ipmi_ret_t psuHardResetOnShutdown(const uint8_t* reqBuf, uint8_t* replyBuf,
+                                  size_t* dataLen,
+                                  const HandlerInterface* handler)
+{
+    struct PsuResetOnShutdownRequest request;
+
+    if ((*dataLen) < sizeof(request))
+    {
+        std::fprintf(stderr, "Invalid command length: %u\n",
+                     static_cast<uint32_t>(*dataLen));
+        return IPMI_CC_REQ_DATA_LEN_INVALID;
+    }
+
+    std::memcpy(&request, &reqBuf[0], sizeof(request));
+    try
+    {
+        handler->psuResetOnShutdown();
+    }
+    catch (const IpmiException& e)
+    {
+        return e.getIpmiError();
+    }
+
+    replyBuf[0] = SysPsuHardResetOnShutdown;
+    (*dataLen) = sizeof(uint8_t);
+
+    return IPMI_CC_OK;
+}
+
 } // namespace ipmi
 } // namespace google

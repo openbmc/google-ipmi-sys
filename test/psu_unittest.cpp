@@ -46,5 +46,32 @@ TEST(PsuCommandTest, ValidRequest)
               psuHardReset(request.data(), reply, &dataLen, &hMock));
 }
 
+TEST(PsuResetOnShutdownCommandTest, InvalidRequestLength)
+{
+    std::vector<std::uint8_t> request;
+    size_t dataLen = request.size();
+    std::uint8_t reply[MAX_IPMI_BUFFER];
+
+    HandlerMock hMock;
+    EXPECT_EQ(IPMI_CC_REQ_DATA_LEN_INVALID,
+              psuHardResetOnShutdown(request.data(), reply, &dataLen, &hMock));
+}
+
+TEST(PsuResetOnShutdownCommandTest, ValidRequest)
+{
+    struct PsuResetOnShutdownRequest requestContents;
+    requestContents.subcommand = SysOEMCommands::SysPsuHardReset;
+
+    std::vector<std::uint8_t> request(sizeof(requestContents));
+    std::memcpy(request.data(), &requestContents, sizeof(requestContents));
+    size_t dataLen = request.size();
+    std::uint8_t reply[MAX_IPMI_BUFFER];
+
+    HandlerMock hMock;
+    EXPECT_CALL(hMock, psuResetOnShutdown());
+    EXPECT_EQ(IPMI_CC_OK,
+              psuHardResetOnShutdown(request.data(), reply, &dataLen, &hMock));
+}
+
 } // namespace ipmi
 } // namespace google
