@@ -23,6 +23,8 @@ enum SysOEMCommands
     SysEntityName = 6,
     // Returns the machine name of the image
     SysMachineName = 7,
+    // Arm for psu reset on host shutdown
+    SysPsuHardResetOnShutdown = 8,
 };
 
 } // namespace ipmi

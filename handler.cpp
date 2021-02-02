@@ -199,6 +199,20 @@ void Handler::psuResetDelay(std::uint32_t delay) const
     }
 }
 
+static constexpr auto RESET_ON_SHUTDOWN_FILENAME = "/run/powercycle_on_s5";
+
+void Handler::psuResetOnShutdown() const
+{
+    std::ofstream ofs;
+    ofs.open(RESET_ON_SHUTDOWN_FILENAME, std::ofstream::out);
+    if (!ofs.good())
+    {
+        std::fprintf(stderr, "Unable to open file for output.\n");
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+    ofs.close();
+}
+
 std::string Handler::getEntityName(std::uint8_t id, std::uint8_t instance)
 {
     // Check if we support this Entity ID.

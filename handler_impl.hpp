@@ -28,6 +28,7 @@ class Handler : public HandlerInterface
     std::int64_t getRxPackets(const std::string& name) const override;
     VersionTuple getCpldVersion(unsigned int id) const override;
     void psuResetDelay(std::uint32_t delay) const override;
+    void psuResetOnShutdown() const override;
     std::string getEntityName(std::uint8_t id, std::uint8_t instance) override;
     std::string getMachineName() override;
     void buildI2cPcieMapping() override;
