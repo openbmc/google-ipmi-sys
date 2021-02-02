@@ -181,3 +181,20 @@ Response
 |0x00|0x06|Subcommand
 |0x01|Model name length (say N)|Model name length
 |0x02...0x02 + N - 1|Model name|Model name without null terminator
+
+### HardResetOnShutdown - SubCommand 0x08
+
+Tells the BMC to powercycle the next time the host shuts down.
+
+Request
+
+|Byte(s) |Value |Data
+|--------|------|----
+|0x00|0x08|Subcommand
+
+Response
+
+|Byte(s) |Value |Data
+|--------|------|----
+|0x00|0x08|Subcommand
+

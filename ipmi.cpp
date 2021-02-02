@@ -66,6 +66,8 @@ ipmi_ret_t handleSysCommand(HandlerInterface* handler, ipmi_cmd_t cmd,
             return getEntityName(reqBuf, replyCmdBuf, dataLen, handler);
         case SysMachineName:
             return getMachineName(reqBuf, replyCmdBuf, dataLen, handler);
+        case SysPsuHardResetOnShutdown:
+            return psuHardResetOnShutdown(reqBuf, replyCmdBuf, dataLen, handler);
         default:
             std::fprintf(stderr, "Invalid subcommand: 0x%x\n", reqBuf[0]);
             return IPMI_CC_INVALID;
