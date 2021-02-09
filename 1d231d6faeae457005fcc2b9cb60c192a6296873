@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10615945_7fda00db",
+        "filename": "psu.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-02-09T20:23:51Z",
+      "side": 1,
+      "message": "For what it\u0027s worth you don\u0027t have to catch these, the IPMI daemon will do that at the top level of execution.",
+      "revId": "1d231d6faeae457005fcc2b9cb60c192a6296873",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
