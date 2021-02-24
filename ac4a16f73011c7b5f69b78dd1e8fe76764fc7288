@@ -1,0 +1,9 @@
+Ok-To-Test+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+1: Patrick Venture <venture@google.com>
+Code-Review+2: William A. Kennington III <wak@google.com>
+Submitted-by: Shounak Mitra <shounak@google.com>
+Submitted-at: Wed, 24 Feb 2021 21:32:45 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/google-ipmi-sys/+/40245
+Project: openbmc/google-ipmi-sys
+Branch: refs/heads/master
