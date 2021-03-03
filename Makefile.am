@@ -44,6 +44,7 @@ libsyscmds_common_la_SOURCES = \
 	cable.cpp \
 	cpld.cpp \
 	eth.cpp \
+	flash_size.cpp \
 	psu.cpp \
 	pcie_i2c.cpp \
 	entity_name.cpp \

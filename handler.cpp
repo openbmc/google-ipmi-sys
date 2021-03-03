@@ -20,7 +20,12 @@
 #include "handler_impl.hpp"
 #include "util.hpp"
 
+#include <fcntl.h>
 #include <ipmid/api.h>
+#include <mtd/mtd-abi.h>
+#include <mtd/mtd-user.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
 
 #include <cinttypes>
 #include <cstdio>
@@ -211,6 +216,16 @@ void Handler::psuResetOnShutdown() const
         throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
     }
     ofs.close();
+}
+
+uint32_t Handler::getFlashSize()
+{
+    int fd = open("/dev/mtd0", O_RDONLY);
+    mtd_info_t info;
+    ioctl(fd, MEMGETINFO, &info);
+
+    close(fd);
+    return info.size;
 }
 
 std::string Handler::getEntityName(std::uint8_t id, std::uint8_t instance)
