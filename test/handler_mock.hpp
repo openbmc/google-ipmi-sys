@@ -27,6 +27,7 @@ class HandlerMock : public HandlerInterface
                                   std::uint8_t>(unsigned int));
     MOCK_CONST_METHOD1(psuResetDelay, void(std::uint32_t));
     MOCK_CONST_METHOD0(psuResetOnShutdown, void());
+    MOCK_METHOD0(getFlashSize, std::string());
     MOCK_METHOD2(getEntityName, std::string(std::uint8_t, std::uint8_t));
     MOCK_METHOD0(getMachineName, std::string());
     MOCK_METHOD0(buildI2cPcieMapping, void());
