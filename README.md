@@ -198,3 +198,21 @@ Response
 |--------|------|----
 |0x00|0x08|Subcommand
 
+
+### GetFlashSize - SubCommand 0x09
+
+Request the physical size of the BMC flash.
+
+Request
+
+|Byte(s) |Value |Data
+|--------|------|----
+|0x00|0x09|Subcommand
+
+Response
+
+|Byte(s) |Value |Data
+|--------|------|----
+|0x00|0x09|Subcommand
+|0x01|Flash size length (say N)|Flash size length
+|0x02...0x05|Flash size|Flash size without null terminator

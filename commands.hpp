@@ -25,6 +25,8 @@ enum SysOEMCommands
     SysMachineName = 7,
     // Arm for psu reset on host shutdown
     SysPsuHardResetOnShutdown = 8,
+    // The Sys get flash size command
+    SysGetFlashSize = 9,
 };
 
 } // namespace ipmi
