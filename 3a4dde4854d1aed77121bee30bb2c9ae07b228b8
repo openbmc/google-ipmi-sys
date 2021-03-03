@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3217c661_ba1e01f8",
+        "filename": "handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-03-03T23:27:07Z",
+      "side": 1,
+      "message": "You should use MTDINFO instead of sysfs\n```\n    mtd_info_t info;\n    fd.ioctl(MEMGETINFO, \u0026info);\n    return info.size;\n```",
+      "revId": "3a4dde4854d1aed77121bee30bb2c9ae07b228b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
