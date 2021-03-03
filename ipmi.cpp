@@ -21,6 +21,7 @@
 #include "cpld.hpp"
 #include "entity_name.hpp"
 #include "eth.hpp"
+#include "flash_size.hpp"
 #include "handler.hpp"
 #include "machine_name.hpp"
 #include "pcie_i2c.hpp"
@@ -69,6 +70,8 @@ ipmi_ret_t handleSysCommand(HandlerInterface* handler, ipmi_cmd_t cmd,
         case SysPsuHardResetOnShutdown:
             return psuHardResetOnShutdown(reqBuf, replyCmdBuf, dataLen,
                                           handler);
+        case SysGetFlashSize:
+            return getFlashSize(reqBuf, replyCmdBuf, dataLen, handler);
         default:
             std::fprintf(stderr, "Invalid subcommand: 0x%x\n", reqBuf[0]);
             return IPMI_CC_INVALID;

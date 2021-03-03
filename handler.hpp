@@ -74,6 +74,14 @@ class HandlerInterface
                                       std::uint8_t instance) = 0;
 
     /**
+     * Return the flash size of bmc chip.
+     *
+     * @return the flash size of bmc chip
+     * @throw IpmiException on failure.
+     */
+    virtual uint8_t getFlashSize() = 0;
+
+    /**
      * Return the name of the machine, parsed from release information.
      *
      * @return the machine name

@@ -213,6 +213,27 @@ void Handler::psuResetOnShutdown() const
     ofs.close();
 }
 
+static constexpr auto FLASH_SIZE_FILENAME = "/sys/class/mtd/mtd0/size";
+
+uint8_t Handler::getFlashSize()
+{
+    std::ifstream ifs(FLASH_SIZE_FILENAME);
+    std::string line;
+    uint8_t flashSize;
+
+    if (ifs.fail())
+    {
+        log<level::ERR>("Unable to open file for output");
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    std::getline(ifs, line);
+    ifs.close();
+
+    flashSize = std::stoull(line) >> 20;
+    return flashSize;
+}
+
 std::string Handler::getEntityName(std::uint8_t id, std::uint8_t instance)
 {
     // Check if we support this Entity ID.
