@@ -34,6 +34,24 @@
       "revId": "3a4dde4854d1aed77121bee30bb2c9ae07b228b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe62f2f0_275c2b08",
+        "filename": "handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-03-04T01:34:43Z",
+      "side": 1,
+      "message": "You need to give it a valid file descriptor for the ioctl call and check return values.\n\nYou need to use a larger type to return bytes, or shift the output to make it fit. I don\u0027t think we will have flash sides larger than 128, but who knows. You should probably just return a 32bit uint of bytes (or uint16 of megabytes).",
+      "parentUuid": "19b9b3e2_513758b1",
+      "revId": "3a4dde4854d1aed77121bee30bb2c9ae07b228b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
