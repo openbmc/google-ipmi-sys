@@ -70,6 +70,24 @@
       "revId": "3a4dde4854d1aed77121bee30bb2c9ae07b228b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a69b9632_b2ddaf7e",
+        "filename": "handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-03-04T18:27:54Z",
+      "side": 1,
+      "message": "You just\n```\nfd \u003d open(\"/dev/mtd0\", O_RDONLY);\nmtd_info_t info;\nioctl(fd, MEMGETINFO, \u0026info);\nclose(fd);\n```",
+      "parentUuid": "7ff3d438_c5230fbd",
+      "revId": "3a4dde4854d1aed77121bee30bb2c9ae07b228b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
