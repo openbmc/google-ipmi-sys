@@ -16,6 +16,24 @@
       "revId": "3a4dde4854d1aed77121bee30bb2c9ae07b228b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19b9b3e2_513758b1",
+        "filename": "handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-03-04T01:31:31Z",
+      "side": 1,
+      "message": "I could get what you have to work exactly, I tried it with..\n```\nmtd_info_t info;\nioctl(0, MEMGETINFO, \u0026info);\nreturn info.size;\n```\n\nand got \n\n```\nExpected: is equal to \u0027 \u0027 (32, 0x20)\n  Actual: \u0027h\u0027 (104, 0x68) (of type unsigned char)\n```\n\nIt doesn\u0027t look right. should be 32(MB) but got 104.\n\nNote: I am return uint8_t now, maybe that message up somethings. size is `uint32_t`, but  that still does not match. It should still be power of 2.",
+      "parentUuid": "3217c661_ba1e01f8",
+      "revId": "3a4dde4854d1aed77121bee30bb2c9ae07b228b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
