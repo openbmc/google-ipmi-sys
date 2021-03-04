@@ -52,6 +52,24 @@
       "revId": "3a4dde4854d1aed77121bee30bb2c9ae07b228b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ff3d438_c5230fbd",
+        "filename": "handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-03-04T02:07:40Z",
+      "side": 1,
+      "message": "oh yeah, 0 is stdin (I think).\n\nI can\u0027t find the file descriptor for mtd0.\n\n```\nroot@fdsv640-nfd:~# lsof | grep mtd\n334     /usr/bin/havend /dev/mtd3\n```\nor\n```\nroot@arcadia-milan:~# lsof  | grep mtd\n356     /usr/bin/havend /dev/mtd7\n```\n\nI can only find the havend, and they are different fd. These are two different machine/images 64MB vs 32MB. mtd3 vs. mtd7.",
+      "parentUuid": "fe62f2f0_275c2b08",
+      "revId": "3a4dde4854d1aed77121bee30bb2c9ae07b228b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
