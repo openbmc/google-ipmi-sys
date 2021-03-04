@@ -88,6 +88,24 @@
       "revId": "3a4dde4854d1aed77121bee30bb2c9ae07b228b8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "200d719a_5fca5c32",
+        "filename": "handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-03-04T21:45:52Z",
+      "side": 1,
+      "message": "ah, sounds good. thanks.\n\n----\n\nI tried it and it worked.\n\n```\nroot@machine:~# ipmitool raw 0x2e 0x32 0x79 0x2b 0x00 0x09\n 79 2b 00 09 00 00 00 04\n```\n\n00 00 00 04 -\u003e 67108864 in little endian.\n\n67108864 / 1024 / 1024 \u003d 64 MB flash.",
+      "parentUuid": "a69b9632_b2ddaf7e",
+      "revId": "3a4dde4854d1aed77121bee30bb2c9ae07b228b8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
