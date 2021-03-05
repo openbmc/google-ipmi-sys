@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8d2762a_85b79acc",
+        "filename": "flash_size.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-03-05T07:56:23Z",
+      "side": 1,
+      "message": "Use the builtin endianness commands which do the right thing regardless of CPU. IPMI should always output in LE, so use htole32()",
+      "revId": "05707218768b9388c31c07c7dfa633412c88a1b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
