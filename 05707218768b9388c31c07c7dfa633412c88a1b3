@@ -16,6 +16,24 @@
       "revId": "05707218768b9388c31c07c7dfa633412c88a1b3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f9ad574_cc865acc",
+        "filename": "flash_size.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-03-05T08:08:47Z",
+      "side": 1,
+      "message": "ah, okay sounds good. \n\nright, Here is my understanding.\n\n__builtin_bswap32 will always flip and htole32 flip only on little-endian machines.\n\nSo we want the final result in BE and when it convert to IPMI output it will pack it in LE.",
+      "parentUuid": "a8d2762a_85b79acc",
+      "revId": "05707218768b9388c31c07c7dfa633412c88a1b3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
