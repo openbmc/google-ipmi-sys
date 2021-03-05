@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97b4e51b_07c63740",
+        "filename": "flash_size.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-03-05T01:39:44Z",
+      "side": 1,
+      "message": "Little endian conversion",
+      "revId": "7bfe0443c9b9ef91458ef828b3c70f06b12111ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f0babca_46f5019e",
+        "filename": "handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-03-05T01:39:44Z",
+      "side": 1,
+      "message": "Check the the return code of this and ioctl()",
+      "revId": "7bfe0443c9b9ef91458ef828b3c70f06b12111ca",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
