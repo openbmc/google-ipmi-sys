@@ -308,6 +308,48 @@ std::string Handler::getMachineName()
     }
 }
 
+static constexpr auto HOST_TIME_DELAY_FILENAME = "/run/host_poweroff_delay";
+static constexpr auto HOST_POWEROFF_TARGET = "gbmc-host-poweroff.target";
+
+void Handler::hostPowerOffDelay(std::uint32_t delay) const
+{
+    // Set time delay
+    std::ofstream ofs;
+    ofs.open(HOST_TIME_DELAY_FILENAME, std::ofstream::out);
+    if (!ofs.good())
+    {
+        std::fprintf(stderr, "Unable to open file for output.\n");
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    ofs << "HOST_POWEROFF_DELAY=" << delay << std::endl;
+    ofs.close();
+    if (ofs.fail())
+    {
+        std::fprintf(stderr, "Write failed\n");
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    // Write succeeded, please continue.
+    auto bus = sdbusplus::bus::new_default();
+    auto method = bus.new_method_call(SYSTEMD_SERVICE, SYSTEMD_ROOT,
+                                      SYSTEMD_INTERFACE, "StartUnit");
+
+    method.append(HOST_POWEROFF_TARGET);
+    method.append("replace");
+
+    try
+    {
+        bus.call_noreply(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        log<level::ERR>("Failed to call Power Off",
+                        entry("WHAT=%s", ex.what()));
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+}
+
 std::string readNameFromConfig(const std::string& type, uint8_t instance,
                                const Json& config)
 {
