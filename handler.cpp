@@ -308,6 +308,51 @@ std::string Handler::getMachineName()
     }
 }
 
+
+static constexpr auto S5_TIME_DELAY_FILENAME = "/run/fbwd_timedelay";
+static constexpr auto S5_POWEROFF_TARGET = "gbmc-s5-poweroff.target";
+
+void Handler::hostS5PowerOffDelay(std::uint32_t delay) const
+{
+    // Set time delay
+    std::ofstream ofs;
+    ofs.open(S5_TIME_DELAY_FILENAME, std::ofstream::out);
+    if (!ofs.good())
+    {
+        std::fprintf(stderr, "Unable to open file for output.\n");
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    ofs << "FBWD_POWEROFF_DELAY=" << delay << std::endl;
+    if (ofs.fail())
+    {
+        std::fprintf(stderr, "Write failed\n");
+        ofs.close();
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    // Write succeeded, please continue.
+    ofs.flush();
+    ofs.close();
+
+    auto bus = sdbusplus::bus::new_default();
+    auto method = bus.new_method_call(SYSTEMD_SERVICE, SYSTEMD_ROOT,
+                                      SYSTEMD_INTERFACE, "StartUnit");
+
+    method.append(S5_POWEROFF_TARGET);
+    method.append("replace");
+
+    try
+    {
+        bus.call_noreply(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        log<level::ERR>("Failed to call S5 Power oFF");
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+}
+
 std::string readNameFromConfig(const std::string& type, uint8_t instance,
                                const Json& config)
 {
