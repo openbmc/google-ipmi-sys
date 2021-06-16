@@ -26,6 +26,7 @@
 #include "machine_name.hpp"
 #include "pcie_i2c.hpp"
 #include "psu.hpp"
+#include "host_s5_power_off.hpp"
 
 #include <ipmid/api.h>
 
@@ -72,6 +73,8 @@ ipmi_ret_t handleSysCommand(HandlerInterface* handler, ipmi_cmd_t cmd,
                                           handler);
         case SysGetFlashSize:
             return getFlashSize(reqBuf, replyCmdBuf, dataLen, handler);
+        case SysHostS5PowerOff:
+            return hostS5PowerOff(reqBuf, replyCmdBuf, dataLen, handler);
         default:
             std::fprintf(stderr, "Invalid subcommand: 0x%x\n", reqBuf[0]);
             return IPMI_CC_INVALID;

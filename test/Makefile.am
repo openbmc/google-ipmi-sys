@@ -52,3 +52,7 @@ pcie_unittest_LDADD = $(top_builddir)/libsyscmds_common.la
 check_PROGRAMS += flash_unittest
 flash_unittest_SOURCES = flash_unittest.cpp
 flash_unittest_LDADD = $(top_builddir)/libsyscmds_common.la
+
+check_PROGRAMS += s5_unittest
+s5_unittest_SOURCES = s5_unittest.cpp
+s5_unittest_LDADD = $(top_builddir)/libsyscmds_common.la

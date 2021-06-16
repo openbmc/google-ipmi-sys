@@ -34,6 +34,7 @@ class HandlerMock : public HandlerInterface
     MOCK_CONST_METHOD0(getI2cPcieMappingSize, size_t());
     MOCK_CONST_METHOD1(getI2cEntry,
                        std::tuple<std::uint32_t, std::string>(unsigned int));
+  MOCK_CONST_METHOD1(hostS5PowerOffDelay, void(std::uint32_t));
 };
 
 } // namespace ipmi

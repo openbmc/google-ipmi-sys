@@ -4,7 +4,7 @@
 
 #include <cstdint>
 #include <map>
-#include <nlohmann/json.hpp>
+#include "third_party/json/src/json.hpp"
 #include <string>
 #include <tuple>
 #include <vector>
@@ -34,6 +34,7 @@ class Handler : public HandlerInterface
     std::string getMachineName() override;
     void buildI2cPcieMapping() override;
     size_t getI2cPcieMappingSize() const override;
+    void hostS5PowerOffDelay(std::uint32_t delay) const override;
     std::tuple<std::uint32_t, std::string>
         getI2cEntry(unsigned int entry) const override;
 

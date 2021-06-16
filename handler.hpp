@@ -109,6 +109,14 @@ class HandlerInterface
      */
     virtual std::tuple<std::uint32_t, std::string>
         getI2cEntry(unsigned int entry) const = 0;
+
+    /**
+     * Set the S5 Power Off delay.
+     *
+     * @param[in] delay - delay in seconds.
+     * @throw IpmiException on failure.
+     */
+    virtual void hostS5PowerOffDelay(std::uint32_t delay) const = 0;
 };
 
 } // namespace ipmi
