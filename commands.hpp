@@ -27,6 +27,8 @@ enum SysOEMCommands
     SysPsuHardResetOnShutdown = 8,
     // The Sys get flash size command
     SysGetFlashSize = 9,
+    // The Sys Host Power Off with disabled fallback watchdog
+    SysHostPowerOff = 10,
 };
 
 } // namespace ipmi
