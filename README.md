@@ -215,3 +215,21 @@ Response
 |--------|------|----
 |0x00|0x09|Subcommand
 |0x01...0x04|Flash size|Flash size
+
+### HostPowerOff - SubCommand 0x0A
+Sys command needs to be able to let the BMC knows host attempt S5 shutdown,
+it need power-off the Host gracefully and disable the watchdog with given time
+delay.
+
+Request
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0A|Subcommand
+|0x01..0x04| |Seconds to delay (uint32)
+
+Response
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0A|Subcommand
