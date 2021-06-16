@@ -215,3 +215,19 @@ Response
 |--------|------|----
 |0x00|0x09|Subcommand
 |0x01...0x04|Flash size|Flash size
+
+### SysHostS5PowerOff - SubCommand 0x0A
+Sys needs to be able to let the BMC knows that in host S5 mode, it need disable the fallback watchdog and power-off the Host.
+
+Request
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0A|Subcommand
+|0x01..0x04| |Seconds to delay (uint32)
+
+Response
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0A|Subcommand
