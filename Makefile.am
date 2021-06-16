@@ -3,6 +3,8 @@ AM_DEFAULT_SOURCE_EXT = .cpp
 if HAVE_SYSTEMD
 systemdsystemunit_DATA = \
   gbmc-psu-hardreset.target
+systemdsystemunit_DATA = \
+  gbmc-s5-poweroff.target
 endif
 
 # Ignore system headers
@@ -51,7 +53,8 @@ libsyscmds_common_la_SOURCES = \
 	machine_name.cpp \
 	handler.cpp \
 	util.cpp \
-	ipmi.cpp
+	ipmi.cpp \
+	host_s5_power_off.cpp
 libsyscmds_common_la_CXXFLAGS = \
 	$(SDBUSPLUS_CFLAGS) \
 	$(PHOSPHOR_LOGGING_CFLAGS) \
