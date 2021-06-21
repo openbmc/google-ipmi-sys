@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8a1c7a4_2a7f90dd",
+        "filename": "handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000442
+      },
+      "writtenOn": "2021-06-21T17:47:39Z",
+      "side": 1,
+      "message": "Do we need to close the ofs file in case it cannot be open or created ?",
+      "revId": "8cb13190d89bcefe5933db54f9cc806348eea1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8acda71_c23663be",
+        "filename": "test/handler_mock.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000442
+      },
+      "writtenOn": "2021-06-21T17:47:39Z",
+      "side": 1,
+      "message": "Why MOCK_CONST_METHOD1 was selected ?",
+      "revId": "8cb13190d89bcefe5933db54f9cc806348eea1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
