@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f5515e83_f3b1b04f",
+        "filename": "handler.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1000337
+      },
+      "writtenOn": "2021-06-21T18:21:04Z",
+      "side": 1,
+      "message": "The file failed to open just because it doesn\u0027t exist. I don\u0027t think we need close it.",
+      "parentUuid": "c8a1c7a4_2a7f90dd",
+      "revId": "8cb13190d89bcefe5933db54f9cc806348eea1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8acda71_c23663be",
         "filename": "test/handler_mock.hpp",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "8cb13190d89bcefe5933db54f9cc806348eea1e0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76edd7fe_4783447d",
+        "filename": "test/handler_mock.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000337
+      },
+      "writtenOn": "2021-06-21T18:21:04Z",
+      "side": 1,
+      "message": "This is the micro definition. Func hostS5PowerOffDelay utilize the same type of passing parameter and return value like psuResetDelay did(in line #28).",
+      "parentUuid": "f8acda71_c23663be",
+      "revId": "8cb13190d89bcefe5933db54f9cc806348eea1e0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
