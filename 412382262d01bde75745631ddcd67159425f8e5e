@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "cdabf062_93a51685",
+        "filename": "handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1000632
+      },
+      "writtenOn": "2021-06-22T05:38:37Z",
+      "side": 1,
+      "message": "nit. unused variable.",
+      "range": {
+        "startLine": 345,
+        "startChar": 50,
+        "endLine": 345,
+        "endChar": 53
+      },
+      "revId": "412382262d01bde75745631ddcd67159425f8e5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2f95168f_4e27e18e",
         "filename": "host_power_off.cpp",
         "patchSetId": 8
@@ -41,6 +64,29 @@
         "startChar": 0,
         "endLine": 26,
         "endChar": 17
+      },
+      "revId": "412382262d01bde75745631ddcd67159425f8e5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6821dc1c_822f3673",
+        "filename": "host_power_off.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000632
+      },
+      "writtenOn": "2021-06-22T05:38:37Z",
+      "side": 1,
+      "message": "*dataLen \u003d sizeof(uint8_t)",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 14
       },
       "revId": "412382262d01bde75745631ddcd67159425f8e5e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
