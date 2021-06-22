@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53e357e5_8bec68b2",
+        "filename": "README.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-22T04:22:31Z",
+      "side": 1,
+      "message": "Sys -\u003e System\n\nmove `host S5 mode` to something else.\n\nSome grammar issue. Maybe should be?\n```\nIt needs to disable the fallback watchdog with given time delay...\n```",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 66
+      },
+      "revId": "412382262d01bde75745631ddcd67159425f8e5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f95168f_4e27e18e",
+        "filename": "host_power_off.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-22T04:22:31Z",
+      "side": 1,
+      "message": "rm? not used",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 17
+      },
+      "revId": "412382262d01bde75745631ddcd67159425f8e5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f022e50c_aa5d3130",
+        "filename": "test/handler_mock.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-22T04:22:31Z",
+      "side": 1,
+      "message": "Not sure if we want to use the new Mock Macro like in https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-ipmi-blobs/+/42611?\n\nOr just make is consistent.\n\nMaybe I\u0027ll make a new change to update it later.",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 63
+      },
+      "revId": "412382262d01bde75745631ddcd67159425f8e5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10db9ee1_3304f9ea",
+        "filename": "test/poweroff_unittest.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-22T04:22:31Z",
+      "side": 1,
+      "message": "rm? not being used?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 17
+      },
+      "revId": "412382262d01bde75745631ddcd67159425f8e5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41c726dc_332a504c",
+        "filename": "test/poweroff_unittest.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-06-22T04:22:31Z",
+      "side": 1,
+      "message": "rm? not used?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 24
+      },
+      "revId": "412382262d01bde75745631ddcd67159425f8e5e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
