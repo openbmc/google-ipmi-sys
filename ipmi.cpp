@@ -38,7 +38,7 @@ namespace google
 namespace ipmi
 {
 
-ipmi_ret_t handleSysCommand(HandlerInterface* handler, ipmi_cmd_t cmd,
+ipmi_ret_t handleSysCommand(HandlerInterface* handler, ipmi_cmd_t,
                             const uint8_t* reqBuf, uint8_t* replyCmdBuf,
                             size_t* dataLen)
 {

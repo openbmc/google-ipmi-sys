@@ -55,11 +55,10 @@ struct PcieSlotI2cBusMappingReply
     uint8_t subcommand;
     uint8_t i2c_bus_number;
     uint8_t pcie_slot_name_len;
-    uint8_t pcie_slot_name[0];
 } __attribute__((packed));
 
-ipmi_ret_t pcieSlotCount(const uint8_t* reqBuf, uint8_t* replyBuf,
-                         size_t* dataLen, HandlerInterface* handler)
+ipmi_ret_t pcieSlotCount(const uint8_t*, uint8_t* replyBuf, size_t* dataLen,
+                         HandlerInterface* handler)
 {
     if ((*dataLen) < sizeof(struct PcieSlotCountRequest))
     {
@@ -134,8 +133,7 @@ ipmi_ret_t pcieSlotI2cBusMapping(const uint8_t* reqBuf, uint8_t* replyBuf,
     // Copy the i2c bus number and the pcie slot name to the reply struct.
     reply->i2c_bus_number = i2c_bus_number;
     reply->pcie_slot_name_len = pcie_slot_name.length();
-    std::memcpy(reply->pcie_slot_name, pcie_slot_name.c_str(),
-                pcie_slot_name.length());
+    std::memcpy(reply + 1, pcie_slot_name.c_str(), pcie_slot_name.length());
 
     // Return the subcommand and the result.
     (*dataLen) = length;

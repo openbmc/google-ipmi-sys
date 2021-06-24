@@ -18,7 +18,6 @@ struct EthDeviceReply
     uint8_t channel;
     // ifNameLength doesn't include the null-terminator.
     uint8_t ifNameLength;
-    uint8_t ifName[0];
 } __attribute__((packed));
 
 // Handle the eth query command.

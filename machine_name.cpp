@@ -38,7 +38,6 @@ struct GetMachineNameReply
 {
     uint8_t subcommand;
     uint8_t machineNameLength;
-    uint8_t machineName[0];
 } __attribute__((packed));
 
 ipmi_ret_t getMachineName(const uint8_t* reqBuf, uint8_t* replyBuf,
