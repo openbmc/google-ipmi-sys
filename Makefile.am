@@ -2,8 +2,8 @@ AM_DEFAULT_SOURCE_EXT = .cpp
 
 if HAVE_SYSTEMD
 systemdsystemunit_DATA = \
-  gbmc-psu-hardreset.target \
-  gbmc-host-poweroff.target
+	gbmc-psu-hardreset.target \
+	gbmc-host-poweroff.target
 endif
 
 # Ignore system headers
