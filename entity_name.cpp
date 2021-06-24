@@ -51,7 +51,6 @@ struct GetEntityNameReply
 {
     uint8_t subcommand;
     uint8_t entityNameLength;
-    uint8_t entityName[0];
 } __attribute__((packed));
 
 ipmi_ret_t getEntityName(const uint8_t* reqBuf, uint8_t* replyBuf,
@@ -90,7 +89,7 @@ ipmi_ret_t getEntityName(const uint8_t* reqBuf, uint8_t* replyBuf,
     auto reply = reinterpret_cast<struct GetEntityNameReply*>(&replyBuf[0]);
     reply->subcommand = SysEntityName;
     reply->entityNameLength = entityName.length();
-    std::memcpy(reply->entityName, entityName.c_str(), entityName.length());
+    std::memcpy(reply + 1, entityName.c_str(), entityName.length());
 
     (*dataLen) = length;
     return IPMI_CC_OK;

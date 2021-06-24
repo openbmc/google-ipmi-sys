@@ -33,7 +33,6 @@ struct CableRequest
 {
     uint8_t subcommand;
     uint8_t ifNameLength;
-    uint8_t ifName[0];
 } __attribute__((packed));
 
 ipmi_ret_t cableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen,
@@ -76,7 +75,7 @@ ipmi_ret_t cableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen,
     // Maximum length one can specify, plus null terminator.
     char nameBuf[256] = {};
     // Copy the string out of the request buffer.
-    std::memcpy(&nameBuf[0], request->ifName, request->ifNameLength);
+    std::memcpy(&nameBuf[0], request + 1, request->ifNameLength);
     std::string name = nameBuf;
     int64_t count;
 
