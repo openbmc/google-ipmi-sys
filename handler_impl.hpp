@@ -24,7 +24,8 @@ class Handler : public HandlerInterface
         _configFile(entityConfigPath){};
     ~Handler() = default;
 
-    std::tuple<std::uint8_t, std::string> getEthDetails() const override;
+    std::tuple<std::uint8_t, std::string>
+        getEthDetails(std::string intf) const override;
     std::int64_t getRxPackets(const std::string& name) const override;
     VersionTuple getCpldVersion(unsigned int id) const override;
     void psuResetDelay(std::uint32_t delay) const override;

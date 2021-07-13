@@ -51,11 +51,12 @@ Response
 **Per the above, if the version number doesn't fit in a byte it'll be cast to
 size.**
 
-#### GetNcsiEthDevice - SubCommand 0x02
+#### GetEthDevice - SubCommand 0x02
 
 The BMC itself must have hard-coded into the image, which ethernet device is
 connected to the host NIC.  This is true also in the mapping of ethernet device
-to channel number.  The channel number is used to configure the ethernet device
+to channel number.  Alternatively, you can pass a specific interface
+name for channel lookup.  The channel number is used to configure the ethernet device
 over IPMI, instead of the interface name.  This is because we leverage the
 current IPMI command set to read and write the networking configuration.  Sys
 can be programmed already to have this information in the board protobuf,
@@ -66,6 +67,7 @@ Request
 |Byte(s) |Value  |Data
 |--------|-------|----
 |0x00|0x02|Subcommand
+|0x01... |if_name| (optional) The interface name, not null-terminated
 
 Response
 

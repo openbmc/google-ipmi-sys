@@ -16,12 +16,10 @@ namespace ipmi
 
 TEST(HandlerTest, EthCheckValidHappy)
 {
-    // The code returns compiled-in information, and therefore cannot really
-    // fail.
     Handler h;
-    std::tuple<std::uint8_t, std::string> result = h.getEthDetails();
-    EXPECT_EQ(1, std::get<0>(result));
-    EXPECT_STREQ("eth0", std::get<1>(result).c_str());
+    std::tuple<std::uint8_t, std::string> result = h.getEthDetails("et");
+    EXPECT_EQ(12, std::get<0>(result));
+    EXPECT_STREQ("et", std::get<1>(result).c_str());
 }
 
 TEST(HandlerTest, CableCheckIllegalPath)

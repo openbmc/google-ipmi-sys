@@ -24,7 +24,8 @@ class HandlerInterface
      *
      * @return tuple of ethernet details (channel, if name).
      */
-    virtual std::tuple<std::uint8_t, std::string> getEthDetails() const = 0;
+    virtual std::tuple<std::uint8_t, std::string>
+        getEthDetails(std::string intf) const = 0;
 
     /**
      * Return the value of rx_packets, given a if_name.

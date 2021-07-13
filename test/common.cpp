@@ -3,8 +3,8 @@
 
 namespace ipmi
 {
-std::uint8_t getChannelByName(const std::string&)
+std::uint8_t getChannelByName(const std::string& chName)
 {
-    return 1;
+    return chName.size() + 10;
 }
 } // namespace ipmi
