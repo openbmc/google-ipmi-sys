@@ -20,7 +20,8 @@ class HandlerMock : public HandlerInterface
   public:
     ~HandlerMock() = default;
 
-    MOCK_CONST_METHOD0(getEthDetails, std::tuple<std::uint8_t, std::string>());
+    MOCK_CONST_METHOD1(getEthDetails,
+                       std::tuple<std::uint8_t, std::string>(std::string));
     MOCK_CONST_METHOD1(getRxPackets, std::int64_t(const std::string&));
     MOCK_CONST_METHOD1(getCpldVersion,
                        std::tuple<std::uint8_t, std::uint8_t, std::uint8_t,

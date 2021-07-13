@@ -66,10 +66,14 @@ using namespace phosphor::logging;
 using InternalFailure =
     sdbusplus::xyz::openbmc_project::Common::Error::InternalFailure;
 
-std::tuple<std::uint8_t, std::string> Handler::getEthDetails() const
+std::tuple<std::uint8_t, std::string>
+    Handler::getEthDetails(std::string intf) const
 {
-    return std::make_tuple<std::uint8_t, std::string>(
-        ::ipmi::getChannelByName(NCSI_IF_NAME_STR), NCSI_IF_NAME_STR);
+    if (intf.empty())
+    {
+        intf = NCSI_IF_NAME_STR;
+    }
+    return std::make_tuple(::ipmi::getChannelByName(intf), std::move(intf));
 }
 
 std::int64_t Handler::getRxPackets(const std::string& name) const
