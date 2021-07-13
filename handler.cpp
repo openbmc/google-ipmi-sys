@@ -42,13 +42,6 @@
 #include <tuple>
 #include <xyz/openbmc_project/Common/error.hpp>
 
-// The phosphor-host-ipmi daemon requires a configuration that maps
-// the if_name to the IPMI LAN channel.  However, that doesn't strictly
-// define which is meant to be used for NCSI.
-#ifndef NCSI_IPMI_CHANNEL
-#define NCSI_IPMI_CHANNEL 1
-#endif
-
 #ifndef NCSI_IF_NAME
 #define NCSI_IF_NAME eth0
 #endif
@@ -57,6 +50,11 @@
 #define QUOTE(name) #name
 #define STR(macro) QUOTE(macro)
 #define NCSI_IF_NAME_STR STR(NCSI_IF_NAME)
+
+namespace ipmi
+{
+std::uint8_t getChannelByName(const std::string& chName);
+}
 
 namespace google
 {
@@ -70,7 +68,8 @@ using InternalFailure =
 
 std::tuple<std::uint8_t, std::string> Handler::getEthDetails() const
 {
-    return std::make_tuple(NCSI_IPMI_CHANNEL, NCSI_IF_NAME_STR);
+    return std::make_tuple<std::uint8_t, std::string>(
+        ::ipmi::getChannelByName(NCSI_IF_NAME_STR), NCSI_IF_NAME_STR);
 }
 
 std::int64_t Handler::getRxPackets(const std::string& name) const
