@@ -22,6 +22,30 @@
       "revId": "8d3d46a2746c03657a6406ec2a2dcd576e40626f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a31b6e6_6a135509",
+        "filename": "handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-16T07:55:22Z",
+      "side": 1,
+      "message": "oh wait... where is the logic of the fuction?\n\nis this just the one in phosphor-host-ipmid/user_channel/channel_layer.cpp?",
+      "parentUuid": "4dae84b2_1d558355",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 1
+      },
+      "revId": "8d3d46a2746c03657a6406ec2a2dcd576e40626f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
