@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "17cf5e7f_ddf86e8e",
+        "filename": "eth.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-16T14:37:01Z",
+      "side": 1,
+      "message": "Update this information in the README.md",
+      "revId": "20396795d469ecf82cd1490b0b54682f00aace82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4224cf20_70700138",
         "filename": "handler.hpp",
         "patchSetId": 1
@@ -13,6 +30,30 @@
       "writtenOn": "2021-07-16T07:56:39Z",
       "side": 1,
       "message": "use const std::string\u0026 instead?",
+      "range": {
+        "startLine": 28,
+        "startChar": 22,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "20396795d469ecf82cd1490b0b54682f00aace82",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1581d78f_895d2b90",
+        "filename": "handler.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-16T14:37:01Z",
+      "side": 1,
+      "message": "Just saw why you didn’t used const reference based on the implementation.\n\nIs it better making a copy at the function call rather than creating a new variable in the function?",
+      "parentUuid": "4224cf20_70700138",
       "range": {
         "startLine": 28,
         "startChar": 22,
