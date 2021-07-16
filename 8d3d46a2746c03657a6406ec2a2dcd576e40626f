@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4dae84b2_1d558355",
+        "filename": "handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-07-16T07:47:08Z",
+      "side": 1,
+      "message": "how come this is in the ipmi namespace instead of google::ipmi?\n\nany reason for that?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 1
+      },
+      "revId": "8d3d46a2746c03657a6406ec2a2dcd576e40626f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
