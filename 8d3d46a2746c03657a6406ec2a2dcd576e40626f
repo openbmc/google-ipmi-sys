@@ -46,6 +46,30 @@
       "revId": "8d3d46a2746c03657a6406ec2a2dcd576e40626f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd340cf7_9dc076a4",
+        "filename": "handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-07-26T20:47:45Z",
+      "side": 1,
+      "message": "Yeah, we are just pulling in that function in the code here.",
+      "parentUuid": "0a31b6e6_6a135509",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 1
+      },
+      "revId": "8d3d46a2746c03657a6406ec2a2dcd576e40626f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
