@@ -22,6 +22,7 @@
 
 #include <cstdint>
 #include <cstring>
+#include <ipmid/api-types.hpp>
 #include <string>
 #include <vector>
 
@@ -32,28 +33,10 @@ namespace ipmi
 
 struct GetFlashSizeRequest
 {
-    uint8_t subcommand;
 } __attribute__((packed));
 
-struct GetFlashSizeReply
+Resp getFlashSize(const std::vector<std::uint8_t>&, HandlerInterface* handler)
 {
-    uint8_t subcommand;
-    uint32_t flashSize;
-} __attribute__((packed));
-
-ipmi_ret_t getFlashSize(const uint8_t* reqBuf, uint8_t* replyBuf,
-                        size_t* dataLen, HandlerInterface* handler)
-{
-    struct GetFlashSizeRequest request;
-
-    if ((*dataLen) < sizeof(request))
-    {
-        std::fprintf(stderr, "Invalid command length: %u\n",
-                     static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_REQ_DATA_LEN_INVALID;
-    }
-
-    std::memcpy(&request, &reqBuf[0], sizeof(request));
     uint32_t flashSize;
     try
     {
@@ -61,15 +44,15 @@ ipmi_ret_t getFlashSize(const uint8_t* reqBuf, uint8_t* replyBuf,
     }
     catch (const IpmiException& e)
     {
-        return e.getIpmiError();
+        return ::ipmi::response(e.getIpmiError());
     }
 
-    auto reply = reinterpret_cast<struct GetFlashSizeReply*>(&replyBuf[0]);
-    reply->subcommand = SysGetFlashSize;
-    reply->flashSize = htole32(flashSize);
-
-    (*dataLen) = sizeof(struct GetFlashSizeReply);
-    return IPMI_CC_OK;
+    flashSize = htole32(flashSize);
+    return ::ipmi::responseSuccess(
+        SysOEMCommands::SysGetFlashSize,
+        std::vector<std::uint8_t>((std::uint8_t*)&(flashSize),
+                                  (std::uint8_t*)&(flashSize) +
+                                      sizeof(std::uint32_t)));
 }
 } // namespace ipmi
 } // namespace google
