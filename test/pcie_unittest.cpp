@@ -1,5 +1,6 @@
 #include "commands.hpp"
 #include "handler_mock.hpp"
+#include "helper.hpp"
 #include "pcie_i2c.hpp"
 
 #include <cstdint>
@@ -8,8 +9,6 @@
 #include <vector>
 
 #include <gtest/gtest.h>
-
-#define MAX_IPMI_BUFFER 64
 
 using ::testing::Return;
 
@@ -20,67 +19,57 @@ namespace ipmi
 
 TEST(PcieI2cCommandTest, PcieSlotCountTest)
 {
-    std::vector<std::uint8_t> request = {SysOEMCommands::SysPcieSlotCount};
-    size_t dataLen = request.size();
-    std::uint8_t reply[MAX_IPMI_BUFFER];
+    std::vector<std::uint8_t> request = {};
     size_t expectedSize = 3;
 
     HandlerMock hMock;
     EXPECT_CALL(hMock, buildI2cPcieMapping());
     EXPECT_CALL(hMock, getI2cPcieMappingSize()).WillOnce(Return(expectedSize));
-    EXPECT_EQ(IPMI_CC_OK,
-              pcieSlotCount(request.data(), reply, &dataLen, &hMock));
-    EXPECT_EQ(expectedSize, reply[1]);
+
+    auto reply = pcieSlotCount(request, &hMock);
+    auto result = ValidateReply(reply);
+    auto& data = result.second;
+
+    EXPECT_EQ(sizeof(struct PcieSlotCountReply), data.size());
+    EXPECT_EQ(SysOEMCommands::SysPcieSlotCount, result.first);
+    EXPECT_EQ(expectedSize, data[0]);
 }
 
 TEST(PcieI2cCommandTest, PcieSlotEntryRequestTooShort)
 {
-    std::vector<std::uint8_t> request = {
-        SysOEMCommands::SysPcieSlotI2cBusMapping};
-    size_t dataLen = request.size();
-    std::uint8_t reply[MAX_IPMI_BUFFER];
+    std::vector<std::uint8_t> request = {};
 
     HandlerMock hMock;
-    EXPECT_EQ(IPMI_CC_REQ_DATA_LEN_INVALID,
-              pcieSlotI2cBusMapping(request.data(), reply, &dataLen, &hMock));
+    EXPECT_EQ(::ipmi::responseReqDataLenInvalid(),
+              pcieSlotI2cBusMapping(request, &hMock));
 }
 
 TEST(PcieI2cCommandTest, PcieSlotEntryRequestUnsupportedByPlatform)
 {
     // If there is no mapping in the device-tree, then the map is of size zero.
-    std::vector<std::uint8_t> request = {
-        SysOEMCommands::SysPcieSlotI2cBusMapping, 0};
-    size_t dataLen = request.size();
-    std::uint8_t reply[MAX_IPMI_BUFFER];
+    std::vector<std::uint8_t> request = {0};
 
     HandlerMock hMock;
     EXPECT_CALL(hMock, getI2cPcieMappingSize()).WillOnce(Return(0));
-    EXPECT_EQ(IPMI_CC_INVALID_RESERVATION_ID,
-              pcieSlotI2cBusMapping(request.data(), reply, &dataLen, &hMock));
+    EXPECT_EQ(::ipmi::responseInvalidReservationId(),
+              pcieSlotI2cBusMapping(request, &hMock));
 }
 
 TEST(PcieI2cCommandTest, PcieSlotEntryRequestInvalidIndex)
 {
     // index of 1 is invalid if length is 1.
-    std::vector<std::uint8_t> request = {
-        SysOEMCommands::SysPcieSlotI2cBusMapping, 1};
-    size_t dataLen = request.size();
-    std::uint8_t reply[MAX_IPMI_BUFFER];
+    std::vector<std::uint8_t> request = {1};
 
     HandlerMock hMock;
     EXPECT_CALL(hMock, getI2cPcieMappingSize()).WillOnce(Return(1));
-    EXPECT_EQ(IPMI_CC_PARM_OUT_OF_RANGE,
-              pcieSlotI2cBusMapping(request.data(), reply, &dataLen, &hMock));
+    EXPECT_EQ(::ipmi::responseParmOutOfRange(),
+              pcieSlotI2cBusMapping(request, &hMock));
 }
 
 TEST(PcieI2cCommandTest, PcieSlotEntryRequestValidIndex)
 {
     unsigned int index = 0;
-    std::vector<std::uint8_t> request = {
-        SysOEMCommands::SysPcieSlotI2cBusMapping,
-        static_cast<std::uint8_t>(index)};
-    size_t dataLen = request.size();
-    std::uint8_t reply[MAX_IPMI_BUFFER];
+    std::vector<std::uint8_t> request = {static_cast<std::uint8_t>(index)};
     std::string slotName = "abcd";
     std::uint32_t busNum = 5;
 
@@ -88,11 +77,18 @@ TEST(PcieI2cCommandTest, PcieSlotEntryRequestValidIndex)
     EXPECT_CALL(hMock, getI2cPcieMappingSize()).WillOnce(Return(1));
     EXPECT_CALL(hMock, getI2cEntry(index))
         .WillOnce(Return(std::make_tuple(busNum, slotName)));
-    EXPECT_EQ(IPMI_CC_OK,
-              pcieSlotI2cBusMapping(request.data(), reply, &dataLen, &hMock));
-    EXPECT_EQ(busNum, reply[1]);
-    EXPECT_EQ(slotName.length(), reply[2]);
-    EXPECT_EQ(0, std::memcmp(slotName.c_str(), &reply[3], reply[2]));
+
+    auto reply = pcieSlotI2cBusMapping(request, &hMock);
+    auto result = ValidateReply(reply);
+    auto& data = result.second;
+
+    EXPECT_EQ(SysOEMCommands::SysPcieSlotI2cBusMapping, result.first);
+    EXPECT_EQ(busNum, data[0]);
+    EXPECT_EQ(slotName.length(), data[1]);
+    EXPECT_EQ(
+        slotName,
+        std::string(data.begin() + sizeof(struct PcieSlotI2cBusMappingReply),
+                    data.end()));
 }
 
 } // namespace ipmi
