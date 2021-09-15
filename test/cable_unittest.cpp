@@ -1,14 +1,14 @@
 #include "cable.hpp"
 #include "commands.hpp"
 #include "handler_mock.hpp"
+#include "helper.hpp"
 
 #include <cstdint>
 #include <cstring>
+#include <tuple>
 #include <vector>
 
 #include <gtest/gtest.h>
-
-#define MAX_IPMI_BUFFER 64
 
 using ::testing::Return;
 using ::testing::StrEq;
@@ -20,69 +20,49 @@ namespace ipmi
 
 TEST(CableCommandTest, RequestTooSmall)
 {
-    std::vector<std::uint8_t> request = {SysOEMCommands::SysCableCheck};
-    size_t dataLen = request.size();
-    std::uint8_t reply[MAX_IPMI_BUFFER];
-
+    std::vector<std::uint8_t> request = {};
     HandlerMock hMock;
 
-    EXPECT_EQ(IPMI_CC_REQ_DATA_LEN_INVALID,
-              cableCheck(request.data(), reply, &dataLen, &hMock));
+    EXPECT_EQ(::ipmi::responseReqDataLenInvalid(), cableCheck(request, &hMock));
 }
 
 TEST(CableCommandTest, FailsLengthSanityCheck)
 {
     // Minimum is three bytes, but a length of zero for the string is invalid.
-    std::vector<std::uint8_t> request = {SysOEMCommands::SysCableCheck, 0x00,
-                                         'a'};
-
-    size_t dataLen = request.size();
-    std::uint8_t reply[MAX_IPMI_BUFFER];
-
+    std::vector<std::uint8_t> request = {0x00, 'a'};
     HandlerMock hMock;
 
-    EXPECT_EQ(IPMI_CC_REQ_DATA_LEN_INVALID,
-              cableCheck(request.data(), reply, &dataLen, &hMock));
+    EXPECT_EQ(::ipmi::responseReqDataLenInvalid(), cableCheck(request, &hMock));
 }
 
 TEST(CableCommandTest, LengthTooLongForPacket)
 {
     // The length of a the string, as specified is longer than string provided.
-    std::vector<std::uint8_t> request = {SysOEMCommands::SysCableCheck, 0x02,
-                                         'a'};
-
-    size_t dataLen = request.size();
-    std::uint8_t reply[MAX_IPMI_BUFFER];
-
+    std::vector<std::uint8_t> request = {0x02, 'a'};
     HandlerMock hMock;
 
-    EXPECT_EQ(IPMI_CC_REQ_DATA_LEN_INVALID,
-              cableCheck(request.data(), reply, &dataLen, &hMock));
+    EXPECT_EQ(::ipmi::responseReqDataLenInvalid(), cableCheck(request, &hMock));
 }
 
 TEST(CableCommandTest, ValidRequestValidReturn)
 {
-    std::vector<std::uint8_t> request = {SysOEMCommands::SysCableCheck, 0x01,
-                                         'a'};
-
-    size_t dataLen = request.size();
-    std::uint8_t reply[MAX_IPMI_BUFFER];
+    std::vector<std::uint8_t> request = {0x01, 'a'};
 
     HandlerMock hMock;
 
     EXPECT_CALL(hMock, getRxPackets(StrEq("a"))).WillOnce(Return(0));
-    EXPECT_EQ(IPMI_CC_OK, cableCheck(request.data(), reply, &dataLen, &hMock));
 
     // Check results.
-    struct CableReply expectedReply, actualReply;
-    expectedReply.subcommand = SysOEMCommands::SysCableCheck;
+    struct CableReply expectedReply;
     expectedReply.value = 0;
 
-    EXPECT_EQ(sizeof(expectedReply), dataLen);
-    std::memcpy(&actualReply, reply, dataLen);
+    auto reply = cableCheck(request, &hMock);
+    auto result = ValidateReply(reply);
+    auto& data = result.second;
 
-    EXPECT_EQ(expectedReply.subcommand, actualReply.subcommand);
-    EXPECT_EQ(expectedReply.value, actualReply.value);
+    EXPECT_EQ(sizeof(struct CableReply), data.size());
+    EXPECT_EQ(SysOEMCommands::SysCableCheck, result.first);
+    EXPECT_EQ(expectedReply.value, data[0]);
 }
 
 } // namespace ipmi
