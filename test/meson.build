@@ -7,6 +7,7 @@ tests_pre = declare_dependency(
 tests_lib = static_library(
   'common',
   'common.cpp',
+  'helper.cpp',
   implicit_include_directories: false,
   dependencies: tests_pre)
 
