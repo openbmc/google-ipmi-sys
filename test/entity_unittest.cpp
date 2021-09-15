@@ -1,6 +1,7 @@
 #include "commands.hpp"
 #include "entity_name.hpp"
 #include "handler_mock.hpp"
+#include "helper.hpp"
 
 #include <cstdint>
 #include <cstring>
@@ -21,32 +22,34 @@ namespace ipmi
 TEST(EntityNameCommandTest, InvalidCommandLength)
 {
     // GetEntityNameRequest is three bytes, let's send 2.
-    std::vector<std::uint8_t> request = {SysOEMCommands::SysEntityName, 0x01};
-    size_t dataLen = request.size();
-    std::uint8_t reply[MAX_IPMI_BUFFER];
-
+    std::vector<std::uint8_t> request = {0x01};
     HandlerMock hMock;
-    EXPECT_EQ(IPMI_CC_REQ_DATA_LEN_INVALID,
-              getEntityName(request.data(), reply, &dataLen, &hMock));
+
+    EXPECT_EQ(::ipmi::responseReqDataLenInvalid(),
+              getEntityName(request, &hMock));
 }
 
 TEST(EntityNameCommandTest, ValidRequest)
 {
     std::uint8_t entityId = 3;
     std::uint8_t entityInstance = 5;
-    std::vector<std::uint8_t> request = {SysOEMCommands::SysEntityName,
-                                         entityId, entityInstance};
-    size_t dataLen = request.size();
-    std::uint8_t reply[MAX_IPMI_BUFFER];
+    std::vector<std::uint8_t> request = {entityId, entityInstance};
     std::string entityName = "asdf";
 
     HandlerMock hMock;
     EXPECT_CALL(hMock, getEntityName(entityId, entityInstance))
         .WillOnce(Return(entityName));
-    EXPECT_EQ(IPMI_CC_OK,
-              getEntityName(request.data(), reply, &dataLen, &hMock));
-    EXPECT_EQ(reply[1], entityName.length());
-    EXPECT_EQ(0, std::memcmp(&reply[2], entityName.c_str(), reply[1]));
+
+    auto reply = getEntityName(request, &hMock);
+    auto result = ValidateReply(reply);
+    auto& data = result.second;
+
+    EXPECT_EQ(sizeof(GetEntityNameReply) + entityName.size(), data.size());
+    EXPECT_EQ(SysOEMCommands::SysEntityName, result.first);
+    EXPECT_EQ(entityName.length(), data[0]);
+    EXPECT_EQ(entityName.data(),
+              std::string(data.begin() + sizeof(struct GetEntityNameReply),
+                          data.end()));
 }
 
 } // namespace ipmi
