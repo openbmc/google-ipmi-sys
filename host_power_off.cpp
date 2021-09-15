@@ -22,38 +22,38 @@
 
 #include <cstdint>
 #include <cstring>
+#include <ipmid/api-types.hpp>
+#include <vector>
 
 namespace google
 {
 namespace ipmi
 {
 
-ipmi_ret_t hostPowerOff(const uint8_t* reqBuf, uint8_t* replyBuf,
-                        size_t* dataLen, const HandlerInterface* handler)
+Resp hostPowerOff(const std::vector<std::uint8_t>& data,
+                  const HandlerInterface* handler)
 {
     struct HostPowerOffRequest request;
 
-    if ((*dataLen) < sizeof(request))
+    if (data.size() < sizeof(request))
     {
         std::fprintf(stderr, "Invalid command length: %u\n",
-                     static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_REQ_DATA_LEN_INVALID;
+                     static_cast<uint32_t>(data.size()));
+        return ::ipmi::responseReqDataLenInvalid();
     }
 
-    std::memcpy(&request, &reqBuf[0], sizeof(struct HostPowerOffRequest));
+    std::memcpy(&request, data.data(), sizeof(struct HostPowerOffRequest));
     try
     {
         handler->hostPowerOffDelay(request.delay);
     }
     catch (const IpmiException& e)
     {
-        return e.getIpmiError();
+        return ::ipmi::response(e.getIpmiError());
     }
 
-    replyBuf[0] = SysHostPowerOff;
-    (*dataLen) = sizeof(uint8_t);
-
-    return IPMI_CC_OK;
+    return ::ipmi::responseSuccess(SysOEMCommands::SysHostPowerOff,
+                                   std::nullopt);
 }
 } // namespace ipmi
 } // namespace google

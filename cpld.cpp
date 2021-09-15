@@ -21,6 +21,8 @@
 #include "handler.hpp"
 
 #include <cstring>
+#include <ipmid/api-types.hpp>
+#include <vector>
 
 namespace google
 {
@@ -29,42 +31,31 @@ namespace ipmi
 
 struct CpldRequest
 {
-    uint8_t subcommand;
     uint8_t id;
-} __attribute__((packed));
-
-struct CpldReply
-{
-    uint8_t subcommand;
-    uint8_t major;
-    uint8_t minor;
-    uint8_t point;
-    uint8_t subpoint;
 } __attribute__((packed));
 
 //
 // Handle reading the cpld version from the tmpfs.
 //
-ipmi_ret_t cpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
-                       size_t* dataLen, const HandlerInterface* handler)
+Resp cpldVersion(const std::vector<std::uint8_t>& data,
+                 const HandlerInterface* handler)
 {
     struct CpldRequest request;
 
-    if ((*dataLen) < sizeof(request))
+    if (data.size() < sizeof(request))
     {
         std::fprintf(stderr, "Invalid command length: %u\n",
-                     static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_REQ_DATA_LEN_INVALID;
+                     static_cast<uint32_t>(data.size()));
+        return ::ipmi::responseReqDataLenInvalid();
     }
 
-    // reqBuf[0] is the subcommand.
-    // reqBuf[1] is the CPLD id. "/run/cpld{id}.version" is what we read.
+    // data[0] is the CPLD id. "/run/cpld{id}.version" is what we read.
     // Verified that this cast actually returns the value 255 and not something
-    // negative in the case where reqBuf[1] is 0xff.  However, it looks weird
+    // negative in the case where data[0] is 0xff.  However, it looks weird
     // since I would expect int(uint8(0xff)) to be -1.  So, just cast it
     // unsigned. we're casting to an int width to avoid it thinking it's a
     // letter, because it does that.
-    std::memcpy(&request, &reqBuf[0], sizeof(request));
+    std::memcpy(&request, data.data(), sizeof(request));
 
     try
     {
@@ -72,20 +63,18 @@ ipmi_ret_t cpldVersion(const uint8_t* reqBuf, uint8_t* replyBuf,
             handler->getCpldVersion(static_cast<unsigned int>(request.id));
 
         // Truncate if the version is too high (documented).
-        struct CpldReply reply;
-        reply.subcommand = SysCpldVersion;
-        reply.major = std::get<0>(values);
-        reply.minor = std::get<1>(values);
-        reply.point = std::get<2>(values);
-        reply.subpoint = std::get<3>(values);
+        auto major = std::get<0>(values);
+        auto minor = std::get<1>(values);
+        auto point = std::get<2>(values);
+        auto subpoint = std::get<3>(values);
 
-        std::memcpy(&replyBuf[0], &reply, sizeof(reply));
-        (*dataLen) = sizeof(reply);
-        return IPMI_CC_OK;
+        return ::ipmi::responseSuccess(
+            SysOEMCommands::SysCpldVersion,
+            std::vector<std::uint8_t>{major, minor, point, subpoint});
     }
     catch (const IpmiException& e)
     {
-        return e.getIpmiError();
+        return ::ipmi::response(e.getIpmiError());
     }
 }
 
