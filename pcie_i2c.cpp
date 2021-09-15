@@ -15,9 +15,11 @@
 #include "pcie_i2c.hpp"
 
 #include "commands.hpp"
+#include "handler.hpp"
 
 #include <cstdint>
 #include <cstring>
+#include <ipmid/api-types.hpp>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -31,82 +33,49 @@ namespace ipmi
 #define MAX_IPMI_BUFFER 64
 #endif
 
-struct PcieSlotCountRequest
-{
-    uint8_t subcommand;
-} __attribute__((packed));
-
-struct PcieSlotCountReply
-{
-    uint8_t subcommand;
-    uint8_t value;
-} __attribute__((packed));
-
 struct PcieSlotI2cBusMappingRequest
 {
-    uint8_t subcommand;
     uint8_t entry;
 } __attribute__((packed));
 
-struct PcieSlotI2cBusMappingReply
+Resp pcieSlotCount(const std::vector<std::uint8_t>&, HandlerInterface* handler)
 {
-    uint8_t subcommand;
-    uint8_t i2c_bus_number;
-    uint8_t pcie_slot_name_len;
-} __attribute__((packed));
-
-ipmi_ret_t pcieSlotCount(const uint8_t*, uint8_t* replyBuf, size_t* dataLen,
-                         HandlerInterface* handler)
-{
-    if ((*dataLen) < sizeof(struct PcieSlotCountRequest))
-    {
-        std::fprintf(stderr, "Invalid command length: %u\n",
-                     static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_REQ_DATA_LEN_INVALID;
-    }
-
     // If there are already entries in the vector, clear them.
     handler->buildI2cPcieMapping();
 
-    struct PcieSlotCountReply reply;
-    reply.subcommand = SysPcieSlotCount;
     // Fill the pcie slot count as the number of entries in the vector.
-    reply.value = handler->getI2cPcieMappingSize();
+    std::uint8_t value = handler->getI2cPcieMappingSize();
 
-    std::memcpy(&replyBuf[0], &reply, sizeof(reply));
-
-    // Return the subcommand and the result.
-    (*dataLen) = sizeof(reply);
-
-    return IPMI_CC_OK;
+    return ::ipmi::responseSuccess(SysOEMCommands::SysPcieSlotCount,
+                                   std::vector<std::uint8_t>{value});
 }
 
-ipmi_ret_t pcieSlotI2cBusMapping(const uint8_t* reqBuf, uint8_t* replyBuf,
-                                 size_t* dataLen, HandlerInterface* handler)
+Resp pcieSlotI2cBusMapping(const std::vector<std::uint8_t>& data,
+                           HandlerInterface* handler)
 {
     struct PcieSlotI2cBusMappingRequest request;
 
-    if ((*dataLen) < sizeof(request))
+    if (data.size() < sizeof(request))
     {
         std::fprintf(stderr, "Invalid command length: %u\n",
-                     static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_REQ_DATA_LEN_INVALID;
+                     static_cast<uint32_t>(data.size()));
+        return ::ipmi::responseReqDataLenInvalid();
     }
 
     // If there are no entries in the vector return error.
     size_t mapSize = handler->getI2cPcieMappingSize();
     if (mapSize == 0)
     {
-        return IPMI_CC_INVALID_RESERVATION_ID;
+        return ::ipmi::responseInvalidReservationId();
     }
 
-    std::memcpy(&request, &reqBuf[0], sizeof(request));
+    std::memcpy(&request, data.data(), sizeof(request));
 
     // The valid entries range from 0 to N - 1, N being the total number of
     // entries in the vector.
     if (request.entry >= mapSize)
     {
-        return IPMI_CC_PARM_OUT_OF_RANGE;
+        return ::ipmi::responseParmOutOfRange();
     }
 
     // Get the i2c bus number and the pcie slot name from the vector.
@@ -122,20 +91,20 @@ ipmi_ret_t pcieSlotI2cBusMapping(const uint8_t* reqBuf, uint8_t* replyBuf,
     if (length > MAX_IPMI_BUFFER)
     {
         std::fprintf(stderr, "Response would overflow response buffer\n");
-        return IPMI_CC_INVALID;
+        return ::ipmi::responseInvalidCommand();
     }
 
-    auto reply =
-        reinterpret_cast<struct PcieSlotI2cBusMappingReply*>(&replyBuf[0]);
-    reply->subcommand = SysPcieSlotI2cBusMapping;
+    std::vector<std::uint8_t> reply;
+    reply.reserve(pcie_slot_name.length() +
+                  sizeof(struct PcieSlotI2cBusMappingReply));
     // Copy the i2c bus number and the pcie slot name to the reply struct.
-    reply->i2c_bus_number = i2c_bus_number;
-    reply->pcie_slot_name_len = pcie_slot_name.length();
-    std::memcpy(reply + 1, pcie_slot_name.c_str(), pcie_slot_name.length());
+    reply.emplace_back(i2c_bus_number);          /* i2c_bus_number */
+    reply.emplace_back(pcie_slot_name.length()); /* pcie_slot_name length */
+    reply.insert(reply.end(), pcie_slot_name.begin(),
+                 pcie_slot_name.end()); /* pcie_slot_name */
 
-    // Return the subcommand and the result.
-    (*dataLen) = length;
-    return IPMI_CC_OK;
+    return ::ipmi::responseSuccess(SysOEMCommands::SysPcieSlotI2cBusMapping,
+                                   reply);
 }
 } // namespace ipmi
 } // namespace google

@@ -20,67 +20,54 @@
 
 #include <cstdint>
 #include <cstring>
+#include <ipmid/api-types.hpp>
+#include <vector>
 
 namespace google
 {
 namespace ipmi
 {
 
-ipmi_ret_t psuHardReset(const uint8_t* reqBuf, uint8_t* replyBuf,
-                        size_t* dataLen, const HandlerInterface* handler)
+Resp psuHardReset(const std::vector<std::uint8_t>& data,
+                  const HandlerInterface* handler)
 {
     struct PsuResetRequest request;
 
-    if ((*dataLen) < sizeof(request))
+    if (data.size() < sizeof(request))
     {
         std::fprintf(stderr, "Invalid command length: %u\n",
-                     static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_REQ_DATA_LEN_INVALID;
+                     static_cast<uint32_t>(data.size()));
+        return ::ipmi::responseReqDataLenInvalid();
     }
 
-    std::memcpy(&request, &reqBuf[0], sizeof(struct PsuResetRequest));
+    std::memcpy(&request, data.data(), sizeof(struct PsuResetRequest));
     try
     {
         handler->psuResetDelay(request.delay);
     }
     catch (const IpmiException& e)
     {
-        return e.getIpmiError();
+        return ::ipmi::response(e.getIpmiError());
     }
 
-    replyBuf[0] = SysPsuHardReset;
-    (*dataLen) = sizeof(uint8_t);
-
-    return IPMI_CC_OK;
+    return ::ipmi::responseSuccess(SysOEMCommands::SysPsuHardReset,
+                                   std::vector<uint8_t>{});
 }
 
-ipmi_ret_t psuHardResetOnShutdown(const uint8_t* reqBuf, uint8_t* replyBuf,
-                                  size_t* dataLen,
-                                  const HandlerInterface* handler)
+Resp psuHardResetOnShutdown(const std::vector<std::uint8_t>&,
+                            const HandlerInterface* handler)
 {
-    struct PsuResetOnShutdownRequest request;
-
-    if ((*dataLen) < sizeof(request))
-    {
-        std::fprintf(stderr, "Invalid command length: %u\n",
-                     static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_REQ_DATA_LEN_INVALID;
-    }
-
-    std::memcpy(&request, &reqBuf[0], sizeof(request));
     try
     {
         handler->psuResetOnShutdown();
     }
     catch (const IpmiException& e)
     {
-        return e.getIpmiError();
+        return ::ipmi::response(e.getIpmiError());
     }
 
-    replyBuf[0] = SysPsuHardResetOnShutdown;
-    (*dataLen) = sizeof(uint8_t);
-
-    return IPMI_CC_OK;
+    return ::ipmi::responseSuccess(SysOEMCommands::SysPsuHardResetOnShutdown,
+                                   std::vector<uint8_t>{});
 }
 
 } // namespace ipmi

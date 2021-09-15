@@ -20,8 +20,10 @@
 #include <cstdint>
 #include <cstdio>
 #include <functional>
+#include <ipmid/api-types.hpp>
+#include <ipmid/handler.hpp>
 #include <ipmid/iana.hpp>
-#include <ipmid/oemrouter.hpp>
+#include <span>
 
 namespace oem
 {
@@ -41,16 +43,17 @@ void setupGoogleOemSysCommands() __attribute__((constructor));
 void setupGoogleOemSysCommands()
 {
     static Handler handlerImpl;
-    oem::Router* oemRouter = oem::mutableRouter();
 
     std::fprintf(stderr,
                  "Registering OEM:[%#08X], Cmd:[%#04X] for Sys Commands\n",
                  oem::googOemNumber, oem::google::sysCmd);
 
-    using namespace std::placeholders;
-    oemRouter->registerHandler(
-        oem::googOemNumber, oem::google::sysCmd,
-        std::bind(handleSysCommand, &handlerImpl, _1, _2, _3, _4));
+    ::ipmi::registerOemHandler(
+        ::ipmi::prioOemBase, oem::googOemNumber, oem::google::sysCmd,
+        ::ipmi::Privilege::User,
+        [](::ipmi::Context::ptr ctx, uint8_t cmd, std::vector<uint8_t> data) {
+            return handleSysCommand(&handlerImpl, ctx, cmd, data);
+        });
 }
 
 } // namespace ipmi

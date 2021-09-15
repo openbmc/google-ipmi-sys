@@ -15,7 +15,9 @@
 #pragma once
 
 #include <cstdint>
+#include <ipmid/api-types.hpp>
 #include <map>
+#include <span>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -24,6 +26,8 @@ namespace google
 {
 namespace ipmi
 {
+
+using Resp = ::ipmi::RspType<std::uint8_t, std::vector<uint8_t>>;
 
 using VersionTuple =
     std::tuple<std::uint8_t, std::uint8_t, std::uint8_t, std::uint8_t>;
