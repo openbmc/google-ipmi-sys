@@ -18,13 +18,21 @@
 
 #include <ipmid/api.h>
 
+#include <ipmid/api-types.hpp>
+#include <vector>
+
 namespace google
 {
 namespace ipmi
 {
 
-ipmi_ret_t getFlashSize(const uint8_t* reqBuf, uint8_t* replyBuf,
-                        size_t* dataLen, HandlerInterface* handler);
+struct GetFlashSizeReply
+{
+    uint32_t flashSize;
+} __attribute__((packed));
+
+Resp getFlashSize(const std::vector<std::uint8_t>& data,
+                  HandlerInterface* handler);
 
 } // namespace ipmi
 } // namespace google
