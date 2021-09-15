@@ -19,18 +19,15 @@
 
 #include <cstdint>
 #include <cstring>
+#include <ipmid/api-types.hpp>
 #include <string>
 #include <tuple>
+#include <vector>
 
 namespace google
 {
 namespace ipmi
 {
-
-struct EthDeviceRequest
-{
-    uint8_t subcommand;
-} __attribute__((packed));
 
 // TOOD(venture): The ipmid.h has this macro, which is a header we
 // can't normally access.
@@ -38,44 +35,32 @@ struct EthDeviceRequest
 #define MAX_IPMI_BUFFER 64
 #endif
 
-ipmi_ret_t getEthDevice(const uint8_t* reqBuf, uint8_t* replyBuf,
-                        size_t* dataLen, const HandlerInterface* handler)
+Resp getEthDevice(const std::vector<std::uint8_t>& data,
+                  const HandlerInterface* handler)
 {
-    if ((*dataLen) < sizeof(struct EthDeviceRequest))
-    {
-        std::fprintf(stderr, "Invalid command length: %u\n",
-                     static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_REQ_DATA_LEN_INVALID;
-    }
-    reqBuf += sizeof(struct EthDeviceRequest);
-    *dataLen -= sizeof(struct EthDeviceRequest);
-
-    std::tuple<std::uint8_t, std::string> details = handler->getEthDetails(
-        std::string(reinterpret_cast<const char*>(reqBuf), *dataLen));
+    std::tuple<std::uint8_t, std::string> details =
+        handler->getEthDetails(std::string(data.begin(), data.end()));
 
     std::string device = std::get<1>(details);
     if (device.length() == 0)
     {
         std::fprintf(stderr, "Invalid eth string\n");
-        return IPMI_CC_REQ_DATA_LEN_INVALID;
+        return ::ipmi::responseReqDataLenInvalid();
     }
 
     if ((sizeof(struct EthDeviceReply) + device.length()) > MAX_IPMI_BUFFER)
     {
         std::fprintf(stderr, "Response would overflow response buffer\n");
-        return IPMI_CC_REQUESTED_TOO_MANY_BYTES;
+        return ::ipmi::responseRetBytesUnavailable();
     }
 
-    // Fill in the response buffer.
-    auto reply = reinterpret_cast<struct EthDeviceReply*>(&replyBuf[0]);
-    reply->subcommand = SysGetEthDevice;
-    reply->channel = std::get<0>(details);
-    reply->ifNameLength = device.length();
-    std::memcpy(reply + 1, device.c_str(), device.length());
+    std::vector<std::uint8_t> reply;
+    reply.reserve(device.length() + sizeof(struct EthDeviceReply));
+    reply.emplace_back(std::get<0>(details));                /* channel */
+    reply.emplace_back(device.length());                     /* ifNameLength */
+    reply.insert(reply.end(), device.begin(), device.end()); /* name */
 
-    (*dataLen) = sizeof(struct EthDeviceReply) + device.length();
-
-    return IPMI_CC_OK;
+    return ::ipmi::responseSuccess(SysOEMCommands::SysGetEthDevice, reply);
 }
 
 } // namespace ipmi

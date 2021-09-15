@@ -30,52 +30,46 @@
 
 #include <cstdint>
 #include <cstdio>
+#include <ipmid/api-types.hpp>
+#include <ipmid/message.hpp>
+#include <optional>
+#include <vector>
 
 namespace google
 {
 namespace ipmi
 {
 
-ipmi_ret_t handleSysCommand(HandlerInterface* handler, ipmi_cmd_t,
-                            const uint8_t* reqBuf, uint8_t* replyCmdBuf,
-                            size_t* dataLen)
+Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr,
+                      uint8_t cmd, std::optional<std::vector<uint8_t>> data)
 {
-    // Verify it's at least as long as it needs to be for a subcommand.
-    if ((*dataLen) < 1)
-    {
-        std::fprintf(stderr, "*dataLen too small: %u\n",
-                     static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_REQ_DATA_LEN_INVALID;
-    }
-
-    switch (reqBuf[0])
+    switch (cmd)
     {
         case SysCableCheck:
-            return cableCheck(reqBuf, replyCmdBuf, dataLen, handler);
+            return cableCheck(*data, handler);
         case SysCpldVersion:
-            return cpldVersion(reqBuf, replyCmdBuf, dataLen, handler);
+            return cpldVersion(*data, handler);
         case SysGetEthDevice:
-            return getEthDevice(reqBuf, replyCmdBuf, dataLen, handler);
+            return getEthDevice(*data, handler);
         case SysPsuHardReset:
-            return psuHardReset(reqBuf, replyCmdBuf, dataLen, handler);
+            return psuHardReset(*data, handler);
         case SysPcieSlotCount:
-            return pcieSlotCount(reqBuf, replyCmdBuf, dataLen, handler);
+            return pcieSlotCount(*data, handler);
         case SysPcieSlotI2cBusMapping:
-            return pcieSlotI2cBusMapping(reqBuf, replyCmdBuf, dataLen, handler);
+            return pcieSlotI2cBusMapping(*data, handler);
         case SysEntityName:
-            return getEntityName(reqBuf, replyCmdBuf, dataLen, handler);
+            return getEntityName(*data, handler);
         case SysMachineName:
-            return getMachineName(reqBuf, replyCmdBuf, dataLen, handler);
+            return getMachineName(*data, handler);
         case SysPsuHardResetOnShutdown:
-            return psuHardResetOnShutdown(reqBuf, replyCmdBuf, dataLen,
-                                          handler);
+            return psuHardResetOnShutdown(*data, handler);
         case SysGetFlashSize:
-            return getFlashSize(reqBuf, replyCmdBuf, dataLen, handler);
+            return getFlashSize(*data, handler);
         case SysHostPowerOff:
-            return hostPowerOff(reqBuf, replyCmdBuf, dataLen, handler);
+            return hostPowerOff(*data, handler);
         default:
-            std::fprintf(stderr, "Invalid subcommand: 0x%x\n", reqBuf[0]);
-            return IPMI_CC_INVALID;
+            std::fprintf(stderr, "Invalid subcommand: 0x%x\n", cmd);
+            return ::ipmi::responseInvalidCommand();
     }
 }
 

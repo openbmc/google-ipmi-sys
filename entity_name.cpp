@@ -20,6 +20,7 @@
 
 #include <cstdint>
 #include <cstring>
+#include <ipmid/api-types.hpp>
 #include <string>
 #include <vector>
 
@@ -40,30 +41,23 @@ namespace
 
 struct GetEntityNameRequest
 {
-    uint8_t subcommand;
     uint8_t entityId;
     uint8_t entityInstance;
 } __attribute__((packed));
 
-struct GetEntityNameReply
-{
-    uint8_t subcommand;
-    uint8_t entityNameLength;
-} __attribute__((packed));
-
-ipmi_ret_t getEntityName(const uint8_t* reqBuf, uint8_t* replyBuf,
-                         size_t* dataLen, HandlerInterface* handler)
+Resp getEntityName(const std::vector<std::uint8_t>& data,
+                   HandlerInterface* handler)
 {
     struct GetEntityNameRequest request;
 
-    if ((*dataLen) < sizeof(request))
+    if (data.size() < sizeof(request))
     {
         std::fprintf(stderr, "Invalid command length: %u\n",
-                     static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_REQ_DATA_LEN_INVALID;
+                     static_cast<uint32_t>(data.size()));
+        return ::ipmi::responseReqDataLenInvalid();
     }
 
-    std::memcpy(&request, &reqBuf[0], sizeof(request));
+    std::memcpy(&request, data.data(), sizeof(request));
     std::string entityName;
     try
     {
@@ -72,7 +66,7 @@ ipmi_ret_t getEntityName(const uint8_t* reqBuf, uint8_t* replyBuf,
     }
     catch (const IpmiException& e)
     {
-        return e.getIpmiError();
+        return ::ipmi::response(e.getIpmiError());
     }
 
     int length = sizeof(struct GetEntityNameReply) + entityName.length();
@@ -81,16 +75,16 @@ ipmi_ret_t getEntityName(const uint8_t* reqBuf, uint8_t* replyBuf,
     if (length > MAX_IPMI_BUFFER)
     {
         std::fprintf(stderr, "Response would overflow response buffer\n");
-        return IPMI_CC_INVALID;
+        return ::ipmi::responseInvalidCommand();
     }
 
-    auto reply = reinterpret_cast<struct GetEntityNameReply*>(&replyBuf[0]);
-    reply->subcommand = SysEntityName;
-    reply->entityNameLength = entityName.length();
-    std::memcpy(reply + 1, entityName.c_str(), entityName.length());
+    std::vector<std::uint8_t> reply;
+    reply.reserve(entityName.length() + sizeof(struct GetEntityNameReply));
+    reply.emplace_back(entityName.length()); /* entityNameLength */
+    reply.insert(reply.end(), entityName.begin(),
+                 entityName.end()); /* entityName */
 
-    (*dataLen) = length;
-    return IPMI_CC_OK;
+    return ::ipmi::responseSuccess(SysOEMCommands::SysEntityName, reply);
 }
 } // namespace ipmi
 } // namespace google
