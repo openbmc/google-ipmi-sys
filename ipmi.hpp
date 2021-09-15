@@ -18,15 +18,19 @@
 
 #include <ipmid/api.h>
 
+#include <ipmid/api-types.hpp>
+#include <ipmid/message.hpp>
+#include <optional>
+#include <vector>
+
 namespace google
 {
 namespace ipmi
 {
 
 // Handle the google-ipmi-sys IPMI OEM commands.
-ipmi_ret_t handleSysCommand(HandlerInterface* handler, ipmi_cmd_t cmd,
-                            const uint8_t* reqBuf, uint8_t* replyCmdBuf,
-                            size_t* dataLen);
+Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr ctx,
+                      uint8_t cmd, const std::vector<uint8_t>& data);
 
 } // namespace ipmi
 } // namespace google

@@ -20,7 +20,9 @@
 
 #include <cstdint>
 #include <cstring>
+#include <ipmid/api-types.hpp>
 #include <string>
+#include <vector>
 
 namespace google
 {
@@ -29,12 +31,11 @@ namespace ipmi
 
 struct CableRequest
 {
-    uint8_t subcommand;
     uint8_t ifNameLength;
 } __attribute__((packed));
 
-ipmi_ret_t cableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen,
-                      const HandlerInterface* handler)
+Resp cableCheck(const std::vector<std::uint8_t>& data,
+                const HandlerInterface* handler)
 {
     // There is an IPMI LAN channel statistics command which could be used for
     // this type of check, however, we're not able to wait for the OpenBMC
@@ -44,30 +45,31 @@ ipmi_ret_t cableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen,
     // The path we're checking: /sys/class/net/eth1/statistics/rx_packets
 
     // This command is expecting: [0x00][len][ifName]
-    if ((*dataLen) < sizeof(struct CableRequest) + sizeof(uint8_t))
+    // data should have [len][ifName]
+    if (data.size() < sizeof(struct CableRequest))
     {
         std::fprintf(stderr, "Invalid command length: %u\n",
-                     static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_REQ_DATA_LEN_INVALID;
+                     static_cast<uint32_t>(data.size()));
+        return ::ipmi::responseReqDataLenInvalid();
     }
 
     const auto request =
-        reinterpret_cast<const struct CableRequest*>(&reqBuf[0]);
+        reinterpret_cast<const struct CableRequest*>(data.data());
 
     // Sanity check the object contents.
     if (request->ifNameLength == 0)
     {
         std::fprintf(stderr, "Invalid string length: %d\n",
                      request->ifNameLength);
-        return IPMI_CC_REQ_DATA_LEN_INVALID;
+        return ::ipmi::responseReqDataLenInvalid();
     }
 
     // Verify the request buffer contains the object and the string.
-    if ((*dataLen) < (sizeof(struct CableRequest) + request->ifNameLength))
+    if (data.size() < (sizeof(struct CableRequest) + request->ifNameLength))
     {
         std::fprintf(stderr, "*dataLen too small: %u\n",
-                     static_cast<uint32_t>(*dataLen));
-        return IPMI_CC_REQ_DATA_LEN_INVALID;
+                     static_cast<uint32_t>(data.size()));
+        return ::ipmi::responseReqDataLenInvalid();
     }
 
     // Maximum length one can specify, plus null terminator.
@@ -83,20 +85,14 @@ ipmi_ret_t cableCheck(const uint8_t* reqBuf, uint8_t* replyBuf, size_t* dataLen,
     }
     catch (const IpmiException& e)
     {
-        return e.getIpmiError();
+        return ::ipmi::response(e.getIpmiError());
     }
 
-    struct CableReply reply;
-    reply.subcommand = SysCableCheck;
-
     // If we have received packets then there is a cable present.
-    reply.value = (count > 0) ? 1 : 0;
+    std::uint8_t value = (count > 0) ? 1 : 0;
 
-    // Return the subcommand and the result.
-    std::memcpy(&replyBuf[0], &reply, sizeof(struct CableReply));
-    (*dataLen) = sizeof(struct CableReply);
-
-    return IPMI_CC_OK;
+    return ::ipmi::responseSuccess(SysOEMCommands::SysCableCheck,
+                                   std::vector<std::uint8_t>{value});
 }
 
 } // namespace ipmi

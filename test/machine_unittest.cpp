@@ -15,6 +15,7 @@
 #include "commands.hpp"
 #include "errors.hpp"
 #include "handler_mock.hpp"
+#include "helper.hpp"
 #include "machine_name.hpp"
 
 #include <cstdint>
@@ -34,53 +35,33 @@ namespace google
 namespace ipmi
 {
 
-TEST(MachineNameCommandTest, InvalidCommandLength)
-{
-    std::vector<std::uint8_t> request = {};
-    size_t dataLen = request.size();
-    std::uint8_t reply[MAX_IPMI_BUFFER];
-
-    ::testing::StrictMock<HandlerMock> hMock;
-
-    EXPECT_EQ(IPMI_CC_REQ_DATA_LEN_INVALID,
-              getMachineName(request.data(), reply, &dataLen, &hMock));
-}
-
 TEST(MachineNameCommandTest, InvalidFile)
 {
-    std::vector<std::uint8_t> request = {SysOEMCommands::SysMachineName};
-    size_t dataLen = request.size();
-    std::uint8_t reply[MAX_IPMI_BUFFER];
-
+    std::vector<std::uint8_t> request = {};
     ::testing::StrictMock<HandlerMock> hMock;
     EXPECT_CALL(hMock, getMachineName()).WillOnce(Throw(IpmiException(5)));
 
-    EXPECT_EQ(5, getMachineName(request.data(), reply, &dataLen, &hMock));
+    EXPECT_EQ(::ipmi::response(5), getMachineName(request, &hMock));
 }
 
 TEST(MachineNameCommandTest, CachesValidRequest)
 {
-    std::vector<std::uint8_t> request = {SysOEMCommands::SysMachineName};
-    size_t dataLen = request.size();
-    std::uint8_t reply[MAX_IPMI_BUFFER];
+    std::vector<std::uint8_t> request = {};
     const std::string ret = "Machine";
 
     ::testing::StrictMock<HandlerMock> hMock;
     EXPECT_CALL(hMock, getMachineName()).WillOnce(Return(ret));
 
-    EXPECT_EQ(IPMI_CC_OK,
-              getMachineName(request.data(), reply, &dataLen, &hMock));
-    EXPECT_EQ(SysOEMCommands::SysMachineName, reply[0]);
-    EXPECT_EQ(ret.size(), reply[1]);
-    EXPECT_EQ(0, std::memcmp(&reply[2], ret.data(), ret.size()));
+    auto reply = getMachineName(request, &hMock);
+    auto result = ValidateReply(reply);
+    auto& data = result.second;
 
-    dataLen = request.size();
-    memset(reply, 0, sizeof(reply));
-    EXPECT_EQ(IPMI_CC_OK,
-              getMachineName(request.data(), reply, &dataLen, &hMock));
-    EXPECT_EQ(SysOEMCommands::SysMachineName, reply[0]);
-    EXPECT_EQ(ret.size(), reply[1]);
-    EXPECT_EQ(0, std::memcmp(&reply[2], ret.data(), ret.size()));
+    EXPECT_EQ(sizeof(GetMachineNameReply) + ret.size(), data.size());
+    EXPECT_EQ(SysOEMCommands::SysMachineName, result.first);
+    EXPECT_EQ(ret.length(), data[0]);
+    EXPECT_EQ(ret.data(),
+              std::string(data.begin() + sizeof(struct GetMachineNameReply),
+                          data.end()));
 }
 
 } // namespace ipmi

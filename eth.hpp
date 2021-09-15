@@ -18,6 +18,9 @@
 
 #include <ipmid/api.h>
 
+#include <ipmid/api-types.hpp>
+#include <vector>
+
 namespace google
 {
 namespace ipmi
@@ -28,7 +31,6 @@ namespace ipmi
 // ncis connection.
 struct EthDeviceReply
 {
-    uint8_t subcommand;
     uint8_t channel;
     // ifNameLength doesn't include the null-terminator.
     uint8_t ifNameLength;
@@ -37,8 +39,8 @@ struct EthDeviceReply
 // Handle the eth query command.
 // Sys can query the ifName and IPMI channel of the BMC's NCSI ethernet
 // device.
-ipmi_ret_t getEthDevice(const uint8_t* reqBuf, uint8_t* replyBuf,
-                        size_t* dataLen, const HandlerInterface* handler);
+Resp getEthDevice(const std::vector<std::uint8_t>& data,
+                  const HandlerInterface* handler);
 
 } // namespace ipmi
 } // namespace google
