@@ -16,13 +16,16 @@
 
 #include "machine_name.hpp"
 
+#include "commands.hpp"
 #include "errors.hpp"
 
 #include <cstddef>
 #include <cstdio>
 #include <cstring>
+#include <ipmid/api-types.hpp>
 #include <optional>
 #include <string>
+#include <vector>
 
 namespace google
 {
@@ -31,26 +34,10 @@ namespace ipmi
 
 struct GetMachineNameRequest
 {
-    uint8_t subcommand;
 } __attribute__((packed));
 
-struct GetMachineNameReply
+Resp getMachineName(const std::vector<std::uint8_t>&, HandlerInterface* handler)
 {
-    uint8_t subcommand;
-    uint8_t machineNameLength;
-} __attribute__((packed));
-
-ipmi_ret_t getMachineName(const uint8_t* reqBuf, uint8_t* replyBuf,
-                          size_t* dataLen, HandlerInterface* handler)
-{
-    GetMachineNameRequest request;
-    if (*dataLen < sizeof(request))
-    {
-        std::fprintf(stderr, "Invalid command length: %zu\n", *dataLen);
-        return IPMI_CC_REQ_DATA_LEN_INVALID;
-    }
-    std::memcpy(&request, reqBuf, sizeof(request));
-
     static std::optional<std::string> machineName;
     if (!machineName)
     {
@@ -60,24 +47,24 @@ ipmi_ret_t getMachineName(const uint8_t* reqBuf, uint8_t* replyBuf,
         }
         catch (const IpmiException& e)
         {
-            return e.getIpmiError();
+            return ::ipmi::response(e.getIpmiError());
         }
     }
 
-    GetMachineNameReply reply;
-    size_t len = sizeof(reply) + machineName->size();
+    size_t len = sizeof(struct GetMachineNameReply) + machineName->size();
     if (len > MAX_IPMI_BUFFER)
     {
         std::fprintf(stderr, "Response would overflow response buffer\n");
-        return IPMI_CC_INVALID;
+        return ::ipmi::responseInvalidCommand();
     }
-    reply.subcommand = request.subcommand;
-    reply.machineNameLength = machineName->size();
-    std::memcpy(replyBuf, &reply, sizeof(reply));
-    std::memcpy(replyBuf + sizeof(reply), machineName->data(),
-                machineName->size());
-    (*dataLen) = len;
-    return IPMI_CC_OK;
+
+    std::vector<std::uint8_t> reply;
+    reply.reserve(len);
+    reply.emplace_back(machineName->size()); /* machineNameLength */
+    reply.insert(reply.end(), machineName->begin(),
+                 machineName->end()); /* machineName */
+
+    return ::ipmi::responseSuccess(SysOEMCommands::SysMachineName, reply);
 }
 
 } // namespace ipmi

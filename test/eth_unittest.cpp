@@ -1,16 +1,15 @@
 #include "commands.hpp"
 #include "eth.hpp"
 #include "handler_mock.hpp"
+#include "helper.hpp"
 
 #include <cstdint>
 #include <cstring>
-#include <string>
+#include <string_view>
 #include <tuple>
 #include <vector>
 
 #include <gtest/gtest.h>
-
-#define MAX_IPMI_BUFFER 64
 
 using ::testing::Return;
 
@@ -23,54 +22,50 @@ TEST(EthCommandTest, ValidRequestReturnsSuccess)
 {
     // This command requests no input, therefore it will just return what it
     // knows.
-    std::vector<std::uint8_t> request = {SysOEMCommands::SysGetEthDevice};
-    size_t dataLen = request.size();
-    std::uint8_t reply[MAX_IPMI_BUFFER];
-    const std::uint8_t expectedAnswer[4] = {'e', 't', 'h', '0'};
+    std::vector<std::uint8_t> request = {};
+    const std::string_view expectedAnswer = "eth0";
     const std::uint8_t expectedChannel = 14;
 
     HandlerMock hMock;
     EXPECT_CALL(hMock, getEthDetails(""))
-        .WillOnce(Return(std::make_tuple(
-            expectedChannel,
-            std::string(expectedAnswer,
-                        expectedAnswer + sizeof(expectedAnswer)))));
+        .WillOnce(
+            Return(std::make_tuple(expectedChannel, expectedAnswer.data())));
 
-    EXPECT_EQ(IPMI_CC_OK,
-              getEthDevice(request.data(), &reply[0], &dataLen, &hMock));
-    struct EthDeviceReply check;
-    std::memcpy(&check, &reply[0], sizeof(check));
-    EXPECT_EQ(check.subcommand, SysOEMCommands::SysGetEthDevice);
-    EXPECT_EQ(check.channel, expectedChannel);
-    EXPECT_EQ(check.ifNameLength, sizeof(expectedAnswer));
-    EXPECT_EQ(0, std::memcmp(expectedAnswer, &reply[sizeof(check)],
-                             sizeof(expectedAnswer)));
+    auto reply = getEthDevice(request, &hMock);
+    auto result = ValidateReply(reply);
+    auto& data = result.second;
+
+    EXPECT_EQ(sizeof(EthDeviceReply) + expectedAnswer.size(), data.size());
+    EXPECT_EQ(SysOEMCommands::SysGetEthDevice, result.first);
+    EXPECT_EQ(expectedChannel, data[0]);
+    EXPECT_EQ(expectedAnswer.size(), data[1]);
+    EXPECT_EQ(
+        expectedAnswer.data(),
+        std::string(data.begin() + sizeof(struct EthDeviceReply), data.end()));
 }
 
 TEST(EthCommandTest, ValidPopulatedReturnsSuccess)
 {
-    std::vector<std::uint8_t> request = {SysOEMCommands::SysGetEthDevice, 'e'};
-    size_t dataLen = request.size();
-    std::uint8_t reply[MAX_IPMI_BUFFER];
-    const std::uint8_t expectedAnswer[1] = {'e'};
+    std::vector<std::uint8_t> request = {'e'};
+    const std::string_view expectedAnswer = "e";
     const std::uint8_t expectedChannel = 11;
 
     HandlerMock hMock;
     EXPECT_CALL(hMock, getEthDetails("e"))
-        .WillOnce(Return(std::make_tuple(
-            expectedChannel,
-            std::string(expectedAnswer,
-                        expectedAnswer + sizeof(expectedAnswer)))));
+        .WillOnce(
+            Return(std::make_tuple(expectedChannel, expectedAnswer.data())));
 
-    EXPECT_EQ(IPMI_CC_OK,
-              getEthDevice(request.data(), &reply[0], &dataLen, &hMock));
-    struct EthDeviceReply check;
-    std::memcpy(&check, &reply[0], sizeof(check));
-    EXPECT_EQ(check.subcommand, SysOEMCommands::SysGetEthDevice);
-    EXPECT_EQ(check.channel, expectedChannel);
-    EXPECT_EQ(check.ifNameLength, sizeof(expectedAnswer));
-    EXPECT_EQ(0, std::memcmp(expectedAnswer, &reply[sizeof(check)],
-                             sizeof(expectedAnswer)));
+    auto reply = getEthDevice(request, &hMock);
+    auto result = ValidateReply(reply);
+    auto& data = result.second;
+
+    EXPECT_EQ(sizeof(EthDeviceReply) + expectedAnswer.size(), data.size());
+    EXPECT_EQ(SysOEMCommands::SysGetEthDevice, result.first);
+    EXPECT_EQ(expectedChannel, data[0]);
+    EXPECT_EQ(expectedAnswer.size(), data[1]);
+    EXPECT_EQ(
+        expectedAnswer.data(),
+        std::string(data.begin() + sizeof(struct EthDeviceReply), data.end()));
 }
 } // namespace ipmi
 } // namespace google
