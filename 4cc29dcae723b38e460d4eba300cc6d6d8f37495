@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7dd311b1_0629b0c8",
+        "filename": "eth.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-09-18T21:32:53Z",
+      "side": 1,
+      "message": "Empty struct?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 0
+      },
+      "revId": "4cc29dcae723b38e460d4eba300cc6d6d8f37495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c54a612_94b532e9",
+        "filename": "flash_size.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-09-18T21:32:53Z",
+      "side": 1,
+      "message": "Empty struct?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 22
+      },
+      "revId": "4cc29dcae723b38e460d4eba300cc6d6d8f37495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f09375a_b42d4b25",
+        "filename": "ipmi.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-09-18T21:32:53Z",
+      "side": 1,
+      "message": "nit: we use optional and vector here so we should add the include here as well",
+      "revId": "4cc29dcae723b38e460d4eba300cc6d6d8f37495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edd2dfe4_d78cda6a",
+        "filename": "machine_name.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-09-18T21:32:53Z",
+      "side": 1,
+      "message": "Should we take out this empty struct?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 15
+      },
+      "revId": "4cc29dcae723b38e460d4eba300cc6d6d8f37495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae2bfce4_c3d637b2",
+        "filename": "pcie_i2c.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-09-18T21:32:53Z",
+      "side": 1,
+      "message": "Why do we keep this empty struct?",
+      "range": {
+        "startLine": 38,
+        "startChar": 1,
+        "endLine": 40,
+        "endChar": 26
+      },
+      "revId": "4cc29dcae723b38e460d4eba300cc6d6d8f37495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce8488fa_059e91f5",
+        "filename": "psu.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-09-18T21:32:53Z",
+      "side": 1,
+      "message": "Empty struct?",
+      "range": {
+        "startLine": 21,
+        "startChar": 26,
+        "endLine": 24,
+        "endChar": 0
+      },
+      "revId": "4cc29dcae723b38e460d4eba300cc6d6d8f37495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71067dee_d6109733",
+        "filename": "test/common.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-09-18T21:32:53Z",
+      "side": 1,
+      "message": "nit: I wonder if this should be helper.cpp to be more inline with the header name",
+      "revId": "4cc29dcae723b38e460d4eba300cc6d6d8f37495",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
