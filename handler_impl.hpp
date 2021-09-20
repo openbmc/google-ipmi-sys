@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <map>
 #include <nlohmann/json.hpp>
+#include <sdbusplus/bus.hpp>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -38,6 +39,17 @@ class Handler : public HandlerInterface
     void hostPowerOffDelay(std::uint32_t delay) const override;
     std::tuple<std::uint32_t, std::string>
         getI2cEntry(unsigned int entry) const override;
+
+    uint32_t accelOobDeviceCount() const override;
+    std::string accelOobDeviceName(size_t i) const override;
+    uint64_t accelOobRead(const std::string& name, uint64_t address,
+                          uint8_t num_bytes) const override;
+    void accelOobWrite(const std::string& name, uint64_t address,
+                       uint8_t num_bytes, uint64_t data) const override;
+
+  protected:
+    // Exposed for dependency injection
+    virtual sdbusplus::bus::bus accelOobGetDbus() const;
 
   private:
     std::string _configFile;

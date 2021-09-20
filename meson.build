@@ -40,6 +40,7 @@ sys_lib = static_library(
   'ipmi.cpp',
   'machine_name.cpp',
   'pcie_i2c.cpp',
+  'google_accel_oob.cpp',
   'psu.cpp',
   'util.cpp',
   implicit_include_directories: false,
