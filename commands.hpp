@@ -1,4 +1,4 @@
-// Copyright 2021 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -43,6 +43,14 @@ enum SysOEMCommands
     SysGetFlashSize = 9,
     // The Sys Host Power Off with disabled fallback watchdog
     SysHostPowerOff = 10,
+    // Google CustomAccel service - get the number of devices available
+    SysAccelOobDeviceCount = 11,
+    // Google CustomAccel service - get the name of a single device
+    SysAccelOobDeviceName = 12,
+    // Google CustomAccel service - read from a device
+    SysAccelOobRead = 13,
+    // Google CustomAccel service - write to a device
+    SysAccelOobWrite = 14,
 };
 
 } // namespace ipmi
