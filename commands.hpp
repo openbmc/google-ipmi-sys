@@ -29,6 +29,11 @@ enum SysOEMCommands
     SysGetFlashSize = 9,
     // The Sys Host Power Off with disabled fallback watchdog
     SysHostPowerOff = 10,
+    // Accel OOB service - get the number of devices available
+    SysAccelOobDevceCount = 11,
+    SysAccelOobDevceName = 12,
+    SysAccelOobRead = 13,
+    SysAccelOobWrite = 14,
 };
 
 } // namespace ipmi

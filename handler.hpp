@@ -118,6 +118,11 @@ class HandlerInterface
      * @throw IpmiException on failure.
      */
     virtual void hostPowerOffDelay(std::uint32_t delay) const = 0;
+
+    virtual uint32_t accelOobDeviceCount() const = 0;
+    virtual std::string accelOobDeviceName(size_t i) const = 0;
+    virtual uint64_t accelOobRead(const std::string &name, uint64_t address, uint8_t num_bytes) const = 0;
+    virtual void accelOobWrite(const std::string &name, uint64_t address, uint8_t num_bytes, uint64_t data) const = 0;
 };
 
 } // namespace ipmi
