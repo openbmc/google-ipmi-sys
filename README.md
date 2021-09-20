@@ -235,3 +235,168 @@ Response
 |Byte(s) |Value  |Data
 |--------|-------|----
 |0x00|0x0A|Subcommand
+
+### AccelOobDeviceCount - SubCommand 0x0B
+
+Query the number of available devices from the google-accel-oob service.
+
+If not enough data is proveded, `IPMI_CC_REQ_DATA_LEN_INVALID` is returned.
+
+Request
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0B|Subcommand
+
+Response
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0B|Subcommand
+|0x01..0x04| |Number of devices available
+
+### AccelOobDeviceName - SubCommand 0x0C
+
+Query the name of a single device from the google-accel-oob service.
+
+This name is used as the identifier for the AccelOobRead and AccelOobWrite
+commands.
+
+Index values start at zero and go up to (but don't include) the device count.
+
+The name of the device is exactly as it appears in DBus, except for the common
+"/com/google/customAccel/" prefix. This prefix is removed to reduce the size of
+the IPMI packet.
+
+DBus requires all element names to be non-empty strings of ASCII characters
+"[A-Z][a-z][0-9]_", seperated by ASCII '/'. Therefore, all device names will be
+valid ASCII strings (1 byte/character).
+
+For convenience, the name string is followed by a single 0x00 (NULL terminator)
+byte which is not included as part of the length.
+
+The length field (byte 5) is the number of bytes in the name string (not
+including the trailing NULL terminator byte).
+
+The maximum length for any name is 43 bytes (not including the trailing NULL).
+
+If a name is longer than 43 bytes, `IPMI_CC_REQ_DATA_TRUNCATED` is returned.
+These names will not be usable in the rest of the API. Changing the name
+requires code changes to the `managed_acceld` service binary.
+
+If not enough data is proveded, `IPMI_CC_REQ_DATA_LEN_INVALID` is returned.
+
+If a name does not begin with the expected "/com/google/customAccel/" prefix,
+`IPMI_CC_INVALID` is returned. This indicates a change in the DBus API for the
+google-accel-oob service that requires a matching code change in the handler.
+
+Request
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0C|Subcommand
+|0x05| |Length of the name
+|0x06..n| |Name of the device
+
+Response
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0C|Subcommand
+|0x01..0x04| |Index of the device
+|0x05| |Length of the name
+|0x06..n| |Name of the device
+
+### AccelOobRead - SubCommand 0x0D
+
+Read a PCIe CSR from a device.
+
+Length is the length of the name, in bytes.
+
+The device name gets prepended with "/com/google/customAccel/" and sent to DBus.
+This string must **NOT** have a trailing NULL terminator.
+
+The token is an arbitrary byte that gets echoed back in the reply; it is not
+interpreted by the service at all. This is used to disambiguate identical
+requests so clients can check for lost transactions.
+
+Address is the 64b PCIe address to read from.
+
+Number of bytes is the size of the read, in bytes (max 8). The value is subject
+to hardware limitations (both PCIe and ASIC), so it will generally be 1, 2, 4,
+or 8.
+
+The register data is always returned in 8 bytes (uint64) in little Endian order.
+If fewer than than 8 bytes are read, the MSBs are padded with 0s.
+
+On success, the response ends with the data read as a single uint64.
+
+If the number of bytes requested would not fit in a single IPMI payload,
+`IPMI_CC_REQUESTED_TOO_MANY_BYTES` is returned.
+
+If not enough data is proveded, `IPMI_CC_REQ_DATA_LEN_INVALID` is returned.
+
+Request
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0D|Subcommand
+|0x01| |Number of bytes in the device name
+|0x02..n| |Name of the device (from `AccelOobDeviceName`)
+|n+1| |Token
+|n+2..n+10| |Address
+|n+11| |Number of bytes
+
+Response
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0D|Subcommand
+|0x01| |Number of bytes in the device name
+|0x02..n| |Name of the device (no trailing NULL)
+|n+1| |Token
+|n+2..n+10| |Address
+|n+11| |Number of bytes
+|n+12..n+20| |Data
+
+### AccelOobWrite - SubCommand 0x0E
+
+Write a PCIe CSR from a device.
+
+All parameters are identical to AccelOobRead (above). The only difference is
+the register data becomes an input parameter (in the Request) instead of an
+output value (in the Response).
+
+As with read, the register data must be 8 bytes (uint64) in little Endian order.
+If fewer than 8 bytes will be written, only the LSBs will be read and the the
+MSBs will be ignored.
+
+All fields returned in the Response are simply a copy of the Request.
+
+On success, `IPMI_CC_OK` is returned.
+
+If not enough data is proveded, `IPMI_CC_REQ_DATA_LEN_INVALID` is returned.
+
+Request
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0D|Subcommand
+|0x01| |Number of bytes in the device name
+|0x02..n| |Name of the device (from `AccelOobDeviceName`)
+|n+1| |Token
+|n+2..n+10| |Address
+|n+11| |Number of bytes
+|n+12..n+20| |Data
+
+Response
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0D|Subcommand
+|0x01| |Number of bytes in the device name
+|0x02..n| |Name of the device (no trailing NULL)
+|n+1| |Token
+|n+2..n+10| |Address
+|n+11| |Number of bytes
+|n+12..n+20| |Data

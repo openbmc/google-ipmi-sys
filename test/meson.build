@@ -21,6 +21,7 @@ tests = [
   'entity',
   'eth',
   'flash',
+  'google_accel_oob',
   'handler',
   'machine',
   'pcie',
