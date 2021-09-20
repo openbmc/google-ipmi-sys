@@ -43,6 +43,14 @@ enum SysOEMCommands
     SysGetFlashSize = 9,
     // The Sys Host Power Off with disabled fallback watchdog
     SysHostPowerOff = 10,
+    // Google CustomAccel service - get the number of devices available
+    SysAccelOobDevceCount = 11,
+    // Google CustomAccel service - get the name of a single device
+    SysAccelOobDevceName = 12,
+    // Google CustomAccel service - read from a device
+    SysAccelOobRead = 13,
+    // Google CustomAccel service - write to a device
+    SysAccelOobWrite = 14,
 };
 
 } // namespace ipmi
