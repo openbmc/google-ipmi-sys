@@ -38,6 +38,7 @@
 #include <string>
 #include <string_view>
 #include <tuple>
+#include <variant>
 #include <xyz/openbmc_project/Common/error.hpp>
 
 #ifndef NCSI_IF_NAME
@@ -391,6 +392,206 @@ std::tuple<std::uint32_t, std::string>
 {
     return _pcie_i2c_map[entry];
 }
+
+namespace
+{
+
+static constexpr std::string_view ACCEL_OOB_ROOT = "/com/google/customAccel/";
+static constexpr char ACCEL_OOB_SERVICE[] = "com.google.custom_accel";
+static constexpr char ACCEL_OOB_INTERFACE[] = "com.google.custom_accel.BAR";
+
+// C type for "a{oa{sa{sv}}}" from DBus.ObjectManager::GetManagedObjects()
+using AnyType = std::variant<std::string, uint8_t, uint32_t, uint64_t>;
+using AnyTypeList = std::vector<std::pair<std::string, AnyType>>;
+using NamedArrayOfAnyTypeLists = std::vector<std::pair<std::string, AnyTypeList>>;
+using ArrayOfObjectPathsAndTieredAnyTypeLists = std::vector<
+    std::pair<sdbusplus::message::object_path, NamedArrayOfAnyTypeLists>>;
+
+} // namespace
+
+sdbusplus::bus::bus Handler::accelOobGetDbus() const
+{
+    return sdbusplus::bus::new_default();
+}
+
+uint32_t Handler::accelOobDeviceCount() const
+{
+    ArrayOfObjectPathsAndTieredAnyTypeLists data;
+
+    try
+    {
+        auto bus = accelOobGetDbus();
+        auto method = bus.new_method_call(ACCEL_OOB_SERVICE, "/",
+                                          "org.freedesktop.DBus.ObjectManager",
+                                          "GetManagedObjects");
+        bus.call(method).read(data);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        log<level::ERR>(
+            "Failed to call GetManagedObjects on com.google.custom_accel",
+            entry("WHAT=%s", ex.what()));
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    return data.size();
+}
+
+std::string Handler::accelOobDeviceName(size_t i) const
+{
+    ArrayOfObjectPathsAndTieredAnyTypeLists data;
+
+    try
+    {
+        auto bus = accelOobGetDbus();
+        auto method = bus.new_method_call(ACCEL_OOB_SERVICE, "/",
+                                          "org.freedesktop.DBus.ObjectManager",
+                                          "GetManagedObjects");
+        bus.call(method).read(data);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        log<level::ERR>(
+            "Failed to call GetManagedObjects on com.google.custom_accel",
+            entry("WHAT=%s", ex.what()));
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    if (i >= data.size())
+    {
+        log<level::WARNING>(
+            "Requested index is larger than the number of entries.",
+            entry("INDEX=%zu", i), entry("NUM_NAMES=%zu", data.size()));
+        throw IpmiException(IPMI_CC_PARM_OUT_OF_RANGE);
+    }
+
+    std::string name(data[i].first.str);
+    return name.substr(ACCEL_OOB_ROOT.length());
+}
+
+uint64_t Handler::accelOobRead(std::string_view name, uint64_t address,
+                               uint8_t num_bytes) const
+{
+    static constexpr char ACCEL_OOB_METHOD[] = "Read";
+
+    std::string object_name(ACCEL_OOB_ROOT);
+    object_name.append(name);
+
+    auto bus = accelOobGetDbus();
+    auto method = bus.new_method_call(ACCEL_OOB_SERVICE, object_name.c_str(),
+                                      ACCEL_OOB_INTERFACE, ACCEL_OOB_METHOD);
+    method.append(address, (uint64_t)num_bytes);
+
+    std::vector<uint8_t> bytes;
+
+    try
+    {
+        bus.call(method).read(bytes);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        log<level::ERR>("Failed to call Read on com.google.custom_accel",
+                        entry("WHAT=%s", ex.what()),
+                        entry("DBUS_SERVICE=%s", ACCEL_OOB_SERVICE),
+                        entry("DBUS_OBJECT=%s", object_name.c_str()),
+                        entry("DBUS_INTERFACE=%s", ACCEL_OOB_INTERFACE),
+                        entry("DBUS_METHOD=%s", ACCEL_OOB_METHOD),
+                        entry("DBUS_ARG_ADDRESS=%016llx", address),
+                        entry("DBUS_ARG_NUM_BYTES=%zu", (size_t)num_bytes));
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    if (bytes.size() < num_bytes)
+    {
+        log<level::ERR>(
+            "Call to Read on com.google.custom_accel didn't return the expected"
+            " number of bytes.",
+            entry("DBUS_SERVICE=%s", ACCEL_OOB_SERVICE),
+            entry("DBUS_OBJECT=%s", object_name.c_str()),
+            entry("DBUS_INTERFACE=%s", ACCEL_OOB_INTERFACE),
+            entry("DBUS_METHOD=%s", ACCEL_OOB_METHOD),
+            entry("DBUS_ARG_ADDRESS=%016llx", address),
+            entry("DBUS_ARG_NUM_BYTES=%zu", (size_t)num_bytes),
+            entry("DBUS_RETURN_SIZE=%zu", bytes.size()));
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    if (bytes.size() > sizeof(uint64_t))
+    {
+        log<level::ERR>(
+            "Call to Read on com.google.custom_accel returned more than 8B.",
+            entry("DBUS_SERVICE=%s", ACCEL_OOB_SERVICE),
+            entry("DBUS_OBJECT=%s", object_name.c_str()),
+            entry("DBUS_INTERFACE=%s", ACCEL_OOB_INTERFACE),
+            entry("DBUS_METHOD=%s", ACCEL_OOB_METHOD),
+            entry("DBUS_ARG_ADDRESS=%016llx", address),
+            entry("DBUS_ARG_NUM_BYTES=%zu", (size_t)num_bytes),
+            entry("DBUS_RETURN_SIZE=%zu", bytes.size()));
+        throw IpmiException(IPMI_CC_REQ_DATA_TRUNCATED);
+    }
+
+    uint64_t data = 0;
+    for (size_t i = 0; i < num_bytes; ++i)
+    {
+        data = (data << 8) | bytes[i];
+    }
+
+    return data;
+};
+
+void Handler::accelOobWrite(std::string_view name, uint64_t address,
+                            uint8_t num_bytes, uint64_t data) const
+{
+    static constexpr std::string_view ACCEL_OOB_METHOD = "Write";
+
+    std::string object_name(ACCEL_OOB_ROOT);
+    object_name.append(name);
+
+    if (num_bytes > sizeof(data))
+    {
+        log<level::ERR>(
+            "Call to Write on com.google.custom_accel requested more than 8B.",
+            entry("DBUS_SERVICE=%s", ACCEL_OOB_SERVICE),
+            entry("DBUS_OBJECT=%s", object_name.c_str()),
+            entry("DBUS_INTERFACE=%s", ACCEL_OOB_INTERFACE),
+            entry("DBUS_METHOD=%s", ACCEL_OOB_METHOD.data()),
+            entry("DBUS_ARG_ADDRESS=%016llx", address),
+            entry("DBUS_ARG_NUM_BYTES=%zu", (size_t)num_bytes),
+            entry("DBUS_ARG_DATA=%016llx", data));
+        throw IpmiException(IPMI_CC_PARM_OUT_OF_RANGE);
+    }
+
+    std::vector<uint8_t> bytes;
+    bytes.reserve(num_bytes);
+    for (size_t i = 0; i < num_bytes; ++i)
+    {
+        bytes.emplace_back(data & 0xff);
+        data >>= 8;
+    }
+
+    try
+    {
+        auto bus = accelOobGetDbus();
+        auto method =
+            bus.new_method_call(ACCEL_OOB_SERVICE, object_name.c_str(),
+                                ACCEL_OOB_INTERFACE, ACCEL_OOB_METHOD.data());
+        method.append(address, bytes);
+        bus.call_noreply(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        log<level::ERR>("Failed to call Write on com.google.custom_accel",
+                        entry("WHAT=%s", ex.what()),
+                        entry("DBUS_SERVICE=%s", ACCEL_OOB_SERVICE),
+                        entry("DBUS_OBJECT=%s", object_name.c_str()),
+                        entry("DBUS_INTERFACE=%s", ACCEL_OOB_INTERFACE),
+                        entry("DBUS_METHOD=%s", ACCEL_OOB_METHOD.data()),
+                        entry("DBUS_ARG_ADDRESS=%016llx", address),
+                        entry("DBUS_ARG_NUM_BYTES=%zu", (size_t)num_bytes),
+                        entry("DBUS_ARG_DATA=%016llx", data));
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+};
 
 } // namespace ipmi
 } // namespace google
