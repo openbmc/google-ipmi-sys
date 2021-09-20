@@ -20,13 +20,16 @@
 #include "entity_name.hpp"
 #include "eth.hpp"
 #include "flash_size.hpp"
+#include "google_accel_oob.hpp"
 #include "handler.hpp"
 #include "host_power_off.hpp"
 #include "machine_name.hpp"
 #include "pcie_i2c.hpp"
 #include "psu.hpp"
 
+extern "C" {
 #include <ipmid/api.h>
+}
 
 #include <cstdint>
 #include <cstdio>
@@ -67,6 +70,14 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr,
             return getFlashSize(data, handler);
         case SysHostPowerOff:
             return hostPowerOff(data, handler);
+        case SysAccelOobDeviceCount:
+            return accelOobDeviceCount(data, handler);
+        case SysAccelOobDeviceName:
+            return accelOobDeviceName(data, handler);
+        case SysAccelOobRead:
+            return accelOobRead(data, handler);
+        case SysAccelOobWrite:
+            return accelOobWrite(data, handler);
         default:
             std::fprintf(stderr, "Invalid subcommand: 0x%x\n", cmd);
             return ::ipmi::responseInvalidCommand();
