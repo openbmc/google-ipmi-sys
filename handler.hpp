@@ -1,4 +1,4 @@
-// Copyright 2021 Google LLC
+// Copyright 2022 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 #include <map>
 #include <span>
 #include <string>
+#include <string_view>
 #include <tuple>
 #include <vector>
 
@@ -136,6 +137,56 @@ class HandlerInterface
      * @throw IpmiException on failure.
      */
     virtual void hostPowerOffDelay(std::uint32_t delay) const = 0;
+
+    /**
+     * Return the number of devices from the CustomAccel service.
+     *
+     * @return the number of devices.
+     * @throw IpmiException on failure.
+     */
+    virtual uint32_t accelOobDeviceCount() const = 0;
+
+    /**
+     * Return the name of a single device from the CustomAccel service.
+     *
+     * Valid indexes start at 0 and go up to (but don't include) the number of
+     * devices. The number of devices can be queried with accelOobDeviceCount.
+     *
+     * @param[in] index - the index of the device, starting at 0.
+     * @return the name of the device.
+     * @throw IpmiException on failure.
+     */
+    virtual std::string accelOobDeviceName(size_t index) const = 0;
+
+    /**
+     * Read from a single CustomAccel service device.
+     *
+     * Valid device names can be queried with accelOobDeviceName.
+     * If num_bytes < 8, all unused MSBs are padded with 0s.
+     *
+     * @param[in] name - the name of the device (from DeviceName).
+     * @param[in] address - the address to read from.
+     * @param[in] num_bytes - the size of the read, in bytes.
+     * @return the data read, with 0s padding any unused MSBs.
+     * @throw IpmiException on failure.
+     */
+    virtual uint64_t accelOobRead(std::string_view name, uint64_t address,
+                                  uint8_t num_bytes) const = 0;
+
+    /**
+     * Write to a single CustomAccel service device.
+     *
+     * Valid device names can be queried with accelOobDeviceName.
+     * If num_bytes < 8, all unused MSBs are ignored.
+     *
+     * @param[in] name - the name of the device (from DeviceName).
+     * @param[in] address - the address to read from.
+     * @param[in] num_bytes - the size of the read, in bytes.
+     * @param[in] data - the data to write.
+     * @throw IpmiException on failure.
+     */
+    virtual void accelOobWrite(std::string_view name, uint64_t address,
+                               uint8_t num_bytes, uint64_t data) const = 0;
 };
 
 } // namespace ipmi

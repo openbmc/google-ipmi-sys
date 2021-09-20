@@ -1,2 +1,4 @@
 /build*/
 /subprojects/*/
+/.cache/clangd/index/
+/.vscode/
