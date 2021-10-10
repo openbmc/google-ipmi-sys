@@ -28,6 +28,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+#include <ipmid/message.hpp>
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
@@ -38,12 +39,15 @@
 #include <cinttypes>
 #include <cstdio>
 #include <filesystem>
+#include <format>
 #include <fstream>
 #include <map>
+#include <memory>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <tuple>
+#include <unordered_set>
 #include <variant>
 
 #ifndef NCSI_IF_NAME
@@ -661,9 +665,56 @@ void Handler::accelOobWrite(std::string_view name, uint64_t address,
     }
 }
 
-std::vector<uint8_t> Handler::pcieBifurcation(uint8_t index)
+std::vector<uint8_t> Handler::pcieBifurcation(::ipmi::Context::ptr ctx,
+                                              uint8_t index, bool dynamic)
 {
-    return bifurcationHelper.get().getBifurcation(index).value_or(
+    if (!dynamic)
+    {
+        return bifurcationHelper.get()
+            .getBifurcation(ctx, index)
+            .value_or(std::vector<uint8_t>{});
+    }
+
+    // Dynamic Configuration needs to lookup the i2c bus from the PCIe slot
+    // index.
+    static const std::vector<Json> empty{};
+    std::string name;
+    std::optional<uint8_t> bus;
+
+    try
+    {
+        // Parse the JSON config file.
+        if (!_entityConfigParsed)
+        {
+            _entityConfig = parseConfig(_configFile);
+            _entityConfigParsed = true;
+        }
+
+        std::vector<Json> readings = _entityConfig.value("add_in_card", empty);
+
+        for (const auto& j : readings)
+        {
+            name = j.value("name", "");
+            auto num = j.value("instance", 0);
+
+            if (name == std::format("/PE{}", index))
+            {
+                bus = num;
+                break;
+            }
+        }
+    }
+    catch (InternalFailure& e)
+    {
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+
+    if (bus == std::nullopt)
+    {
+        return {};
+    }
+
+    return bifurcationHelper.get().getBifurcation(ctx, *bus).value_or(
         std::vector<uint8_t>{});
 }
 
