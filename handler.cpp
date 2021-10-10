@@ -19,6 +19,7 @@
 #include "util.hpp"
 
 #include <fcntl.h>
+#include <fmt/format.h>
 #include <ipmid/api.h>
 #include <mtd/mtd-abi.h>
 #include <mtd/mtd-user.h>
@@ -29,7 +30,9 @@
 #include <cstdio>
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <map>
+#include <memory>
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
@@ -38,6 +41,8 @@
 #include <string>
 #include <string_view>
 #include <tuple>
+#include <unordered_map>
+#include <unordered_set>
 #include <xyz/openbmc_project/Common/error.hpp>
 
 #ifndef NCSI_IF_NAME
@@ -390,6 +395,61 @@ std::tuple<std::uint32_t, std::string>
     Handler::getI2cEntry(unsigned int entry) const
 {
     return _pcie_i2c_map[entry];
+}
+
+std::vector<uint8_t> Handler::pcieBifurcation(uint8_t index,
+                                              const std::string& path)
+{
+    fmt::print("test: hello \n");
+    static const std::vector<Json> empty{};
+    std::string_view name;
+    std::optional<uint8_t> instanceNum;
+
+    try
+    {
+        // Parse the JSON config file.
+        if (!_entityConfigParsed)
+        {
+            _entityConfig = parseConfig(_configFile);
+            _entityConfigParsed = true;
+        }
+
+        std::vector<Json> readings = _entityConfig.value("add_in_card", empty);
+
+        for (const auto& j : readings)
+        {
+            name = j.value("name", "");
+            auto num = j.value("instance", 0);
+
+            if (name == fmt::format("/PE{}", index))
+            {
+                fmt::print("test: running on {}\n", name);
+                instanceNum = num;
+                break;
+            }
+        }
+    }
+    catch (InternalFailure& e)
+    {
+        fmt::print("test: Failed\n");
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+
+    if (!instanceNum)
+    {
+        fmt::print("test: Failed again?\n");
+        return {};
+    }
+
+    std::shared_ptr<std::unordered_set<uint8_t>> cache =
+        std::make_shared<std::unordered_set<uint8_t>>();
+
+    return bifurcationHelper->walkI2CTreeBifurcation(path, *instanceNum, cache);
+}
+
+void Handler::setBifurcationHelper(BifurcationInterface* bifurcationHelper)
+{
+    this->bifurcationHelper = reinterpret_cast<Bifurcation*>(bifurcationHelper);
 }
 
 } // namespace ipmi
