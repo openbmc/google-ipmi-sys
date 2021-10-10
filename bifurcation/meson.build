@@ -7,6 +7,7 @@ bifurcation_deps = [
 bifurcation_lib = static_library(
   'bifurcation',
   'bifurcation_static.cpp',
+  'bifurcation_dynamic.cpp',
   conf_h,
   dependencies: bifurcation_deps,
   include_directories: [bifurcation_inc, root_inc],
