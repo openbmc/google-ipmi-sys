@@ -27,6 +27,7 @@ tests = [
   'pcie',
   'poweroff',
   'psu',
+  'pcie_bifurcation'
 ]
 
 foreach t : tests
