@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include "bifurcation.hpp"
 #include "handler.hpp"
 
 #include <cstdint>
@@ -37,7 +38,12 @@ class Handler : public HandlerInterface
 {
   public:
     explicit Handler(const std::string& entityConfigPath = defaultConfigFile) :
-        _configFile(entityConfigPath){};
+        _configFile(entityConfigPath),
+        bifurcationHelper(BifurcationStatic::createBifurcation()){};
+    Handler(std::reference_wrapper<BifurcationInterface> bifurcationHelper,
+            const std::string& entityConfigPath = defaultConfigFile) :
+        _configFile(entityConfigPath),
+        bifurcationHelper(bifurcationHelper){};
     ~Handler() = default;
 
     std::tuple<std::uint8_t, std::string>
@@ -54,6 +60,7 @@ class Handler : public HandlerInterface
     void hostPowerOffDelay(std::uint32_t delay) const override;
     std::tuple<std::uint32_t, std::string>
         getI2cEntry(unsigned int entry) const override;
+    std::vector<uint8_t> pcieBifurcation(uint8_t) override;
 
     uint32_t accelOobDeviceCount() const override;
     std::string accelOobDeviceName(size_t index) const override;
@@ -89,6 +96,8 @@ class Handler : public HandlerInterface
     nlohmann::json _entityConfig{};
 
     std::vector<std::tuple<uint32_t, std::string>> _pcie_i2c_map;
+
+    std::reference_wrapper<BifurcationInterface> bifurcationHelper;
 };
 
 /**
