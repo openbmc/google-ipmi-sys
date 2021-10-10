@@ -16,8 +16,11 @@
 #include "handler.hpp"
 #include "handler_impl.hpp"
 
+#include <fmt/format.h>
 #include <systemd/sd-bus.h>
 
+#include <charconv>
+#include <filesystem>
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/message.hpp>
@@ -31,6 +34,9 @@ namespace google
 {
 namespace ipmi
 {
+
+using testing::_;
+using testing::Return;
 
 TEST(HandlerTest, EthCheckValidHappy)
 {
@@ -112,6 +118,7 @@ TEST(HandlerTest, getEntityNameWithNameFoundReturnsIt)
 
 using ::testing::_;
 using ::testing::AnyNumber;
+using ::testing::ContainerEq;
 using ::testing::DoAll;
 using ::testing::ElementsAre;
 using ::testing::Eq;
@@ -584,6 +591,59 @@ TEST(HandlerTest, accelOobWrite_Fail)
     ExpectWrite(mock, address, num_bytes, data, sd_bus_call_return_value);
     EXPECT_THROW(h.accelOobWrite("test/path", address, num_bytes, data),
                  IpmiException);
+}
+
+TEST(HandlerTest, PcieBifurcation)
+{
+    const std::string& testConfig = "/tmp/test-config";
+    std::ofstream enableBifurcation(testConfig);
+    enableBifurcation << "1\n";
+    enableBifurcation.flush();
+    enableBifurcation.close();
+
+    const std::string& testJson = "/tmp/test-json";
+    auto j = R"(
+        {
+            "1": [ 1, 3 ],
+            "3": [ 3, 6 ],
+            "4": [ 3, 4, 1 ],
+            "6": [ 8 ]
+        }
+    )"_json;
+
+    std::ofstream bifurcationJson(testJson);
+    bifurcationJson << j.dump();
+    bifurcationJson.flush();
+    bifurcationJson.close();
+
+    BifurcationStatic bifurcationHelper(testConfig, testJson);
+    Handler h(&bifurcationHelper);
+
+    std::unordered_map<uint8_t, std::vector<uint8_t>> expectedMapping = {
+        {1, {1, 3}}, {3, {3, 6}}, {4, {3, 4, 1}}, {6, {8}}};
+    std::vector<uint8_t> invalidBus = {0, 2, 5, 7};
+
+    for (const auto& [bus, output] : expectedMapping)
+    {
+        EXPECT_THAT(h.pcieBifurcation(bus), ContainerEq(output));
+    }
+
+    for (const auto& bus : invalidBus)
+    {
+        EXPECT_TRUE(h.pcieBifurcation(bus).empty());
+    }
+
+    enableBifurcation = std::ofstream(testConfig);
+    enableBifurcation << "0\n";
+    enableBifurcation.flush();
+    enableBifurcation.close();
+    bifurcationHelper = BifurcationStatic(testConfig, testJson);
+    Handler h2(&bifurcationHelper);
+    for (uint8_t i = 0; i < 8; ++i)
+    {
+        auto bifurcation = h2.pcieBifurcation(i);
+        EXPECT_TRUE(bifurcation.empty());
+    }
 }
 
 // TODO: Add checks for other functions of handler.
