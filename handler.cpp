@@ -392,5 +392,10 @@ std::tuple<std::uint32_t, std::string>
     return _pcie_i2c_map[entry];
 }
 
+std::vector<uint8_t> pcieBifurcation(uint8_t bus) const
+{
+    return {bus};
+};
+
 } // namespace ipmi
 } // namespace google
