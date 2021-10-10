@@ -1,1 +1,3 @@
 option('tests', type: 'feature', description: 'Build tests')
+option('dynamic-bifurication', type: 'feature', value: 'disabled', description: 'Support dynamic PCIe bifurication')
+option('static-bifurication', type: 'string', value: '', description: 'Static Bifurication Json config')
