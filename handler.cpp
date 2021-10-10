@@ -19,17 +19,21 @@
 #include "util.hpp"
 
 #include <fcntl.h>
+#include <fmt/format.h>
 #include <ipmid/api.h>
 #include <mtd/mtd-abi.h>
 #include <mtd/mtd-user.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+#include <charconv>
 #include <cinttypes>
 #include <cstdio>
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <map>
+#include <memory>
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
@@ -38,6 +42,8 @@
 #include <string>
 #include <string_view>
 #include <tuple>
+#include <unordered_map>
+#include <unordered_set>
 #include <xyz/openbmc_project/Common/error.hpp>
 
 #ifndef NCSI_IF_NAME
@@ -390,6 +396,156 @@ std::tuple<std::uint32_t, std::string>
     Handler::getI2cEntry(unsigned int entry) const
 {
     return _pcie_i2c_map[entry];
+}
+
+std::optional<uint8_t> Handler::getBifurcation(uint8_t bus)
+{
+    // WIP need to call Entity Manager to get the information
+    std::unordered_map<uint8_t, uint8_t> bifurcationMap = {
+        {10, 16}, {20, 16}, {30, 4}, {31, 2}, {32, 2}, {40, 5}, {41, 4},
+        {42, 1},  {50, 7},  {51, 3}, {52, 4}, {53, 1}, {54, 1}, {55, 1},
+        {56, 1},  {60, 8},  {70, 8}, {71, 4}, {72, 4}, {73, 2}, {74, 2},
+    };
+
+    auto findBifurcation = bifurcationMap.find(bus);
+
+    if (findBifurcation == bifurcationMap.end())
+    {
+        return std::nullopt;
+    }
+
+    return findBifurcation->second;
+}
+
+inline std::vector<uint8_t>
+    Handler::walkChannel(std::string_view basePath, std::string_view path,
+                         std::shared_ptr<std::unordered_set<uint8_t>> cache)
+{
+    // Use only the first device
+    for (const auto& entry : std::filesystem::directory_iterator(path))
+    {
+        std::string_view device = std::string(entry.path().filename());
+
+        uint8_t bus;
+        auto result = std::from_chars(device.data() + 4,
+                                      device.data() + device.size(), bus);
+        if (result.ec == std::errc::invalid_argument)
+        {
+            continue;
+        }
+
+        return walkI2CTreeBifurcation(basePath, bus, cache);
+    }
+    return {};
+}
+
+inline std::vector<uint8_t>
+    Handler::walkMux(std::string_view basePath, std::string_view path,
+                     std::shared_ptr<std::unordered_set<uint8_t>> cache)
+{
+    std::vector<uint8_t> output;
+
+    for (const auto& entry : std::filesystem::directory_iterator(path))
+    {
+        std::string_view channelPath = std::string(entry.path().filename());
+        if (channelPath.starts_with("channel-"))
+        {
+            auto devicePath = fmt::format("{}/i2c-dev", entry.path().c_str());
+            const auto& bifurcation = walkChannel(basePath, devicePath, cache);
+            output.insert(output.end(), bifurcation.begin(), bifurcation.end());
+        }
+    }
+
+    return output;
+}
+
+// Assuming that there are no loops.
+// It will prevent loops, but the result wil be wrong if loops exists.
+// If there are loops, the kernel is setup wrong.
+std::vector<uint8_t> Handler::walkI2CTreeBifurcation(
+    std::string_view basePath, uint8_t bus,
+    std::shared_ptr<std::unordered_set<uint8_t>> cache)
+{
+    if (cache->count(bus) > 0)
+    {
+        return {};
+    }
+
+    auto maybeBifurcation = getBifurcation(bus);
+    if (!maybeBifurcation)
+    {
+        return {};
+    }
+
+    cache->insert(bus);
+
+    std::vector<uint8_t> output;
+
+    auto path = fmt::format("{}/i2c-{}", basePath, bus);
+    for (const auto& entry : std::filesystem::directory_iterator(path))
+    {
+        std::string_view i2cPath = std::string(entry.path().filename());
+
+        if (i2cPath.starts_with(fmt::format("{}-", bus)))
+        {
+            auto muxPath = fmt::format("{}/{}", path, i2cPath);
+            const auto& bifurcation = walkMux(basePath, muxPath, cache);
+            output.insert(output.end(), bifurcation.begin(), bifurcation.end());
+        }
+    }
+
+    if (output.empty())
+    {
+        return {*maybeBifurcation};
+    }
+
+    return output;
+}
+
+std::vector<uint8_t> Handler::pcieBifurcation(uint8_t index,
+                                              const std::string& path)
+{
+    static const std::vector<Json> empty{};
+    std::string_view name;
+    std::optional<uint8_t> instanceNum;
+
+    try
+    {
+        // Parse the JSON config file.
+        if (!_entityConfigParsed)
+        {
+            _entityConfig = parseConfig(_configFile);
+            _entityConfigParsed = true;
+        }
+
+        std::vector<Json> readings = _entityConfig.value("add_in_card", empty);
+
+        for (const auto& j : readings)
+        {
+            name = j.value("name", "");
+            auto num = j.value("instance", 0);
+
+            if (name == fmt::format("/PE{}", index))
+            {
+                instanceNum = num;
+                break;
+            }
+        }
+    }
+    catch (InternalFailure& e)
+    {
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+
+    if (!instanceNum)
+    {
+        return {};
+    }
+
+    std::shared_ptr<std::unordered_set<uint8_t>> cache =
+        std::make_shared<std::unordered_set<uint8_t>>();
+
+    return walkI2CTreeBifurcation(path, *instanceNum, cache);
 }
 
 } // namespace ipmi

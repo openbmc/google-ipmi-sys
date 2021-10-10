@@ -18,9 +18,13 @@
 
 #include <cstdint>
 #include <map>
+#include <memory>
 #include <nlohmann/json.hpp>
+#include <optional>
 #include <string>
+#include <string_view>
 #include <tuple>
+#include <unordered_set>
 #include <vector>
 
 namespace google
@@ -52,6 +56,9 @@ class Handler : public HandlerInterface
     void hostPowerOffDelay(std::uint32_t delay) const override;
     std::tuple<std::uint32_t, std::string>
         getI2cEntry(unsigned int entry) const override;
+    std::optional<uint8_t> getBifurcation(uint8_t bus) override;
+    std::vector<uint8_t> pcieBifurcation(uint8_t index,
+                                         const std::string& i2cPath) override;
 
   private:
     std::string _configFile;
@@ -76,6 +83,16 @@ class Handler : public HandlerInterface
     nlohmann::json _entityConfig{};
 
     std::vector<std::tuple<uint32_t, std::string>> _pcie_i2c_map;
+
+    std::vector<uint8_t>
+        walkChannel(std::string_view basePath, std::string_view path,
+                    std::shared_ptr<std::unordered_set<uint8_t>> cache);
+    std::vector<uint8_t> walkI2CTreeBifurcation(
+        std::string_view basePath, uint8_t bus,
+        std::shared_ptr<std::unordered_set<uint8_t>> cache);
+    std::vector<uint8_t>
+        walkMux(std::string_view basePath, std::string_view path,
+                std::shared_ptr<std::unordered_set<uint8_t>> cache);
 };
 
 /**
