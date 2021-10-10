@@ -20,22 +20,23 @@ class HandlerMock : public HandlerInterface
   public:
     ~HandlerMock() = default;
 
-    MOCK_CONST_METHOD1(getEthDetails,
-                       std::tuple<std::uint8_t, std::string>(std::string));
-    MOCK_CONST_METHOD1(getRxPackets, std::int64_t(const std::string&));
-    MOCK_CONST_METHOD1(getCpldVersion,
-                       std::tuple<std::uint8_t, std::uint8_t, std::uint8_t,
-                                  std::uint8_t>(unsigned int));
-    MOCK_CONST_METHOD1(psuResetDelay, void(std::uint32_t));
-    MOCK_CONST_METHOD0(psuResetOnShutdown, void());
-    MOCK_METHOD0(getFlashSize, uint32_t());
-    MOCK_METHOD2(getEntityName, std::string(std::uint8_t, std::uint8_t));
-    MOCK_METHOD0(getMachineName, std::string());
-    MOCK_METHOD0(buildI2cPcieMapping, void());
-    MOCK_CONST_METHOD0(getI2cPcieMappingSize, size_t());
-    MOCK_CONST_METHOD1(getI2cEntry,
-                       std::tuple<std::uint32_t, std::string>(unsigned int));
-    MOCK_CONST_METHOD1(hostPowerOffDelay, void(std::uint32_t));
+    MOCK_METHOD((std::tuple<std::uint8_t, std::string>), getEthDetails,
+                (std::string), (const, override));
+    MOCK_METHOD(std::int64_t, getRxPackets, (const std::string&),
+                (const, override));
+    MOCK_METHOD(
+        (std::tuple<std::uint8_t, std::uint8_t, std::uint8_t, std::uint8_t>),
+        getCpldVersion, (unsigned int), (const, override));
+
+    MOCK_METHOD(void, psuResetDelay, (std::uint32_t), (const, override));
+    MOCK_METHOD(void, psuResetOnShutdown, (), (const, override));
+    MOCK_METHOD(std::uint32_t, getFlashSize, (), (override));
+    MOCK_METHOD(std::string, getEntityName, (std::uint8_t, std::uint8_t), (override));
+    MOCK_METHOD(std::string, getMachineName, (), (override));
+    MOCK_METHOD(void, buildI2cPcieMapping, (), (override));
+    MOCK_METHOD(size_t, getI2cPcieMappingSize, (), (const, override));
+    MOCK_METHOD((std::tuple<std::uint32_t, std::string>), getI2cEntry, (unsigned int), (const, override));
+    MOCK_METHOD(void, hostPowerOffDelay, (std::uint32_t), (const, override));
 };
 
 } // namespace ipmi
