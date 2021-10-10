@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "config.h"
+
 #include "commands.hpp"
 #include "handler_mock.hpp"
 #include "helper.hpp"
@@ -31,25 +33,26 @@ namespace ipmi
 using testing::_;
 using ::testing::ContainerEq;
 
-TEST(PcieBifurcationCommandTest, InvalidRequest)
+TEST(PcieBifurcationCommandTest, InvalidRequestStatic)
 {
     std::vector<uint8_t> request = {};
 
     HandlerMock hMock;
+
     EXPECT_EQ(::ipmi::responseReqDataLenInvalid(),
-              pcieBifurcation(request, &hMock));
+              pcieBifurcation(nullptr, request, &hMock, false));
 }
 
-TEST(PcieBifurcationCommandTest, ValidRequest)
+TEST(PcieBifurcationCommandTest, ValidRequestStatic)
 {
     std::vector<uint8_t> request = {5};
     std::vector<uint8_t> expectedOutput = {4, 8, 1, 2};
 
     HandlerMock hMock;
-    EXPECT_CALL(hMock, pcieBifurcationByIndex(5))
+    EXPECT_CALL(hMock, pcieBifurcationByIndex(_, 5, false))
         .WillOnce(Return(expectedOutput));
 
-    auto reply = pcieBifurcation(request, &hMock);
+    auto reply = pcieBifurcation(nullptr, request, &hMock, false);
     auto result = ValidateReply(reply);
     auto& data = result.second;
 
@@ -60,16 +63,61 @@ TEST(PcieBifurcationCommandTest, ValidRequest)
                 ContainerEq(expectedOutput));
 }
 
-TEST(PcieBifurcationCommandTest, ReplyExceddedMaxValue)
+TEST(PcieBifurcationCommandTest, ReplyExceddedMaxValueStatic)
 {
     std::vector<uint8_t> request = {5};
     std::vector<uint8_t> expectedOutput(64, 1);
 
     HandlerMock hMock;
-    EXPECT_CALL(hMock, pcieBifurcationByIndex(5))
+    EXPECT_CALL(hMock, pcieBifurcationByIndex(_, 5, false))
         .WillOnce(Return(expectedOutput));
     EXPECT_EQ(::ipmi::responseInvalidCommand(),
-              pcieBifurcation(request, &hMock));
+              pcieBifurcation(nullptr, request, &hMock, false));
+}
+
+// Dynamic
+TEST(PcieBifurcationCommandTest, InvalidRequestDynamic)
+{
+    std::vector<std::uint8_t> request = {};
+
+    HandlerMock hMock;
+    EXPECT_EQ(::ipmi::responseReqDataLenInvalid(),
+              pcieBifurcation(nullptr, request, &hMock, true));
+}
+
+TEST(PcieBifurcationCommandTest, ValidRequestDynamic)
+{
+    std::vector<std::uint8_t> request = {5};
+    std::vector<uint8_t> expectedOutput = {4, 8, 1, 2};
+
+    HandlerMock hMock;
+    EXPECT_CALL(hMock, pcieBifurcationByIndex(_, 5, true))
+        .WillOnce(Return(expectedOutput));
+
+    auto reply = pcieBifurcation(nullptr, request, &hMock, true);
+    auto result = ValidateReply(reply);
+    auto& data = result.second;
+
+    EXPECT_EQ(sizeof(struct PcieBifurcationReply) + expectedOutput.size(),
+              data.size());
+    EXPECT_EQ(SysOEMCommands::SysPCIeSlotBifurcation, result.first);
+    ASSERT_EQ(data[0], expectedOutput.size());
+    EXPECT_EQ(data[1], 4);
+    EXPECT_EQ(data[2], 8);
+    EXPECT_EQ(data[3], 1);
+    EXPECT_EQ(data[4], 2);
+}
+
+TEST(PcieBifurcationCommandTest, ReplyExceddedMaxValueDynamic)
+{
+    std::vector<std::uint8_t> request = {5};
+    std::vector<uint8_t> expectedOutput(64, 1);
+
+    HandlerMock hMock;
+    EXPECT_CALL(hMock, pcieBifurcationByIndex(_, 5, true))
+        .WillOnce(Return(expectedOutput));
+    EXPECT_EQ(::ipmi::responseInvalidCommand(),
+              pcieBifurcation(nullptr, request, &hMock, true));
 }
 
 } // namespace ipmi

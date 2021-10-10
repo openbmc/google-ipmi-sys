@@ -74,8 +74,12 @@ class Handler : public HandlerInterface
     void hostPowerOffDelay(std::uint32_t delay) const override;
     std::tuple<std::uint32_t, std::string>
         getI2cEntry(unsigned int entry) const override;
-    std::vector<uint8_t> pcieBifurcationByIndex(uint8_t index) override;
-    std::vector<uint8_t> pcieBifurcationByName(std::string_view name) override;
+    std::vector<uint8_t> pcieBifurcationByIndex(::ipmi::Context::ptr ctx,
+                                                uint8_t index,
+                                                bool dynamic) override;
+    std::vector<uint8_t> pcieBifurcationByName(::ipmi::Context::ptr ctx,
+                                               std::string_view name,
+                                               bool dynamic) override;
 
     uint32_t accelOobDeviceCount() const override;
     std::string accelOobDeviceName(size_t index) const override;

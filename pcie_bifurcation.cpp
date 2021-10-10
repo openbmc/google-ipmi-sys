@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "config.h"
-
 #include "pcie_bifurcation.hpp"
 
 #include "commands.hpp"
@@ -21,6 +19,7 @@
 #include "handler.hpp"
 
 #include <ipmid/api-types.hpp>
+#include <ipmid/message.hpp>
 #include <stdplus/print.hpp>
 
 #include <span>
@@ -43,7 +42,8 @@ struct PcieBifurcationRequest
     uint8_t pcieIndex;
 } __attribute__((packed));
 
-Resp pcieBifurcation(std::span<const uint8_t> data, HandlerInterface* handler)
+Resp pcieBifurcation(::ipmi::Context::ptr ctx, std::span<const uint8_t> data,
+                     HandlerInterface* handler, bool dynamic)
 {
     if (data.size() < sizeof(struct PcieBifurcationRequest))
     {
@@ -56,12 +56,13 @@ Resp pcieBifurcation(std::span<const uint8_t> data, HandlerInterface* handler)
 
     if (data.size() == sizeof(struct PcieBifurcationRequest))
     {
-        bifurcation = handler->pcieBifurcationByIndex(/*index=*/data[0]);
+        bifurcation = handler->pcieBifurcationByIndex(ctx, /*index=*/data[0],
+                                                      dynamic);
     }
     else
     {
         bifurcation = handler->pcieBifurcationByName(
-            /*name=*/std::string(data.begin(), data.end()));
+            ctx, /*name=*/std::string(data.begin(), data.end()), dynamic);
     }
 
     int length = sizeof(struct PcieBifurcationReply) + bifurcation.size();
