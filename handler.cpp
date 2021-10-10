@@ -19,6 +19,7 @@
 #include "util.hpp"
 
 #include <fcntl.h>
+#include <fmt/format.h>
 #include <ipmid/api.h>
 #include <mtd/mtd-abi.h>
 #include <mtd/mtd-user.h>
@@ -30,6 +31,7 @@
 #include <filesystem>
 #include <fstream>
 #include <map>
+#include <memory>
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
@@ -38,6 +40,7 @@
 #include <string>
 #include <string_view>
 #include <tuple>
+#include <unordered_set>
 #include <variant>
 #include <xyz/openbmc_project/Common/error.hpp>
 
@@ -597,6 +600,42 @@ void Handler::accelOobWrite(std::string_view name, uint64_t address,
                         entry("DBUS_ARG_DATA=%016llx", data));
         throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
     }
+}
+
+std::vector<uint8_t> Handler::pcieBifurcation(
+    uint8_t index, std::string_view persistentPath,
+    std::optional<std::unordered_map<uint8_t, std::vector<uint8_t>>>
+        bifurication)
+{
+    std::string result;
+    try
+    {
+        std::ifstream f(persistentPath.data(), std::ios::in);
+        size_t size = std::filesystem::file_size(persistentPath);
+        result = std::string(size, '\0');
+        f.read(result.data(), size);
+        f.close();
+    }
+    catch (std::exception const& e)
+    {
+        fmt::print(stderr, "Failed to open {}\n: {}", persistentPath.data(),
+                   e.what());
+
+        throw e;
+    }
+
+    if (result != "1\n")
+    {
+        return std::vector<uint8_t>{};
+    }
+
+    if (bifurication)
+    {
+        return (*bifurication)[index];
+    }
+
+    return bifurcationHelper->getBifurcation(index).value_or(
+        std::vector<uint8_t>{});
 }
 
 } // namespace ipmi

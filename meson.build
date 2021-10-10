@@ -9,6 +9,20 @@ project(
     'werror=true',
   ])
 
+root_inc = include_directories('.')
+
+if(get_option('dynamic-bifurication').enabled())
+  add_project_arguments('-DDYNAMIC_BIFURICATION',language:'cpp')
+endif
+
+
+conf_data = configuration_data()
+conf_data.set_quoted('ENABLE_BIFURICATION_CONFIG', get_option('enable-bifurication'))
+conf_data.set_quoted('STATIC_BIFURICATION_CONFIG', get_option('static-bifurication'))
+conf_h = configure_file(
+  output: 'config.h',
+  configuration: conf_data)
+
 meson.get_compiler('cpp').has_header_symbol(
   'ipmid/api.h',
   'ipmid_get_sd_bus_connection')
@@ -19,13 +33,30 @@ meson.get_compiler('cpp').has_header_symbol(
   'nlohmann::json',
   dependencies: json_dep)
 
+fmt_dep = dependency('fmt', required: false)
+if not fmt_dep.found()
+  fmt_proj = import('cmake').subproject(
+    'fmt',
+    cmake_options: [
+      '-DCMAKE_POSITION_INDEPENDENT_CODE=ON',
+      '-DMASTER_PROJECT=OFF'
+    ],
+    required: false)
+  assert(fmt_proj.found(), 'fmtlib is required')
+  fmt_dep = fmt_proj.dependency('fmt')
+endif
+
+subdir('bifurcation')
+
 sys_pre = declare_dependency(
-  include_directories: include_directories('.'),
+  include_directories: root_inc,
   dependencies: [
     json_dep,
+    fmt_dep,
     dependency('phosphor-dbus-interfaces'),
     dependency('phosphor-logging'),
     dependency('sdbusplus'),
+    bifurcation_dep,
   ])
 
 sys_lib = static_library(
@@ -41,6 +72,7 @@ sys_lib = static_library(
   'machine_name.cpp',
   'pcie_i2c.cpp',
   'google_accel_oob.cpp',
+  'pcie_bifurcation.cpp',
   'psu.cpp',
   'util.cpp',
   implicit_include_directories: false,

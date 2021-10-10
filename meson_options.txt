@@ -1,1 +1,4 @@
 option('tests', type: 'feature', description: 'Build tests')
+option('dynamic-bifurication', type: 'feature', value: 'disabled', description: 'Support dynamic PCIe bifurication')
+option('enable-bifurication', type: 'string', value: '/usr/share/google-ipmi-sys/enable_bifurication', description: 'Path to Enable Bifurication Config')
+option('static-bifurication', type: 'string', value: '/usr/share/google-ipmi-sys/bifurication.json', description: 'Path to Static Bifurication Json config')

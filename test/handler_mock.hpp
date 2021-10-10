@@ -18,9 +18,11 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <tuple>
+#include <unordered_map>
 
 #include <gmock/gmock.h>
 
@@ -62,6 +64,11 @@ class HandlerMock : public HandlerInterface
     MOCK_METHOD(void, accelOobWrite,
                 (std::string_view, uint64_t, uint8_t, uint64_t),
                 (const, override));
+    MOCK_METHOD(
+        std::vector<uint8_t>, pcieBifurcation,
+        (uint8_t, std::string_view,
+         (std::optional<std::unordered_map<uint8_t, std::vector<uint8_t>>>)),
+        (override));
 };
 
 } // namespace ipmi
