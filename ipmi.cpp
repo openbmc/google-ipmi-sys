@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "config.h"
+
 #include "ipmi.hpp"
 
 #include "bmc_mode.hpp"
@@ -84,7 +86,7 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr ctx,
         case SysAccelOobWrite:
             return accelOobWrite(data, handler);
         case SysPCIeSlotBifurcation:
-            return pcieBifurcation(data, handler);
+            return pcieBifurcation(ctx, data, handler, DYNAMIC_BIFURCATION);
         case SysLinuxBootDone:
             return linuxBootDone(data, handler);
         case SysGetAccelVrSettings:

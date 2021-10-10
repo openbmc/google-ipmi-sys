@@ -203,10 +203,14 @@ class HandlerInterface
      * This function assume that the PCIe Slots are in the format of PE{index}.
      * Please use pcieBifurcationByName to support different name format.
      *
+     * @param[in] ctx      - IPMI Context
      * @param[in] index    - PCIe Slot Index
+     * @param[in] dynamic  - Enable Dynamic Bifurcation
      * @return list of lanes taken by each device. Sorted by highest to lowest.
      */
-    virtual std::vector<uint8_t> pcieBifurcationByIndex(uint8_t index) = 0;
+    virtual std::vector<uint8_t>
+        pcieBifurcationByIndex(::ipmi::Context::ptr ctx, uint8_t index,
+                               bool dynamic = false) = 0;
 
     /**
      * Parse the I2C tree to get the highest level of bifurcation in target bus.
@@ -214,11 +218,14 @@ class HandlerInterface
      * This function will use the full name of the PCIe slot to get the
      * bifurcation info.
      *
+     * @param[in] ctx      - IPMI Context
      * @param[in] index    - PCIe Slot Index
+     * @param[in] dynamic  - Enable Dynamic Bifurcation
      * @return list of lanes taken by each device. Sorted by highest to lowest.
      */
     virtual std::vector<uint8_t>
-        pcieBifurcationByName(std::string_view name) = 0;
+        pcieBifurcationByName(::ipmi::Context::ptr ctx, std::string_view name,
+                               bool dynamic = false) = 0;
 
     /**
      * Prepare for OS boot.
