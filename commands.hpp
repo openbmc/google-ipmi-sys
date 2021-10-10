@@ -29,6 +29,8 @@ enum SysOEMCommands
     SysGetFlashSize = 9,
     // The Sys Host Power Off with disabled fallback watchdog
     SysHostPowerOff = 10,
+    // The Sys PCIe Slot Bifurcation information command.
+    SysPCIeSlotBifurcation = 10,
 };
 
 } // namespace ipmi
