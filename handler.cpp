@@ -666,15 +666,55 @@ void Handler::accelOobWrite(std::string_view name, uint64_t address,
     }
 }
 
-std::vector<uint8_t> Handler::pcieBifurcationByIndex(uint8_t index)
+std::vector<uint8_t> Handler::pcieBifurcationByIndex(::ipmi::Context::ptr ctx,
+                                                     uint8_t index,
+                                                     bool dynamic)
 {
-    return pcieBifurcationByName(std::format("/PE{}", index));
+    return pcieBifurcationByName(ctx, std::format("/PE{}", index), dynamic);
 }
 
-std::vector<uint8_t> Handler::pcieBifurcationByName(std::string_view name)
+std::vector<uint8_t> Handler::pcieBifurcationByName(::ipmi::Context::ptr ctx,
+                                                    std::string_view name,
+                                                    bool dynamic)
 {
-    return bifurcationHelper.get().getBifurcation(name).value_or(
-        std::vector<uint8_t>{});
+    if (!dynamic)
+    {
+        return bifurcationHelper.get().getBifurcation(ctx, name).value_or(
+            std::vector<uint8_t>{});
+    }
+
+    // Dynamic Configuration needs to lookup the i2c bus from the PCIe slot
+    // index.
+    static const std::vector<Json> empty{};
+    std::vector<Json> readings;
+
+    try
+    {
+        // Parse the JSON config file.
+        if (!_entityConfigParsed)
+        {
+            _entityConfig = parseConfig(_configFile);
+            _entityConfigParsed = true;
+        }
+
+        readings = _entityConfig.value("add_in_card", empty);
+    }
+    catch (const InternalFailure& e)
+    {
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+
+    for (const auto& j : readings)
+    {
+        if (j.value("name", "") == name)
+        {
+            return bifurcationHelper.get()
+                .getBifurcation(ctx, j.value("instance", 0))
+                .value_or(std::vector<uint8_t>{});
+        }
+    }
+
+    return {};
 }
 
 static constexpr auto BARE_METAL_TARGET = "gbmc-bare-metal-active.target";
