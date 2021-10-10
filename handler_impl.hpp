@@ -52,6 +52,7 @@ class Handler : public HandlerInterface
     void hostPowerOffDelay(std::uint32_t delay) const override;
     std::tuple<std::uint32_t, std::string>
         getI2cEntry(unsigned int entry) const override;
+    std::vector<uint8_t> pcieBifurcation(uint8_t bus) const override;
 
   private:
     std::string _configFile;
