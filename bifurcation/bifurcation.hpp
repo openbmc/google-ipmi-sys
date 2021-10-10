@@ -13,8 +13,11 @@
 // limitations under the License.
 #pragma once
 
+#include <ipmid/message.hpp>
+
 #include <cstdint>
 #include <functional>
+#include <memory>
 #include <optional>
 #include <string>
 #include <string_view>
@@ -26,6 +29,22 @@ namespace google
 namespace ipmi
 {
 
+using Cache = std::unordered_map<std::string, std::vector<uint8_t>>;
+
+struct PCIe
+{
+    enum class Type
+    {
+        None,
+        Slot,
+        Device,
+    };
+
+    Type type = Type::None;
+    uint8_t lanes = 0;
+    uint8_t channels = 0;
+};
+
 class BifurcationInterface
 {
   public:
@@ -34,11 +53,55 @@ class BifurcationInterface
     /**
      * Get the Bifurcation of the device at the i2c bus
      *
+     * @param[in] ctx    IPMI Context Pointer
      * @param[in] bus    - I2C bus of the device
      * @return the bifurcation at the i2c bus
      */
     virtual std::optional<std::vector<uint8_t>>
-        getBifurcation(uint8_t bus) noexcept = 0;
+        getBifurcation(::ipmi::Context::ptr ctx, uint8_t bus) noexcept = 0;
+
+    /**
+     * Request the MaxLanes from the PCIeDevice dbus object
+     *
+     * @param[in] ctx    IPMI Context Pointer
+     * @param[in] path   Dbus object path for PCIeDevice
+     * @return the bifurcation at the i2c bus
+     */
+    virtual std::optional<uint8_t> i2cBus(::ipmi::Context::ptr ctx,
+                                          const std::string& path) noexcept = 0;
+
+    /**
+     * Request the MaxLanes from the PCIeDevice dbus object
+     *
+     * @param[in] ctx    IPMI Context Pointer
+     * @param[in] path   Dbus object path for PCIeDevice
+     * @return the bifurcation at the i2c bus
+     */
+    virtual std::optional<uint64_t>
+        pcieDeviceMaxLanes(::ipmi::Context::ptr ctx,
+                           const std::string& path) noexcept = 0;
+
+    /**
+     * Request the Lanes and SupportedChannels from the PCIeSlot dbus object
+     *
+     * @param[in] ctx    IPMI Context Pointer
+     * @param[in] path   Dbus object path for PCIeSlot
+     * @return the bifurcation at the i2c bus
+     */
+    virtual std::optional<uint64_t>
+        pcieSlotLanes(::ipmi::Context::ptr ctx,
+                      const std::string& path) noexcept = 0;
+
+    /**
+     * Request the Lanes and SupportedChannels from the PCIeSlot dbus object
+     *
+     * @param[in] ctx    IPMI Context Pointer
+     * @param[in] path   Dbus object path for PCIeSlot
+     * @return the bifurcation at the i2c bus
+     */
+    virtual std::vector<std::string>
+        physicalAssociations(::ipmi::Context::ptr ctx,
+                             const std::string& path) noexcept = 0;
 };
 
 class BifurcationStatic : public BifurcationInterface
@@ -54,13 +117,83 @@ class BifurcationStatic : public BifurcationInterface
     BifurcationStatic(std::string_view bifurcationFile);
 
     std::optional<std::vector<uint8_t>>
-        getBifurcation(uint8_t index) noexcept override;
+        getBifurcation(::ipmi::Context::ptr ctx,
+                       uint8_t index) noexcept override;
+
+    std::optional<uint8_t> i2cBus(::ipmi::Context::ptr,
+                                  const std::string&) noexcept override
+    {
+        return std::nullopt;
+    };
+
+    std::optional<uint64_t>
+        pcieDeviceMaxLanes(::ipmi::Context::ptr,
+                           const std::string&) noexcept override
+    {
+        return std::nullopt;
+    };
+
+    std::optional<uint64_t> pcieSlotLanes(::ipmi::Context::ptr,
+                                          const std::string&) noexcept override
+    {
+        return std::nullopt;
+    };
+
+    std::vector<std::string>
+        physicalAssociations(::ipmi::Context::ptr,
+                             const std::string&) noexcept override
+    {
+        return {};
+    };
 
   protected:
     BifurcationStatic();
 
   private:
     std::string bifurcationFile;
+};
+
+class BifurcationDynamic : public BifurcationInterface
+{
+  public:
+    static std::reference_wrapper<BifurcationInterface> createBifurcation()
+    {
+        static BifurcationDynamic bifurcationDynamic;
+
+        return std::ref(bifurcationDynamic);
+    }
+
+    BifurcationDynamic() = default;
+
+    std::optional<std::vector<uint8_t>>
+        getBifurcation(::ipmi::Context::ptr ctx,
+                       uint8_t index) noexcept override;
+
+    std::optional<uint8_t> i2cBus(::ipmi::Context::ptr ctx,
+                                  const std::string& path) noexcept override;
+
+    std::optional<uint64_t>
+        pcieDeviceMaxLanes(::ipmi::Context::ptr ctx,
+                           const std::string& path) noexcept override;
+
+    std::optional<uint64_t>
+        pcieSlotLanes(::ipmi::Context::ptr ctx,
+                      const std::string& path) noexcept override;
+
+    std::vector<std::string>
+        physicalAssociations(::ipmi::Context::ptr ctx,
+                             const std::string& path) noexcept override;
+
+    std::unordered_map<uint8_t, PCIe> pcieResources;
+
+  private:
+    BifurcationDynamic(const BifurcationDynamic&) = delete;
+    BifurcationDynamic& operator=(const BifurcationDynamic&) = delete;
+    BifurcationDynamic(BifurcationDynamic&&) = delete;
+    BifurcationDynamic& operator=(BifurcationDynamic&&) = delete;
+
+    std::vector<uint8_t> parseDevices(::ipmi::Context::ptr ctx,
+                                      const std::string& path);
 };
 
 } // namespace ipmi

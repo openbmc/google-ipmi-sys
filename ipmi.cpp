@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "config.h"
+
 #include "ipmi.hpp"
 
 #include "bmc_mode.hpp"
@@ -44,7 +46,7 @@ namespace google
 namespace ipmi
 {
 
-Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr,
+Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr ctx,
                       uint8_t cmd, std::span<const uint8_t> data)
 {
     switch (cmd)
@@ -82,7 +84,7 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr,
         case SysAccelOobWrite:
             return accelOobWrite(data, handler);
         case SysPCIeSlotBifurcation:
-            return pcieBifurcation(data, handler);
+            return pcieBifurcation(ctx, data, handler, DYNAMIC_BIFURCATION);
         default:
             std::fprintf(stderr, "Invalid subcommand: 0x%x\n", cmd);
             return ::ipmi::responseInvalidCommand();
