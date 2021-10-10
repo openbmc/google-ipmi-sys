@@ -28,7 +28,8 @@ struct PcieBifurcationReply
     uint8_t bifurcationLength;
 } __attribute__((packed));
 
-Resp pcieBifurcation(std::span<const uint8_t> data, HandlerInterface* handler);
+Resp pcieBifurcation(std::span<const uint8_t> data, HandlerInterface* handler,
+                     bool dynamic);
 
 } // namespace ipmi
 } // namespace google
