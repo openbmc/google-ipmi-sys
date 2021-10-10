@@ -599,5 +599,11 @@ void Handler::accelOobWrite(std::string_view name, uint64_t address,
     }
 }
 
+std::vector<uint8_t> Handler::pcieBifurcation(uint8_t index)
+{
+    return bifurcationHelper->getBifurcation(index).value_or(
+        std::vector<uint8_t>{});
+}
+
 } // namespace ipmi
 } // namespace google
