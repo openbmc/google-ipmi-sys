@@ -24,6 +24,7 @@
 #include "handler.hpp"
 #include "host_power_off.hpp"
 #include "machine_name.hpp"
+#include "pcie_bifurcation.hpp"
 #include "pcie_i2c.hpp"
 #include "psu.hpp"
 
@@ -76,6 +77,8 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr,
             return accelOobRead(data, handler);
         case SysAccelOobWrite:
             return accelOobWrite(data, handler);
+        case SysPCIeSlotBifurcation:
+            return pcieBifurcation(data, handler);
         default:
             std::fprintf(stderr, "Invalid subcommand: 0x%x\n", cmd);
             return ::ipmi::responseInvalidCommand();
