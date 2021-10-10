@@ -138,21 +138,39 @@ std::tuple<std::uint8_t, std::string>
     return std::make_tuple(::ipmi::getChannelByName(intf), std::move(intf));
 }
 
-Handler::Handler(const std::string& entityConfigPath) :
-    fsPtr(std::make_unique<FileSystemWrapper>()), _configFile(entityConfigPath),
-    bifurcationHelper(BifurcationStatic::createBifurcation())
+Json parseEntityConfig(std::string_view configFile)
 {
+    Json entityConfig;
     try
     {
         // Parse the JSON config file.
-        _entityConfig = parseConfig(_configFile);
-        _entityConfigParsed = true;
+        entityConfig = parseConfig(configFile.data());
     }
     catch (InternalFailure& e)
     {
         stdplus::println(stderr, "Parsing Entity Config failed: {}", e.what());
     }
+    return entityConfig;
 }
+
+Handler::Handler(const std::string& entityConfigPath) :
+    fsPtr(std::make_unique<FileSystemWrapper>()),
+    _entityConfig(parseEntityConfig(entityConfigPath)),
+    _entityConfigParsed(!_entityConfig.empty()),
+#if DYNAMIC_BIFURCATION
+    bifurcationHelper(BifurcationDynamic::createBifurcation(_entityConfig))
+#else
+    bifurcationHelper(BifurcationStatic::createBifurcation())
+#endif
+{}
+
+Handler::Handler(std::reference_wrapper<BifurcationInterface> bifurcationHelper,
+                 const std::string& entityConfigPath) :
+    fsPtr(std::make_unique<FileSystemWrapper>()),
+    _entityConfig(parseEntityConfig(entityConfigPath)),
+    _entityConfigParsed(!_entityConfig.empty()),
+    bifurcationHelper(bifurcationHelper)
+{}
 
 std::int64_t Handler::getRxPackets(const std::string& name) const
 {
@@ -673,14 +691,16 @@ void Handler::accelOobWrite(std::string_view name, uint64_t address,
     }
 }
 
-std::vector<uint8_t> Handler::pcieBifurcationByIndex(uint8_t index)
+std::vector<uint8_t> Handler::pcieBifurcationByIndex(::ipmi::Context::ptr ctx,
+                                                     uint8_t index)
 {
-    return pcieBifurcationByName(std::format("/PE{}", index));
+    return pcieBifurcationByName(ctx, std::format("/PE{}", index));
 }
 
-std::vector<uint8_t> Handler::pcieBifurcationByName(std::string_view name)
+std::vector<uint8_t> Handler::pcieBifurcationByName(::ipmi::Context::ptr ctx,
+                                                    std::string_view name)
 {
-    return bifurcationHelper.get().getBifurcation(name).value_or(
+    return bifurcationHelper.get().getBifurcation(ctx, name).value_or(
         std::vector<uint8_t>{});
 }
 

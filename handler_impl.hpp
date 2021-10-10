@@ -45,9 +45,7 @@ class Handler : public HandlerInterface
   public:
     explicit Handler(const std::string& entityConfigPath = defaultConfigFile);
     Handler(std::reference_wrapper<BifurcationInterface> bifurcationHelper,
-            const std::string& entityConfigPath = defaultConfigFile) :
-        fsPtr(std::make_unique<FileSystemWrapper>()),
-        _configFile(entityConfigPath), bifurcationHelper(bifurcationHelper){};
+            const std::string& entityConfigPath = defaultConfigFile);
     ~Handler() = default;
 
     uint8_t getBmcMode() override;
@@ -65,8 +63,10 @@ class Handler : public HandlerInterface
     void hostPowerOffDelay(std::uint32_t delay) const override;
     std::tuple<std::uint32_t, std::string>
         getI2cEntry(unsigned int entry) const override;
-    std::vector<uint8_t> pcieBifurcationByIndex(uint8_t index) override;
-    std::vector<uint8_t> pcieBifurcationByName(std::string_view name) override;
+    std::vector<uint8_t> pcieBifurcationByIndex(::ipmi::Context::ptr ctx,
+                                                uint8_t index) override;
+    std::vector<uint8_t> pcieBifurcationByName(::ipmi::Context::ptr ctx,
+                                               std::string_view name) override;
 
     uint32_t accelOobDeviceCount() const override;
     std::string accelOobDeviceName(size_t index) const override;
@@ -88,8 +88,7 @@ class Handler : public HandlerInterface
   private:
     std::unique_ptr<FileSystemInterface> fsPtr;
 
-    std::string _configFile;
-
+    nlohmann::json _entityConfig{};
     bool _entityConfigParsed = false;
 
     const std::map<uint8_t, std::string> _entityIdToName{
@@ -109,8 +108,6 @@ class Handler : public HandlerInterface
 
     const std::unordered_map<uint8_t, std::string> _vrSettingsMap{
         {0, "idle_mode_"}, {1, "power_brake_"}, {2, "loadline_"}};
-
-    nlohmann::json _entityConfig{};
 
     std::vector<std::tuple<uint32_t, std::string>> _pcie_i2c_map;
 

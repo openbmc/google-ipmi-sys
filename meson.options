@@ -1,4 +1,6 @@
 option('tests', type: 'feature', description: 'Build tests')
+option('dynamic-bifurcation', type: 'feature', description: 'Enable Dynamic Bifurcation')
+option('main-board', type: 'string', value: '/test/board', description: 'Main dbus bus object where all physical topology is based from.')
 option('static-bifurcation', type: 'string', value: '/usr/share/google-ipmi-sys/bifurcation.json', description: 'Path to Static Bifurcation Json config')
 option('bare_metal', type: 'boolean', value: false, description: 'Bare Metal Mode Flag')
 option('bm-signal-path', type: 'string', value: '/run/bm-ready.flag', description: 'Path to the flag to indicate that BM mode is ready')

@@ -40,7 +40,8 @@ BifurcationStatic::BifurcationStatic(std::string_view bifurcationFile) :
 {}
 
 std::optional<std::vector<uint8_t>>
-    BifurcationStatic::getBifurcation(std::string_view name) noexcept
+    BifurcationStatic::getBifurcation(::ipmi::Context::ptr,
+                                      std::string_view name) noexcept
 {
     // Example valid data:
     // {
