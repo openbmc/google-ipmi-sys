@@ -1,3 +1,4 @@
 option('tests', type: 'feature', description: 'Build tests')
+option('dynamic-bifurcation', type: 'feature', description: 'Enable Dynamic Bifurcation')
 option('static-bifurcation', type: 'string', value: '/usr/share/google-ipmi-sys/bifurcation.json', description: 'Path to Static Bifurcation Json config')
 option('bare_metal', type: 'boolean', value: false, description: 'Bare Metal Mode Flag')

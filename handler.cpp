@@ -18,6 +18,7 @@
 #include "util.hpp"
 
 #include <fcntl.h>
+#include <fmt/format.h>
 #include <ipmid/api.h>
 #include <mtd/mtd-abi.h>
 #include <mtd/mtd-user.h>
@@ -29,6 +30,7 @@
 #include <filesystem>
 #include <fstream>
 #include <map>
+#include <memory>
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
@@ -37,6 +39,7 @@
 #include <string>
 #include <string_view>
 #include <tuple>
+#include <unordered_set>
 #include <variant>
 #include <xyz/openbmc_project/Common/error.hpp>
 
@@ -622,10 +625,54 @@ void Handler::accelOobWrite(std::string_view name, uint64_t address,
     }
 }
 
-std::vector<uint8_t> Handler::pcieBifurcation(uint8_t index)
+std::vector<uint8_t> Handler::pcieBifurcation(uint8_t index, bool dynamic)
 {
-    return bifurcationHelper.get().getBifurcation(index).value_or(
-        std::vector<uint8_t>{});
+    if (!dynamic)
+    {
+        return bifurcationHelper.get().getBifurcation(index).value_or(
+            std::vector<uint8_t>{});
+    }
+
+    static const std::vector<Json> empty{};
+    std::string name;
+    std::optional<uint8_t> instanceNum;
+
+    try
+    {
+        // Parse the JSON config file.
+        if (!_entityConfigParsed)
+        {
+            _entityConfig = parseConfig(_configFile);
+            _entityConfigParsed = true;
+        }
+
+        std::vector<Json> readings = _entityConfig.value("add_in_card", empty);
+
+        for (const auto& j : readings)
+        {
+            name = j.value("name", "");
+            auto num = j.value("instance", 0);
+
+            if (name == fmt::format("/PE{}", index))
+            {
+                instanceNum = num;
+                break;
+            }
+        }
+    }
+    catch (InternalFailure& e)
+    {
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+
+    if (instanceNum == std::nullopt)
+    {
+        return {};
+    };
+
+    return bifurcationHelper.get()
+        .getBifurcation(*instanceNum)
+        .value_or(std::vector<uint8_t>{});
 }
 
 } // namespace ipmi
