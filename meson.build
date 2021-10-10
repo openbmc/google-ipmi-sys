@@ -13,6 +13,14 @@ root_inc = include_directories('.')
 
 conf_data = configuration_data()
 conf_data.set_quoted('STATIC_BIFURCATION_CONFIG', get_option('static-bifurcation'))
+if not get_option('dynamic-bifurcation').disabled()
+  conf_data.set('DYNAMIC_BIFURCATION', 'true')
+  conf_data.set_quoted('MAIN_BOARD', get_option('main-board'))
+else
+  conf_data.set('DYNAMIC_BIFURCATION', 'false')
+  conf_data.set_quoted('MAIN_BOARD', '')
+endif
+
 conf_h = configure_file(
   output: 'config.h',
   configuration: conf_data)
