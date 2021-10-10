@@ -400,3 +400,22 @@ Response
 |n+2..n+10| |Address
 |n+11| |Number of bytes
 |n+12..n+20| |Data
+
+### PCIe Bifurcation - SubCommand 0x0F
+Sys command to return the highest level of bifurcation for the
+target PCIe Slot.
+
+Request
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0F|Subcommand
+|0x01|PE slot number|Index of the PE slot
+
+Response
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0F|Subcommand
+|0x01|Config length (N)|Number of bytes needed for the bifurcation config
+|0x02..0x02 + N - 1|Lanes per device|Each byte represents the number of lanes bonded together for each endpoint device
