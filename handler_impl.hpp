@@ -14,11 +14,14 @@
 
 #pragma once
 
+#include "bifurcation.hpp"
 #include "handler.hpp"
 
 #include <cstdint>
 #include <map>
+#include <memory>
 #include <nlohmann/json.hpp>
+#include <optional>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -35,7 +38,11 @@ class Handler : public HandlerInterface
 {
   public:
     explicit Handler(const std::string& entityConfigPath = defaultConfigFile) :
-        _configFile(entityConfigPath){};
+        _configFile(entityConfigPath)
+    {
+        bifurcationHelperPtr = std::make_unique<Bifurcation>();
+        bifurcationHelper = bifurcationHelperPtr.get();
+    };
     ~Handler() = default;
 
     std::tuple<std::uint8_t, std::string>
@@ -52,6 +59,10 @@ class Handler : public HandlerInterface
     void hostPowerOffDelay(std::uint32_t delay) const override;
     std::tuple<std::uint32_t, std::string>
         getI2cEntry(unsigned int entry) const override;
+    std::vector<uint8_t> pcieBifurcation(uint8_t index,
+                                         const std::string& i2cPath) override;
+
+    void setBifurcationHelper(BifurcationInterface* bifurcationHelper);
 
   private:
     std::string _configFile;
@@ -76,6 +87,9 @@ class Handler : public HandlerInterface
     nlohmann::json _entityConfig{};
 
     std::vector<std::tuple<uint32_t, std::string>> _pcie_i2c_map;
+
+    std::unique_ptr<Bifurcation> bifurcationHelperPtr;
+    Bifurcation* bifurcationHelper;
 };
 
 /**
