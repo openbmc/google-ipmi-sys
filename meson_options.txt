@@ -1,1 +1,3 @@
 option('tests', type: 'feature', description: 'Build tests')
+option('enable-bifurcation', type: 'string', value: '/usr/share/google-ipmi-sys/enable_bifurcation', description: 'Path to Enable Bifurcation Config')
+option('static-bifurcation', type: 'string', value: '/usr/share/google-ipmi-sys/bifurcation.json', description: 'Path to Static Bifurcation Json config')
