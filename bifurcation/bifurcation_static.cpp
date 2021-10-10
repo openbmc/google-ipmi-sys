@@ -17,6 +17,7 @@
 
 #include <fmt/format.h>
 
+#include <ipmid/message.hpp>
 #include <nlohmann/json.hpp>
 
 #include <charconv>
@@ -40,7 +41,8 @@ BifurcationStatic::BifurcationStatic(std::string_view bifurcationFile) :
 {}
 
 std::optional<std::vector<uint8_t>>
-    BifurcationStatic::getBifurcation(uint8_t index) noexcept
+    BifurcationStatic::getBifurcation(::ipmi::Context::ptr,
+                                      uint8_t index) noexcept
 {
     // Example valid data:
     // {
