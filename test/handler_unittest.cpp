@@ -16,6 +16,7 @@
 #include "handler.hpp"
 #include "handler_impl.hpp"
 
+#include <fmt/format.h>
 #include <systemd/sd-bus.h>
 
 #include <nlohmann/json.hpp>
@@ -596,7 +597,7 @@ TEST(HandlerTest, accelOobWrite_Fail)
                  IpmiException);
 }
 
-TEST(HandlerTest, PcieBifurcation)
+TEST(HandlerTest, PcieBifurcationStatic)
 {
     const std::string& testJson = "/tmp/test-json";
     auto j = R"(
@@ -622,12 +623,12 @@ TEST(HandlerTest, PcieBifurcation)
 
     for (const auto& [bus, output] : expectedMapping)
     {
-        EXPECT_THAT(h.pcieBifurcation(bus), ContainerEq(output));
+        EXPECT_THAT(h.pcieBifurcation(bus, false), ContainerEq(output));
     }
 
     for (const auto& bus : invalidBus)
     {
-        EXPECT_TRUE(h.pcieBifurcation(bus).empty());
+        EXPECT_TRUE(h.pcieBifurcation(bus, false).empty());
     }
 
     std::filesystem::remove(testJson.data());
@@ -635,9 +636,249 @@ TEST(HandlerTest, PcieBifurcation)
     Handler h2(std::ref(bifurcationHelper));
     for (uint8_t i = 0; i < 8; ++i)
     {
-        auto bifurcation = h2.pcieBifurcation(i);
+        auto bifurcation = h2.pcieBifurcation(i, false);
         EXPECT_TRUE(bifurcation.empty());
     }
+}
+
+struct I2CTree
+{
+    std::string_view name;
+    uint8_t lanes;
+    std::optional<std::string_view> mux;
+    std::vector<std::string_view> channels;
+};
+
+void createI2CTree(std::string_view path, std::vector<I2CTree> tree)
+{
+    std::filesystem::create_directory(path);
+
+    for (const auto& device : tree)
+    {
+        std::filesystem::create_directory(
+            fmt::format("{}/{}", path, device.name));
+        if (device.mux)
+        {
+            auto muxPath = fmt::format("{}/{}/{}", path, device.name,
+                                       *device.mux);
+            std::filesystem::create_directory(muxPath);
+
+            for (size_t i = 0; i < device.channels.size(); ++i)
+            {
+                std::filesystem::create_directory(
+                    fmt::format("{}/channel-{}", muxPath, i));
+                std::filesystem::create_directory(
+                    fmt::format("{}/channel-{}/i2c-dev", muxPath, i));
+                std::filesystem::create_directory(
+                    fmt::format("{}/channel-{}/i2c-dev/{}", muxPath, i,
+                                device.channels[i]));
+            }
+        }
+    }
+}
+
+TEST(HandlerTest, PcieBifurcationDynamic)
+{
+    /*
+      i2c-10 (16 lanes) PE0
+      `-- 10-0077 (4-channel I2C MUX at 0x77)
+          |-- i2c-30 (channel-0) (4 lanes)
+          |-- i2c-40 (channel-1) (5 lanes)
+          |-- i2c-50 (channel-2) (7 lanes)
+          `-- i2c-11 (channel-3) (invalid bus)
+      i2c-30 (4 lanes)
+      `-- 30-0070 (2-channel I2C MUX at 0x70)
+          |-- i2c-31 (channel-0) (2 lanes)
+          |-- i2c-32 (channel-1) (2 lanes)
+      i2c-40 (5 lanes)
+      `-- 40-0070 (2-channel I2C MUX at 0x70)
+          |-- i2c-41 (channel-0) (4 lanes)
+          |-- i2c-42 (channel-1) (1 lanes)
+      i2c-50 (7 lanes)
+      `-- 0-0070 (4-channel I2C MUX at 0x70)
+          |-- i2c-51 (channel-0) (3 lanes)
+          |-- i2c-52 (channel-1) (4 lanes)
+      i2c-51 (3 lanes)
+      `-- 51-0070 (4-channel I2C MUX at 0x70)
+          |-- i2c-53 (channel-0) (1 lanes)
+          |-- i2c-54 (channel-1) (1 lanes)
+          |-- i2c-55 (channel-2) (1 lanes)
+
+      i2c-20 (16 lanes) PE1
+      `-- 20-0077 (4-channel I2C MUX at 0x77)
+          |-- i2c-60 (channel-0) (8 lanes)
+          |-- i2c-70 (channel-1) (8 lanes)
+          |-- i2c-21 (channel-2) (invalid bus)
+          `-- i2c-22 (channel-3) (invalid bus)
+      i2c-70 (8 lanes)
+      `-- 70-0070 (2-channel I2C MUX at 0x70)
+          |-- i2c-71 (channel-0) (4 lanes)
+          |-- i2c-72 (channel-1) (4 lanes)
+      i2c-71 (4 lanes)
+      `-- 71-0070 (2-channel I2C MUX at 0x70)
+          |-- i2c-73 (channel-0) (2 lanes)
+          |-- i2c-74 (channel-1) (2 lanes)
+
+      i2c-80 (16 lanes) PE2
+      `-- 80-0077 (4-channel I2C MUX at 0x77)
+          |-- i2c-81 (channel-0) (16 lanes)
+          |-- i2c-82 (channel-1) (invalid bus)
+          |-- i2c-83 (channel-2) (invalid bus)
+          `-- i2c-84 (channel-3) (invalid bus)
+
+      i2c-99 (16 lanes) PE3
+      `-- 99-0077 (4-channel I2C MUX at 0x77)
+          |-- i2c-100 (channel-0) (invalid bus)
+
+      i2c-101 (16 lanes) PE4
+      `-- 101-0077 (4-channel I2C MUX at 0x77)
+          |-- i2c-102 (channel-0) (invalid bus)
+          |-- i2c-103 (channel-1) (invalid bus)
+          |-- i2c-104 (channel-2) (invalid bus)
+          `-- i2c-105 (channel-3) (invalid bus)
+      i2c-110 (16 lanes) PE4
+      `-- 110-0077 (0-channel I2C MUX at 0x77)
+    */
+
+    std::vector<I2CTree> i2cTree = {
+        // Slots
+        {"i2c-10", 16, "10-0077", {"i2c-30", "i2c-40", "i2c-50"}},
+        {"i2c-30", 4, "30-0070", {"i2c-31", "i2c-32"}},
+        {"i2c-40", 5, "40-0070", {"i2c-41", "i2c-42"}},
+        {"i2c-50", 7, "50-0070", {"i2c-51", "i2c-52"}},
+        {"i2c-51", 3, "51-0070", {"i2c-53", "i2c-54", "i2c-55"}},
+        {"i2c-20", 16, "20-0077", {"i2c-60", "i2c-70"}},
+        {"i2c-70", 8, "70-0070", {"i2c-71", "i2c-72"}},
+        {"i2c-71", 4, "71-0070", {"i2c-73", "i2c-74"}},
+        {"i2c-80", 16, "80-0070", {"i2c-81"}},
+        {"i2c-99", 16, "90-0070", {"i2c-100"}},
+        {"i2c-101",
+         16,
+         "101-0070",
+         {"i2c-102", "i2c-103", "i2c-104", "i2c-105"}},
+        {"i2c-110", 16, "110-0070", {}},
+
+        // Devices
+        {"i2c-31", 2, std::nullopt, {}},
+        {"i2c-32", 2, std::nullopt, {}},
+        {"i2c-41", 4, std::nullopt, {}},
+        {"i2c-42", 1, std::nullopt, {}},
+        {"i2c-52", 4, std::nullopt, {}},
+        {"i2c-53", 1, std::nullopt, {}},
+        {"i2c-54", 1, std::nullopt, {}},
+        {"i2c-55", 1, std::nullopt, {}},
+        {"i2c-60", 8, std::nullopt, {}},
+        {"i2c-72", 4, std::nullopt, {}},
+        {"i2c-73", 2, std::nullopt, {}},
+        {"i2c-74", 2, std::nullopt, {}},
+        {"i2c-81", 16, std::nullopt, {}},
+        {"i2c-110", 16, std::nullopt, {}},
+    };
+
+    const std::string& testI2CPath = "./test/i2c/";
+    createI2CTree(testI2CPath, i2cTree);
+
+    BifurcationDynamic bifurcationHelper(false, testI2CPath);
+
+    for (const auto& tree : i2cTree)
+    {
+        uint8_t bus = 0;
+        auto result = std::from_chars(tree.name.data() + 4,
+                                      tree.name.data() + tree.name.size(), bus);
+        if (result.ec == std::errc::invalid_argument)
+        {
+            continue;
+        }
+
+        std::optional<bool> shouldUpdate = bifurcationHelper.needsUpdate(bus);
+        if (!shouldUpdate.value_or(true))
+        {
+            continue;
+        }
+        // Has value and we should update. Erase existing resource
+        else if (shouldUpdate.has_value())
+        {
+            bifurcationHelper.pcieResources.erase(bus);
+        }
+
+        bifurcationHelper.pcieResources.emplace(
+            bus,
+            PCIe{tree.mux.has_value() ? PCIe::Type::Slot : PCIe::Type::Device,
+                 tree.lanes, static_cast<uint8_t>(tree.channels.size())});
+    }
+
+    const char* testFilename = "test.json";
+    std::string contents = R"(
+        {
+            "add_in_card": [
+                {"instance": 10, "name": "/PE0"},
+                {"instance": 20, "name": "/PE1"},
+                {"instance": 80, "name": "/PE2"},
+                {"instance": 99, "name": "/PE3"},
+                {"instance": 100, "name": "/PE4"},
+                {"instance": 110, "name": "/PE5"}
+            ]
+        }
+    )";
+    std::ofstream outputJson(testFilename);
+    outputJson << contents;
+    outputJson.flush();
+    outputJson.close();
+
+    Handler h(std::ref(bifurcationHelper), testFilename);
+
+    // 16
+    // 4-5-7
+    // 2-2-5-7
+    // 2-2-4-1-3-4
+    // 2-2-4-1-1-1-1-4
+    std::vector<uint8_t> expectedOutput = {2, 2, 4, 1, 1, 1, 1, 4};
+    auto bifurcation = h.pcieBifurcation(0, true);
+
+    ASSERT_EQ(bifurcation.size(), expectedOutput.size());
+    for (size_t i = 0; i < bifurcation.size(); ++i)
+    {
+        EXPECT_EQ(bifurcation[i], expectedOutput[i]);
+    }
+
+    // 16
+    // 8-8
+    // 8-4-4
+    // 8-2-2-4
+    expectedOutput = {8, 2, 2, 4};
+    bifurcation = h.pcieBifurcation(1, true);
+    fmt::print(stderr, "Test {} {} {}\n", bifurcation[0], bifurcation[1],
+               bifurcation[2]);
+    ASSERT_EQ(bifurcation.size(), expectedOutput.size());
+    for (size_t i = 0; i < bifurcation.size(); ++i)
+    {
+        EXPECT_EQ(bifurcation[i], expectedOutput[i]);
+    }
+
+    // 16, with only one valid channel behind MUX
+    bifurcation = h.pcieBifurcation(2, true);
+    ASSERT_EQ(bifurcation.size(), 1);
+    EXPECT_EQ(bifurcation[0], 16);
+
+    // Valid PCIe slot with no device, one channel
+    bifurcation = h.pcieBifurcation(3, true);
+    ASSERT_EQ(bifurcation.size(), 0);
+
+    // Valid PCIe slot with no device, four channels
+    bifurcation = h.pcieBifurcation(4, true);
+    ASSERT_EQ(bifurcation.size(), 0);
+
+    // 16, with no channel behind MUX
+    bifurcation = h.pcieBifurcation(5, true);
+    ASSERT_EQ(bifurcation.size(), 1);
+    EXPECT_EQ(bifurcation[0], 16);
+
+    // Invalid PCIe slot
+    bifurcation = h.pcieBifurcation(6, true);
+    ASSERT_EQ(bifurcation.size(), 0);
+
+    std::remove(testFilename);
+    std::filesystem::remove_all(testI2CPath);
 }
 
 // TODO: Add checks for other functions of handler.
