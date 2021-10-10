@@ -15,6 +15,7 @@
 
 #include <cstdint>
 #include <functional>
+#include <memory>
 #include <optional>
 #include <string>
 #include <string_view>
@@ -25,6 +26,22 @@ namespace google
 {
 namespace ipmi
 {
+
+using Cache = std::unordered_map<std::string, std::vector<uint8_t>>;
+
+struct PCIe
+{
+    enum class Type
+    {
+        None,
+        Slot,
+        Device,
+    };
+
+    Type type = Type::None;
+    uint8_t lanes = 0;
+    uint8_t channels = 0;
+};
 
 class BifurcationInterface
 {
@@ -61,6 +78,71 @@ class BifurcationStatic : public BifurcationInterface
 
   private:
     std::string bifurcationFile;
+};
+
+class BifurcationDynamic : public BifurcationInterface
+{
+  public:
+    static std::reference_wrapper<BifurcationInterface> createBifurcation()
+    {
+        static BifurcationDynamic bifurcationDynamic;
+
+        return std::ref(bifurcationDynamic);
+    }
+
+    BifurcationDynamic(bool setup = true,
+                       const std::string& i2cPath = "/sys/bus/i2c/devices/") :
+        setup(setup),
+        i2cPath(i2cPath){};
+
+    std::optional<std::vector<uint8_t>>
+        getBifurcation(uint8_t index) noexcept override;
+
+    std::unordered_map<uint8_t, PCIe> pcieResources;
+
+  private:
+    BifurcationDynamic(const BifurcationDynamic&) = delete;
+    BifurcationDynamic& operator=(const BifurcationDynamic&) = delete;
+    BifurcationDynamic(BifurcationDynamic&&) = delete;
+    BifurcationDynamic& operator=(BifurcationDynamic&&) = delete;
+
+    bool setup;
+    std::string i2cPath;
+    void findPCIeDevices();
+
+    /**
+     * Walk the I2C tree to get the highest level of bifurcation at the given
+     * i2c bus.
+     *
+     * @param[in] basePath  - Base path to look for i2c device
+     * @return the bifurcation details. The number of lane taken by each device.
+     */
+    std::vector<uint8_t> walkI2CTreeBifurcation(std::string_view basePath,
+                                                uint8_t bus, Cache& cache);
+
+    /**
+     * Walk all of the channel of a given i2c path
+     *
+     * @param[in] basePath  - Base path to look for i2c device
+     * @param[in] path      - Current I2C path
+     * @param[in] cache     - Cache to prevent loops
+     * @return the bifurcation details. The number of lane taken by each device.
+     */
+    std::vector<uint8_t> walkChannel(std::string_view basePath,
+                                     std::string_view path, Cache& cache);
+
+    /**
+     * Walk all of the Muxes of a given I2C path
+     *
+     * @param[in] basePath  - Base path to look for i2c device
+     * @param[in] path      - Current I2C path
+     * @param[in] channels  - Number of channels to look at
+     * @param[in] cache     - Cache to prevent loops
+     * @return the bifurcation details. The number of lane taken by each device.
+     */
+    std::vector<std::vector<uint8_t>> walkMux(std::string_view basePath,
+                                              std::string_view path,
+                                              uint8_t channels, Cache& cache);
 };
 
 } // namespace ipmi
