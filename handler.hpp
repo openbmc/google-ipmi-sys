@@ -136,6 +136,17 @@ class HandlerInterface
      * @throw IpmiException on failure.
      */
     virtual void hostPowerOffDelay(std::uint32_t delay) const = 0;
+
+    /**
+     * Prase the I2C tree to get the highest level of bifurcation in target bus.
+     *
+     * @param[in] index    - PCIe Slot Index
+     * @param[in] i2cPath  - base path to parse the i2c
+     * @return list of lanes taken by each device. Sorted by highest to lowest.
+     */
+    virtual std::vector<uint8_t> pcieBifurcation(
+        uint8_t index,
+        const std::string& i2cPath = "/sys/bus/i2c/devices/") = 0;
 };
 
 } // namespace ipmi
