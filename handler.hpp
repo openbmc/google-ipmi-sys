@@ -187,6 +187,17 @@ class HandlerInterface
      */
     virtual void accelOobWrite(std::string_view name, uint64_t address,
                                uint8_t num_bytes, uint64_t data) const = 0;
+
+    /**
+     * Prase the I2C tree to get the highest level of bifurcation in target bus.
+     *
+     * @param[in] index    - PCIe Slot Index
+     * @param[in] persistentPath  - Config file path
+     * @return list of lanes taken by each device. Sorted by highest to lowest.
+     */
+    virtual std::vector<uint8_t>
+        pcieBifurcation(uint8_t index, const std::string& persistentPath =
+                                           "/usr/share//bifurication_config") = 0;
 };
 
 } // namespace ipmi

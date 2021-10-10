@@ -16,8 +16,11 @@
 #include "handler.hpp"
 #include "handler_impl.hpp"
 
+#include <fmt/format.h>
 #include <systemd/sd-bus.h>
 
+#include <charconv>
+#include <filesystem>
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/message.hpp>
@@ -31,6 +34,9 @@ namespace google
 {
 namespace ipmi
 {
+
+using testing::_;
+using testing::Return;
 
 TEST(HandlerTest, EthCheckValidHappy)
 {
@@ -584,6 +590,47 @@ TEST(HandlerTest, accelOobWrite_Fail)
     ExpectWrite(mock, address, num_bytes, data, sd_bus_call_return_value);
     EXPECT_THROW(h.accelOobWrite("test/path", address, num_bytes, data),
                  IpmiException);
+}
+
+TEST(HandlerTest, PcieBifurcation)
+{
+    Bifurcation bifurcationHelper;
+    Handler h(&bifurcationHelper);
+    const std::string& testArcadiaViperlite = "/tmp/test-arcadia-viperlite";
+    std::ofstream outputJson(testArcadiaViperlite);
+    outputJson << "1";
+    outputJson.flush();
+    outputJson.close();
+
+    std::vector<uint8_t> expectedOutput = {8, 8};
+    std::vector<uint8_t> validBus = {1, 3, 4, 6};
+    std::vector<uint8_t> invalidBus = {0, 2, 5, 7};
+
+    for (const auto& bus : validBus)
+    {
+        auto bifurcation = h.pcieBifurcation(bus, testArcadiaViperlite);
+        ASSERT_EQ(bifurcation.size(), expectedOutput.size());
+        for (size_t i = 0; i < bifurcation.size(); ++i)
+        {
+            EXPECT_EQ(bifurcation[i], expectedOutput[i]);
+        }
+    }
+
+    for (const auto& bus : invalidBus)
+    {
+        auto bifurcation = h.pcieBifurcation(bus, testArcadiaViperlite);
+        ASSERT_TRUE(bifurcation.empty());
+    }
+
+    outputJson = std::ofstream(testArcadiaViperlite);
+    outputJson << "0";
+    outputJson.flush();
+    outputJson.close();
+    for (uint8_t i = 0; i < 8; ++i)
+    {
+        auto bifurcation = h.pcieBifurcation(i, testArcadiaViperlite);
+        ASSERT_TRUE(bifurcation.empty());
+    }
 }
 
 // TODO: Add checks for other functions of handler.
