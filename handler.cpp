@@ -666,16 +666,17 @@ void Handler::accelOobWrite(std::string_view name, uint64_t address,
     }
 }
 
-std::vector<uint8_t> Handler::pcieBifurcationByIndex(uint8_t index)
+std::vector<uint8_t> Handler::pcieBifurcationByIndex(::ipmi::Context::ptr ctx,
+                                                     uint8_t index)
 {
-    return pcieBifurcationByName(std::format("/PE{}", index));
+    return pcieBifurcationByName(ctx, std::format("/PE{}", index));
 }
 
-std::vector<uint8_t> Handler::pcieBifurcationByName(std::string_view name)
+std::vector<uint8_t> Handler::pcieBifurcationByName(::ipmi::Context::ptr ctx,
+                                                    std::string_view name)
 {
-    return bifurcationHelper.get()
-            .getBifurcation(name)
-            .value_or(std::vector<uint8_t>{});
+    return bifurcationHelper.get().getBifurcation(ctx, name).value_or(
+        std::vector<uint8_t>{});
 }
 
 static constexpr auto BARE_METAL_TARGET = "gbmc-bare-metal-active.target";

@@ -12,9 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "config.h"
+
+#include "bifurcation_mock.hpp"
 #include "errors.hpp"
 #include "handler.hpp"
 #include "handler_impl.hpp"
+#include "handler_mock.hpp"
 
 #include <systemd/sd-bus.h>
 
@@ -25,6 +29,7 @@
 
 #include <charconv>
 #include <filesystem>
+#include <format>
 #include <fstream>
 #include <functional>
 #include <string>
@@ -38,6 +43,7 @@ namespace ipmi
 {
 
 using testing::_;
+using testing::ElementsAre;
 using testing::Return;
 
 TEST(HandlerTest, EthCheckValidHappy)
@@ -640,16 +646,19 @@ TEST(HandlerTest, PcieBifurcationStatic)
 
     for (const auto& [index, output] : expectedMapping)
     {
-        EXPECT_THAT(h.pcieBifurcationByIndex(index), ContainerEq(output));
-        EXPECT_THAT(h.pcieBifurcationByName(std::format("/PE{}", index)),
+        EXPECT_THAT(h.pcieBifurcationByIndex(nullptr, index),
                     ContainerEq(output));
+        EXPECT_THAT(
+            h.pcieBifurcationByName(nullptr, std::format("/PE{}", index)),
+            ContainerEq(output));
     }
 
     for (const auto& index : invalidIndex)
     {
-        EXPECT_TRUE(h.pcieBifurcationByIndex(index).empty());
+        EXPECT_TRUE(h.pcieBifurcationByIndex(nullptr, index).empty());
         EXPECT_TRUE(
-            h.pcieBifurcationByName(std::format("/PE{}", index)).empty());
+            h.pcieBifurcationByName(nullptr, std::format("/PE{}", index))
+                .empty());
     }
 
     std::filesystem::remove(testJson.data());
@@ -657,9 +666,232 @@ TEST(HandlerTest, PcieBifurcationStatic)
     Handler h2(std::ref(bifurcationHelper));
     for (uint8_t i = 0; i < 8; ++i)
     {
-        auto bifurcation = h2.pcieBifurcationByIndex(i);
+        auto bifurcation = h2.pcieBifurcationByIndex(nullptr, i);
         EXPECT_TRUE(bifurcation.empty());
     }
+}
+
+struct PhysicalTopology
+{
+    std::string name;
+    uint8_t bus;
+    std::optional<uint8_t> lanes;
+    std::optional<std::vector<std::string>> association;
+};
+
+void createPhysicalAssociation(BifurcationDynamicMock& bifurcationHelper,
+                               const std::vector<std::string>& baseAssociation,
+                               std::span<PhysicalTopology> topology)
+{
+    EXPECT_CALL(bifurcationHelper, physicalAssociations(_, MAIN_BOARD))
+        .WillRepeatedly(Return(baseAssociation));
+    for (const auto& device : topology)
+    {
+        EXPECT_CALL(bifurcationHelper, i2cBus(_, device.name))
+            .WillRepeatedly(Return(device.bus));
+
+        if (device.association == std::nullopt)
+        {
+            EXPECT_CALL(bifurcationHelper, pcieDeviceMaxLanes(_, device.name))
+                .WillRepeatedly(Return(device.lanes));
+            continue;
+        }
+
+        EXPECT_CALL(bifurcationHelper, pcieDeviceMaxLanes(_, device.name))
+            .WillRepeatedly(Return(std::nullopt));
+        if (device.lanes == std::nullopt)
+        {
+            EXPECT_CALL(bifurcationHelper, pcieSlotLanes(_, device.name))
+                .WillRepeatedly(Return(std::nullopt));
+            continue;
+        }
+        EXPECT_CALL(bifurcationHelper, pcieSlotLanes(_, device.name))
+            .WillRepeatedly(Return(device.lanes));
+        EXPECT_CALL(bifurcationHelper, physicalAssociations(_, device.name))
+            .WillRepeatedly(Return(device.association.value()));
+    }
+}
+
+TEST(HandlerTest, PcieBifurcationDynamic)
+{
+    /*
+      slot-10 (16 lanes, 4 max channel) PE0
+        |-- slot-30
+        |-- slot-40
+        |-- slot-50
+      slot-30 (4 lanes, 2 max channel)
+        |-- device-31 (2 lanes)
+        |-- device-32 (2 lanes)
+      slot-40 (4 lanes, 2 max channel)
+        |-- device-41 (4 lanes)
+        |-- device-42 (1 lanes)
+      slot-50 (7 lanes, 2 max channel)
+        |-- slot-51 (3 lanes)
+        |-- device-52 (4 lanes)
+      slot-51 (7 lanes, 3 max channel)
+        |-- device-53 (1 lanes)
+        |-- device-54 (1 lanes)
+        |-- device-55 (1 lanes)
+
+      slot-20 (16 lanes, 4 max channel) PE1
+        |-- device-60 (8 lanes)
+        |-- device-70 (8 lanes)
+      slot-70 (8 lanes, 2 max channel)
+        |-- slot-71
+        |-- device-72 (4 lanes)
+      slot-71 (4 lanes, 2 max channel)
+        |-- device-73 (2 lanes)
+
+      slot-80 (16 lanes, 4 max channel) PE2
+        |-- device-81 (16 lanes)
+
+      slot-90 (16 lanes, 4 max channel) PE3
+        |-- slot-91 (16 lanes)
+      slot-91 (16 lanes, 4 max channel)
+        |-- device-92 (8 lanes)
+      slot-95 (4 lanes, 4 max channel) PE4
+        |-- device-96 (3 lanes)
+        |-- device-97 (3 lanes)
+
+      slot-99 (16 lanes, 4 max channel) PE5
+
+      slot-100 (16 lanes, 1 max channel) PE6
+      device-110 (16 lanes) PE7
+    */
+
+    std::vector<std::string> baseAssociations = {
+        "slot-10", "slot-20", "slot-80",  "slot-90",
+        "slot-95", "slot-99", "slot-100", "device-110",
+    };
+    std::vector<PhysicalTopology> topology = {
+        // Slots
+        {"slot-10", 10, 16,
+         std::vector<std::string>{"slot-30", "slot-40", "slot-50"}},
+        {"slot-30", 30, 4, std::vector<std::string>{"device-31", "device-32"}},
+        {"slot-40", 40, 5, std::vector<std::string>{"device-41", "device-42"}},
+        {"slot-50", 50, 7, std::vector<std::string>{"slot-51", "device-52"}},
+        {"slot-51", 51, 3,
+         std::vector<std::string>{"device-53", "device-54", "device-55"}},
+        {"slot-20", 20, 16, std::vector<std::string>{"device-60", "slot-70"}},
+        {"slot-70", 70, 8, std::vector<std::string>{"slot-71", "device-72"}},
+        {"slot-71", 71, 4, std::vector<std::string>{"device-73"}},
+        {"slot-80", 80, 16, std::vector<std::string>{"device-81"}},
+        {"slot-90", 90, 16, std::vector<std::string>{"slot-91"}},
+        {"slot-91", 91, 16, std::vector<std::string>{"device-92"}},
+        {"slot-95", 95, 4, std::vector<std::string>{"device-96", "device-97"}},
+        {"slot-99", 99, 16, std::vector<std::string>{}},
+        {"slot-100", 100, std::nullopt, std::vector<std::string>{}},
+
+        // Devices
+        {"device-31", 31, 2, std::nullopt},
+        {"device-32", 32, 2, std::nullopt},
+        {"device-41", 41, 4, std::nullopt},
+        {"device-42", 42, 1, std::nullopt},
+        {"device-52", 52, 4, std::nullopt},
+        {"device-53", 53, 1, std::nullopt},
+        {"device-54", 54, 1, std::nullopt},
+        {"device-55", 55, 1, std::nullopt},
+        {"device-60", 60, 8, std::nullopt},
+        {"device-72", 72, 4, std::nullopt},
+        {"device-73", 73, 2, std::nullopt},
+        {"device-81", 81, 16, std::nullopt},
+        {"device-92", 92, 8, std::nullopt},
+        {"device-96", 96, 3, std::nullopt},
+        {"device-97", 97, 3, std::nullopt},
+        {"device-110", 110, 16, std::nullopt},
+    };
+    HandlerMock hMock;
+
+    const char* testFilename = "test.json";
+    std::string contents = R"(
+        {
+            "add_in_card": [
+                {"instance": 10, "name": "/PE0"},
+                {"instance": 20, "name": "/PE1"},
+                {"instance": 80, "name": "/PE2"},
+                {"instance": 90, "name": "/PE3"},
+                {"instance": 95, "name": "/PE4"},
+                {"instance": 99, "name": "/PE5"},
+                {"instance": 100, "name": "/PE6"},
+                {"instance": 110, "name": "/PE7"}
+            ]
+        }
+    )";
+    std::ofstream outputJson(testFilename);
+    outputJson << contents;
+    outputJson.flush();
+    outputJson.close();
+
+    BifurcationDynamicMock bifurcationHelper(testFilename);
+    createPhysicalAssociation(bifurcationHelper, baseAssociations, topology);
+    Handler h(std::ref(bifurcationHelper));
+
+    // 16
+    // 4-5-7
+    // 2-2-5-7
+    // 2-2-4-1-3-4
+    // 2-2-4-1-1-1-1-4
+    auto bifurcation = h.pcieBifurcationByIndex(nullptr, 0);
+    EXPECT_THAT(bifurcation, ElementsAre(2, 2, 4, 1, 1, 1, 1, 4));
+    bifurcation = h.pcieBifurcationByName(nullptr, "/PE0");
+    EXPECT_THAT(bifurcation, ElementsAre(2, 2, 4, 1, 1, 1, 1, 4));
+
+    // 16
+    // 8-8
+    // 8-4-4
+    // 8-2-2-4
+    // Valid PCIe Slot with 3 levels of bifurcation. Last level only has one
+    // device but should result in a (2, 2)
+    bifurcation = h.pcieBifurcationByIndex(nullptr, 1);
+    EXPECT_THAT(bifurcation, ElementsAre(8, 2, 2, 4));
+    bifurcation = h.pcieBifurcationByName(nullptr, "/PE1");
+    EXPECT_THAT(bifurcation, ElementsAre(8, 2, 2, 4));
+
+    // 16, Valid PCIe slot with one device taking all lanes.
+    bifurcation = h.pcieBifurcationByIndex(nullptr, 2);
+    EXPECT_THAT(bifurcation, ElementsAre(16));
+    bifurcation = h.pcieBifurcationByName(nullptr, "/PE2");
+    EXPECT_THAT(bifurcation, ElementsAre(16));
+
+    // 16
+    // 16
+    // 8-8
+    bifurcation = h.pcieBifurcationByIndex(nullptr, 3);
+    EXPECT_THAT(bifurcation, ElementsAre(8, 8));
+    bifurcation = h.pcieBifurcationByName(nullptr, "/PE3");
+    EXPECT_THAT(bifurcation, ElementsAre(8, 8));
+
+    // 16, Valid PCIe slot with multiple device but exceeded max lanes.
+    bifurcation = h.pcieBifurcationByIndex(nullptr, 4);
+    EXPECT_TRUE(bifurcation.empty());
+    bifurcation = h.pcieBifurcationByName(nullptr, "/PE4");
+    EXPECT_TRUE(bifurcation.empty());
+
+    // Valid PCIe slot with no device
+    bifurcation = h.pcieBifurcationByIndex(nullptr, 5);
+    EXPECT_THAT(bifurcation, ElementsAre(16));
+    bifurcation = h.pcieBifurcationByName(nullptr, "/PE5");
+    EXPECT_THAT(bifurcation, ElementsAre(16));
+
+    // Invalid PCIe slot
+    bifurcation = h.pcieBifurcationByIndex(nullptr, 6);
+    EXPECT_TRUE(bifurcation.empty());
+    bifurcation = h.pcieBifurcationByName(nullptr, "/PE6");
+    EXPECT_TRUE(bifurcation.empty());
+
+    // 16, PCIe Device.
+    bifurcation = h.pcieBifurcationByIndex(nullptr, 7);
+    EXPECT_THAT(bifurcation, ElementsAre(16));
+    bifurcation = h.pcieBifurcationByName(nullptr, "/PE7");
+    EXPECT_THAT(bifurcation, ElementsAre(16));
+
+    // Invalid PCIe slot
+    bifurcation = h.pcieBifurcationByIndex(nullptr, 8);
+    EXPECT_TRUE(bifurcation.empty());
+    bifurcation = h.pcieBifurcationByName(nullptr, "/PE8");
+    EXPECT_TRUE(bifurcation.empty());
+
+    std::remove(testFilename);
 }
 
 // TODO: Add checks for other functions of handler.
