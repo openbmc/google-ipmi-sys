@@ -14,9 +14,12 @@
 
 #pragma once
 
+#include "config.h"
+
 #include "bifurcation.hpp"
 #include "handler.hpp"
 
+#include <ipmid/message.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/bus.hpp>
 
@@ -40,7 +43,13 @@ class Handler : public HandlerInterface
   public:
     explicit Handler(const std::string& entityConfigPath = defaultConfigFile) :
         _configFile(entityConfigPath),
-        bifurcationHelper(BifurcationStatic::createBifurcation()){};
+        bifurcationHelper(
+#ifdef DYNAMIC_BIFURCATION
+            BifurcationDynamic::createBifurcation()
+#else
+            BifurcationStatic::createBifurcation()
+#endif
+        ){};
     Handler(std::reference_wrapper<BifurcationInterface> bifurcationHelper,
             const std::string& entityConfigPath = defaultConfigFile) :
         _configFile(entityConfigPath),
@@ -62,7 +71,8 @@ class Handler : public HandlerInterface
     void hostPowerOffDelay(std::uint32_t delay) const override;
     std::tuple<std::uint32_t, std::string>
         getI2cEntry(unsigned int entry) const override;
-    std::vector<uint8_t> pcieBifurcation(uint8_t) override;
+    std::vector<uint8_t> pcieBifurcation(::ipmi::Context::ptr ctx, uint8_t index,
+                                         bool dynamic) override;
 
     uint32_t accelOobDeviceCount() const override;
     std::string accelOobDeviceName(size_t index) const override;
