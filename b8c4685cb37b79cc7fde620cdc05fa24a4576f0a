@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc4d0699_43049467",
+        "filename": "handler.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-10-11T07:24:07Z",
+      "side": 1,
+      "message": "You can drop the optional around vector here too.",
+      "revId": "b8c4685cb37b79cc7fde620cdc05fa24a4576f0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d67f12f_a06fbc15",
+        "filename": "ipmi.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-10-11T07:24:07Z",
+      "side": 1,
+      "message": "Take the input vector by `const \u0026`, although it would be preferable to just use an `std::span\u003cconst uint8_t\u003e` here and everywhere else the bytes are passed.",
+      "revId": "b8c4685cb37b79cc7fde620cdc05fa24a4576f0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd6c0ff1_2630f832",
+        "filename": "main.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-10-11T07:24:07Z",
+      "side": 1,
+      "message": "Vectors can always unpack for aligned data in an ipmi handler. You shouldn\u0027t need the optional wrapper.\n\nI think the ipmid library wants you to push down a Request reference and do the unpacking directly at each callsite. I think it\u0027s fine to push this to a future change.",
+      "revId": "b8c4685cb37b79cc7fde620cdc05fa24a4576f0a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
