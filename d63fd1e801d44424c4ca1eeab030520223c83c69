@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "985adbd5_10fbac26",
+        "filename": "main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-10-13T21:57:29Z",
+      "side": 1,
+      "message": "This works? I think you still have to take a vector here due to how the message unpack specializations work.",
+      "revId": "d63fd1e801d44424c4ca1eeab030520223c83c69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
