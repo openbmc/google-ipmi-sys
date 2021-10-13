@@ -16,6 +16,24 @@
       "revId": "d63fd1e801d44424c4ca1eeab030520223c83c69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc7a9d6e_933f94c2",
+        "filename": "main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-10-13T22:13:24Z",
+      "side": 1,
+      "message": "oh, not yet. I thought we wanted that to also be std::spaan. Like update the ipmid library to support it directly.\n\nBut I guess we don\u0027t have to wait for that and use vector instead for now.\n\nTested again and works.\n```\nroot@mvdm2-nfd:~# ipmitool raw 0x2e 0x32 0x79 0x2b 0x00 0x09\n 79 2b 00 09 00 00 00 08\n\n# Update the lib\nroot@mvdm2-nfd:/run/initramfs# mv /tmp/libgooglesys.so /usr/lib/ipmid-providers/libgooglesys.so \nroot@mvdm2-nfd:/run/initramfs# systemctl restart phosphor-ipmi-host\nroot@mvdm2-nfd:/run/initramfs# ipmitool raw 0x2e 0x32 0x79 0x2b 0x00 0x09\n 79 2b 00 09 00 00 00 08\n\n```",
+      "parentUuid": "985adbd5_10fbac26",
+      "revId": "d63fd1e801d44424c4ca1eeab030520223c83c69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
