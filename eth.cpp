@@ -20,6 +20,7 @@
 #include <cstdint>
 #include <cstring>
 #include <ipmid/api-types.hpp>
+#include <span>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -35,7 +36,7 @@ namespace ipmi
 #define MAX_IPMI_BUFFER 64
 #endif
 
-Resp getEthDevice(const std::vector<std::uint8_t>& data,
+Resp getEthDevice(std::span<const uint8_t> data,
                   const HandlerInterface* handler)
 {
     std::tuple<std::uint8_t, std::string> details =

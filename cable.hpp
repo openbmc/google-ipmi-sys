@@ -19,7 +19,7 @@
 #include <ipmid/api.h>
 
 #include <ipmid/api-types.hpp>
-#include <vector>
+#include <span>
 
 namespace google
 {
@@ -34,8 +34,7 @@ struct CableReply
 //
 // Handle the cablecheck.  Sys must supply which ethernet device they're
 // interested in.
-Resp cableCheck(const std::vector<std::uint8_t>& data,
-                const HandlerInterface* handler);
+Resp cableCheck(std::span<const uint8_t> data, const HandlerInterface* handler);
 
 } // namespace ipmi
 } // namespace google

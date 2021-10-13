@@ -23,6 +23,7 @@
 #include <cstdint>
 #include <cstring>
 #include <ipmid/api-types.hpp>
+#include <span>
 #include <vector>
 
 namespace google
@@ -30,7 +31,7 @@ namespace google
 namespace ipmi
 {
 
-Resp hostPowerOff(const std::vector<uint8_t>& data,
+Resp hostPowerOff(std::span<const uint8_t> data,
                   const HandlerInterface* handler)
 {
     struct HostPowerOffRequest request;

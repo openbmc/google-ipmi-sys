@@ -19,7 +19,7 @@
 #include <ipmid/api.h>
 
 #include <ipmid/api-types.hpp>
-#include <vector>
+#include <span>
 
 namespace google
 {
@@ -31,8 +31,7 @@ struct GetFlashSizeReply
     uint32_t flashSize;
 } __attribute__((packed));
 
-Resp getFlashSize(const std::vector<std::uint8_t>& data,
-                  HandlerInterface* handler);
+Resp getFlashSize(std::span<const uint8_t> data, HandlerInterface* handler);
 
 } // namespace ipmi
 } // namespace google

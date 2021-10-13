@@ -20,6 +20,7 @@
 #include <cstdint>
 #include <cstring>
 #include <ipmid/api-types.hpp>
+#include <span>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -38,7 +39,7 @@ struct PcieSlotI2cBusMappingRequest
     uint8_t entry;
 } __attribute__((packed));
 
-Resp pcieSlotCount(const std::vector<std::uint8_t>&, HandlerInterface* handler)
+Resp pcieSlotCount(std::span<const uint8_t>, HandlerInterface* handler)
 {
     // If there are already entries in the vector, clear them.
     handler->buildI2cPcieMapping();
@@ -50,7 +51,7 @@ Resp pcieSlotCount(const std::vector<std::uint8_t>&, HandlerInterface* handler)
                                    std::vector<std::uint8_t>{value});
 }
 
-Resp pcieSlotI2cBusMapping(const std::vector<std::uint8_t>& data,
+Resp pcieSlotI2cBusMapping(std::span<const uint8_t> data,
                            HandlerInterface* handler)
 {
     struct PcieSlotI2cBusMappingRequest request;

@@ -21,6 +21,7 @@
 #include <cstdint>
 #include <cstring>
 #include <ipmid/api-types.hpp>
+#include <span>
 #include <vector>
 
 namespace google
@@ -28,7 +29,7 @@ namespace google
 namespace ipmi
 {
 
-Resp psuHardReset(const std::vector<std::uint8_t>& data,
+Resp psuHardReset(std::span<const uint8_t> data,
                   const HandlerInterface* handler)
 {
     struct PsuResetRequest request;
@@ -54,7 +55,7 @@ Resp psuHardReset(const std::vector<std::uint8_t>& data,
                                    std::vector<uint8_t>{});
 }
 
-Resp psuHardResetOnShutdown(const std::vector<std::uint8_t>&,
+Resp psuHardResetOnShutdown(std::span<const uint8_t>,
                             const HandlerInterface* handler)
 {
     try
