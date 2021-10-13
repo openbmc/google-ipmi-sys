@@ -21,7 +21,7 @@
 #include <ipmid/api-types.hpp>
 #include <ipmid/message.hpp>
 #include <optional>
-#include <vector>
+#include <span>
 
 namespace google
 {
@@ -30,7 +30,7 @@ namespace ipmi
 
 // Handle the google-ipmi-sys IPMI OEM commands.
 Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr ctx,
-                      uint8_t cmd, const std::vector<uint8_t>& data);
+                      uint8_t cmd, std::span<const uint8_t> data);
 
 } // namespace ipmi
 } // namespace google

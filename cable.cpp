@@ -21,6 +21,7 @@
 #include <cstdint>
 #include <cstring>
 #include <ipmid/api-types.hpp>
+#include <span>
 #include <string>
 #include <vector>
 
@@ -34,8 +35,7 @@ struct CableRequest
     uint8_t ifNameLength;
 } __attribute__((packed));
 
-Resp cableCheck(const std::vector<std::uint8_t>& data,
-                const HandlerInterface* handler)
+Resp cableCheck(std::span<const uint8_t> data, const HandlerInterface* handler)
 {
     // There is an IPMI LAN channel statistics command which could be used for
     // this type of check, however, we're not able to wait for the OpenBMC

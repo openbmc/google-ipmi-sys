@@ -19,7 +19,7 @@
 #include <ipmid/api.h>
 
 #include <ipmid/api-types.hpp>
-#include <vector>
+#include <span>
 
 namespace google
 {
@@ -39,7 +39,7 @@ struct EthDeviceReply
 // Handle the eth query command.
 // Sys can query the ifName and IPMI channel of the BMC's NCSI ethernet
 // device.
-Resp getEthDevice(const std::vector<std::uint8_t>& data,
+Resp getEthDevice(std::span<const uint8_t> data,
                   const HandlerInterface* handler);
 
 } // namespace ipmi

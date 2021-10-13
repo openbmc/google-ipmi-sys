@@ -23,6 +23,7 @@
 #include <cstdint>
 #include <cstring>
 #include <ipmid/api-types.hpp>
+#include <span>
 #include <string>
 #include <vector>
 
@@ -31,7 +32,7 @@ namespace google
 namespace ipmi
 {
 
-Resp getFlashSize(const std::vector<std::uint8_t>&, HandlerInterface* handler)
+Resp getFlashSize(std::span<const uint8_t>, HandlerInterface* handler)
 {
     uint32_t flashSize;
     try

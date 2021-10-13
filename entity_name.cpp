@@ -21,6 +21,7 @@
 #include <cstdint>
 #include <cstring>
 #include <ipmid/api-types.hpp>
+#include <span>
 #include <string>
 #include <vector>
 
@@ -45,8 +46,7 @@ struct GetEntityNameRequest
     uint8_t entityInstance;
 } __attribute__((packed));
 
-Resp getEntityName(const std::vector<std::uint8_t>& data,
-                   HandlerInterface* handler)
+Resp getEntityName(std::span<const uint8_t> data, HandlerInterface* handler)
 {
     struct GetEntityNameRequest request;
 
