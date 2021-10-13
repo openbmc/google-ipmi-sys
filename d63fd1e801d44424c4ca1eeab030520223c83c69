@@ -52,6 +52,24 @@
       "revId": "d63fd1e801d44424c4ca1eeab030520223c83c69",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2981fba_bb623d4e",
+        "filename": "main.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-10-13T22:15:59Z",
+      "side": 1,
+      "message": "yep, we don\u0027t have to wait for it. Can update to it once it is ready.",
+      "parentUuid": "f81e7fa6_60e3ca32",
+      "revId": "d63fd1e801d44424c4ca1eeab030520223c83c69",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
