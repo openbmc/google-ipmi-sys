@@ -22,6 +22,7 @@
 #include <cstring>
 #include <ipmid/api-types.hpp>
 #include <optional>
+#include <span>
 #include <string>
 #include <vector>
 
@@ -30,7 +31,7 @@ namespace google
 namespace ipmi
 {
 
-Resp getMachineName(const std::vector<std::uint8_t>&, HandlerInterface* handler)
+Resp getMachineName(std::span<const uint8_t>, HandlerInterface* handler)
 {
     static std::optional<std::string> machineName;
     if (!machineName)

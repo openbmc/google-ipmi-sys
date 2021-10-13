@@ -19,7 +19,7 @@
 #include <ipmid/api.h>
 
 #include <ipmid/api-types.hpp>
-#include <vector>
+#include <span>
 
 namespace google
 {
@@ -33,11 +33,11 @@ struct PsuResetRequest
 } __attribute__((packed));
 
 // Set a time-delayed PSU hard reset.
-Resp psuHardReset(const std::vector<std::uint8_t>& data,
+Resp psuHardReset(std::span<const uint8_t> data,
                   const HandlerInterface* handler);
 
 // Arm for PSU hard reset on host shutdown.
-Resp psuHardResetOnShutdown(const std::vector<std::uint8_t>& data,
+Resp psuHardResetOnShutdown(std::span<const uint8_t> data,
                             const HandlerInterface* handler);
 
 } // namespace ipmi

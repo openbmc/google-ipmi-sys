@@ -48,12 +48,13 @@ void setupGoogleOemSysCommands()
                  "Registering OEM:[%#08X], Cmd:[%#04X] for Sys Commands\n",
                  oem::googOemNumber, oem::google::sysCmd);
 
-    ::ipmi::registerOemHandler(
-        ::ipmi::prioOemBase, oem::googOemNumber, oem::google::sysCmd,
-        ::ipmi::Privilege::User,
-        [](::ipmi::Context::ptr ctx, uint8_t cmd, std::vector<uint8_t> data) {
-            return handleSysCommand(&handlerImpl, ctx, cmd, data);
-        });
+    ::ipmi::registerOemHandler(::ipmi::prioOemBase, oem::googOemNumber,
+                               oem::google::sysCmd, ::ipmi::Privilege::User,
+                               [](::ipmi::Context::ptr ctx, uint8_t cmd,
+                                  const std::vector<uint8_t>& data) {
+                                   return handleSysCommand(&handlerImpl, ctx,
+                                                           cmd, data);
+                               });
 }
 
 } // namespace ipmi

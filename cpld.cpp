@@ -20,6 +20,7 @@
 
 #include <cstring>
 #include <ipmid/api-types.hpp>
+#include <span>
 #include <vector>
 
 namespace google
@@ -35,8 +36,7 @@ struct CpldRequest
 //
 // Handle reading the cpld version from the tmpfs.
 //
-Resp cpldVersion(const std::vector<std::uint8_t>& data,
-                 const HandlerInterface* handler)
+Resp cpldVersion(std::span<const uint8_t> data, const HandlerInterface* handler)
 {
     struct CpldRequest request;
 

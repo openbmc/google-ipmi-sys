@@ -19,6 +19,7 @@
 #include <ipmid/api.h>
 
 #include <ipmid/api-types.hpp>
+#include <span>
 #include <vector>
 
 namespace google
@@ -33,7 +34,7 @@ struct HostPowerOffRequest
 } __attribute__((packed));
 
 // Disable the fallback watchdog with given time delay and Power Off Host
-Resp hostPowerOff(const std::vector<std::uint8_t>& data,
+Resp hostPowerOff(std::span<const uint8_t> data,
                   const HandlerInterface* handler);
 
 } // namespace ipmi

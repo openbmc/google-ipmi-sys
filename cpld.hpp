@@ -19,7 +19,7 @@
 #include <ipmid/api.h>
 
 #include <ipmid/api-types.hpp>
-#include <vector>
+#include <span>
 
 namespace google
 {
@@ -35,7 +35,7 @@ struct CpldReply
 } __attribute__((packed));
 
 // Given a cpld identifier, return a version if available.
-Resp cpldVersion(const std::vector<std::uint8_t>& data,
+Resp cpldVersion(std::span<const uint8_t> data,
                  const HandlerInterface* handler);
 
 } // namespace ipmi

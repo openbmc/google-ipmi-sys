@@ -19,6 +19,7 @@
 #include <ipmid/api.h>
 
 #include <ipmid/api-types.hpp>
+#include <span>
 #include <vector>
 
 namespace google
@@ -33,8 +34,7 @@ struct GetEntityNameReply
 
 // Handle the "entity id:entity instance" to entity name mapping command.
 // Sys can query the entity name for a particular "entity id:entity instance".
-Resp getEntityName(const std::vector<std::uint8_t>& data,
-                   HandlerInterface* handler);
+Resp getEntityName(std::span<const uint8_t> data, HandlerInterface* handler);
 
 } // namespace ipmi
 } // namespace google

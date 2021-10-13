@@ -33,7 +33,7 @@
 #include <ipmid/api-types.hpp>
 #include <ipmid/message.hpp>
 #include <optional>
-#include <vector>
+#include <span>
 
 namespace google
 {
@@ -41,7 +41,7 @@ namespace ipmi
 {
 
 Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr,
-                      uint8_t cmd, const std::vector<uint8_t>& data)
+                      uint8_t cmd, std::span<const uint8_t> data)
 {
     switch (cmd)
     {
