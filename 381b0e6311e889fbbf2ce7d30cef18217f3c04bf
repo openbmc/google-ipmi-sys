@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02524b85_c020b8c3",
+        "filename": "pcie_bifurcation.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-10-14T16:51:10Z",
+      "side": 1,
+      "message": "Actually, we probably don\u0027t want to sort it.\n\nThe order can help determine how each device is bifurcated",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 63,
+        "endChar": 72
+      },
+      "revId": "381b0e6311e889fbbf2ce7d30cef18217f3c04bf",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
