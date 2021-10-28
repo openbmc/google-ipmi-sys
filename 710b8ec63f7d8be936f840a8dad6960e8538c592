@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "92cd5f83_405b7c48",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2021-10-28T20:55:30Z",
+      "side": 1,
+      "message": "Nope, not anymore. Removed.",
+      "parentUuid": "3b8a1faa_57e42674",
+      "range": {
+        "startLine": 9,
+        "startChar": 10,
+        "endLine": 9,
+        "endChar": 15
+      },
+      "revId": "710b8ec63f7d8be936f840a8dad6960e8538c592",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8eef17e_3deb7de4",
         "filename": "google_accel_oob.cpp",
         "patchSetId": 3
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "26780ff5_c269c686",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2021-10-28T20:55:30Z",
+      "side": 1,
+      "message": "Ack. See above",
+      "parentUuid": "b8eef17e_3deb7de4",
+      "range": {
+        "startLine": 55,
+        "startChar": 11,
+        "endLine": 55,
+        "endChar": 19
+      },
+      "revId": "710b8ec63f7d8be936f840a8dad6960e8538c592",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65bc03b7_843bbd47",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2021-10-28T20:55:30Z",
+      "side": 1,
+      "message": "These buffers are guaranteed to exist and not NULL checked in any other the handlers in this project or the parent (e.g. https://github.com/rfrandse/phosphor-host-ipmid/blob/master/oemrouter.cpp#L92)",
+      "parentUuid": "95446b69_01d0b32b",
+      "range": {
+        "startLine": 55,
+        "startChar": 21,
+        "endLine": 55,
+        "endChar": 27
+      },
+      "revId": "710b8ec63f7d8be936f840a8dad6960e8538c592",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79526cfe_85df4b32",
         "filename": "google_accel_oob.cpp",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "12873f9f_5e4c72fb",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2021-10-28T20:55:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "79526cfe_85df4b32",
+      "range": {
+        "startLine": 196,
+        "startChar": 23,
+        "endLine": 196,
+        "endChar": 29
+      },
+      "revId": "710b8ec63f7d8be936f840a8dad6960e8538c592",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00e72db3_164a0b54",
         "filename": "google_accel_oob.hpp",
         "patchSetId": 3
@@ -108,6 +204,24 @@
       "revId": "710b8ec63f7d8be936f840a8dad6960e8538c592",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e86356a_e5e03e02",
+        "filename": "google_accel_oob.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2021-10-28T20:55:30Z",
+      "side": 1,
+      "message": "It is, but none of the other header files in this project use extern C for it.\n\nIs this something new we\u0027re migrating to moving forward? It seems it would be better to have a single change to add it to all headers simultaneously.",
+      "parentUuid": "00e72db3_164a0b54",
+      "revId": "710b8ec63f7d8be936f840a8dad6960e8538c592",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
