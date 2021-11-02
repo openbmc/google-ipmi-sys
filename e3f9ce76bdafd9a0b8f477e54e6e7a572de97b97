@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "feb58cc2_2545bc2d",
+        "filename": "commands.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2021-11-02T19:24:50Z",
+      "side": 1,
+      "message": "Either way is fine with me, but the original discussion was to add them here.",
+      "parentUuid": "88d967ac_5b4b8cfe",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 26
+      },
+      "revId": "e3f9ce76bdafd9a0b8f477e54e6e7a572de97b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bdb208f3_1a26448f",
         "filename": "handler.cpp",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "e3f9ce76bdafd9a0b8f477e54e6e7a572de97b97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42952b5f_08273e36",
+        "filename": "handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2021-11-02T19:24:50Z",
+      "side": 1,
+      "message": "The only example of handling GetManagedObjects return value (\"a{oa{sa{sv}}}\") used it, so I copied that.\n\n`vector\u003cpair\u003c...\u003e\u003e` should suffice here.",
+      "parentUuid": "bdb208f3_1a26448f",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 39
+      },
+      "revId": "e3f9ce76bdafd9a0b8f477e54e6e7a572de97b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "72a04f18_ada0629d",
+        "filename": "handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2021-11-02T19:24:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b954a8b_f929d9bf",
+      "range": {
+        "startLine": 405,
+        "startChar": 0,
+        "endLine": 412,
+        "endChar": 0
+      },
+      "revId": "e3f9ce76bdafd9a0b8f477e54e6e7a572de97b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa78af55_da92339c",
         "filename": "handler.cpp",
         "patchSetId": 6
@@ -91,6 +163,30 @@
       "revId": "e3f9ce76bdafd9a0b8f477e54e6e7a572de97b97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cb6ae25_249fe0b5",
+        "filename": "handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2021-11-02T19:24:50Z",
+      "side": 1,
+      "message": "This is to provide a hook to inject the mock dbus during testing. See handler_impl.hpp:66-67",
+      "parentUuid": "fa78af55_da92339c",
+      "range": {
+        "startLine": 415,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 1
+      },
+      "revId": "e3f9ce76bdafd9a0b8f477e54e6e7a572de97b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "00070b95_167d70e6",
+        "filename": "handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2021-11-02T19:24:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b42faa3b_38f506ba",
+      "range": {
+        "startLine": 582,
+        "startChar": 8,
+        "endLine": 582,
+        "endChar": 25
+      },
+      "revId": "e3f9ce76bdafd9a0b8f477e54e6e7a572de97b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "613e0557_ad261245",
         "filename": "test/google_accel_oob_unittest.cpp",
         "patchSetId": 6
@@ -137,6 +257,30 @@
       "revId": "e3f9ce76bdafd9a0b8f477e54e6e7a572de97b97",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47140c56_99b8dba1",
+        "filename": "test/google_accel_oob_unittest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2021-11-02T19:24:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "613e0557_ad261245",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 2
+      },
+      "revId": "e3f9ce76bdafd9a0b8f477e54e6e7a572de97b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
