@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88d967ac_5b4b8cfe",
+        "filename": "commands.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-02T16:40:34Z",
+      "side": 1,
+      "message": "I am not sure if we want to have four different commands here or have subcommands under `SysAccelOob`",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 26
+      },
+      "revId": "e3f9ce76bdafd9a0b8f477e54e6e7a572de97b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdb208f3_1a26448f",
+        "filename": "handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-02T16:40:34Z",
+      "side": 1,
+      "message": "I don\u0027t know if we want to use boost flat_map here. It might be too heavy for the handlers.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 39
+      },
+      "revId": "e3f9ce76bdafd9a0b8f477e54e6e7a572de97b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b954a8b_f929d9bf",
+        "filename": "handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-02T16:40:34Z",
+      "side": 1,
+      "message": "Use `using` instead?\n\n```\nusing AnyType \u003d std::variant\u003cstd::string, uint8_t, uint32_t, uint64_t\u003e;\n```",
+      "range": {
+        "startLine": 405,
+        "startChar": 0,
+        "endLine": 412,
+        "endChar": 0
+      },
+      "revId": "e3f9ce76bdafd9a0b8f477e54e6e7a572de97b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa78af55_da92339c",
+        "filename": "handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-02T16:40:34Z",
+      "side": 1,
+      "message": "no need for this wrapper?",
+      "range": {
+        "startLine": 415,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 1
+      },
+      "revId": "e3f9ce76bdafd9a0b8f477e54e6e7a572de97b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b42faa3b_38f506ba",
+        "filename": "handler.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-02T16:40:34Z",
+      "side": 1,
+      "message": "bus.call_noreply",
+      "range": {
+        "startLine": 582,
+        "startChar": 8,
+        "endLine": 582,
+        "endChar": 25
+      },
+      "revId": "e3f9ce76bdafd9a0b8f477e54e6e7a572de97b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "613e0557_ad261245",
+        "filename": "test/google_accel_oob_unittest.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-02T16:40:34Z",
+      "side": 1,
+      "message": "rm?\n\nAlso you should all the Google Licence here. Checkout the other cpp for a copy of it.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 2
+      },
+      "revId": "e3f9ce76bdafd9a0b8f477e54e6e7a572de97b97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
