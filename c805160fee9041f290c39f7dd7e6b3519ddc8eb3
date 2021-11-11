@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99e0b755_507a27e1",
+        "filename": "bifurcation/bifurcation.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-11-11T10:42:41Z",
+      "side": 1,
+      "message": "Is this loss of precision from uint64_t -\u003e uint8_t safe?",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "163e5122_76575dc5",
+        "filename": "bifurcation/bifurcation.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-11-11T10:42:41Z",
+      "side": 1,
+      "message": "You shouldn\u0027t mark functions as inline if they are not marked similarly in the declaration. The code would then need to go in the header.\n\nBelow too.",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "048053d1_0eaca1d9",
+        "filename": "bifurcation/bifurcation.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-11-11T10:42:41Z",
+      "side": 1,
+      "message": "I would check all errors. Also, do you care if the entire string is not parsed as an int (check ptr for being the end.)",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e03bbbf_bfb336ec",
+        "filename": "bifurcation/bifurcation.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-11-11T10:42:41Z",
+      "side": 1,
+      "message": "Why? Add to the comment.",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0f17644_11206e4d",
+        "filename": "bifurcation/bifurcation.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-11-11T10:42:41Z",
+      "side": 1,
+      "message": "You could just store visited `realpaths` in a map to drop loops.",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "deb61bdd_2065127a",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-11-11T10:42:41Z",
+      "side": 1,
+      "message": "nit: Not needed",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9799b26_9e53c6ed",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-11-11T10:42:41Z",
+      "side": 1,
+      "message": "The cache should be passed as a reference, not shared_pointer where possible. None of the functions need ownership over it as they stop using the reference immediate after executing.\n\nAlso, mark as `override`",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c537177_10be4c5a",
+        "filename": "bifurcation/meson.build",
+        "patchSetId": 20
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-11-11T10:42:41Z",
+      "side": 1,
+      "message": "root_inc in this file should be bifurcation_inc.",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b26ef38e_a44b11cb",
+        "filename": "handler_impl.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-11-11T10:42:41Z",
+      "side": 1,
+      "message": "You could just provide a singleton in the bifurcation.hpp file and avoid the unique_ptr altogether.",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6d7f996_3cf32c5f",
+        "filename": "handler_impl.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-11-11T10:42:41Z",
+      "side": 1,
+      "message": "Just make a separate constructor that takes an alternative.",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dac31bfa_83dc312e",
+        "filename": "meson.build",
+        "patchSetId": 20
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-11-11T10:42:41Z",
+      "side": 1,
+      "message": "You shouldn\u0027t need to change this if bifurcation passes its include directory.",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1858525_90129eb8",
+        "filename": "test/bifurcation_mock.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2021-11-11T10:42:41Z",
+      "side": 1,
+      "message": "nit: Not needed",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
