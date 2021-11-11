@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8de1beb5_706d5119",
+        "filename": "bifurcation/bifurcation.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-11T18:40:09Z",
+      "side": 1,
+      "message": "I think so, it represents the number of lanes the PCIe slot is divided into.\n\nUnless it is possible get have a slot \u003e 255 lanes, it should be safe",
+      "parentUuid": "99e0b755_507a27e1",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "163e5122_76575dc5",
         "filename": "bifurcation/bifurcation.cpp",
         "patchSetId": 20
@@ -30,6 +48,24 @@
       "writtenOn": "2021-11-11T10:42:41Z",
       "side": 1,
       "message": "You shouldn\u0027t mark functions as inline if they are not marked similarly in the declaration. The code would then need to go in the header.\n\nBelow too.",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f4cc5fd_054c507d",
+        "filename": "bifurcation/bifurcation.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-11T18:40:09Z",
+      "side": 1,
+      "message": "right, thanks. This doesn\u0027t make sense. I forgot that I declared it in the header.\n\nRemoved.",
+      "parentUuid": "163e5122_76575dc5",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -50,6 +86,24 @@
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8109153_87ade58e",
+        "filename": "bifurcation/bifurcation.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-11T18:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "048053d1_0eaca1d9",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -104,6 +158,24 @@
     },
     {
       "key": {
+        "uuid": "9b3f76e7_36e212a6",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-11T18:40:09Z",
+      "side": 1,
+      "message": "I needed this or \n```\nBifurcation() \u003d default;\n```\n\nto make the\n```\nstatic Bifurcation* createBifurcation()\n    {\n        static Bifurcation bifurcation;\n\n        return \u0026bifurcation;\n    }\n\n```\n\nwork.",
+      "parentUuid": "deb61bdd_2065127a",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a9799b26_9e53c6ed",
         "filename": "bifurcation/bifurcation.hpp",
         "patchSetId": 20
@@ -115,6 +187,24 @@
       "writtenOn": "2021-11-11T10:42:41Z",
       "side": 1,
       "message": "The cache should be passed as a reference, not shared_pointer where possible. None of the functions need ownership over it as they stop using the reference immediate after executing.\n\nAlso, mark as `override`",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c63b8e0_87d2fc27",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-11T18:40:09Z",
+      "side": 1,
+      "message": "moved it to reference now.\n\nAlso, this function is not used in `BifurcationInterface`. Maybe we should make it virtual?\n\nWe don\u0027t mock it in the tests. It will parse real paths and only mock out `getBifurcation` that get the bifurication at the PCIe device.",
+      "parentUuid": "a9799b26_9e53c6ed",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -138,6 +228,24 @@
     },
     {
       "key": {
+        "uuid": "0153bcee_b8a824cf",
+        "filename": "bifurcation/meson.build",
+        "patchSetId": 20
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-11T18:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c537177_10be4c5a",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b26ef38e_a44b11cb",
         "filename": "handler_impl.hpp",
         "patchSetId": 20
@@ -149,6 +257,24 @@
       "writtenOn": "2021-11-11T10:42:41Z",
       "side": 1,
       "message": "You could just provide a singleton in the bifurcation.hpp file and avoid the unique_ptr altogether.",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d60a2cb_d7d8bdcc",
+        "filename": "handler_impl.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-11T18:40:09Z",
+      "side": 1,
+      "message": "oh nice. Let me try it out.\n\nSomething like this?",
+      "parentUuid": "b26ef38e_a44b11cb",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
@@ -172,6 +298,24 @@
     },
     {
       "key": {
+        "uuid": "0ee61297_df69c89b",
+        "filename": "handler_impl.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-11T18:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6d7f996_3cf32c5f",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dac31bfa_83dc312e",
         "filename": "meson.build",
         "patchSetId": 20
@@ -189,6 +333,24 @@
     },
     {
       "key": {
+        "uuid": "8718a4fb_53e43bf7",
+        "filename": "meson.build",
+        "patchSetId": 20
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-11T18:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dac31bfa_83dc312e",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1858525_90129eb8",
         "filename": "test/bifurcation_mock.hpp",
         "patchSetId": 20
@@ -203,6 +365,24 @@
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6027cc0_f7e07e0b",
+        "filename": "test/bifurcation_mock.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-11T18:40:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1858525_90129eb8",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
