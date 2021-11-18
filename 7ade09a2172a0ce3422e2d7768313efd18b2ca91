@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d997b16d_f6016c8d",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2021-11-18T19:45:45Z",
+      "side": 1,
+      "message": "The unit test does verify the size, e.g. on line 58: ```ASSERT_EQ(reply_buff.size(), sizeof(Reply));```\n\n\u003e How some this is different from what the test uses?\n\nThe test includes the entire Reply struct specific to that case. For calls without variable size fields (e.g. DeviceCount, as opposed to Read or Write) this isn\u0027t very interesting but it makes the test extremely easy to read and follows a common format with the other, more complicated test cases.",
+      "parentUuid": "472726ba_33e67cd0",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 30
+      },
+      "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15df4795_f4d109b3",
         "filename": "google_accel_oob.cpp",
         "patchSetId": 12
@@ -45,6 +69,30 @@
       "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f017c79f_d1001d0d",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2021-11-18T19:45:45Z",
+      "side": 1,
+      "message": "The trailing NULL for the c-string. This isn\u0027t strictly necessary, but it makes using these replies easier.\n\nThe documented API says that trailing NULL terminators are optional for input arguments, and will be included in generated return values.",
+      "parentUuid": "15df4795_f4d109b3",
+      "range": {
+        "startLine": 127,
+        "startChar": 57,
+        "endLine": 127,
+        "endChar": 59
+      },
+      "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7758647a_f59d177f",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2021-11-18T19:45:45Z",
+      "side": 1,
+      "message": "No. These are actually part of the expected struct, but because name is variable length I need to break it into 2 pieces. These fields get handled by the ReadNameHeader method and this represents what\u0027s left of the Request.\n\nAdded some comments to clarify",
+      "parentUuid": "61ffbe30_08bfd9c9",
+      "range": {
+        "startLine": 191,
+        "startChar": 2,
+        "endLine": 193,
+        "endChar": 40
+      },
+      "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb618c12_467b8b96",
         "filename": "google_accel_oob.cpp",
         "patchSetId": 12
@@ -91,6 +163,30 @@
       "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83a636de_e5ef1e7b",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2021-11-18T19:45:45Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "cb618c12_467b8b96",
+      "range": {
+        "startLine": 209,
+        "startChar": 20,
+        "endLine": 209,
+        "endChar": 22
+      },
+      "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
