@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "472726ba_33e67cd0",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-18T18:56:05Z",
+      "side": 1,
+      "message": "for these structs? do you not need in the unit tests to confirm the size of the response?\n\nHow some this is different from what the test uses?",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 30
+      },
+      "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15df4795_f4d109b3",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-18T18:56:05Z",
+      "side": 1,
+      "message": "where did this one come from?",
+      "range": {
+        "startLine": 127,
+        "startChar": 57,
+        "endLine": 127,
+        "endChar": 59
+      },
+      "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61ffbe30_08bfd9c9",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-18T18:56:05Z",
+      "side": 1,
+      "message": "rm?",
+      "range": {
+        "startLine": 191,
+        "startChar": 2,
+        "endLine": 193,
+        "endChar": 40
+      },
+      "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb618c12_467b8b96",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-18T18:56:05Z",
+      "side": 1,
+      "message": "no need",
+      "range": {
+        "startLine": 209,
+        "startChar": 20,
+        "endLine": 209,
+        "endChar": 22
+      },
+      "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "316550f3_f1202b53",
+        "filename": "handler.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-18T18:56:05Z",
+      "side": 1,
+      "message": "prefer `static_cast\u003cuint64_t\u003e`",
+      "range": {
+        "startLine": 484,
+        "startChar": 27,
+        "endLine": 484,
+        "endChar": 37
+      },
+      "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce1e736e_59e35e9c",
+        "filename": "handler.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-18T18:56:05Z",
+      "side": 1,
+      "message": "just `ACCEL_OOB_ROOT + name`? same with the others",
+      "range": {
+        "startLine": 548,
+        "startChar": 4,
+        "endLine": 550,
+        "endChar": 0
+      },
+      "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "020fed8b_c5f7c24f",
+        "filename": "test/google_accel_oob_unittest.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2021-11-18T18:56:05Z",
+      "side": 1,
+      "message": "if we put the struct in the header, then we don\u0027t have to maintain two of these.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 30
+      },
+      "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
