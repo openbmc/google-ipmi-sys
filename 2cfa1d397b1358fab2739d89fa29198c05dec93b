@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c312e57_456ec812",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2021-11-19T18:34:10Z",
+      "side": 1,
+      "message": "From https://chris.beams.io/posts/git-commit/ :\nLimit the subject line to 50 characters\nWrap the body at 72 characters",
+      "revId": "2cfa1d397b1358fab2739d89fa29198c05dec93b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
