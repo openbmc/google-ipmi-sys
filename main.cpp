@@ -25,6 +25,8 @@
 #include <ipmid/iana.hpp>
 #include <span>
 
+#include "google_version/google_version.h"
+
 namespace oem
 {
 namespace google
@@ -55,6 +57,15 @@ void setupGoogleOemSysCommands()
                                    return handleSysCommand(&handlerImpl, ctx,
                                                            cmd, data);
                                });
+
+    std::fprintf(
+        stderr,
+        "Overriding Netfn:[%#08X], Cmd:[%#04X] for Get Device ID Commands\n",
+        ::ipmi::netFnApp, ::ipmi::app::cmdGetDeviceId);
+    // <Get Device ID>
+    ::ipmi::registerHandler(::ipmi::prioOemBase, ::ipmi::netFnApp,
+                            ::ipmi::app::cmdGetDeviceId,
+                            ::ipmi::Privilege::User, ipmiAppGetGBMCDeviceId);
 }
 
 } // namespace ipmi
