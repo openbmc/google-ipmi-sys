@@ -9,6 +9,8 @@ project(
     'werror=true',
   ])
 
+root_inc = include_directories('.')
+
 meson.get_compiler('cpp').has_header_symbol(
   'ipmid/api.h',
   'ipmid_get_sd_bus_connection')
@@ -19,13 +21,16 @@ meson.get_compiler('cpp').has_header_symbol(
   'nlohmann::json',
   dependencies: json_dep)
 
+subdir('google_version')
+
 sys_pre = declare_dependency(
-  include_directories: include_directories('.'),
+  include_directories: root_inc,
   dependencies: [
     json_dep,
     dependency('phosphor-dbus-interfaces'),
     dependency('phosphor-logging'),
     dependency('sdbusplus'),
+    google_version_dep,
   ])
 
 sys_lib = static_library(
