@@ -235,3 +235,30 @@ Response
 |Byte(s) |Value  |Data
 |--------|-------|----
 |0x00|0x0A|Subcommand
+
+### SaveHostBootTime - SubCommand 0x0B
+
+Notifying BMC the boot time of each stage of the host.
+
+Request
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0B|Subcommand
+|0x01|Stage|Host boot stage code (See definition below)
+|0x02..0x09|Duration(us)|Duration of the stage (uint64)
+
+Host boot stage code
+
+|Value  |Stage
+|-------|----
+|0x00|Linuxboot kernel
+|0x01|Linuxboot userspace
+|0x02|Netboot
+|0x03|DHCP
+
+Response
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0B|Subcommand

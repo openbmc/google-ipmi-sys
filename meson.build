@@ -36,6 +36,7 @@ sys_lib = static_library(
   'eth.cpp',
   'flash_size.cpp',
   'handler.cpp',
+  'host_boot_time.cpp',
   'host_power_off.cpp',
   'ipmi.cpp',
   'machine_name.cpp',

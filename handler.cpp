@@ -392,5 +392,34 @@ std::tuple<std::uint32_t, std::string>
     return _pcie_i2c_map[entry];
 }
 
+static constexpr auto HOST_BOOT_TIME_FILENAME = "/run/host_boot_time.json";
+
+void Handler::saveHostBootTime(std::uint8_t stage,
+                               std::uint64_t duration_us) const
+{
+    nlohmann::json boot_time;
+    std::ifstream fin(HOST_BOOT_TIME_FILENAME);
+    if (fin.good()) {
+        std::fprintf(stderr, "Update the host boot time.\n");
+        // Read the original data if it exists.
+
+        fin >> boot_time;
+        fin.close();
+    } else {
+        std::fprintf(stderr, "Host boot time recording not found. Create a new one.\n");
+    }
+
+    std::ofstream fout(HOST_BOOT_TIME_FILENAME);
+    if (!fout.good())
+    {
+        std::fprintf(stderr, "Unable to open file for output.\n");
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    boot_time[std::to_string(stage)] = duration_us;
+    fout << boot_time << std::endl;
+    fout.close();
+}
+
 } // namespace ipmi
 } // namespace google

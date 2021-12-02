@@ -53,6 +53,8 @@ class HandlerMock : public HandlerInterface
     MOCK_METHOD((std::tuple<std::uint32_t, std::string>), getI2cEntry,
                 (unsigned int), (const, override));
     MOCK_METHOD(void, hostPowerOffDelay, (std::uint32_t), (const, override));
+    MOCK_METHOD(void, saveHostBootTime, (std::uint8_t, std::uint64_t),
+                (const, override));
 };
 
 } // namespace ipmi

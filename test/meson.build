@@ -22,6 +22,7 @@ tests = [
   'eth',
   'flash',
   'handler',
+  'host_boot_time',
   'machine',
   'pcie',
   'poweroff',
