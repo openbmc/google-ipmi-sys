@@ -47,7 +47,7 @@ void setupGoogleOemSysCommands()
     static Handler handlerImpl;
 
     std::fprintf(stderr,
-                 "Registering OEM:[%#08X], Cmd:[%#04X] for Sys Commands\n",
+                 "gpgpgp Registering OEM:[%#08X], Cmd:[%#04X] for Sys Commands\n",
                  oem::googOemNumber, oem::google::sysCmd);
 
     ::ipmi::registerOemHandler(::ipmi::prioOemBase, oem::googOemNumber,

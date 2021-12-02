@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#include "flash_size.hpp"
+#include "host_boot_time.hpp"
 
 #include "commands.hpp"
 #include "errors.hpp"
@@ -31,29 +31,10 @@ namespace google
 {
 namespace ipmi
 {
-Resp saveHostBootTimexxx(std::span<const uint8_t>, HandlerInterface*)
-{
-    return ::ipmi::responseParmOutOfRange();
-}
 
-Resp getFlashSize(std::span<const uint8_t>, HandlerInterface* handler)
-{
-    uint32_t flashSize;
-    try
-    {
-        flashSize = handler->getFlashSize();
-    }
-    catch (const IpmiException& e)
-    {
-        return ::ipmi::response(e.getIpmiError());
-    }
-
-    flashSize = htole32(flashSize);
-    return ::ipmi::responseSuccess(
-        SysOEMCommands::SysGetFlashSize,
-        std::vector<std::uint8_t>((std::uint8_t*)&(flashSize),
-                                  (std::uint8_t*)&(flashSize) +
-                                      sizeof(std::uint32_t)));
-}
+// Resp saveHostBootTime(std::span<const uint8_t>, HandlerInterface*)
+// {
+//     return ::ipmi::responseParmOutOfRange();
+// }
 } // namespace ipmi
 } // namespace google

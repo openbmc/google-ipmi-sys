@@ -26,15 +26,23 @@ namespace google
 namespace ipmi
 {
 
-struct GetFlashSizeReply
+enum class HostBootStageCode
 {
-    uint32_t flashSize;
+    kLinuxbootKernel = 0,
+    kLinuxbootUserspace,
+    kNetboot,
+    kDhcp,
+    kCount,
+};
+
+struct SaveHostBootTimeRequest
+{
+    uint8_t stage;
+    uint64_t duration_us;
 } __attribute__((packed));
 
-Resp saveHostBootTimexxx(std::span<const uint8_t> data,
-                      const HandlerInterface* handler);
-
-Resp getFlashSize(std::span<const uint8_t> data, HandlerInterface* handler);
+// Resp saveHostBootTime(std::span<const uint8_t> data,
+//                       const HandlerInterface* handler);
 
 } // namespace ipmi
 } // namespace google
