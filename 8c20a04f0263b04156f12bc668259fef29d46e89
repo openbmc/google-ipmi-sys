@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e160fa35_2f98b3af",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1001299
+      },
+      "writtenOn": "2021-12-06T09:09:25Z",
+      "side": 1,
+      "message": "Can Stage be Component?\nThese are not exclusive to each other.\nUser ~\u003d Some initialization + Netboot\nNetboot \u003d DHCP + download/extract file",
+      "revId": "8c20a04f0263b04156f12bc668259fef29d46e89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da7815a0_095df1d6",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1001299
+      },
+      "writtenOn": "2021-12-06T09:09:25Z",
+      "side": 1,
+      "message": "Linuxboot netboot",
+      "revId": "8c20a04f0263b04156f12bc668259fef29d46e89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2265f9e1_f9bc92a6",
+        "filename": "README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1001299
+      },
+      "writtenOn": "2021-12-06T09:09:25Z",
+      "side": 1,
+      "message": "Linuxboot DHCP",
+      "revId": "8c20a04f0263b04156f12bc668259fef29d46e89",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
