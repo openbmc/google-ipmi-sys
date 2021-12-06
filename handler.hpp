@@ -136,6 +136,16 @@ class HandlerInterface
      * @throw IpmiException on failure.
      */
     virtual void hostPowerOffDelay(std::uint32_t delay) const = 0;
+
+    /**
+     * Save the host boot time for each stage.
+     *
+     * @param[in] stage - host boot stage code.
+     * @param[in] duration_us - duration(us) of the stage.
+     * @throw IpmiException on failure.
+     */
+    virtual void saveHostBootTime(std::uint8_t stage,
+                                  std::uint64_t duration_us) const = 0;
 };
 
 } // namespace ipmi
