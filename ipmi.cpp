@@ -21,6 +21,7 @@
 #include "eth.hpp"
 #include "flash_size.hpp"
 #include "handler.hpp"
+#include "linuxboot_boot_time.hpp"
 #include "host_power_off.hpp"
 #include "machine_name.hpp"
 #include "pcie_i2c.hpp"
@@ -67,6 +68,8 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr,
             return getFlashSize(data, handler);
         case SysHostPowerOff:
             return hostPowerOff(data, handler);
+        case SysLinuxbootBootTime:
+            return saveLinuxbootBootTime(data, handler);
         default:
             std::fprintf(stderr, "Invalid subcommand: 0x%x\n", cmd);
             return ::ipmi::responseInvalidCommand();

@@ -43,6 +43,8 @@ enum SysOEMCommands
     SysGetFlashSize = 9,
     // The Sys Host Power Off with disabled fallback watchdog
     SysHostPowerOff = 10,
+    // Expose the boot time for each component in Linuxboot to BMC.
+    SysLinuxbootBootTime = 11,
 };
 
 } // namespace ipmi

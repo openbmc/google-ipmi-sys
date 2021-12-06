@@ -235,3 +235,31 @@ Response
 |Byte(s) |Value  |Data
 |--------|-------|----
 |0x00|0x0A|Subcommand
+
+### SaveLinuxbootBootTime - SubCommand 0x0B
+
+Host can expose the boot time for each component in Linuxboot stage to BMC
+through this command.
+
+Request
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0B|Subcommand
+|0x01|Component|Component code (See definition below)
+|0x02..0x09|Duration(us)|Duration of each component (uint64)
+
+Component code
+
+|Value  |Stage
+|-------|----
+|0x00|Linuxboot kernel
+|0x01|Linuxboot userspace
+|0x02|Linuxboot netboot
+|0x03|Linuxboot DHCP
+
+Response
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x0B|Subcommand

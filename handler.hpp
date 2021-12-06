@@ -136,6 +136,16 @@ class HandlerInterface
      * @throw IpmiException on failure.
      */
     virtual void hostPowerOffDelay(std::uint32_t delay) const = 0;
+
+    /**
+     * Save the boot time for each component in Linuxboot.
+     *
+     * @param[in] component - component code.
+     * @param[in] duration_us - duration(us) of the component executing time.
+     * @throw IpmiException on failure.
+     */
+    virtual void saveLinuxbootBootTime(std::uint8_t component,
+                                  std::uint64_t duration_us) const = 0;
 };
 
 } // namespace ipmi
