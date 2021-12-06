@@ -52,6 +52,8 @@ class Handler : public HandlerInterface
     void hostPowerOffDelay(std::uint32_t delay) const override;
     std::tuple<std::uint32_t, std::string>
         getI2cEntry(unsigned int entry) const override;
+    void saveHostBootTime(std::uint8_t stage,
+                          std::uint64_t duration_us) const override;
 
   private:
     std::string _configFile;
