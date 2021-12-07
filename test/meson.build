@@ -22,6 +22,7 @@ tests = [
   'eth',
   'flash',
   'handler',
+  'linuxboot_boot_time',
   'machine',
   'pcie',
   'poweroff',
