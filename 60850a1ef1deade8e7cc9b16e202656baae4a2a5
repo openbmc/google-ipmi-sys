@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59a1ba01_1091dae7",
+        "filename": "README.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-12-15T03:25:07Z",
+      "side": 1,
+      "message": "nit: This doesn\u0027t seem to be a complete sentence.",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 16
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe27b64d_791ddaa1",
+        "filename": "README.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-12-15T03:25:07Z",
+      "side": 1,
+      "message": "question: Here and at the write command, would it make sense to explicitly denote endianness?",
+      "range": {
+        "startLine": 352,
+        "startChar": 14,
+        "endLine": 352,
+        "endChar": 18
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef03bc27_a80ec258",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-12-15T03:25:07Z",
+      "side": 1,
+      "message": "nit: should we take this out?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 68
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89c1b67a_c9f4298b",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-12-15T03:25:07Z",
+      "side": 1,
+      "message": "nit: I guess the caveat here is that the minimum buffer (if returned at the first conditional) may not be enough to hold the name as well.\n\nIt seems we use it for checking against 0 so I don\u0027t think the nit matters, just pointing out that the comment can look misleading.",
+      "range": {
+        "startLine": 147,
+        "startChar": 52,
+        "endLine": 147,
+        "endChar": 73
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "917254c0_80be6224",
+        "filename": "handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-12-15T03:25:07Z",
+      "side": 1,
+      "message": "minor nit: as mentioned in the header, perhaps change this to index for consistency / readability",
+      "range": {
+        "startLine": 441,
+        "startChar": 47,
+        "endLine": 441,
+        "endChar": 48
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d79f8928_e7d49c97",
+        "filename": "handler_impl.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-12-15T03:25:07Z",
+      "side": 1,
+      "message": "minor nit: would prefer for this to follow the interface\u0027s param name of \"index\"",
+      "range": {
+        "startLine": 59,
+        "startChar": 42,
+        "endLine": 59,
+        "endChar": 43
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "196c3887_aca4f7f6",
+        "filename": "test/google_accel_oob_unittest.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-12-15T03:25:07Z",
+      "side": 1,
+      "message": "really minor nit: Technically should be camel case I imagine (following OpenBMC standard to the letter) but I also think this is clearer denoting the expected test status. I think it\u0027s ok to leave it as is.",
+      "range": {
+        "startLine": 31,
+        "startChar": 25,
+        "endLine": 31,
+        "endChar": 44
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24fdecfe_c02ce3ac",
+        "filename": "test/google_accel_oob_unittest.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-12-15T03:25:07Z",
+      "side": 1,
+      "message": "nit: I think you meant Device here probably (and below)",
+      "range": {
+        "startLine": 35,
+        "startChar": 38,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "033d5a80_fd60dc30",
+        "filename": "test/handler_unittest.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-12-15T03:25:07Z",
+      "side": 1,
+      "message": "nit: Since you don\u0027t seem to use the returned value and you have everything in sequence within this anyway, I wonder if it\u0027s easier if you just declare ::testing::InSequence s; at the top of this helper function, then you don\u0027t have to return (can be void return) and you don\u0027t need the \"InSequence(s)\" at each EXPECT_CALL",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 19
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87795c42_33cff954",
+        "filename": "test/handler_unittest.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-12-15T03:25:07Z",
+      "side": 1,
+      "message": "Same here as above",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 382,
+        "endChar": 19
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78c7a41e_1fcb02e1",
+        "filename": "test/handler_unittest.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2021-12-15T03:25:07Z",
+      "side": 1,
+      "message": "Same here as above",
+      "range": {
+        "startLine": 528,
+        "startChar": 11,
+        "endLine": 528,
+        "endChar": 19
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
