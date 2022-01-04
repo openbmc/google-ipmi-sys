@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "472726ba_33e67cd0",
         "filename": "google_accel_oob.cpp",
@@ -20,10 +21,10 @@
         "endChar": 30
       },
       "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "d997b16d_f6016c8d",
         "filename": "google_accel_oob.cpp",
@@ -44,10 +45,10 @@
         "endChar": 30
       },
       "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "15df4795_f4d109b3",
         "filename": "google_accel_oob.cpp",
@@ -67,10 +68,10 @@
         "endChar": 59
       },
       "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "f017c79f_d1001d0d",
         "filename": "google_accel_oob.cpp",
@@ -91,10 +92,10 @@
         "endChar": 59
       },
       "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "61ffbe30_08bfd9c9",
         "filename": "google_accel_oob.cpp",
@@ -114,10 +115,10 @@
         "endChar": 40
       },
       "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "7758647a_f59d177f",
         "filename": "google_accel_oob.cpp",
@@ -138,10 +139,10 @@
         "endChar": 40
       },
       "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "cb618c12_467b8b96",
         "filename": "google_accel_oob.cpp",
@@ -161,10 +162,10 @@
         "endChar": 22
       },
       "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "83a636de_e5ef1e7b",
         "filename": "google_accel_oob.cpp",
@@ -185,10 +186,10 @@
         "endChar": 22
       },
       "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "316550f3_f1202b53",
         "filename": "handler.cpp",
@@ -208,10 +209,34 @@
         "endChar": 37
       },
       "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec88ebc6_af802dbe",
+        "filename": "handler.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-04T17:18:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "316550f3_f1202b53",
+      "range": {
+        "startLine": 484,
+        "startChar": 27,
+        "endLine": 484,
+        "endChar": 37
+      },
+      "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "ce1e736e_59e35e9c",
         "filename": "handler.cpp",
@@ -231,10 +256,34 @@
         "endChar": 0
       },
       "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd8f0556_d0434fe1",
+        "filename": "handler.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-04T17:18:51Z",
+      "side": 1,
+      "message": "Unfortunately, there isn\u0027t an operator+(string_view, string_view).",
+      "parentUuid": "ce1e736e_59e35e9c",
+      "range": {
+        "startLine": 548,
+        "startChar": 4,
+        "endLine": 550,
+        "endChar": 0
+      },
+      "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "020fed8b_c5f7c24f",
         "filename": "test/google_accel_oob_unittest.cpp",
@@ -254,8 +303,31 @@
         "endChar": 30
       },
       "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6db0a862_d97d70bb",
+        "filename": "test/google_accel_oob_unittest.cpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-04T17:18:51Z",
+      "side": 1,
+      "message": "That was how I originally had it, but it doesn\u0027t work for the commands with variable-sized structs (containing the name). For consistency, I kept the fixed-size methods the same.",
+      "parentUuid": "020fed8b_c5f7c24f",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 30
+      },
+      "revId": "7ade09a2172a0ce3422e2d7768313efd18b2ca91",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

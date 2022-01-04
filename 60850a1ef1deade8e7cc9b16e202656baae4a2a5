@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "59a1ba01_1091dae7",
         "filename": "README.md",
@@ -20,10 +21,34 @@
         "endChar": 16
       },
       "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5646b2aa_73782919",
+        "filename": "README.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-04T17:18:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59a1ba01_1091dae7",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 275,
+        "endChar": 16
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "fe27b64d_791ddaa1",
         "filename": "README.md",
@@ -43,10 +68,34 @@
         "endChar": 18
       },
       "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41de6edb_af9e97fa",
+        "filename": "README.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-04T17:18:51Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "fe27b64d_791ddaa1",
+      "range": {
+        "startLine": 352,
+        "startChar": 14,
+        "endLine": 352,
+        "endChar": 18
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "ef03bc27_a80ec258",
         "filename": "google_accel_oob.cpp",
@@ -66,10 +115,34 @@
         "endChar": 68
       },
       "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4897e4f_95f992bd",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-04T17:18:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef03bc27_a80ec258",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 68
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "89c1b67a_c9f4298b",
         "filename": "google_accel_oob.cpp",
@@ -89,10 +162,34 @@
         "endChar": 73
       },
       "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85444af2_dc28b5a4",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-04T17:18:51Z",
+      "side": 1,
+      "message": "Fixed by removing the first conditional. Having the actual size returned is helpful if using dynamic allocation, and that first early exit doesn\u0027t add much value anyway.",
+      "parentUuid": "89c1b67a_c9f4298b",
+      "range": {
+        "startLine": 147,
+        "startChar": 52,
+        "endLine": 147,
+        "endChar": 73
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "04fd8ced_ee5bc5b7",
         "filename": "google_accel_oob.hpp",
@@ -106,10 +203,28 @@
       "side": 1,
       "message": "nit : if C header you can put under extern \"C\" { }",
       "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc263af6_28a7fa24",
+        "filename": "google_accel_oob.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-04T17:18:51Z",
+      "side": 1,
+      "message": "We don\u0027t do this in any of the other files in this repo.\n\nIs this a new thing we\u0027re moving towards?\nOr, is it better to maintain consistency?",
+      "parentUuid": "04fd8ced_ee5bc5b7",
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "917254c0_80be6224",
         "filename": "handler.cpp",
@@ -129,10 +244,34 @@
         "endChar": 48
       },
       "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "187c6fe6_ace6bf90",
+        "filename": "handler.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-04T17:18:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "917254c0_80be6224",
+      "range": {
+        "startLine": 441,
+        "startChar": 47,
+        "endLine": 441,
+        "endChar": 48
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "d79f8928_e7d49c97",
         "filename": "handler_impl.hpp",
@@ -152,10 +291,34 @@
         "endChar": 43
       },
       "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe9b0392_e5eff786",
+        "filename": "handler_impl.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-04T17:18:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d79f8928_e7d49c97",
+      "range": {
+        "startLine": 59,
+        "startChar": 42,
+        "endLine": 59,
+        "endChar": 43
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "63b4f48c_d6d8b270",
         "filename": "ipmi.cpp",
@@ -169,10 +332,28 @@
       "side": 1,
       "message": "nit : if C header ,can be put under extern \"C\" { }",
       "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd1ec6ff_f464a2b9",
+        "filename": "ipmi.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-04T17:18:51Z",
+      "side": 1,
+      "message": "Ack. See comment in google_accel_oob.hpp",
+      "parentUuid": "63b4f48c_d6d8b270",
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "196c3887_aca4f7f6",
         "filename": "test/google_accel_oob_unittest.cpp",
@@ -192,10 +373,34 @@
         "endChar": 44
       },
       "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "160abedd_2d8357ab",
+        "filename": "test/google_accel_oob_unittest.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-04T17:18:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "196c3887_aca4f7f6",
+      "range": {
+        "startLine": 31,
+        "startChar": 25,
+        "endLine": 31,
+        "endChar": 44
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "24fdecfe_c02ce3ac",
         "filename": "test/google_accel_oob_unittest.cpp",
@@ -215,10 +420,34 @@
         "endChar": 40
       },
       "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5df418d2_f3d053c9",
+        "filename": "test/google_accel_oob_unittest.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-04T17:18:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24fdecfe_c02ce3ac",
+      "range": {
+        "startLine": 35,
+        "startChar": 38,
+        "endLine": 35,
+        "endChar": 40
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "033d5a80_fd60dc30",
         "filename": "test/handler_unittest.cpp",
@@ -238,10 +467,34 @@
         "endChar": 19
       },
       "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b39ac1c3_e0e34e32",
+        "filename": "test/handler_unittest.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-04T17:18:51Z",
+      "side": 1,
+      "message": "Done + for ExpectRead and ExpectWrite as well",
+      "parentUuid": "033d5a80_fd60dc30",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 19
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "87795c42_33cff954",
         "filename": "test/handler_unittest.cpp",
@@ -261,10 +514,34 @@
         "endChar": 19
       },
       "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a1e1875_f5b68024",
+        "filename": "test/handler_unittest.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-04T17:18:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87795c42_33cff954",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 382,
+        "endChar": 19
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "78c7a41e_1fcb02e1",
         "filename": "test/handler_unittest.cpp",
@@ -284,8 +561,31 @@
         "endChar": 19
       },
       "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "220dfb33_19dd80cf",
+        "filename": "test/handler_unittest.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-04T17:18:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78c7a41e_1fcb02e1",
+      "range": {
+        "startLine": 528,
+        "startChar": 11,
+        "endLine": 528,
+        "endChar": 19
+      },
+      "revId": "60850a1ef1deade8e7cc9b16e202656baae4a2a5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
