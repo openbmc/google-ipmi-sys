@@ -16,6 +16,24 @@
       "message": "I can\u0027t add the normal +2 group (perhaps it doesn\u0027t exist for google-ipmi-sys repo?)\n\nCan someone do a +2 approval review?",
       "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2c30841_885f816a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-01-05T22:32:03Z",
+      "side": 1,
+      "message": "The +2 group is for our internal downstream repo. \n\nI believe we have the OWNER files set up so that the maintainers are added automatically in this review.",
+      "parentUuid": "295fe7a3_4301554e",
+      "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
