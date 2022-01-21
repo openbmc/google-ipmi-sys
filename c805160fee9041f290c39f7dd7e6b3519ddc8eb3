@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "99e0b755_507a27e1",
         "filename": "bifurcation/bifurcation.cpp",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Is this loss of precision from uint64_t -\u003e uint8_t safe?",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "8de1beb5_706d5119",
         "filename": "bifurcation/bifurcation.cpp",
@@ -32,10 +33,10 @@
       "message": "I think so, it represents the number of lanes the PCIe slot is divided into.\n\nUnless it is possible get have a slot \u003e 255 lanes, it should be safe",
       "parentUuid": "99e0b755_507a27e1",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "163e5122_76575dc5",
         "filename": "bifurcation/bifurcation.cpp",
@@ -49,10 +50,10 @@
       "side": 1,
       "message": "You shouldn\u0027t mark functions as inline if they are not marked similarly in the declaration. The code would then need to go in the header.\n\nBelow too.",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "6f4cc5fd_054c507d",
         "filename": "bifurcation/bifurcation.cpp",
@@ -67,10 +68,28 @@
       "message": "right, thanks. This doesn\u0027t make sense. I forgot that I declared it in the header.\n\nRemoved.",
       "parentUuid": "163e5122_76575dc5",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ce1ac99_1975d14b",
+        "filename": "bifurcation/bifurcation.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-21T02:56:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f4cc5fd_054c507d",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "048053d1_0eaca1d9",
         "filename": "bifurcation/bifurcation.cpp",
@@ -84,10 +103,10 @@
       "side": 1,
       "message": "I would check all errors. Also, do you care if the entire string is not parsed as an int (check ptr for being the end.)",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "f8109153_87ade58e",
         "filename": "bifurcation/bifurcation.cpp",
@@ -102,10 +121,10 @@
       "message": "Done",
       "parentUuid": "048053d1_0eaca1d9",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7e03bbbf_bfb336ec",
         "filename": "bifurcation/bifurcation.cpp",
@@ -119,10 +138,10 @@
       "side": 1,
       "message": "Why? Add to the comment.",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "e2ebe309_38634db8",
         "filename": "bifurcation/bifurcation.cpp",
@@ -137,10 +156,10 @@
       "message": "Done. in summary, just want to make sure the result is deterministic at the end.",
       "parentUuid": "7e03bbbf_bfb336ec",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c0f17644_11206e4d",
         "filename": "bifurcation/bifurcation.cpp",
@@ -154,10 +173,10 @@
       "side": 1,
       "message": "You could just store visited `realpaths` in a map to drop loops.",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "62fae64e_5831b917",
         "filename": "bifurcation/bifurcation.cpp",
@@ -172,10 +191,10 @@
       "message": "Done",
       "parentUuid": "c0f17644_11206e4d",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "deb61bdd_2065127a",
         "filename": "bifurcation/bifurcation.hpp",
@@ -189,10 +208,10 @@
       "side": 1,
       "message": "nit: Not needed",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9b3f76e7_36e212a6",
         "filename": "bifurcation/bifurcation.hpp",
@@ -207,10 +226,10 @@
       "message": "I needed this or \n```\nBifurcation() \u003d default;\n```\n\nto make the\n```\nstatic Bifurcation* createBifurcation()\n    {\n        static Bifurcation bifurcation;\n\n        return \u0026bifurcation;\n    }\n\n```\n\nwork.",
       "parentUuid": "deb61bdd_2065127a",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "a9799b26_9e53c6ed",
         "filename": "bifurcation/bifurcation.hpp",
@@ -224,10 +243,10 @@
       "side": 1,
       "message": "The cache should be passed as a reference, not shared_pointer where possible. None of the functions need ownership over it as they stop using the reference immediate after executing.\n\nAlso, mark as `override`",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "7c63b8e0_87d2fc27",
         "filename": "bifurcation/bifurcation.hpp",
@@ -242,10 +261,10 @@
       "message": "moved it to reference now.\n\nAlso, this function is not used in `BifurcationInterface`. Maybe we should make it virtual?\n\nWe don\u0027t mock it in the tests. It will parse real paths and only mock out `getBifurcation` that get the bifurication at the PCIe device.",
       "parentUuid": "a9799b26_9e53c6ed",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4c537177_10be4c5a",
         "filename": "bifurcation/meson.build",
@@ -259,10 +278,10 @@
       "side": 1,
       "message": "root_inc in this file should be bifurcation_inc.",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "0153bcee_b8a824cf",
         "filename": "bifurcation/meson.build",
@@ -277,10 +296,10 @@
       "message": "Done",
       "parentUuid": "4c537177_10be4c5a",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b26ef38e_a44b11cb",
         "filename": "handler_impl.hpp",
@@ -294,10 +313,10 @@
       "side": 1,
       "message": "You could just provide a singleton in the bifurcation.hpp file and avoid the unique_ptr altogether.",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4d60a2cb_d7d8bdcc",
         "filename": "handler_impl.hpp",
@@ -312,10 +331,28 @@
       "message": "oh nice. Let me try it out.\n\nSomething like this?",
       "parentUuid": "b26ef38e_a44b11cb",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2db864c3_cd62e843",
+        "filename": "handler_impl.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-01-21T02:56:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d60a2cb_d7d8bdcc",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "b6d7f996_3cf32c5f",
         "filename": "handler_impl.hpp",
@@ -329,10 +366,10 @@
       "side": 1,
       "message": "Just make a separate constructor that takes an alternative.",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "0ee61297_df69c89b",
         "filename": "handler_impl.hpp",
@@ -347,10 +384,10 @@
       "message": "Done",
       "parentUuid": "b6d7f996_3cf32c5f",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "dac31bfa_83dc312e",
         "filename": "meson.build",
@@ -364,10 +401,10 @@
       "side": 1,
       "message": "You shouldn\u0027t need to change this if bifurcation passes its include directory.",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "8718a4fb_53e43bf7",
         "filename": "meson.build",
@@ -382,10 +419,10 @@
       "message": "Done",
       "parentUuid": "dac31bfa_83dc312e",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f1858525_90129eb8",
         "filename": "test/bifurcation_mock.hpp",
@@ -399,10 +436,10 @@
       "side": 1,
       "message": "nit: Not needed",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "c6027cc0_f7e07e0b",
         "filename": "test/bifurcation_mock.hpp",
@@ -417,8 +454,7 @@
       "message": "Done",
       "parentUuid": "f1858525_90129eb8",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": false
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
