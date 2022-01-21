@@ -53,6 +53,40 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d64971a6_5881fde7",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2022-01-21T11:39:21Z",
+      "side": 1,
+      "message": "Can we make this simpler by declaring the header part of the request separately, and then subtracting that size out from MAX_IPMI_BUFFER?",
+      "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d893628a_21ed34af",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2022-01-21T11:39:21Z",
+      "side": 1,
+      "message": "I think all of the subcommand parsing logic is vestigal since the rewrite and needs to be removed here. AFAIR the data span doesn\u0027t contain it.",
+      "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "bdafa1ba_cbcac03b",
@@ -66,6 +100,40 @@
       "writtenOn": "2022-01-20T20:10:23Z",
       "side": 1,
       "message": "nit: I can try to find the advice on this internally but where possible, it\u0027s encouraged to memcpy data over, so you\u0027d create a Reply on the stack, set the value there, and then memcpy it into the vector.",
+      "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "425902a6_55ca0eff",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2022-01-21T11:39:21Z",
+      "side": 1,
+      "message": "I don\u0027t think we want to copy anything but the subcommand back to conform with the typical conventions in the repo. All responses start with the oem + cmd bytes, but then the rest of the request is not sent back.",
+      "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "664e2c70_41c1589a",
+        "filename": "google_accel_oob.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2022-01-21T11:39:21Z",
+      "side": 1,
+      "message": "nit: We shouldn\u0027t need to declare everything in C api\u0027s extern for ABI compat, it should be built-in to the header if needed.",
       "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
