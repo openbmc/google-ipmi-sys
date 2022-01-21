@@ -70,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cda12c9_349c4254",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-21T14:40:32Z",
+      "side": 1,
+      "message": "That actually gets very messy. Since this is effectively the union of all the structs that include name, we\u0027d need to create a bunch of intermediate size sums and take a max of them all.",
+      "parentUuid": "d64971a6_5881fde7",
+      "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d893628a_21ed34af",
@@ -83,6 +101,24 @@
       "writtenOn": "2022-01-21T11:39:21Z",
       "side": 1,
       "message": "I think all of the subcommand parsing logic is vestigal since the rewrite and needs to be removed here. AFAIR the data span doesn\u0027t contain it.",
+      "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37b63324_69bba0d6",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-21T14:40:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d893628a_21ed34af",
       "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -104,6 +140,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99d23c11_5a7bb58c",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-21T14:40:32Z",
+      "side": 1,
+      "message": "Post-refactoring, I believe this is a non-issue: the return value contains the reply buffer (as a parameterized type, std::vector in this case) so the copy or move gets done in the ::ipmi::responseSuccess ctor.\n\nIn all of these new methods, replyBuf is already a local vector (e.g. line 69, above)",
+      "parentUuid": "bdafa1ba_cbcac03b",
+      "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "425902a6_55ca0eff",
@@ -117,6 +171,24 @@
       "writtenOn": "2022-01-21T11:39:21Z",
       "side": 1,
       "message": "I don\u0027t think we want to copy anything but the subcommand back to conform with the typical conventions in the repo. All responses start with the oem + cmd bytes, but then the rest of the request is not sent back.",
+      "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94a58d8b_1506245b",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-21T14:40:32Z",
+      "side": 1,
+      "message": "This is actually an intentional addition. In the past, we\u0027ve had cases were transactions get lost (either the request or reply get dropped, corrupted, or delayed). When this happens, the host doesn\u0027t know until the next command completes. By echoing the command back, the host can very easily and unambiguously determine which transaction a reply belongs to.\n\nThe read \u0026 write commands include an additional \"token\" field so that repeated operations (e.g. multiple writes to the same register) can still be differentiated as well.\n\nIf the number of bytes on the wire is a concern, just having the token field should be sufficient.",
+      "parentUuid": "425902a6_55ca0eff",
       "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -138,6 +210,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a441336_ae01e424",
+        "filename": "google_accel_oob.hpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-21T14:40:32Z",
+      "side": 1,
+      "message": "Done. This was added in response to a previous review comment, but seemed out of place given that it\u0027s not used anywhere else in the repo.",
+      "parentUuid": "664e2c70_41c1589a",
+      "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6aa43eeb_7eefeb9c",
@@ -151,6 +241,24 @@
       "writtenOn": "2022-01-20T20:10:23Z",
       "side": 1,
       "message": "nit: why use string_view for one versus char* for all? (I see it\u0027s the only one you use for .length().  Perhaps then just use string_view for all?",
+      "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0797caf_43519aa6",
+        "filename": "handler.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-21T14:40:32Z",
+      "side": 1,
+      "message": "All of the others are passed as arguments that need to be char*, which makes string_view a bad idea: go/totw/1#a-few-additional-notes\n\nWith string_view literals it\u0027s probably safe to assume they will be null terminated, but then it still adds a bunch of extra .data() accessors every time we use it.",
+      "parentUuid": "6aa43eeb_7eefeb9c",
       "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -172,6 +280,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71624708_80cce6ed",
+        "filename": "handler.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-21T14:40:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08b52849_975bb9bb",
+      "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "158532c3_5a4270bf",
@@ -185,6 +311,24 @@
       "writtenOn": "2022-01-20T20:10:23Z",
       "side": 1,
       "message": "Is the api.h header a C header?  I don\u0027t recall it being one or compiled into a C library.  If the sd-bus.h that it then includes is what you\u0027re considering, please make the fix there for all.",
+      "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c87e831_3902b08c",
+        "filename": "ipmi.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-01-21T14:40:32Z",
+      "side": 1,
+      "message": "It is, but we don\u0027t wrap it in extern C anywhere else it\u0027s used. This was added in response to a previous review comment, but seemed out of place to me.",
+      "parentUuid": "158532c3_5a4270bf",
       "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
