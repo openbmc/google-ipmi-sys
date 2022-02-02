@@ -16,6 +16,24 @@
       "message": "endianness? This should probably use the boost wrapper `boost::endian::little_uint64_t`",
       "revId": "3c7e896b5a2cda219006ac21397542eac08b1e84",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83ca10a1_1cf99dfc",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-02-02T15:46:52Z",
+      "side": 1,
+      "message": "I intentionally didn\u0027t put any endian definition here because I don\u0027t want to introduce any swapping. As it stands, all of the interfaces will handle things as byte arrays (endian independent) and we just treat the addresses as opaque values so the endianess doesn\u0027t matter.\n\nBy not doing any swapping, we can be sure that the order of bytes provided in the IPMI command will be the same order that will go out to the ASIC.",
+      "parentUuid": "46c2dac2_906d9094",
+      "revId": "3c7e896b5a2cda219006ac21397542eac08b1e84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

@@ -211,6 +211,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25b24850_cbaf4454",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 15
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-02-02T15:46:52Z",
+      "side": 1,
+      "message": "No IPMI over LPC still exists too.\n\n\u003e It seems like a problem that we need to implement it here, but none of the other IPMI commands have it.\n\nThat\u0027s correct, and it\u0027s caused a lot of headaches in the past. Given that reads and writes are generally going to be batched in larger groups than most IPMI commands, those headaches are going be to significantly worse without some mitigation.",
+      "parentUuid": "6e7f84c8_30c63214",
+      "revId": "be2e2381cb98648fe862a0786b827b5ae45f7ccd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "664e2c70_41c1589a",
