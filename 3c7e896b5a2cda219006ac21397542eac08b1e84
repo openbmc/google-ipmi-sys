@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46c2dac2_906d9094",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2022-02-02T10:29:36Z",
+      "side": 1,
+      "message": "endianness? This should probably use the boost wrapper `boost::endian::little_uint64_t`",
+      "revId": "3c7e896b5a2cda219006ac21397542eac08b1e84",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
