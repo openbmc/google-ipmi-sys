@@ -35,14 +35,10 @@ owners:
 - wak@google.com
 
 reviewers:
-- venture@google.com
 
 matches:
 
 openbmc:
-- name: Patrick Venture
-  email: venture@google.com
-  discord: Venture
 - name: William Kennington
   email: wak@google.com
   discord: wak
