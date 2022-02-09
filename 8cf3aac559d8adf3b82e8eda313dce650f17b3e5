@@ -34,6 +34,24 @@
       "parentUuid": "97eaaf1e_a73d3268",
       "revId": "8cf3aac559d8adf3b82e8eda313dce650f17b3e5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24359893_853ac49d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2022-02-09T09:47:42Z",
+      "side": 1,
+      "message": "Yeah, but if we need to change some external caller to use this new interface, why not just use the version blob if it is guaranteed to already exist prior to this one?",
+      "parentUuid": "c1a5ea37_32aa848e",
+      "revId": "8cf3aac559d8adf3b82e8eda313dce650f17b3e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
