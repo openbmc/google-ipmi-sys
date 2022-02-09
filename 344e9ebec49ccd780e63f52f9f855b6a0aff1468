@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "9b5149e1_5fd4153b",
         "filename": "main.cpp",
@@ -20,10 +21,10 @@
         "endChar": 77
       },
       "revId": "344e9ebec49ccd780e63f52f9f855b6a0aff1468",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "96bf6db0_518fe482",
         "filename": "main.cpp",
@@ -44,8 +45,31 @@
         "endChar": 77
       },
       "revId": "344e9ebec49ccd780e63f52f9f855b6a0aff1468",
-      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
-      "unresolved": true
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90ae1f38_056af826",
+        "filename": "main.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-09T03:32:06Z",
+      "side": 1,
+      "message": "oh nevermind. This is working fine right now.",
+      "parentUuid": "96bf6db0_518fe482",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 77
+      },
+      "revId": "344e9ebec49ccd780e63f52f9f855b6a0aff1468",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
