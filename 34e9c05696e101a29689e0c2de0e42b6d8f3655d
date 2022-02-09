@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d97991a3_96a3543e",
+        "filename": "google_accel_oob.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-09T18:45:25Z",
+      "side": 1,
+      "message": "I guess we can update the year of the copyright now.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 28
+      },
+      "revId": "34e9c05696e101a29689e0c2de0e42b6d8f3655d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "821f3f66_930602f7",
+        "filename": "handler.cpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-09T18:45:25Z",
+      "side": 1,
+      "message": "do we need to check to make sure that the string is lone enough?",
+      "range": {
+        "startLine": 470,
+        "startChar": 10,
+        "endLine": 470,
+        "endChar": 47
+      },
+      "revId": "34e9c05696e101a29689e0c2de0e42b6d8f3655d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
