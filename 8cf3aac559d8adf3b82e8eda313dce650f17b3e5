@@ -52,6 +52,24 @@
       "parentUuid": "c1a5ea37_32aa848e",
       "revId": "8cf3aac559d8adf3b82e8eda313dce650f17b3e5",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "452d092c_86959635",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-02-09T16:58:58Z",
+      "side": 1,
+      "message": "oh, I meant that with this change there are no change needed to the external caller. I override the device id ipmi handler.\n\nSo with the version blob, we need to change the caller. I\u0027ll check internally to see if we just want do that instead. Probably have to support both for a while until we can remove the ipmi one.",
+      "parentUuid": "24359893_853ac49d",
+      "revId": "8cf3aac559d8adf3b82e8eda313dce650f17b3e5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
