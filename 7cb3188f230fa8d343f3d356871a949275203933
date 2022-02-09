@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a00c0f4_01d450d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000923
+      },
+      "writtenOn": "2022-02-09T19:38:43Z",
+      "side": 1,
+      "message": "Patchset 19 addresses Willy\u0027s comments.\n\nPatchset 20 adds a associated documentation for the new IpmiException, which I missed in 19.\n\nPTAL",
+      "revId": "7cb3188f230fa8d343f3d356871a949275203933",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
