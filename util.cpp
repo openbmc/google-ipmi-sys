@@ -61,7 +61,8 @@ std::string readPropertyFile(const std::string& fileName)
 
     if (!ifs.is_open())
     {
-        std::fprintf(stderr, "Unable to open file %s.\n", fileName.c_str());
+        auto msg = std::string("Unable to open file ") + fileName.c_str();
+        log<level::DEBUG>(msg.c_str());
     }
     else
     {
