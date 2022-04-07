@@ -51,6 +51,8 @@ enum SysOEMCommands
     SysAccelOobRead = 13,
     // Google CustomAccel service - write to a device
     SysAccelOobWrite = 14,
+    // The Sys PCIe Slot Bifurcation information command.
+    SysPCIeSlotBifurcation = 15,
 };
 
 } // namespace ipmi
