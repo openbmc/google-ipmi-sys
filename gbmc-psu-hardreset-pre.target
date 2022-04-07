@@ -3,3 +3,4 @@ Description=Sys PSU Hard Reset
 StopWhenUnneeded=true
 Wants=gbmc-psu-hardreset-time.service
 After=gbmc-psu-hardreset-time.service
+Before=systemd-random-seed.service
