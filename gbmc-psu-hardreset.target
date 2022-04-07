@@ -1,2 +1,4 @@
 [Unit]
 Description=Sys PSU Hard Reset
+Wants=gbmc-psu-hardreset-pre.target
+After=gbmc-psu-hardreset-pre.target
