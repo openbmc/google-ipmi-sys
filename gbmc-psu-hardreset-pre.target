@@ -1,0 +1,4 @@
+[Unit]
+Description=Sys PSU Hard Reset
+Wants=gbmc-psu-hardreset-time.service
+After=gbmc-psu-hardreset-time.service
