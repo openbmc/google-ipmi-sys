@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "def60698_ae353f30",
+        "filename": "bifurcation/bifurcation.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-04-12T21:45:30Z",
+      "side": 1,
+      "message": "Just to be safe, would it make sense to just use vector of uint64_t instead? or are we trying to limit space",
+      "parentUuid": "8de1beb5_706d5119",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "163e5122_76575dc5",
         "filename": "bifurcation/bifurcation.cpp",
         "patchSetId": 20
@@ -260,6 +278,24 @@
       "side": 1,
       "message": "moved it to reference now.\n\nAlso, this function is not used in `BifurcationInterface`. Maybe we should make it virtual?\n\nWe don\u0027t mock it in the tests. It will parse real paths and only mock out `getBifurcation` that get the bifurication at the PCIe device.",
       "parentUuid": "a9799b26_9e53c6ed",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d320422_f82d3b46",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2022-04-12T21:45:30Z",
+      "side": 1,
+      "message": "It seems `getBifurcation` isn\u0027t used anywhere?",
+      "parentUuid": "7c63b8e0_87d2fc27",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
