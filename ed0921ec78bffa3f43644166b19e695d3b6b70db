@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9c4759c_bb409d66",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-28T22:35:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1de21103_f199303b",
+      "range": {
+        "startLine": 11,
+        "startChar": 21,
+        "endLine": 11,
+        "endChar": 27
+      },
+      "revId": "ed0921ec78bffa3f43644166b19e695d3b6b70db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9862705_59e51ad1",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-28T20:14:56Z",
       "side": 1,
       "message": "I thought the values were in \"lane index order\", since \"4 4 8\" would be different from \"8 4 4\" for instance",
+      "range": {
+        "startLine": 198,
+        "startChar": 51,
+        "endLine": 198,
+        "endChar": 79
+      },
+      "revId": "ed0921ec78bffa3f43644166b19e695d3b6b70db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a960340_9d7032d8",
+        "filename": "handler.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-28T22:35:19Z",
+      "side": 1,
+      "message": "yeah, this is wrong. It shouldn\u0027t do that.\n\nrm\u0027ed.",
+      "parentUuid": "a9862705_59e51ad1",
       "range": {
         "startLine": 198,
         "startChar": 51,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3cd7457_c585fac3",
+        "filename": "handler.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-28T22:35:19Z",
+      "side": 1,
+      "message": "currently, the meson config is set to empty and will by default just skip any request and return null. But I will update it.",
+      "parentUuid": "76b29b6d_16cf1c0b",
+      "range": {
+        "startLine": 203,
+        "startChar": 12,
+        "endLine": 203,
+        "endChar": 60
+      },
+      "revId": "ed0921ec78bffa3f43644166b19e695d3b6b70db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1a8ccc5_3c1bdbf0",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-04-28T20:14:56Z",
       "side": 1,
       "message": "looks unused",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 5
+      },
+      "revId": "ed0921ec78bffa3f43644166b19e695d3b6b70db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98449b6c_2053ad13",
+        "filename": "meson.build",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-28T22:35:19Z",
+      "side": 1,
+      "message": "I will include this in the dynamic bifurication support change.\n\nrm\u0027ed",
+      "parentUuid": "f1a8ccc5_3c1bdbf0",
       "range": {
         "startLine": 14,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f96e7ad8_b0df644a",
+        "filename": "test/handler_unittest.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-28T22:35:19Z",
+      "side": 1,
+      "message": "oops bad variable name.\n\nThis is the enable bifurcation config file.\n\nLet me clean this up even more to actually read the json file for both. Right now we just pass a map and skip the json read... which skip the test coverage there.\n\nAlso cleaned up to support the test better.",
+      "parentUuid": "ee10d526_e9757624",
+      "range": {
+        "startLine": 601,
+        "startChar": 19,
+        "endLine": 601,
+        "endChar": 20
+      },
+      "revId": "ed0921ec78bffa3f43644166b19e695d3b6b70db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "74441c82_1d64e1fb",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-04-28T20:14:56Z",
       "side": 1,
       "message": "nit: might want to index into expectedOutput instead of duplicating the numbers",
+      "range": {
+        "startLine": 59,
+        "startChar": 23,
+        "endLine": 59,
+        "endChar": 25
+      },
+      "revId": "ed0921ec78bffa3f43644166b19e695d3b6b70db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e78d303f_6f9ce96e",
+        "filename": "test/pcie_bifurcation_unittest.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-04-28T22:35:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74441c82_1d64e1fb",
       "range": {
         "startLine": 59,
         "startChar": 23,
