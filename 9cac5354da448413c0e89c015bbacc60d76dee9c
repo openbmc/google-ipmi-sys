@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddb31b8e_bd919790",
+        "filename": "meson_options.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-04-28T22:46:27Z",
+      "side": 1,
+      "message": "Why do we need a separate file to enable bifurcation? Can we use the existence of the JSON config to enable it instead?",
+      "range": {
+        "startLine": 2,
+        "startChar": 80,
+        "endLine": 2,
+        "endChar": 98
+      },
+      "revId": "9cac5354da448413c0e89c015bbacc60d76dee9c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
