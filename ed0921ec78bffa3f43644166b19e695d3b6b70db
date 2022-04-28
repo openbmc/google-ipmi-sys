@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1de21103_f199303b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-04-28T20:14:56Z",
+      "side": 1,
+      "message": "nit: duplicate word",
+      "range": {
+        "startLine": 11,
+        "startChar": 21,
+        "endLine": 11,
+        "endChar": 27
+      },
+      "revId": "ed0921ec78bffa3f43644166b19e695d3b6b70db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9862705_59e51ad1",
+        "filename": "handler.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-04-28T20:14:56Z",
+      "side": 1,
+      "message": "I thought the values were in \"lane index order\", since \"4 4 8\" would be different from \"8 4 4\" for instance",
+      "range": {
+        "startLine": 198,
+        "startChar": 51,
+        "endLine": 198,
+        "endChar": 79
+      },
+      "revId": "ed0921ec78bffa3f43644166b19e695d3b6b70db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76b29b6d_16cf1c0b",
+        "filename": "handler.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-04-28T20:14:56Z",
+      "side": 1,
+      "message": "shouldn\u0027t this come from the meson config?",
+      "range": {
+        "startLine": 203,
+        "startChar": 12,
+        "endLine": 203,
+        "endChar": 60
+      },
+      "revId": "ed0921ec78bffa3f43644166b19e695d3b6b70db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1a8ccc5_3c1bdbf0",
+        "filename": "meson.build",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-04-28T20:14:56Z",
+      "side": 1,
+      "message": "looks unused",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 5
+      },
+      "revId": "ed0921ec78bffa3f43644166b19e695d3b6b70db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee10d526_e9757624",
+        "filename": "test/handler_unittest.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-04-28T20:14:56Z",
+      "side": 1,
+      "message": "how does this test pass when the JSON config just has \"1\" in it?",
+      "range": {
+        "startLine": 601,
+        "startChar": 19,
+        "endLine": 601,
+        "endChar": 20
+      },
+      "revId": "ed0921ec78bffa3f43644166b19e695d3b6b70db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74441c82_1d64e1fb",
+        "filename": "test/pcie_bifurcation_unittest.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2022-04-28T20:14:56Z",
+      "side": 1,
+      "message": "nit: might want to index into expectedOutput instead of duplicating the numbers",
+      "range": {
+        "startLine": 59,
+        "startChar": 23,
+        "endLine": 59,
+        "endChar": 25
+      },
+      "revId": "ed0921ec78bffa3f43644166b19e695d3b6b70db",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
