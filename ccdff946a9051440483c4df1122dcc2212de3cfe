@@ -16,6 +16,23 @@
       "message": "this can also be used to replace other custom static bifurication implementation that we may have had in other systems.",
       "revId": "ccdff946a9051440483c4df1122dcc2212de3cfe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c7bb9bb_791b8481",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-05-10T17:45:50Z",
+      "side": 1,
+      "message": "friendly ping",
+      "revId": "ccdff946a9051440483c4df1122dcc2212de3cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
