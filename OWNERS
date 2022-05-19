@@ -33,6 +33,7 @@
 
 owners:
 - wak@google.com
+- wltu@google.com
 
 reviewers:
 
@@ -42,3 +43,6 @@ openbmc:
 - name: William Kennington
   email: wak@google.com
   discord: wak
+- name: Willy Tu
+  email: wltu@google.com
+  discord: wltu
