@@ -50,6 +50,125 @@
       "message": "friendly ping.",
       "revId": "ccdff946a9051440483c4df1122dcc2212de3cfe",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0356c0dc_60fcd722",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2022-05-19T17:12:25Z",
+      "side": 1,
+      "message": "If you intend to not propagate exceptions through the interface you should mark this noexcept",
+      "revId": "ccdff946a9051440483c4df1122dcc2212de3cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0f29f36_c347b46b",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2022-05-19T17:12:25Z",
+      "side": 1,
+      "message": "Prefer reference return over pointer return.",
+      "revId": "ccdff946a9051440483c4df1122dcc2212de3cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7e1e2b0_bf7c166a",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2022-05-19T17:12:25Z",
+      "side": 1,
+      "message": "Protected? Since you would never call it outside of this class.",
+      "revId": "ccdff946a9051440483c4df1122dcc2212de3cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1e174d1_15b55063",
+        "filename": "bifurcation/bifurcation_static.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2022-05-19T17:12:25Z",
+      "side": 1,
+      "message": "nit: Prefer .c_str() to clarify to the reader that it\u0027s nul-terminated.",
+      "revId": "ccdff946a9051440483c4df1122dcc2212de3cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72ec5550_6fe609e2",
+        "filename": "bifurcation/bifurcation_static.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2022-05-19T17:12:25Z",
+      "side": 1,
+      "message": "Does this produce exceptions or errors?",
+      "revId": "ccdff946a9051440483c4df1122dcc2212de3cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "885e6f25_6285a1d9",
+        "filename": "bifurcation/bifurcation_static.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2022-05-19T17:12:25Z",
+      "side": 1,
+      "message": "nit: You don\u0027t need to do this check, it\u0027s implied by the exception handler below.",
+      "revId": "ccdff946a9051440483c4df1122dcc2212de3cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e40199c_c36d74a0",
+        "filename": "handler_impl.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2022-05-19T17:12:25Z",
+      "side": 1,
+      "message": "Prefer an `std::reference_wrapper` over ptr",
+      "revId": "ccdff946a9051440483c4df1122dcc2212de3cfe",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
