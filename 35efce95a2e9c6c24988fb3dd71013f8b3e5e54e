@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e7e7bf3e_59ddd19a",
+        "filename": "util.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-04T23:35:14Z",
+      "side": 1,
+      "message": "this will just print Warning when we get the journalctl and nothing else unless we get the full logs with the entries.\n\nIt should just be\n\n```\nlog\u003clevel::DEBUG\u003e(\"Unable to open file \" + fileName.c_str()));\n```\n\nEven then, I am wondering if there is a different way to enable debug messages.",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 38
+      },
+      "revId": "35efce95a2e9c6c24988fb3dd71013f8b3e5e54e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bcbec1fd_527c4bbf",
         "filename": "util.cpp",
         "patchSetId": 2
