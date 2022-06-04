@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3654ab0_591e6ef6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-04T03:00:10Z",
+      "side": 1,
+      "message": "It is strange how some things are fprintf, and some are phoshpor-logging, we should move to standardized. (I don\u0027t have a preference)\n\n\nIt is only used in one place, \n\nhttps://github.com/openbmc/google-ipmi-sys/blob/a2056e9ca86e767a774d621c5117939562c5aa54/util.cpp#L123\n\nAnd there is logic if the file can not be read.\n\n",
+      "revId": "35efce95a2e9c6c24988fb3dd71013f8b3e5e54e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bcbec1fd_527c4bbf",
@@ -14,6 +31,47 @@
       "writtenOn": "2022-06-04T00:22:25Z",
       "side": 1,
       "message": "Do we need explicit \\n ?",
+      "revId": "35efce95a2e9c6c24988fb3dd71013f8b3e5e54e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "138b2954_281e2ff7",
+        "filename": "util.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-04T03:00:10Z",
+      "side": 1,
+      "message": "It looks fine. \n\nIt looks to be using phosphor logging.\n\nhttps://github.com/openbmc/phosphor-logging/blob/36a34693232408f47742c41dde17928ca6412228/lib/include/phosphor-logging/log.hpp#L86",
+      "parentUuid": "bcbec1fd_527c4bbf",
+      "revId": "35efce95a2e9c6c24988fb3dd71013f8b3e5e54e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c94c4b43_1bf793e2",
+        "filename": "util.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-04T03:00:10Z",
+      "side": 1,
+      "message": "nit: can you make this a log also.\n\nor for the first one you could do\n\n\u003e std::fprintf(stderr, \"Warning: Unable to open file %s.\\n\", fileName.c_str());",
+      "range": {
+        "startLine": 83,
+        "startChar": 17,
+        "endLine": 83,
+        "endChar": 24
+      },
       "revId": "35efce95a2e9c6c24988fb3dd71013f8b3e5e54e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
