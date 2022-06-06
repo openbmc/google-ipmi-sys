@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d4f19c4_8bb0cab9",
+        "filename": "util.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-06T23:15:58Z",
+      "side": 1,
+      "message": "Create a string to format it before you pass it in\n\n```\nstd::string x \u003d \"Unable to open file \" + fileName;\n\nlog\u003clevel::DEBUG\u003e(x.cstr());\n```",
+      "parentUuid": "115a9005_07f04796",
+      "range": {
+        "startLine": 64,
+        "startChar": 8,
+        "endLine": 64,
+        "endChar": 38
+      },
+      "revId": "35efce95a2e9c6c24988fb3dd71013f8b3e5e54e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bcbec1fd_527c4bbf",
         "filename": "util.cpp",
         "patchSetId": 2
