@@ -69,6 +69,30 @@
       },
       "revId": "8659851c89d05283552c97ef810a9a9d10546950",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec22000c_8e9c0d8a",
+        "filename": "util.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000593
+      },
+      "writtenOn": "2022-06-08T01:08:22Z",
+      "side": 1,
+      "message": "This is the phosphor-logging way to print debug message. phosphor-logging calls sd_journal_send, and that directly writes to the syslog (journalctl)\n\nhttps://github.com/openbmc/phosphor-logging/blob/36a34693232408f47742c41dde17928ca6412228/lib/include/phosphor-logging/log.hpp#L64\n\n\nbecause this process is started by systemd all stdout and stderr is routed to the syslog (journalctl). \n\nSo we can log by, using fmt (stdout), or fprintf(stderr), and in this project we log using all methods. We might want to standarize the way logging is on in the repo. (ideally around fmt).",
+      "parentUuid": "a6cfda86_ff76fb1b",
+      "range": {
+        "startLine": 65,
+        "startChar": 8,
+        "endLine": 65,
+        "endChar": 25
+      },
+      "revId": "8659851c89d05283552c97ef810a9a9d10546950",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
