@@ -640,6 +640,91 @@ TEST(HandlerTest, PcieBifurcation)
     }
 }
 
+class MockHostBootTimeHandler : public Handler
+{
+  public:
+    MockHostBootTimeHandler() : setDurationResult("")
+    {
+    }
+
+    void setSetDurationResult(const std::string& result)
+    {
+        setDurationResult = result;
+    }
+
+  protected:
+    std::string
+        dbusSetDuration([[maybe_unused]] const std::string& name,
+                        [[maybe_unused]] uint64_t durationMs) const override
+    {
+        return setDurationResult;
+    }
+
+  private:
+    std::string setDurationResult;
+};
+
+TEST(HandlerTest, HostBootTimeSetDurationThrowException)
+{
+    const std::string strNotImportant = "NA";
+    uint64_t u64NotImportant = 0;
+
+    StrictMock<sdbusplus::SdBusMock> mock;
+    MockDbusHandler h(mock);
+    ExpectSdBusError(mock, "com.google.gbmc.btmanager",
+                     "/xyz/openbmc_project/Time/Boot/host0",
+                     "xyz.openbmc_project.Time.Boot.HostBootTime",
+                     "SetDuration");
+    EXPECT_THROW(h.hostBootTimeSetDuration(strNotImportant, u64NotImportant),
+                 sdbusplus::exception::SdBusError);
+}
+
+TEST(HandlerTest, HostBootTimeDurationNotSettable)
+{
+    const std::string strNotImportant = "NA";
+    uint64_t u64NotImportant = 0;
+
+    MockHostBootTimeHandler h;
+    h.setSetDurationResult("xyz.openbmc_project.Time.Boot.HostBootTime."
+                           "SetDurationStates.DurationNotSettable");
+    EXPECT_EQ(0, h.hostBootTimeSetDuration(strNotImportant, u64NotImportant));
+}
+
+TEST(HandlerTest, HostBootTimeSetKeyDuration)
+{
+    const std::string strNotImportant = "NA";
+    uint64_t u64NotImportant = 0;
+
+    MockHostBootTimeHandler h;
+    h.setSetDurationResult("xyz.openbmc_project.Time.Boot.HostBootTime."
+                           "SetDurationStates.KeyDurationSet");
+    EXPECT_EQ(1, h.hostBootTimeSetDuration(strNotImportant, u64NotImportant));
+}
+
+TEST(HandlerTest, HostBootTimeSetExtraDuration)
+{
+    const std::string strNotImportant = "NA";
+    uint64_t u64NotImportant = 0;
+
+    MockHostBootTimeHandler h;
+    h.setSetDurationResult("xyz.openbmc_project.Time.Boot.HostBootTime."
+                           "SetDurationStates.ExtraDurationSet");
+    EXPECT_EQ(2, h.hostBootTimeSetDuration(strNotImportant, u64NotImportant));
+}
+
+TEST(HandlerTest, HostBootTimeNotifyThrowException)
+{
+    uint8_t u8NotImportant = 0;
+
+    StrictMock<sdbusplus::SdBusMock> mock;
+    MockDbusHandler h(mock);
+    ExpectSdBusError(mock, "com.google.gbmc.btmanager",
+                     "/xyz/openbmc_project/Time/Boot/host0",
+                     "xyz.openbmc_project.Time.Boot.HostBootTime", "Notify");
+    EXPECT_THROW(h.hostBootTimeNotify(u8NotImportant),
+                 sdbusplus::exception::SdBusError);
+}
+
 // TODO: Add checks for other functions of handler.
 
 } // namespace ipmi
