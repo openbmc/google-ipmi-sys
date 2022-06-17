@@ -146,7 +146,7 @@ class MockDbusHandler : public Handler
     }
 
   protected:
-    sdbusplus::bus::bus accelOobGetDbus() const override
+    sdbusplus::bus::bus getDbus() const override
     {
         return sdbusplus::get_mocked_new(
             const_cast<sdbusplus::SdBusMock*>(mock_));
@@ -299,14 +299,15 @@ void ExpectGetManagedObjects(StrictMock<sdbusplus::SdBusMock>& mock,
     EXPECT_CALL(mock, sd_bus_message_exit_container(msg)).WillOnce(Return(1));
 }
 
-void ExpectSdBusError(StrictMock<sdbusplus::SdBusMock>& mock)
+void ExpectSdBusError(StrictMock<sdbusplus::SdBusMock>& mock,
+                      const std::string& service, const std::string& objPath,
+                      const std::string& interface, const std::string& function)
 {
-    EXPECT_CALL(mock, sd_bus_message_new_method_call(
-                          _,         // sd_bus *bus,
-                          NotNull(), // sd_bus_message **m
-                          StrEq("com.google.custom_accel"), StrEq("/"),
-                          StrEq("org.freedesktop.DBus.ObjectManager"),
-                          StrEq("GetManagedObjects")))
+    EXPECT_CALL(
+        mock, sd_bus_message_new_method_call(_,         // sd_bus *bus,
+                                             NotNull(), // sd_bus_message **m
+                                             StrEq(service), StrEq(objPath),
+                                             StrEq(interface), StrEq(function)))
         .WillOnce(Return(-ENOTCONN));
 }
 
@@ -322,7 +323,8 @@ TEST(HandlerTest, accelOobDeviceCount_Fail)
 {
     StrictMock<sdbusplus::SdBusMock> mock;
     MockDbusHandler h(mock);
-    ExpectSdBusError(mock);
+    ExpectSdBusError(mock, "com.google.custom_accel", "/",
+                     "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     EXPECT_THROW(h.accelOobDeviceCount(), IpmiException);
 }
 
@@ -338,7 +340,8 @@ TEST(HandlerTest, accelOobDeviceName_Fail)
 {
     StrictMock<sdbusplus::SdBusMock> mock;
     MockDbusHandler h(mock);
-    ExpectSdBusError(mock);
+    ExpectSdBusError(mock, "com.google.custom_accel", "/",
+                     "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     EXPECT_THROW(h.accelOobDeviceName(0), IpmiException);
 }
 
@@ -635,6 +638,106 @@ TEST(HandlerTest, PcieBifurcation)
         auto bifurcation = h2.pcieBifurcation(i);
         EXPECT_TRUE(bifurcation.empty());
     }
+}
+
+class MockHostBootTimeHandler : public Handler
+{
+  public:
+    MockHostBootTimeHandler() : setDurationResult(""), notifyResult(0)
+    {
+    }
+
+    void setSetDurationResult(const std::string& result)
+    {
+        setDurationResult = result;
+    }
+    void setNotifyResult(uint64_t result)
+    {
+        notifyResult = result;
+    }
+
+  protected:
+    std::string
+        dbusSetDuration([[maybe_unused]] const std::string& name,
+                        [[maybe_unused]] uint64_t duration_ms) const override
+    {
+        return setDurationResult;
+    }
+
+    uint64_t dbusNotify([[maybe_unused]] uint8_t checkpointCode) const override
+    {
+        return notifyResult;
+    }
+
+  private:
+    std::string setDurationResult;
+    uint64_t notifyResult;
+};
+
+TEST(HandlerTest, HostBootTimeSetDurationThrowException)
+{
+    const std::string strNotImportant = "NA";
+    uint64_t u64NotImportant = 0;
+
+    StrictMock<sdbusplus::SdBusMock> mock;
+    MockDbusHandler h(mock);
+    ExpectSdBusError(mock, "com.google.gbmc.btmanager",
+                     "/xyz/openbmc_project/Time/Boot/host0",
+                     "xyz.openbmc_project.Time.Boot.HostBootTime",
+                     "SetDuration");
+    EXPECT_THROW(h.hostBootTimeSetDuration(strNotImportant, u64NotImportant),
+                 IpmiException);
+}
+
+TEST(HandlerTest, HostBootTimeDurationNotSettable)
+{
+    const std::string strNotImportant = "NA";
+    uint64_t u64NotImportant = 0;
+
+    MockHostBootTimeHandler h;
+    h.setSetDurationResult("DurationNotSettable");
+    EXPECT_EQ(0, h.hostBootTimeSetDuration(strNotImportant, u64NotImportant));
+}
+
+TEST(HandlerTest, HostBootTimeSetKeyDuration)
+{
+    const std::string strNotImportant = "NA";
+    uint64_t u64NotImportant = 0;
+
+    MockHostBootTimeHandler h;
+    h.setSetDurationResult("KeyDurationSet");
+    EXPECT_EQ(1, h.hostBootTimeSetDuration(strNotImportant, u64NotImportant));
+}
+
+TEST(HandlerTest, HostBootTimeSetExtraDuration)
+{
+    const std::string strNotImportant = "NA";
+    uint64_t u64NotImportant = 0;
+
+    MockHostBootTimeHandler h;
+    h.setSetDurationResult("ExtraDurationSet");
+    EXPECT_EQ(2, h.hostBootTimeSetDuration(strNotImportant, u64NotImportant));
+}
+
+TEST(HandlerTest, HostBootTimeNotifyThrowException)
+{
+    uint8_t u8NotImportant = 0;
+
+    StrictMock<sdbusplus::SdBusMock> mock;
+    MockDbusHandler h(mock);
+    ExpectSdBusError(mock, "com.google.gbmc.btmanager",
+                     "/xyz/openbmc_project/Time/Boot/host0",
+                     "xyz.openbmc_project.Time.Boot.HostBootTime", "Notify");
+    EXPECT_THROW(h.hostBootTimeNotify(u8NotImportant), IpmiException);
+}
+
+TEST(HandlerTest, HostBootTimeNotifySuccess)
+{
+    uint8_t u8NotImportant = 0;
+
+    MockHostBootTimeHandler h;
+    h.setNotifyResult(123456);
+    EXPECT_EQ(123456, h.hostBootTimeNotify(u8NotImportant));
 }
 
 // TODO: Add checks for other functions of handler.
