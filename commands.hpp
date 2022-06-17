@@ -53,6 +53,10 @@ enum SysOEMCommands
     SysAccelOobWrite = 14,
     // The Sys PCIe Slot Bifurcation information command.
     SysPCIeSlotBifurcation = 15,
+    // Set the duration of certain steps in the host power cycle process to BMC
+    SysHostBootTimeSetDuration = 16,
+    // Notify BMC to set a checkpoint for the host power cycle process
+    SysHostBootTimeNotify = 17,
 };
 
 } // namespace ipmi

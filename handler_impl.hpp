@@ -69,9 +69,16 @@ class Handler : public HandlerInterface
     void accelOobWrite(std::string_view name, uint64_t address,
                        uint8_t num_bytes, uint64_t data) const override;
 
+    uint8_t hostBootTimeSetDuration(const std::string& name,
+                                    uint64_t duration_ms) const override;
+    uint64_t hostBootTimeNotify(uint8_t checkpointCode) const override;
+
   protected:
     // Exposed for dependency injection
-    virtual sdbusplus::bus::bus accelOobGetDbus() const;
+    virtual sdbusplus::bus::bus getDbus() const;
+    virtual std::string dbusSetDuration(const std::string& name,
+                                        uint64_t duration_ms) const;
+    virtual uint64_t dbusNotify(uint8_t checkpointCode) const;
 
   private:
     std::string _configFile;
@@ -98,6 +105,13 @@ class Handler : public HandlerInterface
     std::vector<std::tuple<uint32_t, std::string>> _pcie_i2c_map;
 
     std::reference_wrapper<BifurcationInterface> bifurcationHelper;
+
+    enum class SetDurationState : uint8_t
+    {
+        kDurationNotSettable = 0,
+        kKeyDurationSet = 1,
+        kExtraDurationSet = 2,
+    };
 };
 
 /**
