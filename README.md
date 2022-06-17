@@ -456,3 +456,45 @@ Response (if applicable)
 | Byte(s) | Value | Data       |
 | ------- | ----- | ---------- |
 | 0x00    | 0x11  | Subcommand |
+
+### SendRebootCheckpoint - SubCommand 0x12
+
+Send checkpoints to BMC to monitor the current reboot process. User can put
+current wall lock time in the command or put `0` to let BMC fetch the wall clock
+time by itself. If user can somehow have the self measurement of a duration when
+they send checkpoint to BMC, BMC will help to calculate the transition time from
+previous checkpoint to current checkpoint. Then add a checkpoint with the name
+`To_${checkpoint}`. Or specify `0` to ignore it.
+
+Request
+
+| Byte(s)        | Value           | Data                                   |
+| -------------- | --------------- | -------------------------------------- |
+| 0x00           | 0x12            | Subcommand                             |
+| 0x01..0x08     | Wall Time       | Current epoch time in milliseconds     |
+| 0x09..0x10     | Duration        | Self measured duration in milliseconds |
+| 0x11           | Length (N)      | Length of checkpoint name              |
+| 0x12..0x12 + N | Checkpoint name | Checkpoint name ([0-9a-ZA-Z_] only)    |
+
+### SendRebootComplete - SubCommand 0x13
+
+Informing BMC that the current reboot process is completed.
+
+Request
+
+| Byte(s) | Value | Data       |
+| ------- | ----- | ---------- |
+| 0x00    | 0x13  | Subcommand |
+
+### SendRebootAdditionalDuration - SubCommand 0x14
+
+This command allows users to store any duration that they are interested in BMC.
+
+Request
+
+| Byte(s)        | Value         | Data                                   |
+| -------------- | ------------- | -------------------------------------- |
+| 0x00           | 0x14          | Subcommand                             |
+| 0x01..0x08     | Duration      | Self measured duration in milliseconds |
+| 0x09           | Length (N)    | Length of duration name                |
+| 0x0A..0x0A + N | Duration name | Duration name ([0-9a-ZA-Z_] only)      |

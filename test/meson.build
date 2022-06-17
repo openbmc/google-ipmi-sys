@@ -23,6 +23,7 @@ tests = [
   'flash',
   'google_accel_oob',
   'handler',
+  'boot_time_monitor',
   'machine',
   'pcie',
   'poweroff',
