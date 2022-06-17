@@ -300,8 +300,8 @@ void ExpectGetManagedObjects(StrictMock<sdbusplus::SdBusMock>& mock,
 }
 
 void ExpectSdBusError(StrictMock<sdbusplus::SdBusMock>& mock,
-                      const std::string& service, const std::string& objPath,
-                      const std::string& interface, const std::string& function)
+                      std::string_view service, std::string_view objPath,
+                      std::string_view interface, std::string_view function)
 {
     EXPECT_CALL(
         mock, sd_bus_message_new_method_call(_,         // sd_bus *bus,
@@ -638,6 +638,198 @@ TEST(HandlerTest, PcieBifurcation)
         auto bifurcation = h2.pcieBifurcation(i);
         EXPECT_TRUE(bifurcation.empty());
     }
+}
+
+constexpr std::string_view BTMONITOR_SERVICE =
+    "com.google.gbmc.boottimemonitor";
+constexpr std::string_view BTMONITOR_OBJECT =
+    "/xyz/openbmc_project/time/boot/host0";
+constexpr std::string_view BTMONITOR_CHECKPOINT_INTERFACE =
+    "xyz.openbmc_project.Time.Boot.Checkpoint";
+constexpr std::string_view BTMONITOR_SETCHECKPOINT = "SetCheckpoint";
+constexpr std::string_view BTMONITOR_COMPLETE = "RebootComplete";
+constexpr std::string_view BTMONITOR_DURATION_INTERFACE =
+    "xyz.openbmc_project.Time.Boot.Duration";
+constexpr std::string_view BTMONITOR_SETDURATION = "SetDuration";
+
+void expectSendCheckpoint(StrictMock<sdbusplus::SdBusMock>& mock,
+                          std::string_view kName, int64_t kWallTime,
+                          int64_t kDur)
+{
+    ::testing::InSequence s;
+
+    constexpr sd_bus_message* method = nullptr;
+
+    EXPECT_CALL(mock, sd_bus_message_new_method_call(
+                          _,         // sd_bus *bus,
+                          NotNull(), // sd_bus_message **m
+                          StrEq(BTMONITOR_SERVICE), StrEq(BTMONITOR_OBJECT),
+                          StrEq(BTMONITOR_CHECKPOINT_INTERFACE),
+                          StrEq(BTMONITOR_SETCHECKPOINT)))
+        .WillOnce(DoAll(TraceDbus("sd_bus_message_new_method_call"),
+                        SetArgPointee<1>(method), Return(0)));
+
+    EXPECT_CALL(mock, sd_bus_message_append_basic(
+                          method, SD_BUS_TYPE_STRING,
+                          MatcherCast<const void*>(SafeMatcherCast<const char*>(
+                              StrEq(kName.data())))))
+        .WillOnce(DoAll(TraceDbus("sd_bus_message_append_basic"), Return(1)));
+
+    EXPECT_CALL(
+        mock, sd_bus_message_append_basic(
+                  method, SD_BUS_TYPE_INT64,
+                  MatcherCast<const void*>(
+                      SafeMatcherCast<const int64_t*>(Pointee(Eq(kWallTime))))))
+        .WillOnce(
+            DoAll(TraceDbus2("sd_bus_message_append_basic(kWallTime) -> 1"),
+                  Return(1)));
+
+    EXPECT_CALL(mock,
+                sd_bus_message_append_basic(
+                    method, SD_BUS_TYPE_INT64,
+                    MatcherCast<const void*>(
+                        SafeMatcherCast<const int64_t*>(Pointee(Eq(kDur))))))
+        .WillOnce(DoAll(TraceDbus2("sd_bus_message_append_basic(kDur) -> 1"),
+                        Return(1)));
+
+    EXPECT_CALL(mock, sd_bus_call(_,         // sd_bus *bus,
+                                  method,    // sd_bus_message *m
+                                  _,         // uint64_t timeout
+                                  NotNull(), // sd_bus_error *ret_error
+                                  IsNull())) // sd_bus_message **reply
+        .WillOnce(DoAll(TraceDbus("sd_bus_call() -> ret_val"),
+                        SetArgPointee<3>(SD_BUS_ERROR_NULL), Return(0)));
+}
+
+void expectSendAdditionalDuration(StrictMock<sdbusplus::SdBusMock>& mock,
+                                  std::string_view kName, int64_t kDur)
+{
+    ::testing::InSequence s;
+
+    constexpr sd_bus_message* method = nullptr;
+
+    EXPECT_CALL(mock, sd_bus_message_new_method_call(
+                          _,         // sd_bus *bus,
+                          NotNull(), // sd_bus_message **m
+                          StrEq(BTMONITOR_SERVICE), StrEq(BTMONITOR_OBJECT),
+                          StrEq(BTMONITOR_DURATION_INTERFACE),
+                          StrEq(BTMONITOR_SETDURATION)))
+        .WillOnce(DoAll(TraceDbus("sd_bus_message_new_method_call"),
+                        SetArgPointee<1>(method), Return(0)));
+
+    EXPECT_CALL(mock, sd_bus_message_append_basic(
+                          method, SD_BUS_TYPE_STRING,
+                          MatcherCast<const void*>(SafeMatcherCast<const char*>(
+                              StrEq(kName.data())))))
+        .WillOnce(DoAll(TraceDbus("sd_bus_message_append_basic"), Return(1)));
+
+    EXPECT_CALL(mock,
+                sd_bus_message_append_basic(
+                    method, SD_BUS_TYPE_INT64,
+                    MatcherCast<const void*>(
+                        SafeMatcherCast<const int64_t*>(Pointee(Eq(kDur))))))
+        .WillOnce(DoAll(TraceDbus2("sd_bus_message_append_basic(kDur) -> 1"),
+                        Return(1)));
+
+    EXPECT_CALL(mock, sd_bus_call(_,         // sd_bus *bus,
+                                  method,    // sd_bus_message *m
+                                  _,         // uint64_t timeout
+                                  NotNull(), // sd_bus_error *ret_error
+                                  IsNull())) // sd_bus_message **reply
+        .WillOnce(DoAll(TraceDbus("sd_bus_call() -> ret_val"),
+                        SetArgPointee<3>(SD_BUS_ERROR_NULL), Return(0)));
+}
+
+TEST(HandlerTest, SendRebootCheckpointTest_Success)
+{
+    // Parameters are not important.
+    constexpr std::string_view kName = "NotImportant";
+    constexpr int64_t kWallTime = 0;
+    constexpr int64_t kDur = 0;
+
+    StrictMock<sdbusplus::SdBusMock> mock;
+    MockDbusHandler h(mock);
+
+    expectSendCheckpoint(mock, kName, kWallTime, kDur);
+    EXPECT_NO_THROW(h.sendRebootCheckpoint(kName, kWallTime, kDur));
+}
+
+TEST(HandlerTest, SendRebootCheckpointTest_Fail)
+{
+    // Parameters are not important.
+    constexpr std::string_view kName = "NotImportant";
+    constexpr int64_t kWallTime = 0;
+    constexpr int64_t kDur = 0;
+
+    StrictMock<sdbusplus::SdBusMock> mock;
+    MockDbusHandler h(mock);
+
+    ExpectSdBusError(mock, BTMONITOR_SERVICE, BTMONITOR_OBJECT,
+                     BTMONITOR_CHECKPOINT_INTERFACE, BTMONITOR_SETCHECKPOINT);
+    EXPECT_THROW(h.sendRebootCheckpoint(kName, kWallTime, kDur), IpmiException);
+}
+
+TEST(HandlerTest, sendRebootCompleteTest_Success)
+{
+    StrictMock<sdbusplus::SdBusMock> mock;
+    MockDbusHandler h(mock);
+
+    constexpr sd_bus_message* method = nullptr;
+    EXPECT_CALL(mock, sd_bus_message_new_method_call(
+                          _,         // sd_bus *bus,
+                          NotNull(), // sd_bus_message **m
+                          StrEq(BTMONITOR_SERVICE), StrEq(BTMONITOR_OBJECT),
+                          StrEq(BTMONITOR_CHECKPOINT_INTERFACE),
+                          StrEq(BTMONITOR_COMPLETE)))
+        .WillOnce(DoAll(TraceDbus("sd_bus_message_new_method_call"),
+                        SetArgPointee<1>(method), Return(0)));
+
+    EXPECT_CALL(mock, sd_bus_call(_,         // sd_bus *bus,
+                                  method,    // sd_bus_message *m
+                                  _,         // uint64_t timeout
+                                  NotNull(), // sd_bus_error *ret_error
+                                  IsNull())) // sd_bus_message **reply
+        .WillOnce(DoAll(TraceDbus("sd_bus_call() -> ret_val"),
+                        SetArgPointee<3>(SD_BUS_ERROR_NULL), Return(0)));
+
+    EXPECT_NO_THROW(h.sendRebootComplete());
+}
+
+TEST(HandlerTest, sendRebootCompleteTest_Fail)
+{
+    StrictMock<sdbusplus::SdBusMock> mock;
+    MockDbusHandler h(mock);
+
+    ExpectSdBusError(mock, BTMONITOR_SERVICE, BTMONITOR_OBJECT,
+                     BTMONITOR_CHECKPOINT_INTERFACE, BTMONITOR_COMPLETE);
+    EXPECT_THROW(h.sendRebootComplete(), IpmiException);
+}
+
+TEST(HandlerTest, sendRebootAdditionalDurationTest_Success)
+{
+    // Parameters are not important.
+    constexpr std::string_view kName = "NotImportant";
+    constexpr int64_t kDur = 0;
+
+    StrictMock<sdbusplus::SdBusMock> mock;
+    MockDbusHandler h(mock);
+
+    expectSendAdditionalDuration(mock, kName, kDur);
+    EXPECT_NO_THROW(h.sendRebootAdditionalDuration(kName, kDur));
+}
+
+TEST(HandlerTest, sendRebootAdditionalDurationTest_Fail)
+{
+    // Parameters are not important.
+    constexpr std::string_view kName = "NotImportant";
+    constexpr int64_t kDur = 0;
+
+    StrictMock<sdbusplus::SdBusMock> mock;
+    MockDbusHandler h(mock);
+
+    ExpectSdBusError(mock, BTMONITOR_SERVICE, BTMONITOR_OBJECT,
+                     BTMONITOR_DURATION_INTERFACE, BTMONITOR_SETDURATION);
+    EXPECT_THROW(h.sendRebootAdditionalDuration(kName, kDur), IpmiException);
 }
 
 // TODO: Add checks for other functions of handler.
