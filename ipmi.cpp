@@ -22,6 +22,7 @@
 #include "flash_size.hpp"
 #include "google_accel_oob.hpp"
 #include "handler.hpp"
+#include "host_boot_time.hpp"
 #include "host_power_off.hpp"
 #include "machine_name.hpp"
 #include "pcie_bifurcation.hpp"
@@ -79,6 +80,10 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr,
             return accelOobWrite(data, handler);
         case SysPCIeSlotBifurcation:
             return pcieBifurcation(data, handler);
+        case SysHostBootTimeSetDuration:
+            return hostBootTimeSetDuration(data, handler);
+        case SysHostBootTimeNotify:
+            return hostBootTimeNotify(data, handler);
         default:
             std::fprintf(stderr, "Invalid subcommand: 0x%x\n", cmd);
             return ::ipmi::responseInvalidCommand();

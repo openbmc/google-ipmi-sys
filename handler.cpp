@@ -605,5 +605,83 @@ std::vector<uint8_t> Handler::pcieBifurcation(uint8_t index)
         std::vector<uint8_t>{});
 }
 
+constexpr const char* BTMANAGER_SERVICE = "com.google.gbmc.btmanager";
+constexpr const char* BTMANAGER_OBJECT = "/xyz/openbmc_project/Time/Boot/host0";
+constexpr const char* BTMANAGER_INTERFACE =
+    "xyz.openbmc_project.Time.Boot.HostBootTime";
+constexpr const char* BTMANAGER_SETDURATION = "SetDuration";
+constexpr const char* BTMANAGER_NOTIFY = "Notify";
+
+std::string Handler::dbusSetDuration(const std::string& name,
+                                     uint64_t durationMs) const
+{
+    auto bus = getDbus();
+    auto method =
+        bus.new_method_call(BTMANAGER_SERVICE, BTMANAGER_OBJECT,
+                            BTMANAGER_INTERFACE, BTMANAGER_SETDURATION);
+    method.append(name.c_str());
+    method.append(durationMs);
+
+    std::string data;
+    try
+    {
+        bus.call(method).read(data);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        std::fprintf(stderr, "Failed to call btmanager SetDuration: %s",
+                     ex.what());
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+
+    return data;
+}
+
+uint8_t Handler::hostBootTimeSetDuration(const std::string& name,
+                                         uint64_t durationMs) const
+{
+    const std::string data = dbusSetDuration(name, durationMs);
+
+    if (data == "xyz.openbmc_project.Time.Boot.HostBootTime.SetDurationStates."
+                "DurationNotSettable")
+    {
+        return static_cast<uint8_t>(SetDurationState::kDurationNotSettable);
+    }
+    if (data == "xyz.openbmc_project.Time.Boot.HostBootTime.SetDurationStates."
+                "KeyDurationSet")
+    {
+        return static_cast<uint8_t>(SetDurationState::kKeyDurationSet);
+    }
+    if (data == "xyz.openbmc_project.Time.Boot.HostBootTime.SetDurationStates."
+                "ExtraDurationSet")
+    {
+        return static_cast<uint8_t>(SetDurationState::kExtraDurationSet);
+    }
+
+    // Shouldn't come here.
+    return 0;
+}
+
+uint64_t Handler::hostBootTimeNotify(uint8_t checkpointCode) const
+{
+    auto bus = getDbus();
+    auto method = bus.new_method_call(BTMANAGER_SERVICE, BTMANAGER_OBJECT,
+                                      BTMANAGER_INTERFACE, BTMANAGER_NOTIFY);
+    method.append(checkpointCode);
+
+    uint64_t data;
+    try
+    {
+        bus.call(method).read(data);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        std::fprintf(stderr, "Failed to call btmanager Notify: %s", ex.what());
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+
+    return data;
+}
+
 } // namespace ipmi
 } // namespace google
