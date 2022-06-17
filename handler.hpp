@@ -202,7 +202,8 @@ class HandlerInterface
      * @param[in] index    - PCIe Slot Index
      * @return list of lanes taken by each device.
      */
-    virtual std::vector<uint8_t> pcieBifurcation(uint8_t index) = 0;
+    virtual std::vector<uint8_t> pcieBifurcation(uint8_t index,
+                                                 bool dynamic = false) = 0;
 
     /**
      * Prepare for OS boot.
@@ -211,6 +212,35 @@ class HandlerInterface
      * untrusted OS.
      */
     virtual void linuxBootDone() const = 0;
+
+    /**
+     * Send checkpoint to BMC to monitor reboot process.
+     *
+     * @param[in] name - Checkpoint name.
+     * @param[in] wallTime - Current epoch time in microseconds.
+     * @param[in] duration - Self measured duration in microsecond.
+     * @throw IpmiException on failure.
+     */
+    virtual void sendRebootCheckpoint(std::string_view name, int64_t wallTime,
+                                      int64_t duration) const = 0;
+
+    /**
+     * Inform BMC that current reboot process is completed.
+     *
+     * @throw IpmiException on failure.
+     */
+    virtual void sendRebootComplete() const = 0;
+
+    /**
+     * Send additional durations to BMC to store any duration that user is
+     * interested.
+     *
+     * @param[in] name - Duration name.
+     * @param[in] duration - duration in millisecond.
+     * @throw IpmiException on failure.
+     */
+    virtual void sendRebootAdditionalDuration(std::string_view name,
+                                              int64_t duration) const = 0;
 };
 
 } // namespace ipmi
