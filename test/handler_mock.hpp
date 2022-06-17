@@ -63,6 +63,9 @@ class HandlerMock : public HandlerInterface
                 (std::string_view, uint64_t, uint8_t, uint64_t),
                 (const, override));
     MOCK_METHOD(std::vector<uint8_t>, pcieBifurcation, (uint8_t), (override));
+    MOCK_METHOD(uint8_t, hostBootTimeSetDuration,
+                (const std::string&, uint64_t), (const, override));
+    MOCK_METHOD(uint64_t, hostBootTimeNotify, (uint8_t), (const, override));
 };
 
 } // namespace ipmi
