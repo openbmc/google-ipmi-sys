@@ -410,7 +410,7 @@ using ArrayOfObjectPathsAndTieredAnyTypeLists = std::vector<
 
 } // namespace
 
-sdbusplus::bus::bus Handler::accelOobGetDbus() const
+sdbusplus::bus::bus Handler::getDbus() const
 {
     return sdbusplus::bus::new_default();
 }
@@ -421,7 +421,7 @@ uint32_t Handler::accelOobDeviceCount() const
 
     try
     {
-        auto bus = accelOobGetDbus();
+        auto bus = getDbus();
         auto method = bus.new_method_call(ACCEL_OOB_SERVICE, "/",
                                           "org.freedesktop.DBus.ObjectManager",
                                           "GetManagedObjects");
@@ -444,7 +444,7 @@ std::string Handler::accelOobDeviceName(size_t index) const
 
     try
     {
-        auto bus = accelOobGetDbus();
+        auto bus = getDbus();
         auto method = bus.new_method_call(ACCEL_OOB_SERVICE, "/",
                                           "org.freedesktop.DBus.ObjectManager",
                                           "GetManagedObjects");
@@ -483,7 +483,7 @@ uint64_t Handler::accelOobRead(std::string_view name, uint64_t address,
     std::string object_name(ACCEL_OOB_ROOT);
     object_name.append(name);
 
-    auto bus = accelOobGetDbus();
+    auto bus = getDbus();
     auto method = bus.new_method_call(ACCEL_OOB_SERVICE, object_name.c_str(),
                                       ACCEL_OOB_INTERFACE, ACCEL_OOB_METHOD);
     method.append(address, static_cast<uint64_t>(num_bytes));
@@ -577,7 +577,7 @@ void Handler::accelOobWrite(std::string_view name, uint64_t address,
 
     try
     {
-        auto bus = accelOobGetDbus();
+        auto bus = getDbus();
         auto method =
             bus.new_method_call(ACCEL_OOB_SERVICE, object_name.c_str(),
                                 ACCEL_OOB_INTERFACE, ACCEL_OOB_METHOD.data());
@@ -603,6 +603,60 @@ std::vector<uint8_t> Handler::pcieBifurcation(uint8_t index)
 {
     return bifurcationHelper.get().getBifurcation(index).value_or(
         std::vector<uint8_t>{});
+}
+
+constexpr const char* BTMANAGER_SERVICE = "com.google.gbmc.btmanager";
+constexpr const char* BTMANAGER_OBJECT = "/xyz/openbmc_project/Time/Boot/host0";
+constexpr const char* BTMANAGER_INTERFACE =
+    "xyz.openbmc_project.Time.Boot.HostBootTime";
+constexpr const char* BTMANAGER_SETDURATION = "SetDuration";
+constexpr const char* BTMANAGER_NOTIFY = "Notify";
+
+uint8_t Handler::hostBootTimeSetDuration(const std::string& name,
+                                         uint64_t duration_ms) const
+{
+    auto bus = getDbus();
+    auto method =
+        bus.new_method_call(BTMANAGER_SERVICE, BTMANAGER_OBJECT,
+                            BTMANAGER_INTERFACE, BTMANAGER_SETDURATION);
+    method.append(name.c_str());
+    method.append(duration_ms);
+
+    std::string data;
+    try
+    {
+        bus.call(method).read(data);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        std::fprintf(stderr,
+                     "Failed to call btmanager SetDuration: %s", ex.what());
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    return static_cast<uint8_t>(!data.ends_with("DurationNotSettable"));
+}
+
+std::optional<uint64_t>
+    Handler::hostBootTimeNotify(uint8_t checkPointCode) const
+{
+    auto bus = getDbus();
+    auto method = bus.new_method_call(BTMANAGER_SERVICE, BTMANAGER_OBJECT,
+                                      BTMANAGER_INTERFACE, BTMANAGER_NOTIFY);
+    method.append(checkPointCode);
+
+    uint64_t data;
+    try
+    {
+        bus.call(method).read(data);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        std::fprintf(stderr, "Failed to call btmanager Notify: %s", ex.what());
+        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+    }
+
+    return data;
 }
 
 } // namespace ipmi
