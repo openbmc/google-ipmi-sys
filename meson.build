@@ -69,6 +69,7 @@ sys_lib = static_library(
   'eth.cpp',
   'flash_size.cpp',
   'handler.cpp',
+  'boot_time_monitor.cpp',
   'host_power_off.cpp',
   'ipmi.cpp',
   'linux_boot_done.cpp',
