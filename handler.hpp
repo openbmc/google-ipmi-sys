@@ -195,6 +195,27 @@ class HandlerInterface
      * @return list of lanes taken by each device.
      */
     virtual std::vector<uint8_t> pcieBifurcation(uint8_t index) = 0;
+
+    /**
+     * Set the duration of certain steps in the host power cycle through dbus
+     * command
+     *
+     * @param[in] name - name of the duration.
+     * @param[in] durationMs - duration in millisecond.
+     * @return setDuration result.
+     * @throw IpmiException on failure.
+     */
+    virtual uint8_t hostBootTimeSetDuration(const std::string& name,
+                                            uint64_t durationMs) const = 0;
+
+    /**
+     * Notify BMC to set a checkpoint for the host power cycle process
+     *
+     * @param[in] checkPointCode - code number of the checkpoint.
+     * @return timestamp from bmc at that time point.
+     * @throw IpmiException on failure.
+     */
+    virtual uint64_t hostBootTimeNotify(uint8_t checkpointCode) const = 0;
 };
 
 } // namespace ipmi
