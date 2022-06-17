@@ -15,6 +15,7 @@
 #include "ipmi.hpp"
 
 #include "bmc_mode.hpp"
+#include "boot_time_monitor.hpp"
 #include "cable.hpp"
 #include "commands.hpp"
 #include "cpld.hpp"
@@ -83,9 +84,15 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr,
         case SysAccelOobWrite:
             return accelOobWrite(data, handler);
         case SysPCIeSlotBifurcation:
-            return pcieBifurcation(data, handler);
+            return pcieBifurcation(data, handler, DYNAMIC_BIFURCATION);
         case SysLinuxBootDone:
             return linuxBootDone(data, handler);
+        case SysSendRebootCheckpoint:
+            return sendRebootCheckpoint(data, handler);
+        case SysSendRebootComplete:
+            return sendRebootComplete(data, handler);
+        case SysSendRebootAdditionalDuration:
+            return sendRebootAdditionalDuration(data, handler);
         default:
             std::fprintf(stderr, "Invalid subcommand: 0x%x\n", cmd);
             return ::ipmi::responseInvalidCommand();
