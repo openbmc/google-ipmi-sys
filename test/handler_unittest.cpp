@@ -146,7 +146,7 @@ class MockDbusHandler : public Handler
     }
 
   protected:
-    sdbusplus::bus::bus accelOobGetDbus() const override
+    sdbusplus::bus::bus getDbus() const override
     {
         return sdbusplus::get_mocked_new(
             const_cast<sdbusplus::SdBusMock*>(mock_));
@@ -299,14 +299,14 @@ void ExpectGetManagedObjects(StrictMock<sdbusplus::SdBusMock>& mock,
     EXPECT_CALL(mock, sd_bus_message_exit_container(msg)).WillOnce(Return(1));
 }
 
-void ExpectSdBusError(StrictMock<sdbusplus::SdBusMock>& mock)
+void ExpectSdBusError(StrictMock<sdbusplus::SdBusMock>& mock, const std::string& service, const std::string& objPath, const std::string& interface, const std::string& function)
 {
     EXPECT_CALL(mock, sd_bus_message_new_method_call(
                           _,         // sd_bus *bus,
                           NotNull(), // sd_bus_message **m
-                          StrEq("com.google.custom_accel"), StrEq("/"),
-                          StrEq("org.freedesktop.DBus.ObjectManager"),
-                          StrEq("GetManagedObjects")))
+                          StrEq(service), StrEq(objPath),
+                          StrEq(interface),
+                          StrEq(function)))
         .WillOnce(Return(-ENOTCONN));
 }
 
@@ -322,7 +322,7 @@ TEST(HandlerTest, accelOobDeviceCount_Fail)
 {
     StrictMock<sdbusplus::SdBusMock> mock;
     MockDbusHandler h(mock);
-    ExpectSdBusError(mock);
+    ExpectSdBusError(mock, "com.google.custom_accel", "/", "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     EXPECT_THROW(h.accelOobDeviceCount(), IpmiException);
 }
 
@@ -338,7 +338,7 @@ TEST(HandlerTest, accelOobDeviceName_Fail)
 {
     StrictMock<sdbusplus::SdBusMock> mock;
     MockDbusHandler h(mock);
-    ExpectSdBusError(mock);
+    ExpectSdBusError(mock, "com.google.custom_accel", "/", "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     EXPECT_THROW(h.accelOobDeviceName(0), IpmiException);
 }
 
@@ -635,6 +635,19 @@ TEST(HandlerTest, PcieBifurcation)
         auto bifurcation = h2.pcieBifurcation(i);
         EXPECT_TRUE(bifurcation.empty());
     }
+}
+
+TEST(HandlerTest, hostBootTimeSetDuration)
+{
+
+// TEST(HandlerTest, accelOobDeviceCount_Success)
+// {
+//     StrictMock<sdbusplus::SdBusMock> mock;
+//     MockDbusHandler h(mock);
+//     ExpectGetManagedObjects(mock);
+//     ExpectSdBusError(mock)
+//     EXPECT_EQ(1, h.accelOobDeviceCount());
+// }
 }
 
 // TODO: Add checks for other functions of handler.
