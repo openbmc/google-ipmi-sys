@@ -698,5 +698,80 @@ void Handler::linuxBootDone() const
     }
 }
 
+constexpr std::string_view BTMONITOR_SERVICE =
+    "com.google.gbmc.boottimemonitor";
+constexpr std::string_view BTMONITOR_OBJECT =
+    "/xyz/openbmc_project/time/boot/host0";
+constexpr std::string_view BTMONITOR_CHECKPOINT_INTERFACE =
+    "xyz.openbmc_project.Time.Boot.Checkpoint";
+constexpr std::string_view BTMONITOR_SETCHECKPOINT = "SetCheckpoint";
+constexpr std::string_view BTMONITOR_COMPLETE = "RebootComplete";
+constexpr std::string_view BTMONITOR_DURATION_INTERFACE =
+    "xyz.openbmc_project.Time.Boot.Duration";
+constexpr std::string_view BTMONITOR_SETDURATION = "SetDuration";
+
+void Handler::sendRebootCheckpoint(std::string_view name, int64_t wallTime,
+                                   int64_t duration) const
+{
+    try
+    {
+        auto bus = getDbus();
+        auto method = bus.new_method_call(BTMONITOR_SERVICE.data(),
+                                          BTMONITOR_OBJECT.data(),
+                                          BTMONITOR_CHECKPOINT_INTERFACE.data(),
+                                          BTMONITOR_SETCHECKPOINT.data());
+        method.append(name.data());
+        method.append(wallTime);
+        method.append(duration);
+        bus.call_noreply(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        std::fprintf(stderr, "Failed to call btmanager `SetCheckpoint`: %s",
+                     ex.what());
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+}
+
+void Handler::sendRebootComplete() const
+{
+    try
+    {
+        auto bus = getDbus();
+        auto method = bus.new_method_call(
+            BTMONITOR_SERVICE.data(), BTMONITOR_OBJECT.data(),
+            BTMONITOR_CHECKPOINT_INTERFACE.data(), BTMONITOR_COMPLETE.data());
+
+        bus.call_noreply(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        std::fprintf(stderr, "Failed to call btmanager `Complete`: %s",
+                     ex.what());
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+}
+
+void Handler::sendRebootAdditionalDuration(std::string_view name,
+                                           int64_t duration) const
+{
+    try
+    {
+        auto bus = getDbus();
+        auto method = bus.new_method_call(
+            BTMONITOR_SERVICE.data(), BTMONITOR_OBJECT.data(),
+            BTMONITOR_DURATION_INTERFACE.data(), BTMONITOR_SETDURATION.data());
+        method.append(name.data());
+        method.append(duration);
+        bus.call_noreply(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        std::fprintf(stderr, "Failed to call btmanager `SetDuration`: %s",
+                     ex.what());
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+}
+
 } // namespace ipmi
 } // namespace google
