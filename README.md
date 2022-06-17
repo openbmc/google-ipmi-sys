@@ -419,3 +419,72 @@ Response
 |0x00|0x0F|Subcommand
 |0x01|Config length (N)|Number of bytes needed for the bifurcation config
 |0x02..0x02 + N - 1|Lanes per device|Each byte represents the number of lanes bonded together for each endpoint device
+
+### HostBootTimeSetDuration - SubCommand 0x10
+
+This command is for host to send duration of any power cycle process.
+Several certain durations are required to be sent BMC. So that `btmanager` can complete its work.
+Also, host can send any extra duration(up to 100) to BMC then let BMC expose it.
+
+Request
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x10|Subcommand
+|0x01|Length (N)|Length of duration name
+|0x02..0x02 + N - 1|Duration name|Only allow [0-9a-ZA-Z_], several names are reserved, see table `Duration name` below for more details.
+|0x02 + N..0x02 + N + 7|Duration(ms)|The duration of this process. These 8 bytes is an uint64_t represents the duration in millisecond.
+
+Duration name
+Some duration names are reserved and can't be set. While some of the duration names are reserved but it's settable.
+Any duration name that haven't been reserved will be treat as an extra duration.
+
+|Reserved duration name |settable
+|-------|----
+|OSUserDown |Yes
+|NerfKernel |Yes
+|NerfUser |Yes
+|OSKernel |Yes
+|OSUser |Yes
+|Total |Yes
+|OSKernelDown |No
+|BMCDown |No
+|BMC |No
+|BIOS |No
+|Unmeasured |No
+
+Response
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x10|Subcommand
+|0x01|Result|1:Success, 0:Fail
+
+### HostBootTimeNotify - SubCommand 0x11
+
+This command is for host to notify `btmanager` that current time point is a checkpoint.
+Several certain checkpoints are required to notify BMC. So that `btmanager` can complete its work.
+
+Request
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x11|Subcommand
+|0x01|Checkpoint|The code number of current checkpoint. See table `Checkpoint code` for more details.
+
+Checkpoint code
+
+|Checkpoint |code
+|-------|----
+|OSUserDownEndReboot |0
+|OSUserDownEndHalt |1
+|BIOSEnd |2
+|NerfUserEnd |3
+|OSUserEnd |4
+
+Response
+
+|Byte(s) |Value  |Data
+|--------|-------|----
+|0x00|0x11|Subcommand
+|0x01|Timestamp|The timestamp that BMC give to this checkpoint.

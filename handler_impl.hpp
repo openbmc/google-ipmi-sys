@@ -69,9 +69,14 @@ class Handler : public HandlerInterface
     void accelOobWrite(std::string_view name, uint64_t address,
                        uint8_t num_bytes, uint64_t data) const override;
 
+    uint8_t hostBootTimeSetDuration(const std::string& name,
+                                    uint64_t duration_ms) const override;
+    std::optional<uint64_t>
+        hostBootTimeNotify(uint8_t checkPointCode) const override;
+
   protected:
     // Exposed for dependency injection
-    virtual sdbusplus::bus::bus accelOobGetDbus() const;
+    virtual sdbusplus::bus::bus getDbus() const;
 
   private:
     std::string _configFile;
