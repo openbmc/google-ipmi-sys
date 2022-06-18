@@ -36,6 +36,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26de634d_61d1036f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-06-18T04:37:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d3c8fc2_d8ab981e",
+      "revId": "7ca39640c7703e63bc1a43e39f2dd06f8bcd212d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7a7ef82_442681f5",
@@ -83,6 +101,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15e6852c_f0ddfe37",
+        "filename": "commands.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-06-18T04:37:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d3fd9ec_d87bb5db",
+      "range": {
+        "startLine": 47,
+        "startChar": 3,
+        "endLine": 47,
+        "endChar": 30
+      },
+      "revId": "7ca39640c7703e63bc1a43e39f2dd06f8bcd212d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f03c004c_17ab55c6",
@@ -120,6 +162,30 @@
       "side": 1,
       "message": "You mean one-line string vs multiple-lines string?\nI think it\u0027s multiple lines.\nhttps://github.com/nlohmann/json#tofrom-streams-eg-files-string-streams",
       "parentUuid": "f03c004c_17ab55c6",
+      "range": {
+        "startLine": 429,
+        "startChar": 2,
+        "endLine": 429,
+        "endChar": 35
+      },
+      "revId": "7ca39640c7703e63bc1a43e39f2dd06f8bcd212d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "298c56f0_0e4f106b",
+        "filename": "handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-06-18T04:37:58Z",
+      "side": 1,
+      "message": "Obsoleted",
+      "parentUuid": "86128485_1162dbeb",
       "range": {
         "startLine": 429,
         "startChar": 2,
