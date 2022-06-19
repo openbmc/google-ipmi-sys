@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8023f291_35cb8500",
+        "filename": "handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-19T23:28:34Z",
+      "side": 1,
+      "message": "Need more detail on this service. Does it need to be internal?",
+      "range": {
+        "startLine": 608,
+        "startChar": 0,
+        "endLine": 614,
+        "endChar": 0
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "632d8da8_84fc1642",
+        "filename": "handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-19T23:28:34Z",
+      "side": 1,
+      "message": "call_noreply",
+      "range": {
+        "startLine": 628,
+        "startChar": 12,
+        "endLine": 628,
+        "endChar": 16
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6d8ef32_581de487",
+        "filename": "handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-19T23:28:34Z",
+      "side": 1,
+      "message": "prefer `ipmi::ccUnspecifiedError` instead.",
+      "range": {
+        "startLine": 655,
+        "startChar": 28,
+        "endLine": 655,
+        "endChar": 53
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4eadcab2_c034ce3c",
+        "filename": "handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-19T23:28:34Z",
+      "side": 1,
+      "message": "no need to catch here?",
+      "range": {
+        "startLine": 665,
+        "startChar": 4,
+        "endLine": 672,
+        "endChar": 5
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58dae465_c945dfe9",
+        "filename": "handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-19T23:28:34Z",
+      "side": 1,
+      "message": "compare with the exact string instead?",
+      "range": {
+        "startLine": 674,
+        "startChar": 4,
+        "endLine": 674,
+        "endChar": 46
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4ecf928_3b738985",
+        "filename": "handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-19T23:28:34Z",
+      "side": 1,
+      "message": "don\u0027t need else if when we return within statement.",
+      "range": {
+        "startLine": 678,
+        "startChar": 4,
+        "endLine": 678,
+        "endChar": 12
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16e12861_57ea1bdb",
+        "filename": "handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-19T23:28:34Z",
+      "side": 1,
+      "message": "just return dbusNotify(checkpointCode)\n\nThe try-catch doesn\u0027t really do anything in this case.",
+      "range": {
+        "startLine": 693,
+        "startChar": 4,
+        "endLine": 703,
+        "endChar": 16
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8460cb5c_bf8d2bc4",
+        "filename": "host_boot_time.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-19T23:28:34Z",
+      "side": 1,
+      "message": "camdelCase\n\ndurationMs",
+      "range": {
+        "startLine": 32,
+        "startChar": 13,
+        "endLine": 32,
+        "endChar": 24
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cd98e19_e2237e5f",
+        "filename": "test/handler_mock.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-19T23:28:34Z",
+      "side": 1,
+      "message": "no need for this.",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 43
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84e52da2_3b4e22c9",
+        "filename": "test/handler_unittest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-06-19T23:28:34Z",
+      "side": 1,
+      "message": "Can we split the change to the dbus stuff from the host boot time?",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 344,
+        "endChar": 80
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
