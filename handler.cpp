@@ -88,14 +88,14 @@ std::int64_t Handler::getRxPackets(const std::string& name) const
     if (name.find("/") != std::string::npos)
     {
         std::fprintf(stderr, "Invalid or illegal name: '%s'\n", name.c_str());
-        throw IpmiException(IPMI_CC_INVALID_FIELD_REQUEST);
+        throw IpmiException(::ipmi::ccInvalidFieldRequest);
     }
 
     std::error_code ec;
     if (!fs::exists(path, ec))
     {
         std::fprintf(stderr, "Path: '%s' doesn't exist.\n", path.c_str());
-        throw IpmiException(IPMI_CC_INVALID_FIELD_REQUEST);
+        throw IpmiException(::ipmi::ccInvalidFieldRequest);
     }
     // We're uninterested in the state of ec.
 
@@ -109,7 +109,7 @@ std::int64_t Handler::getRxPackets(const std::string& name) const
     }
     catch (std::ios_base::failure& fail)
     {
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
     return count;
@@ -126,7 +126,7 @@ VersionTuple Handler::getCpldVersion(unsigned int id) const
     {
         std::fprintf(stderr, "Path: '%s' doesn't exist.\n",
                      opath.str().c_str());
-        throw IpmiException(IPMI_CC_INVALID_FIELD_REQUEST);
+        throw IpmiException(::ipmi::ccInvalidFieldRequest);
     }
     // We're uninterested in the state of ec.
 
@@ -141,7 +141,7 @@ VersionTuple Handler::getCpldVersion(unsigned int id) const
     }
     catch (std::ios_base::failure& fail)
     {
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
     // If value parses as expected, return version.
@@ -154,7 +154,7 @@ VersionTuple Handler::getCpldVersion(unsigned int id) const
     if (num_fields == 0)
     {
         std::fprintf(stderr, "Invalid version.\n");
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
     return version;
@@ -173,7 +173,7 @@ void Handler::psuResetDelay(std::uint32_t delay) const
     if (!ofs.good())
     {
         std::fprintf(stderr, "Unable to open file for output.\n");
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
     ofs << "PSU_HARDRESET_DELAY=" << delay << std::endl;
@@ -181,7 +181,7 @@ void Handler::psuResetDelay(std::uint32_t delay) const
     {
         std::fprintf(stderr, "Write failed\n");
         ofs.close();
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
     // Write succeeded, please continue.
@@ -202,7 +202,7 @@ void Handler::psuResetDelay(std::uint32_t delay) const
     catch (const sdbusplus::exception::SdBusError& ex)
     {
         log<level::ERR>("Failed to call PSU hard reset");
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 }
 
@@ -215,7 +215,7 @@ void Handler::psuResetOnShutdown() const
     if (!ofs.good())
     {
         std::fprintf(stderr, "Unable to open file for output.\n");
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
     ofs.close();
 }
@@ -229,7 +229,7 @@ uint32_t Handler::getFlashSize()
 
     if (err)
     {
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
     return info.size;
 }
@@ -241,7 +241,7 @@ std::string Handler::getEntityName(std::uint8_t id, std::uint8_t instance)
     if (it == _entityIdToName.end())
     {
         log<level::ERR>("Unknown Entity ID", entry("ENTITY_ID=%d", id));
-        throw IpmiException(IPMI_CC_INVALID_FIELD_REQUEST);
+        throw IpmiException(::ipmi::ccInvalidFieldRequest);
     }
 
     std::string entityName;
@@ -258,12 +258,12 @@ std::string Handler::getEntityName(std::uint8_t id, std::uint8_t instance)
         entityName = readNameFromConfig(it->second, instance, _entityConfig);
         if (entityName.empty())
         {
-            throw IpmiException(IPMI_CC_INVALID_FIELD_REQUEST);
+            throw IpmiException(::ipmi::ccInvalidFieldRequest);
         }
     }
     catch (InternalFailure& e)
     {
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
     return entityName;
@@ -276,7 +276,7 @@ std::string Handler::getMachineName()
     if (ifs.fail())
     {
         std::fprintf(stderr, "Failed to open: %s\n", path);
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
     std::string line;
@@ -287,12 +287,12 @@ std::string Handler::getMachineName()
         {
             std::fprintf(stderr, "Failed to find OPENBMC_TARGET_MACHINE: %s\n",
                          path);
-            throw IpmiException(IPMI_CC_INVALID);
+            throw IpmiException(::ipmi::ccInvalidCommand);
         }
         if (ifs.fail())
         {
             std::fprintf(stderr, "Failed to read: %s\n", path);
-            throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+            throw IpmiException(::ipmi::ccUnspecifiedError);
         }
         std::string_view lineView(line);
         constexpr std::string_view prefix = "OPENBMC_TARGET_MACHINE=";
@@ -321,7 +321,7 @@ void Handler::hostPowerOffDelay(std::uint32_t delay) const
     if (!ofs.good())
     {
         std::fprintf(stderr, "Unable to open file for output.\n");
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
     ofs << "HOST_POWEROFF_DELAY=" << delay << std::endl;
@@ -329,7 +329,7 @@ void Handler::hostPowerOffDelay(std::uint32_t delay) const
     if (ofs.fail())
     {
         std::fprintf(stderr, "Write failed\n");
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
     // Write succeeded, please continue.
@@ -348,7 +348,7 @@ void Handler::hostPowerOffDelay(std::uint32_t delay) const
     {
         log<level::ERR>("Failed to call Power Off",
                         entry("WHAT=%s", ex.what()));
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 }
 
@@ -432,7 +432,7 @@ uint32_t Handler::accelOobDeviceCount() const
         log<level::ERR>(
             "Failed to call GetManagedObjects on com.google.custom_accel",
             entry("WHAT=%s", ex.what()));
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
     return data.size();
@@ -455,7 +455,7 @@ std::string Handler::accelOobDeviceName(size_t index) const
         log<level::ERR>(
             "Failed to call GetManagedObjects on com.google.custom_accel",
             entry("WHAT=%s", ex.what()));
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
     if (index >= data.size())
@@ -463,13 +463,13 @@ std::string Handler::accelOobDeviceName(size_t index) const
         log<level::WARNING>(
             "Requested index is larger than the number of entries.",
             entry("INDEX=%zu", index), entry("NUM_NAMES=%zu", data.size()));
-        throw IpmiException(IPMI_CC_PARM_OUT_OF_RANGE);
+        throw IpmiException(::ipmi::ccParmOutOfRange);
     }
 
     std::string_view name(data[index].first.str);
     if (!name.starts_with(ACCEL_OOB_ROOT))
     {
-        throw IpmiException(IPMI_CC_INVALID);
+        throw IpmiException(::ipmi::ccInvalidCommand);
     }
     name.remove_prefix(ACCEL_OOB_ROOT.length());
     return std::string(name);
@@ -504,7 +504,7 @@ uint64_t Handler::accelOobRead(std::string_view name, uint64_t address,
                         entry("DBUS_METHOD=%s", ACCEL_OOB_METHOD),
                         entry("DBUS_ARG_ADDRESS=%016llx", address),
                         entry("DBUS_ARG_NUM_BYTES=%zu", (size_t)num_bytes));
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
     if (bytes.size() < num_bytes)
@@ -519,7 +519,7 @@ uint64_t Handler::accelOobRead(std::string_view name, uint64_t address,
             entry("DBUS_ARG_ADDRESS=%016llx", address),
             entry("DBUS_ARG_NUM_BYTES=%zu", (size_t)num_bytes),
             entry("DBUS_RETURN_SIZE=%zu", bytes.size()));
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
     if (bytes.size() > sizeof(uint64_t))
@@ -533,7 +533,7 @@ uint64_t Handler::accelOobRead(std::string_view name, uint64_t address,
             entry("DBUS_ARG_ADDRESS=%016llx", address),
             entry("DBUS_ARG_NUM_BYTES=%zu", (size_t)num_bytes),
             entry("DBUS_RETURN_SIZE=%zu", bytes.size()));
-        throw IpmiException(IPMI_CC_REQ_DATA_TRUNCATED);
+        throw IpmiException(::ipmi::ccReqDataTruncated);
     }
 
     uint64_t data = 0;
@@ -564,7 +564,7 @@ void Handler::accelOobWrite(std::string_view name, uint64_t address,
             entry("DBUS_ARG_ADDRESS=%016llx", address),
             entry("DBUS_ARG_NUM_BYTES=%zu", (size_t)num_bytes),
             entry("DBUS_ARG_DATA=%016llx", data));
-        throw IpmiException(IPMI_CC_PARM_OUT_OF_RANGE);
+        throw IpmiException(::ipmi::ccParmOutOfRange);
     }
 
     std::vector<uint8_t> bytes;
@@ -595,7 +595,7 @@ void Handler::accelOobWrite(std::string_view name, uint64_t address,
                         entry("DBUS_ARG_ADDRESS=%016llx", address),
                         entry("DBUS_ARG_NUM_BYTES=%zu", (size_t)num_bytes),
                         entry("DBUS_ARG_DATA=%016llx", data));
-        throw IpmiException(IPMI_CC_UNSPECIFIED_ERROR);
+        throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 }
 
