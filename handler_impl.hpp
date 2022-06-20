@@ -71,7 +71,7 @@ class Handler : public HandlerInterface
 
   protected:
     // Exposed for dependency injection
-    virtual sdbusplus::bus::bus accelOobGetDbus() const;
+    virtual sdbusplus::bus::bus getDbus() const;
 
   private:
     std::string _configFile;

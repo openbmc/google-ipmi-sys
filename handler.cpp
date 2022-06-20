@@ -410,7 +410,7 @@ using ArrayOfObjectPathsAndTieredAnyTypeLists = std::vector<
 
 } // namespace
 
-sdbusplus::bus::bus Handler::accelOobGetDbus() const
+sdbusplus::bus::bus Handler::getDbus() const
 {
     return sdbusplus::bus::new_default();
 }
@@ -421,7 +421,7 @@ uint32_t Handler::accelOobDeviceCount() const
 
     try
     {
-        auto bus = accelOobGetDbus();
+        auto bus = getDbus();
         auto method = bus.new_method_call(ACCEL_OOB_SERVICE, "/",
                                           "org.freedesktop.DBus.ObjectManager",
                                           "GetManagedObjects");
@@ -444,7 +444,7 @@ std::string Handler::accelOobDeviceName(size_t index) const
 
     try
     {
-        auto bus = accelOobGetDbus();
+        auto bus = getDbus();
         auto method = bus.new_method_call(ACCEL_OOB_SERVICE, "/",
                                           "org.freedesktop.DBus.ObjectManager",
                                           "GetManagedObjects");
@@ -483,7 +483,7 @@ uint64_t Handler::accelOobRead(std::string_view name, uint64_t address,
     std::string object_name(ACCEL_OOB_ROOT);
     object_name.append(name);
 
-    auto bus = accelOobGetDbus();
+    auto bus = getDbus();
     auto method = bus.new_method_call(ACCEL_OOB_SERVICE, object_name.c_str(),
                                       ACCEL_OOB_INTERFACE, ACCEL_OOB_METHOD);
     method.append(address, static_cast<uint64_t>(num_bytes));
@@ -577,7 +577,7 @@ void Handler::accelOobWrite(std::string_view name, uint64_t address,
 
     try
     {
-        auto bus = accelOobGetDbus();
+        auto bus = getDbus();
         auto method =
             bus.new_method_call(ACCEL_OOB_SERVICE, object_name.c_str(),
                                 ACCEL_OOB_INTERFACE, ACCEL_OOB_METHOD.data());
