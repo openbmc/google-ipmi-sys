@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "482ee217_c820e71f",
+        "filename": "handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-06-20T05:37:39Z",
+      "side": 1,
+      "message": "Sorry I didn\u0027t get you point.\nYou are asking why do we need 2 similar functions `hostBootTimeSetDuration` and `dbusSetDuration`?\nOr you are asking what\u0027s the purpose of `hostBootTimeSetDuration` and `hostBootTimeNotify`?\n\nThe answer for former one is that I need to mock `dbusSetDuration` in the unit test so that I can test `hostBootTimeSetDuration`.\n\nThe answer for later one is that this CL is supporting `btmanager`.\nbtmanager is a new added service for monitor the host boot process. The code is in the review process on openbmc/google-misc. https://gerrit.openbmc.org/c/openbmc/google-misc/+/54501/4",
+      "parentUuid": "8023f291_35cb8500",
+      "range": {
+        "startLine": 608,
+        "startChar": 0,
+        "endLine": 614,
+        "endChar": 0
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "632d8da8_84fc1642",
         "filename": "handler.cpp",
         "patchSetId": 19
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-19T23:28:34Z",
       "side": 1,
       "message": "call_noreply",
+      "range": {
+        "startLine": 628,
+        "startChar": 12,
+        "endLine": 628,
+        "endChar": 16
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "154b2c4d_f9f9be3c",
+        "filename": "handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-06-20T05:37:39Z",
+      "side": 1,
+      "message": "I expected the `bus.call` returns a reply to me.\nSo I can read the information with this reply.\nIn this case can we still use `bus.call_noreply`?",
+      "parentUuid": "632d8da8_84fc1642",
       "range": {
         "startLine": 628,
         "startChar": 12,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "db1b2f29_acd13436",
+        "filename": "handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-06-20T05:37:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6d8ef32_581de487",
+      "range": {
+        "startLine": 655,
+        "startChar": 28,
+        "endLine": 655,
+        "endChar": 53
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4eadcab2_c034ce3c",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-06-19T23:28:34Z",
       "side": 1,
       "message": "no need to catch here?",
+      "range": {
+        "startLine": 665,
+        "startChar": 4,
+        "endLine": 672,
+        "endChar": 5
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7f5ae81_8ce7823b",
+        "filename": "handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-06-20T05:37:39Z",
+      "side": 1,
+      "message": "Yea, fixed.",
+      "parentUuid": "4eadcab2_c034ce3c",
       "range": {
         "startLine": 665,
         "startChar": 4,
@@ -116,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bdbafd7_674a3456",
+        "filename": "handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-06-20T05:37:39Z",
+      "side": 1,
+      "message": "Sure.\nBut I think both are find. In entity-manager we use `ends_with` to match dbus result.\nhttps://github.com/openbmc/entity-manager/blob/master/src/fru_device.cpp#L1412-L1413",
+      "parentUuid": "58dae465_c945dfe9",
+      "range": {
+        "startLine": 674,
+        "startChar": 4,
+        "endLine": 674,
+        "endChar": 46
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4ecf928_3b738985",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-06-19T23:28:34Z",
       "side": 1,
       "message": "don\u0027t need else if when we return within statement.",
+      "range": {
+        "startLine": 678,
+        "startChar": 4,
+        "endLine": 678,
+        "endChar": 12
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "025b0f15_280a5d86",
+        "filename": "handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-06-20T05:37:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4ecf928_3b738985",
       "range": {
         "startLine": 678,
         "startChar": 4,
@@ -162,6 +306,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd5a8281_d0c59951",
+        "filename": "handler.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-06-20T05:37:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16e12861_57ea1bdb",
+      "range": {
+        "startLine": 693,
+        "startChar": 4,
+        "endLine": 703,
+        "endChar": 16
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8460cb5c_bf8d2bc4",
@@ -175,6 +343,30 @@
       "writtenOn": "2022-06-19T23:28:34Z",
       "side": 1,
       "message": "camdelCase\n\ndurationMs",
+      "range": {
+        "startLine": 32,
+        "startChar": 13,
+        "endLine": 32,
+        "endChar": 24
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0df11dfe_ced6e600",
+        "filename": "host_boot_time.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-06-20T05:37:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8460cb5c_bf8d2bc4",
       "range": {
         "startLine": 32,
         "startChar": 13,
@@ -210,6 +402,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "87d58d6c_11b0bff4",
+        "filename": "test/handler_mock.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-06-20T05:37:39Z",
+      "side": 1,
+      "message": "I think it\u0027s needed.\nI tried this but it doesn\u0027t pass compile.\n```\nMOCK_METHOD(uint8_t, hostBootTimeSetDuration, ((const std::string\u0026), uint64_t),\n                (const, override));\n```",
+      "parentUuid": "0cd98e19_e2237e5f",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 43
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "84e52da2_3b4e22c9",
         "filename": "test/handler_unittest.cpp",
         "patchSetId": 19
@@ -221,6 +437,30 @@
       "writtenOn": "2022-06-19T23:28:34Z",
       "side": 1,
       "message": "Can we split the change to the dbus stuff from the host boot time?",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 344,
+        "endChar": 80
+      },
+      "revId": "c394ef3fbcfb4071e5b8e1e4751c140b24134e64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5952e54c_6e0bfade",
+        "filename": "test/handler_unittest.cpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-06-20T05:37:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84e52da2_3b4e22c9",
       "range": {
         "startLine": 343,
         "startChar": 0,
