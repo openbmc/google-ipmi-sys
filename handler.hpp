@@ -189,7 +189,7 @@ class HandlerInterface
                                uint8_t num_bytes, uint64_t data) const = 0;
 
     /**
-     * Prase the I2C tree to get the highest level of bifurcation in target bus.
+     * Parse the I2C tree to get the highest level of bifurcation in target bus.
      *
      * @param[in] index    - PCIe Slot Index
      * @return list of lanes taken by each device.
