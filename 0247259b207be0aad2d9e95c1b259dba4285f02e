@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "412cfd76_5888cbf7",
+        "filename": "handler.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-03T05:03:54Z",
+      "side": 1,
+      "message": "Is the decision to use `com.google.gbmc.btmanager` finalized?",
+      "range": {
+        "startLine": 608,
+        "startChar": 0,
+        "endLine": 611,
+        "endChar": 49
+      },
+      "revId": "0247259b207be0aad2d9e95c1b259dba4285f02e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e9b9be5_e6df41a0",
+        "filename": "host_boot_time.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-03T05:03:54Z",
+      "side": 1,
+      "message": "Combine",
+      "range": {
+        "startLine": 40,
+        "startChar": 3,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "0247259b207be0aad2d9e95c1b259dba4285f02e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8c930d3_3464c8ad",
+        "filename": "host_boot_time.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-03T05:03:54Z",
+      "side": 1,
+      "message": "wait...\n\nWhy is the data formatted like\n\nlength, name, durationMs?\n\nCan we just change it to \n\n```\ndurationMs, length, name\n```\n\nso the dynamic size data is at the end?",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 70
+      },
+      "revId": "0247259b207be0aad2d9e95c1b259dba4285f02e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a40585d9_ddf60f6e",
+        "filename": "host_boot_time.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-03T05:03:54Z",
+      "side": 1,
+      "message": "I think you mean footer? But is this comment needed?",
+      "range": {
+        "startLine": 32,
+        "startChar": 28,
+        "endLine": 32,
+        "endChar": 34
+      },
+      "revId": "0247259b207be0aad2d9e95c1b259dba4285f02e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
