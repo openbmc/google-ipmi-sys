@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "daf50a4a_a068e665",
+        "filename": "handler.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-03T05:41:09Z",
+      "side": 1,
+      "message": "then we can just carry this as a patch internally instead.",
+      "parentUuid": "5f94eb2d_229e4bb6",
+      "range": {
+        "startLine": 608,
+        "startChar": 0,
+        "endLine": 611,
+        "endChar": 49
+      },
+      "revId": "0247259b207be0aad2d9e95c1b259dba4285f02e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0e9b9be5_e6df41a0",
         "filename": "host_boot_time.cpp",
         "patchSetId": 25
@@ -121,6 +145,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "59242ca5_8320231b",
+        "filename": "host_boot_time.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-03T05:41:09Z",
+      "side": 1,
+      "message": "yeah, something like that.",
+      "parentUuid": "3fca6671_9b483671",
+      "range": {
+        "startLine": 40,
+        "startChar": 3,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "0247259b207be0aad2d9e95c1b259dba4285f02e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8c930d3_3464c8ad",
         "filename": "host_boot_time.cpp",
         "patchSetId": 25
@@ -156,6 +204,30 @@
       "side": 1,
       "message": "Is this a convention? I don\u0027t see the differents.",
       "parentUuid": "c8c930d3_3464c8ad",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 70
+      },
+      "revId": "0247259b207be0aad2d9e95c1b259dba4285f02e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0faa78c_389a4417",
+        "filename": "host_boot_time.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-08-03T05:41:09Z",
+      "side": 1,
+      "message": "the difference is that we always know where the data of each element starts. instead of having the start of durationMs being dynamic.",
+      "parentUuid": "f4b5b2cb_2a7b961a",
       "range": {
         "startLine": 64,
         "startChar": 4,
