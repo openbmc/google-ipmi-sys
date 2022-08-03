@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bb554e76_3595bb98",
+        "filename": "handler.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-08-03T05:28:59Z",
+      "side": 1,
+      "message": "Internally, yes.\nExternelly (in openbmc), No",
+      "parentUuid": "412cfd76_5888cbf7",
+      "range": {
+        "startLine": 608,
+        "startChar": 0,
+        "endLine": 611,
+        "endChar": 49
+      },
+      "revId": "0247259b207be0aad2d9e95c1b259dba4285f02e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0e9b9be5_e6df41a0",
         "filename": "host_boot_time.cpp",
         "patchSetId": 25
@@ -37,6 +61,30 @@
       "writtenOn": "2022-08-03T05:03:54Z",
       "side": 1,
       "message": "Combine",
+      "range": {
+        "startLine": 40,
+        "startChar": 3,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "0247259b207be0aad2d9e95c1b259dba4285f02e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fca6671_9b483671",
+        "filename": "host_boot_time.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-08-03T05:28:59Z",
+      "side": 1,
+      "message": "You mean this?\n\n```\nuint8_t length;\nif ((data.size() \u003c sizeof(struct HostBootTimeSetDurationRequestHeaderTailer) ||\n    (data.size() \u003c sizeof(struct HostBootTimeSetDurationRequestHeaderTailer) + data[0]) {\n    printError....\n}\n```",
+      "parentUuid": "0e9b9be5_e6df41a0",
       "range": {
         "startLine": 40,
         "startChar": 3,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f4b5b2cb_2a7b961a",
+        "filename": "host_boot_time.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-08-03T05:28:59Z",
+      "side": 1,
+      "message": "Is this a convention? I don\u0027t see the differents.",
+      "parentUuid": "c8c930d3_3464c8ad",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 70
+      },
+      "revId": "0247259b207be0aad2d9e95c1b259dba4285f02e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a40585d9_ddf60f6e",
         "filename": "host_boot_time.hpp",
         "patchSetId": 25
@@ -83,6 +155,30 @@
       "writtenOn": "2022-08-03T05:03:54Z",
       "side": 1,
       "message": "I think you mean footer? But is this comment needed?",
+      "range": {
+        "startLine": 32,
+        "startChar": 28,
+        "endLine": 32,
+        "endChar": 34
+      },
+      "revId": "0247259b207be0aad2d9e95c1b259dba4285f02e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48480644_f633f4c7",
+        "filename": "host_boot_time.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-08-03T05:28:59Z",
+      "side": 1,
+      "message": "\u003e I think you mean footer?\nAh yes, thanks for that.\n\n\u003e But is this comment needed?\nIs telling user that this struct `HostBootTimeSetDurationRequestHeaderTailer` is not the full struct. It only contains `header` and `footer`.",
+      "parentUuid": "a40585d9_ddf60f6e",
       "range": {
         "startLine": 32,
         "startChar": 28,
