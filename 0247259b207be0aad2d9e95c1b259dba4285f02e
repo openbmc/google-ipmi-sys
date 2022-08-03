@@ -96,6 +96,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60ff79d9_90c83db5",
+        "filename": "handler.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-08-03T15:50:49Z",
+      "side": 1,
+      "message": "ok. After comments in this CL are resolved, I will create a internal patch.",
+      "parentUuid": "daf50a4a_a068e665",
+      "range": {
+        "startLine": 608,
+        "startChar": 0,
+        "endLine": 611,
+        "endChar": 49
+      },
+      "revId": "0247259b207be0aad2d9e95c1b259dba4285f02e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0e9b9be5_e6df41a0",
@@ -157,6 +181,30 @@
       "side": 1,
       "message": "yeah, something like that.",
       "parentUuid": "3fca6671_9b483671",
+      "range": {
+        "startLine": 40,
+        "startChar": 3,
+        "endLine": 54,
+        "endChar": 0
+      },
+      "revId": "0247259b207be0aad2d9e95c1b259dba4285f02e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04b8317e_e76f8796",
+        "filename": "host_boot_time.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-08-03T15:50:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59242ca5_8320231b",
       "range": {
         "startLine": 40,
         "startChar": 3,
@@ -240,6 +288,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "68277158_f656084b",
+        "filename": "host_boot_time.cpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-08-03T15:50:49Z",
+      "side": 1,
+      "message": "Ack and changed.\n\nI put the name in the front becuase the \u003cname, durationMs\u003e is a key-value pair in my design.\nI would like to confirm if it\u0027s worth to reverse the key-value order to achive what you mentioned?\n\nOne more scenario I want to confirm is that:\nif the parameters are multiple but certain number(let\u0027s say **2** for example).\nWhat\u0027s your preference? \nI think (1) matches your comment the most. But I think (3) is the most clear one.\n\n`L\u003dlen, n\u003dname, d\u003ddurationMs`\n\n1.\n```\n\u003cd1\u003e \u003cd2\u003e \u003cL1\u003e \u003cL2\u003e \u003cn1\u003e \u003cn2\u003e\n```\n\n2.\n```\n\u003cd1\u003e \u003cd2\u003e \u003cL1\u003e \u003cn1\u003e \u003cL2\u003e \u003cn2\u003e\n```\n\n3.\n```\n\u003cL1\u003e \u003cn1\u003e \u003cd1\u003e \u003cL2\u003e \u003cn2\u003e \u003cd2\u003e\n```",
+      "parentUuid": "d0faa78c_389a4417",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 70
+      },
+      "revId": "0247259b207be0aad2d9e95c1b259dba4285f02e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a40585d9_ddf60f6e",
         "filename": "host_boot_time.hpp",
         "patchSetId": 25
@@ -275,6 +347,30 @@
       "side": 1,
       "message": "\u003e I think you mean footer?\nAh yes, thanks for that.\n\n\u003e But is this comment needed?\nIs telling user that this struct `HostBootTimeSetDurationRequestHeaderTailer` is not the full struct. It only contains `header` and `footer`.",
       "parentUuid": "a40585d9_ddf60f6e",
+      "range": {
+        "startLine": 32,
+        "startChar": 28,
+        "endLine": 32,
+        "endChar": 34
+      },
+      "revId": "0247259b207be0aad2d9e95c1b259dba4285f02e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfca3e7c_bb69d4a9",
+        "filename": "host_boot_time.hpp",
+        "patchSetId": 25
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-08-03T15:50:49Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "48480644_f633f4c7",
       "range": {
         "startLine": 32,
         "startChar": 28,
