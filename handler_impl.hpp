@@ -46,6 +46,7 @@ class Handler : public HandlerInterface
         bifurcationHelper(bifurcationHelper){};
     ~Handler() = default;
 
+    uint32_t getBmcMode() override;
     std::tuple<std::uint8_t, std::string>
         getEthDetails(std::string intf) const override;
     std::int64_t getRxPackets(const std::string& name) const override;
