@@ -53,6 +53,8 @@ enum SysOEMCommands
     SysAccelOobWrite = 14,
     // The Sys PCIe Slot Bifurcation information command.
     SysPCIeSlotBifurcation = 15,
+    // The Sys get BMC Mode command
+    SysGetBmcMode = 16,
 };
 
 } // namespace ipmi
