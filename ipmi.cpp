@@ -14,6 +14,7 @@
 
 #include "ipmi.hpp"
 
+#include "bmc_mode.hpp"
 #include "cable.hpp"
 #include "commands.hpp"
 #include "cpld.hpp"
@@ -47,6 +48,8 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr,
 {
     switch (cmd)
     {
+        case SysGetBmcMode:
+            return getBmcMode(data, handler);
         case SysCableCheck:
             return cableCheck(data, handler);
         case SysCpldVersion:
