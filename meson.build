@@ -55,6 +55,7 @@ sys_pre = declare_dependency(
 
 sys_lib = static_library(
   'sys',
+  'bmc_mode.cpp',
   'cable.cpp',
   'cpld.cpp',
   'entity_name.cpp',
