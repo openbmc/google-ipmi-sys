@@ -419,3 +419,20 @@ Response
 |0x00|0x0F|Subcommand
 |0x01|Config length (N)|Number of bytes needed for the bifurcation config
 |0x02..0x02 + N - 1|Lanes per device|Each byte represents the number of lanes bonded together for each endpoint device
+
+### GetBmcMode - SubCommand 0x10
+
+Request the operational mode of the BMC.
+
+Request
+
+|Byte(s) |Value |Data
+|--------|------|----
+|0x00|0x10|Subcommand
+
+Response
+
+|Byte(s) |Value |Data
+|--------|------|----
+|0x00|0x10|Subcommand
+|0x01|Current BMC MODE|<ul><li>0 -> Non Bare Metal Mode</li><li>1 -> Bare Metal Mode</li><li>2 -> Bare Metal Cleaning Mode</li></ul>
