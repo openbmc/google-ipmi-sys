@@ -65,6 +65,28 @@ using namespace phosphor::logging;
 using InternalFailure =
     sdbusplus::xyz::openbmc_project::Common::Error::InternalFailure;
 
+enum class BmcMode : uint8_t
+{
+    NON_BM_MODE = 0,
+    BM_MODE,
+    BM_CLEANING_MODE
+};
+
+uint8_t isBmcInBareMetalMode()
+{
+#ifdef BARE_METAL
+    return static_cast<uint8_t>(BmcMode::BM_MODE);
+#else
+    return static_cast<uint8_t>(BmcMode::NON_BM_MODE);
+#endif
+}
+
+uint8_t Handler::getBmcMode()
+{
+    // BM_CLEANING_MODE is not implemented yet
+    return isBmcInBareMetalMode();
+}
+
 std::tuple<std::uint8_t, std::string>
     Handler::getEthDetails(std::string intf) const
 {

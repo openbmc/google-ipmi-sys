@@ -39,6 +39,13 @@ class HandlerInterface
     virtual ~HandlerInterface() = default;
 
     /**
+     * Return the operation mode of BMC
+     *
+     * @return the BMC operation mode
+     */
+    virtual uint8_t getBmcMode() = 0;
+
+    /**
      * Return ethernet details (hard-coded).
      *
      * @return tuple of ethernet details (channel, if name).
