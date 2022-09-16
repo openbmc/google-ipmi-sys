@@ -17,6 +17,12 @@ conf_h = configure_file(
   output: 'config.h',
   configuration: conf_data)
 
+bm_conf_data = configuration_data()
+bm_conf_data.set('BARE_METAL', get_option('bare_metal'))
+bm_conf_h = configure_file(
+  output: 'bm_config.h',
+  configuration: bm_conf_data)
+
 meson.get_compiler('cpp').has_header_symbol(
   'ipmid/api.h',
   'ipmid_get_sd_bus_connection')
@@ -55,6 +61,7 @@ sys_pre = declare_dependency(
 
 sys_lib = static_library(
   'sys',
+  'bmc_mode.cpp',
   'cable.cpp',
   'cpld.cpp',
   'entity_name.cpp',
