@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d6faa79_42aaabc2",
+        "filename": "bmc_mode.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-21T00:03:20Z",
+      "side": 1,
+      "message": "static_cast\u003cuint8_t\u003e",
+      "range": {
+        "startLine": 40,
+        "startChar": 18,
+        "endLine": 40,
+        "endChar": 27
+      },
+      "revId": "ccde0a4103ab5b5b9deec415c0fafb486058431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43422a58_8d90ecc1",
+        "filename": "bmc_mode.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-21T00:03:20Z",
+      "side": 1,
+      "message": "just return it in the try {}",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 71
+      },
+      "revId": "ccde0a4103ab5b5b9deec415c0fafb486058431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d39cc9b_73254120",
+        "filename": "bmc_mode.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-21T00:03:20Z",
+      "side": 1,
+      "message": "seems like the license comment style is different between the files.",
+      "revId": "ccde0a4103ab5b5b9deec415c0fafb486058431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd424d46_c79114cc",
+        "filename": "handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-21T00:03:20Z",
+      "side": 1,
+      "message": "explicitly declare the variable type.\n\nAlso, I think we prefer enum class instead.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 12
+      },
+      "revId": "ccde0a4103ab5b5b9deec415c0fafb486058431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
