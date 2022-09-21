@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04da65d6_8c7b1002",
+        "filename": "bmc_mode.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-09-21T17:36:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d6faa79_42aaabc2",
+      "range": {
+        "startLine": 40,
+        "startChar": 18,
+        "endLine": 40,
+        "endChar": 27
+      },
+      "revId": "ccde0a4103ab5b5b9deec415c0fafb486058431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43422a58_8d90ecc1",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-21T00:03:20Z",
       "side": 1,
       "message": "just return it in the try {}",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 71
+      },
+      "revId": "ccde0a4103ab5b5b9deec415c0fafb486058431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0ba8a2e_173d2843",
+        "filename": "bmc_mode.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-09-21T17:36:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43422a58_8d90ecc1",
       "range": {
         "startLine": 47,
         "startChar": 0,
@@ -66,6 +114,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0ec6c445_5a8bc212",
+        "filename": "bmc_mode.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-09-21T17:36:58Z",
+      "side": 1,
+      "message": "Yes. I did that because I saw the same difference in the other hpp and cpp file for e.g. pcie_i2c.hpp and pcie_i2c.cpp. Would you suggest to use only one way ?",
+      "parentUuid": "4d39cc9b_73254120",
+      "revId": "ccde0a4103ab5b5b9deec415c0fafb486058431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd424d46_c79114cc",
         "filename": "handler.cpp",
         "patchSetId": 1
@@ -77,6 +143,30 @@
       "writtenOn": "2022-09-21T00:03:20Z",
       "side": 1,
       "message": "explicitly declare the variable type.\n\nAlso, I think we prefer enum class instead.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 12
+      },
+      "revId": "ccde0a4103ab5b5b9deec415c0fafb486058431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63c39b7e_0595b146",
+        "filename": "handler.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-09-21T17:36:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd424d46_c79114cc",
       "range": {
         "startLine": 68,
         "startChar": 0,
