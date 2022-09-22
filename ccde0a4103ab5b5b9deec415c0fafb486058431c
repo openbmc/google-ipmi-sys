@@ -130,6 +130,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd207f37_f5870de6",
+        "filename": "bmc_mode.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-22T19:37:34Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0ec6c445_5a8bc212",
+      "revId": "ccde0a4103ab5b5b9deec415c0fafb486058431c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd424d46_c79114cc",
