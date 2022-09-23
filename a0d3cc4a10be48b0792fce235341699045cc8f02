@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "076319cf_06231663",
+        "filename": "meson_options.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-23T17:25:27Z",
+      "side": 1,
+      "message": "should probably be `boolean`?\n\nAlso add a new line at the end.",
+      "range": {
+        "startLine": 3,
+        "startChar": 28,
+        "endLine": 3,
+        "endChar": 35
+      },
+      "revId": "a0d3cc4a10be48b0792fce235341699045cc8f02",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
