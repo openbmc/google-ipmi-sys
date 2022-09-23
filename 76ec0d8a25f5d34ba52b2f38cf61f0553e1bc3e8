@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b843a28a_dc06e459",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-23T20:41:47Z",
+      "side": 1,
+      "message": "I guess we can submit it for now to get started. I am fine with this change. Lots of change will be made soon.",
+      "revId": "76ec0d8a25f5d34ba52b2f38cf61f0553e1bc3e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b140db8a_d6408332",
+        "filename": "README.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-23T20:41:47Z",
+      "side": 1,
+      "message": "add new line. Same with the other files.",
+      "range": {
+        "startLine": 438,
+        "startChar": 0,
+        "endLine": 438,
+        "endChar": 132
+      },
+      "revId": "76ec0d8a25f5d34ba52b2f38cf61f0553e1bc3e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c84e26b8_36079592",
+        "filename": "bmc_mode.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-09-23T20:41:47Z",
+      "side": 1,
+      "message": "I believe there are some header here that we can remove.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 17
+      },
+      "revId": "76ec0d8a25f5d34ba52b2f38cf61f0553e1bc3e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
