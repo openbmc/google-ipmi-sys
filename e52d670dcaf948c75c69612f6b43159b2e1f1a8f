@@ -117,6 +117,30 @@
       },
       "revId": "e52d670dcaf948c75c69612f6b43159b2e1f1a8f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45de19a4_5e9cf655",
+        "filename": "handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-09-23T17:04:01Z",
+      "side": 1,
+      "message": "Done.. Added meson_option to accept the flag from EXTRA_OEMESON in bb recipe",
+      "parentUuid": "db907703_aabf0e37",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 17
+      },
+      "revId": "e52d670dcaf948c75c69612f6b43159b2e1f1a8f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
