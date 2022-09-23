@@ -1,0 +1,7 @@
+Code-Review+2: Willy Tu <wltu@google.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Submitted-by: Nikhil Namjoshi <namjoshiniks@gmail.com>
+Submitted-at: Fri, 23 Sep 2022 22:47:06 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/google-ipmi-sys/+/57295
+Project: openbmc/google-ipmi-sys
+Branch: refs/heads/master
