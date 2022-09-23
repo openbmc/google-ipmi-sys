@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5474e9e2_8d632bb0",
+        "filename": "README.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-09-23T22:40:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b140db8a_d6408332",
+      "range": {
+        "startLine": 438,
+        "startChar": 0,
+        "endLine": 438,
+        "endChar": 132
+      },
+      "revId": "76ec0d8a25f5d34ba52b2f38cf61f0553e1bc3e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c84e26b8_36079592",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-09-23T20:41:47Z",
       "side": 1,
       "message": "I believe there are some header here that we can remove.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 17
+      },
+      "revId": "76ec0d8a25f5d34ba52b2f38cf61f0553e1bc3e8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e010bd75_93760f61",
+        "filename": "bmc_mode.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001369
+      },
+      "writtenOn": "2022-09-23T22:40:40Z",
+      "side": 1,
+      "message": "Done.. Also remove unwanted headers from other files in this change.",
+      "parentUuid": "c84e26b8_36079592",
       "range": {
         "startLine": 21,
         "startChar": 0,
