@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "306f47af_c4ab36c2",
+        "filename": "commands.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2022-10-06T22:06:18Z",
+      "side": 1,
+      "message": "this probably don\u0027t need to be added right now since we don\u0027t know how it will be used atm.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 2
+      },
+      "revId": "875917936747ca0adeb819dd1a5cef0dffcff0ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
