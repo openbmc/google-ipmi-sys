@@ -436,3 +436,32 @@ Response
 |--------|------|----
 |0x00|0x10|Subcommand
 |0x01|Current BMC MODE|<ul><li>0 -> Non Bare Metal Mode</li><li>1 -> Bare Metal Mode</li><li>2 -> Bare Metal Cleaning Mode</li></ul>
+
+### TimingSetDuration - SubCommand 0x11
+
+Sent a timing duration to BMC for boot time measurement/recording.
+
+Request
+
+|Byte(s) |Value |Data
+|--------|------|----
+|0x00|0x11|Subcommand
+|0x01| |Length of name string
+|0x02..n| |Name of the duration to report
+|n+1..n+8| |64-bit little endian duration in milliseconds
+
+### Timing Notification - SubCommand 0x12
+
+Notify the BMC of a boot timing event.
+
+Request
+
+|Byte(s) |Value |Data
+|--------|------|----
+|0x00|0x12|Subcommand
+|0x01| |Event ID value from the table below
+
+|Event ID|Description
+|--------|-----------
+|0x00|Reboot
+|0x01|Halt

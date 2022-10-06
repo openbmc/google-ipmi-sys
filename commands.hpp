@@ -55,6 +55,15 @@ enum SysOEMCommands
     SysPCIeSlotBifurcation = 15,
     // The Sys get BMC Mode command
     SysGetBmcMode = 16,
+    // Timing duration message.
+    SysTimingSetDuration = 17,
+    // Timing notification type message.
+    SysTimingNotification = 18,
+};
+
+enum SysTimingNotificationType {
+    SysTimingNotificationTypeReboot = 0,
+    SysTimingNotificationTypeHalt = 1,
 };
 
 } // namespace ipmi
