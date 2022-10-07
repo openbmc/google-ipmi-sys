@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e4f7050_bb6b3559",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2022-10-07T14:37:58Z",
+      "side": 1,
+      "message": "Is this a duplicate of https://gerrit.openbmc.org/c/openbmc/google-ipmi-sys/+/49367 ?",
+      "revId": "875917936747ca0adeb819dd1a5cef0dffcff0ff",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "306f47af_c4ab36c2",
         "filename": "commands.hpp",
         "patchSetId": 2
