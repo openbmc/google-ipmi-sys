@@ -13,6 +13,7 @@
 // limitations under the License.
 #include "handler.hpp"
 
+#include "bmc_mode_enum.hpp"
 #include "errors.hpp"
 #include "handler_impl.hpp"
 #include "util.hpp"
@@ -65,13 +66,6 @@ using Json = nlohmann::json;
 using namespace phosphor::logging;
 using InternalFailure =
     sdbusplus::xyz::openbmc_project::Common::Error::InternalFailure;
-
-enum class BmcMode : uint8_t
-{
-    NON_BM_MODE = 0,
-    BM_MODE,
-    BM_CLEANING_MODE
-};
 
 uint8_t isBmcInBareMetalMode()
 {
