@@ -19,6 +19,7 @@ conf_h = configure_file(
 
 bm_conf_data = configuration_data()
 bm_conf_data.set10('BARE_METAL', get_option('bare_metal'))
+bm_conf_data.set_quoted('BM_SIGNAL_PATH', get_option('bm-signal-path'))
 bm_conf_h = configure_file(
   output: 'bm_config.h',
   configuration: bm_conf_data)
