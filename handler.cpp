@@ -69,11 +69,19 @@ using InternalFailure =
 
 uint8_t isBmcInBareMetalMode()
 {
-#if BARE_METAL
-    return static_cast<uint8_t>(BmcMode::BM_MODE);
-#else
+    // static constexpr auto bmSignalPath = BM_SIGNAL_PATH;
+    std::error_code ec;
+
+    if (fs::exists(BM_SIGNAL_PATH, ec))
+    {
+        std::fprintf(stderr, "%s exists so we must be in BM mode\n",
+                     BM_SIGNAL_PATH);
+        return static_cast<uint8_t>(BmcMode::BM_MODE);
+    }
+
+    std::fprintf(stderr, "Unable to find %s so we must not be in BM mode\n",
+                 BM_SIGNAL_PATH);
     return static_cast<uint8_t>(BmcMode::NON_BM_MODE);
-#endif
 }
 
 uint8_t Handler::getBmcMode()
