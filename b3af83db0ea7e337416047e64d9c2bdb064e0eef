@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b273526b_187cc4d5",
+        "filename": "handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2023-03-29T20:04:45Z",
+      "side": 0,
+      "message": "Actually, we\u0027ll keep the static way in case we want to hardcode the return.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 5
+      },
+      "revId": "b3af83db0ea7e337416047e64d9c2bdb064e0eef",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
