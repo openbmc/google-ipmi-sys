@@ -1,4 +1,22 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc24c0dd_bf53bda9",
+        "filename": "meson_options.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2023-03-30T00:13:37Z",
+      "side": 1,
+      "message": "I know this is probably annoying to do now, but can we move this to `/run`? `/run` is guaranteed to be tmpfs, while `/tmp` could be move to emmc or something and just cleaned with a `tmpfiles.d` file.\n\nAnother nit, can we use typical snake case or similar for filenames to match most other files in linux (not caps).",
+      "revId": "3f3ca03543a1fbaac4362a03374b45a2210fe521",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ],
   "submitRequirementResults": []
 }
