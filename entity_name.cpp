@@ -82,7 +82,7 @@ Resp getEntityName(std::span<const uint8_t> data, HandlerInterface* handler)
     reply.reserve(entityName.length() + sizeof(struct GetEntityNameReply));
     reply.emplace_back(entityName.length()); /* entityNameLength */
     reply.insert(reply.end(), entityName.begin(),
-                 entityName.end()); /* entityName */
+                 entityName.end());          /* entityName */
 
     return ::ipmi::responseSuccess(SysOEMCommands::SysEntityName, reply);
 }

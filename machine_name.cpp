@@ -57,7 +57,7 @@ Resp getMachineName(std::span<const uint8_t>, HandlerInterface* handler)
     reply.reserve(len);
     reply.emplace_back(machineName->size()); /* machineNameLength */
     reply.insert(reply.end(), machineName->begin(),
-                 machineName->end()); /* machineName */
+                 machineName->end());        /* machineName */
 
     return ::ipmi::responseSuccess(SysOEMCommands::SysMachineName, reply);
 }
