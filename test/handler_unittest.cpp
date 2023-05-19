@@ -146,7 +146,7 @@ class MockDbusHandler : public Handler
     }
 
   protected:
-    sdbusplus::bus::bus getDbus() const override
+    sdbusplus::bus_t getDbus() const override
     {
         return sdbusplus::get_mocked_new(
             const_cast<sdbusplus::SdBusMock*>(mock_));
