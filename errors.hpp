@@ -32,8 +32,7 @@ class IpmiException : public std::exception
     explicit IpmiException(int ipmicc) :
         _message("IPMI Code Received: " + std::to_string(ipmicc)),
         _ipmicc(ipmicc)
-    {
-    }
+    {}
 
     virtual const char* what() const noexcept override
     {

@@ -18,9 +18,10 @@
 #include "errors.hpp"
 #include "handler.hpp"
 
+#include <ipmid/api-types.hpp>
+
 #include <cstdint>
 #include <cstring>
-#include <ipmid/api-types.hpp>
 #include <span>
 #include <string>
 #include <vector>
@@ -61,8 +62,8 @@ Resp getEntityName(std::span<const uint8_t> data, HandlerInterface* handler)
     std::string entityName;
     try
     {
-        entityName =
-            handler->getEntityName(request.entityId, request.entityInstance);
+        entityName = handler->getEntityName(request.entityId,
+                                            request.entityInstance);
     }
     catch (const IpmiException& e)
     {

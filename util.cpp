@@ -14,17 +14,18 @@
 
 #include "util.hpp"
 
+#include <nlohmann/json.hpp>
+#include <phosphor-logging/elog-errors.hpp>
+#include <xyz/openbmc_project/Common/error.hpp>
+
 #include <cstdint>
 #include <cstdio>
 #include <filesystem>
 #include <fstream>
-#include <nlohmann/json.hpp>
-#include <phosphor-logging/elog-errors.hpp>
 #include <regex>
 #include <string>
 #include <tuple>
 #include <vector>
-#include <xyz/openbmc_project/Common/error.hpp>
 
 namespace google
 {
@@ -71,7 +72,7 @@ std::string readPropertyFile(const std::string& fileName)
             // If the last character is a null terminator; remove it.
             if (!contents.empty())
             {
-                char const& back = contents.back();
+                const char& back = contents.back();
                 if (back == '\0')
                     contents.pop_back();
             }

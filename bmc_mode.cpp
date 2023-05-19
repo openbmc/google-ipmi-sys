@@ -19,6 +19,7 @@
 #include "handler.hpp"
 
 #include <ipmid/api-types.hpp>
+
 #include <span>
 #include <vector>
 

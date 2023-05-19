@@ -17,10 +17,11 @@
 #include "bifurcation.hpp"
 #include "handler.hpp"
 
-#include <cstdint>
-#include <map>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/bus.hpp>
+
+#include <cstdint>
+#include <map>
 #include <string>
 #include <string_view>
 #include <tuple>

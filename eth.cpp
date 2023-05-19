@@ -17,9 +17,10 @@
 #include "commands.hpp"
 #include "handler.hpp"
 
+#include <ipmid/api-types.hpp>
+
 #include <cstdint>
 #include <cstring>
-#include <ipmid/api-types.hpp>
 #include <span>
 #include <string>
 #include <tuple>

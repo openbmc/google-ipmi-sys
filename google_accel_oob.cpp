@@ -16,9 +16,10 @@
 
 #include "commands.hpp"
 
+#include <sdbusplus/bus.hpp>
+
 #include <cstdint>
 #include <cstring>
-#include <sdbusplus/bus.hpp>
 #include <span>
 #include <string>
 #include <vector>

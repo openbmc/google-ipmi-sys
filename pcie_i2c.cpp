@@ -17,9 +17,10 @@
 #include "commands.hpp"
 #include "handler.hpp"
 
+#include <ipmid/api-types.hpp>
+
 #include <cstdint>
 #include <cstring>
-#include <ipmid/api-types.hpp>
 #include <span>
 #include <string>
 #include <tuple>
@@ -84,8 +85,8 @@ Resp pcieSlotI2cBusMapping(std::span<const uint8_t> data,
     uint32_t i2c_bus_number = std::get<0>(i2cEntry);
     std::string pcie_slot_name = std::get<1>(i2cEntry);
 
-    int length =
-        sizeof(struct PcieSlotI2cBusMappingReply) + pcie_slot_name.length();
+    int length = sizeof(struct PcieSlotI2cBusMappingReply) +
+                 pcie_slot_name.length();
 
     // TODO (jaghu) : Add a way to dynamically receive the MAX_IPMI_BUFFER
     // value and change error to IPMI_CC_REQUESTED_TOO_MANY_BYTES.

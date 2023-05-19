@@ -17,6 +17,7 @@
 #include "handler_mock.hpp"
 
 #include <ipmid/api-types.hpp>
+
 #include <span>
 #include <utility>
 

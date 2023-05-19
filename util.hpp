@@ -14,8 +14,9 @@
 
 #pragma once
 
-#include <cstdint>
 #include <nlohmann/json.hpp>
+
+#include <cstdint>
 #include <string>
 #include <tuple>
 #include <vector>

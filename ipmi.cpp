@@ -31,10 +31,11 @@
 
 #include <ipmid/api.h>
 
-#include <cstdint>
-#include <cstdio>
 #include <ipmid/api-types.hpp>
 #include <ipmid/message.hpp>
+
+#include <cstdint>
+#include <cstdio>
 #include <optional>
 #include <span>
 

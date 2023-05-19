@@ -13,6 +13,8 @@
 // limitations under the License.
 #include "handler.hpp"
 
+#include "bm_config.h"
+
 #include "bmc_mode_enum.hpp"
 #include "errors.hpp"
 #include "handler_impl.hpp"
@@ -25,23 +27,22 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+#include <nlohmann/json.hpp>
+#include <phosphor-logging/elog-errors.hpp>
+#include <phosphor-logging/log.hpp>
+#include <sdbusplus/bus.hpp>
+#include <xyz/openbmc_project/Common/error.hpp>
+
 #include <cinttypes>
 #include <cstdio>
 #include <filesystem>
 #include <fstream>
 #include <map>
-#include <nlohmann/json.hpp>
-#include <phosphor-logging/elog-errors.hpp>
-#include <phosphor-logging/log.hpp>
-#include <sdbusplus/bus.hpp>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <tuple>
 #include <variant>
-#include <xyz/openbmc_project/Common/error.hpp>
-
-#include "bm_config.h"
 
 #ifndef NCSI_IF_NAME
 #define NCSI_IF_NAME eth0
@@ -174,10 +175,10 @@ VersionTuple Handler::getCpldVersion(unsigned int id) const
     // If value parses as expected, return version.
     VersionTuple version = std::make_tuple(0, 0, 0, 0);
 
-    int num_fields =
-        std::sscanf(value.c_str(), "%" SCNu8 ".%" SCNu8 ".%" SCNu8 ".%" SCNu8,
-                    &std::get<0>(version), &std::get<1>(version),
-                    &std::get<2>(version), &std::get<3>(version));
+    int num_fields = std::sscanf(value.c_str(),
+                                 "%" SCNu8 ".%" SCNu8 ".%" SCNu8 ".%" SCNu8,
+                                 &std::get<0>(version), &std::get<1>(version),
+                                 &std::get<2>(version), &std::get<3>(version));
     if (num_fields == 0)
     {
         std::fprintf(stderr, "Invalid version.\n");

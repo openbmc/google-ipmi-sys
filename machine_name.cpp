@@ -17,10 +17,11 @@
 #include "commands.hpp"
 #include "errors.hpp"
 
+#include <ipmid/api-types.hpp>
+
 #include <cstddef>
 #include <cstdio>
 #include <cstring>
-#include <ipmid/api-types.hpp>
 #include <optional>
 #include <span>
 #include <string>

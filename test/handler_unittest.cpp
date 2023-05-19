@@ -18,13 +18,14 @@
 
 #include <systemd/sd-bus.h>
 
+#include <nlohmann/json.hpp>
+#include <sdbusplus/message.hpp>
+#include <sdbusplus/test/sdbus_mock.hpp>
+
 #include <charconv>
 #include <filesystem>
 #include <fstream>
 #include <functional>
-#include <nlohmann/json.hpp>
-#include <sdbusplus/message.hpp>
-#include <sdbusplus/test/sdbus_mock.hpp>
 #include <string>
 #include <tuple>
 
@@ -142,8 +143,7 @@ class MockDbusHandler : public Handler
                     const std::string& config = "") :
         Handler(config),
         mock_(&mock)
-    {
-    }
+    {}
 
   protected:
     sdbusplus::bus_t getDbus() const override

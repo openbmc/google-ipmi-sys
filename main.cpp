@@ -17,12 +17,13 @@
 
 #include <ipmid/api.h>
 
-#include <cstdint>
-#include <cstdio>
-#include <functional>
 #include <ipmid/api-types.hpp>
 #include <ipmid/handler.hpp>
 #include <ipmid/iana.hpp>
+
+#include <cstdint>
+#include <cstdio>
+#include <functional>
 #include <span>
 
 namespace oem
@@ -52,9 +53,8 @@ void setupGoogleOemSysCommands()
                                oem::google::sysCmd, ::ipmi::Privilege::User,
                                [](::ipmi::Context::ptr ctx, uint8_t cmd,
                                   const std::vector<uint8_t>& data) {
-                                   return handleSysCommand(&handlerImpl, ctx,
-                                                           cmd, data);
-                               });
+        return handleSysCommand(&handlerImpl, ctx, cmd, data);
+    });
 }
 
 } // namespace ipmi

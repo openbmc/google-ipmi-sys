@@ -17,10 +17,11 @@
 
 #include <fmt/format.h>
 
+#include <nlohmann/json.hpp>
+
 #include <charconv>
 #include <filesystem>
 #include <fstream>
-#include <nlohmann/json.hpp>
 #include <optional>
 #include <string_view>
 #include <vector>
@@ -32,13 +33,11 @@ namespace ipmi
 
 BifurcationStatic::BifurcationStatic() :
     BifurcationStatic(STATIC_BIFURCATION_CONFIG)
-{
-}
+{}
 
 BifurcationStatic::BifurcationStatic(std::string_view bifurcationFile) :
     bifurcationFile(bifurcationFile)
-{
-}
+{}
 
 std::optional<std::vector<uint8_t>>
     BifurcationStatic::getBifurcation(uint8_t index) noexcept
@@ -77,7 +76,7 @@ std::optional<std::vector<uint8_t>>
         auto value = jsonData[key];
         value.get_to(vec);
     }
-    catch (std::exception const& e)
+    catch (const std::exception& e)
     {
         fmt::print(stderr,
                    "Failed to convert bifurcation value to vec[uin8_t]\n");

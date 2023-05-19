@@ -31,7 +31,6 @@ namespace ipmi
 
 class HandlerMock : public HandlerInterface
 {
-
   public:
     ~HandlerMock() = default;
 

@@ -18,8 +18,9 @@
 #include "errors.hpp"
 #include "handler.hpp"
 
-#include <cstring>
 #include <ipmid/api-types.hpp>
+
+#include <cstring>
 #include <span>
 #include <vector>
 

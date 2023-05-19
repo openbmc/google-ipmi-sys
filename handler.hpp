@@ -14,8 +14,9 @@
 
 #pragma once
 
-#include <cstdint>
 #include <ipmid/api-types.hpp>
+
+#include <cstdint>
 #include <map>
 #include <span>
 #include <string>
