@@ -102,7 +102,7 @@ Resp pcieSlotI2cBusMapping(std::span<const uint8_t> data,
     reply.emplace_back(i2c_bus_number);          /* i2c_bus_number */
     reply.emplace_back(pcie_slot_name.length()); /* pcie_slot_name length */
     reply.insert(reply.end(), pcie_slot_name.begin(),
-                 pcie_slot_name.end()); /* pcie_slot_name */
+                 pcie_slot_name.end());          /* pcie_slot_name */
 
     return ::ipmi::responseSuccess(SysOEMCommands::SysPcieSlotI2cBusMapping,
                                    reply);

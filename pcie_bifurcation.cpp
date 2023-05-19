@@ -66,7 +66,7 @@ Resp pcieBifurcation(std::span<const uint8_t> data, HandlerInterface* handler)
     reply.reserve(bifurcation.size() + sizeof(struct PcieBifurcationReply));
     reply.emplace_back(bifurcation.size()); /* bifurcationLength */
     reply.insert(reply.end(), bifurcation.begin(),
-                 bifurcation.end()); /* bifurcation */
+                 bifurcation.end());        /* bifurcation */
 
     return ::ipmi::responseSuccess(SysOEMCommands::SysPCIeSlotBifurcation,
                                    reply);
