@@ -2,7 +2,7 @@ project(
   'google-ipmi-sys',
   'cpp',
   version: '0.1',
-  meson_version: '>=0.57.0',
+  meson_version: '>=0.58.0',
   default_options: [
     'cpp_std=c++20',
     'warning_level=3',
@@ -106,5 +106,5 @@ if systemd_dep.found()
     'gbmc-psu-hardreset.target',
     'gbmc-psu-hardreset-pre.target',
     'gbmc-psu-hardreset-time.service',
-    install_dir: systemd_dep.get_variable(pkgconfig: 'systemdsystemunitdir'))
+    install_dir: systemd_dep.get_variable('systemdsystemunitdir'))
 endif
