@@ -205,11 +205,11 @@ void ExpectGetManagedObjects(StrictMock<sdbusplus::SdBusMock>& mock,
                           StrEq("GetManagedObjects")))
         .WillOnce(DoAll(SetArgPointee<1>(method), Return(0)));
 
-    EXPECT_CALL(mock, sd_bus_call(_,          // sd_bus *bus,
-                                  method,     // sd_bus_message *m
-                                  _,          // uint64_t timeout
-                                  NotNull(),  // sd_bus_error *ret_error
-                                  NotNull())) // sd_bus_message **reply
+    EXPECT_CALL(mock, sd_bus_call(_,           // sd_bus *bus,
+                                  method,      // sd_bus_message *m
+                                  _,           // uint64_t timeout
+                                  NotNull(),   // sd_bus_error *ret_error
+                                  NotNull()))  // sd_bus_message **reply
         .WillOnce(DoAll(SetArgPointee<3>(SD_BUS_ERROR_NULL),
                         SetArgPointee<4>(msg), // reply
                         Return(0)));
@@ -395,11 +395,11 @@ void ExpectRead(StrictMock<sdbusplus::SdBusMock>& mock, uint64_t address,
                         Pointee(Eq<uint64_t>(num_bytes))))))
         .WillOnce(Return(1));
 
-    EXPECT_CALL(mock, sd_bus_call(_,          // sd_bus *bus,
-                                  method,     // sd_bus_message *m
-                                  _,          // uint64_t timeout
-                                  NotNull(),  // sd_bus_error *ret_error
-                                  NotNull())) // sd_bus_message **reply
+    EXPECT_CALL(mock, sd_bus_call(_,           // sd_bus *bus,
+                                  method,      // sd_bus_message *m
+                                  _,           // uint64_t timeout
+                                  NotNull(),   // sd_bus_error *ret_error
+                                  NotNull()))  // sd_bus_message **reply
         .WillOnce(DoAll(SetArgPointee<3>(SD_BUS_ERROR_NULL),
                         SetArgPointee<4>(msg), // reply
                         Return(sd_bus_call_return_value)));
