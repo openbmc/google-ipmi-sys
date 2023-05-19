@@ -437,7 +437,7 @@ using ArrayOfObjectPathsAndTieredAnyTypeLists = std::vector<
 
 } // namespace
 
-sdbusplus::bus::bus Handler::getDbus() const
+sdbusplus::bus_t Handler::getDbus() const
 {
     return sdbusplus::bus::new_default();
 }
