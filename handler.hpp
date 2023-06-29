@@ -203,6 +203,14 @@ class HandlerInterface
      * @return list of lanes taken by each device.
      */
     virtual std::vector<uint8_t> pcieBifurcation(uint8_t index) = 0;
+
+    /**
+     * Prepare for OS boot.
+     *
+     * If in bare metal mode, the BMC will disable IPMI, to protect against an
+     * untrusted OS.
+     */
+    virtual void linuxBootDone() const = 0;
 };
 
 } // namespace ipmi

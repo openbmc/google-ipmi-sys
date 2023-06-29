@@ -433,3 +433,26 @@ Response
 | ------- | ---------------- | ------------------------------------------------------------------------------------------------------------- |
 | 0x00    | 0x10             | Subcommand                                                                                                    |
 | 0x01    | Current BMC MODE | <ul><li>0 -> Non Bare Metal Mode</li><li>1 -> Bare Metal Mode</li><li>2 -> Bare Metal Cleaning Mode</li></ul> |
+
+### LinuxBootDone - SubCommand 0x11
+
+Notify the BMC that LinuxBoot is finished and will kexec into the OS
+momentarily.
+
+If in bare metal mode, the BMC will disable IPMI upon receiving this command, to
+protect against a malicious OS. For this reason, the BMC may not respond to this
+command.
+
+If not in bare metal mode, this command has no effect.
+
+Request
+
+| Byte(s) | Value | Data       |
+| ------- | ----- | ---------- |
+| 0x00    | 0x11  | Subcommand |
+
+Response (if applicable)
+
+| Byte(s) | Value | Data       |
+| ------- | ----- | ---------- |
+| 0x00    | 0x11  | Subcommand |
