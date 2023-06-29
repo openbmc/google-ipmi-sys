@@ -71,6 +71,7 @@ sys_lib = static_library(
   'handler.cpp',
   'host_power_off.cpp',
   'ipmi.cpp',
+  'linux_boot_done.cpp',
   'machine_name.cpp',
   'pcie_i2c.cpp',
   'google_accel_oob.cpp',
@@ -102,6 +103,7 @@ shared_module(
 systemd_dep = dependency('systemd')
 if systemd_dep.found()
   install_data(
+    'gbmc-bare-metal-active.target',
     'gbmc-host-poweroff.target',
     'gbmc-psu-hardreset.target',
     'gbmc-psu-hardreset-pre.target',
