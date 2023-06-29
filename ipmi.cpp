@@ -24,6 +24,7 @@
 #include "google_accel_oob.hpp"
 #include "handler.hpp"
 #include "host_power_off.hpp"
+#include "linux_boot_done.hpp"
 #include "machine_name.hpp"
 #include "pcie_bifurcation.hpp"
 #include "pcie_i2c.hpp"
@@ -83,6 +84,8 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr,
             return accelOobWrite(data, handler);
         case SysPCIeSlotBifurcation:
             return pcieBifurcation(data, handler);
+        case SysLinuxBootDone:
+            return linuxBootDone(data, handler);
         default:
             std::fprintf(stderr, "Invalid subcommand: 0x%x\n", cmd);
             return ::ipmi::responseInvalidCommand();
