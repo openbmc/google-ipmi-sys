@@ -55,6 +55,8 @@ enum SysOEMCommands
     SysPCIeSlotBifurcation = 15,
     // The Sys get BMC Mode command
     SysGetBmcMode = 16,
+    // The Sys Linux Boot Done command
+    SysLinuxBootDone = 17,
 };
 
 } // namespace ipmi
