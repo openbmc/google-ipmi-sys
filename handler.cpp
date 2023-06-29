@@ -633,5 +633,36 @@ std::vector<uint8_t> Handler::pcieBifurcation(uint8_t index)
         std::vector<uint8_t>{});
 }
 
+static constexpr auto BARE_METAL_TARGET = "gbmc-bare-metal-active.target";
+
+void Handler::linuxBootDone() const
+{
+    if (isBmcInBareMetalMode() != static_cast<uint8_t>(BmcMode::BM_MODE))
+    {
+        return;
+    }
+
+    log<level::INFO>("LinuxBootDone: Disabling IPMI");
+
+    // Start the bare metal active systemd target.
+    auto bus = sdbusplus::bus::new_default();
+    auto method = bus.new_method_call(SYSTEMD_SERVICE, SYSTEMD_ROOT,
+                                      SYSTEMD_INTERFACE, "StartUnit");
+
+    method.append(BARE_METAL_TARGET);
+    method.append("replace");
+
+    try
+    {
+        bus.call_noreply(method);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        log<level::ERR>("Failed to start bare metal active systemd target",
+                        entry("WHAT=%s", ex.what());
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+}
+
 } // namespace ipmi
 } // namespace google
