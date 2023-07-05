@@ -100,8 +100,31 @@ shared_module(
   install: true,
   install_dir: get_option('libdir') / 'ipmid-providers')
 
+executable(
+  'espi-control',
+  'espi_control.cpp',
+  implicit_include_directories: false,
+  dependencies:
+  [
+    dependency('stdplus'),
+  ],
+  install: true,
+  install_dir: get_option('libexecdir'),
+)
+
 systemd_dep = dependency('systemd')
 if systemd_dep.found()
+  conf_data = configuration_data()
+  conf_data.set('libexecdir', get_option('prefix') / get_option('libexecdir'))
+
+  configure_file(
+    configuration: conf_data,
+    input: 'gbmc-disable-espi.service.in',
+    output: 'gbmc-disable-espi.service',
+    install_dir: systemd_dep.get_variable('systemdsystemunitdir'),
+    install: true,
+  )
+
   install_data(
     'gbmc-bare-metal-active.target',
     'gbmc-host-poweroff.target',
