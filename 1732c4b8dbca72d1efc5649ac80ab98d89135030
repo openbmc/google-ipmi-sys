@@ -22,6 +22,30 @@
       },
       "revId": "1732c4b8dbca72d1efc5649ac80ab98d89135030",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecbccc5d_af6f0a43",
+        "filename": "espi_control.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001202
+      },
+      "writtenOn": "2023-07-06T21:57:11Z",
+      "side": 1,
+      "message": "The register addresses are fixed for all Nuvoton BMCs (at least it\u0027s the same for NPCM730 and NPCM750), so I don\u0027t think these need to be configurable.\n\nIf we wanted to support Aspeed, the registers are different, and it would probably require new code to support that. For example, I don\u0027t think Aspeed has ESPICFG and ESPIHINDP.\n\nSo that\u0027s why I have this code make sure it\u0027s running on a Nuvoton before doing anything.",
+      "parentUuid": "7000727b_4a103ab6",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 41
+      },
+      "revId": "1732c4b8dbca72d1efc5649ac80ab98d89135030",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
