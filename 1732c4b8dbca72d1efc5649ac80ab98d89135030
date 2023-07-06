@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7000727b_4a103ab6",
+        "filename": "espi_control.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2023-07-06T20:29:51Z",
+      "side": 1,
+      "message": "I wonder if we need to make these configurable per platform?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 41
+      },
+      "revId": "1732c4b8dbca72d1efc5649ac80ab98d89135030",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
