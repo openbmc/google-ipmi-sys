@@ -70,6 +70,30 @@
       },
       "revId": "1732c4b8dbca72d1efc5649ac80ab98d89135030",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "759c0b8e_5085e92a",
+        "filename": "espi_control.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001202
+      },
+      "writtenOn": "2023-07-06T23:00:03Z",
+      "side": 1,
+      "message": "Alright, I\u0027ll add a disclaimer when I open a new review in google-misc.\n\nFrom looking at the datasheet for NPCM840, the relevant register addresses look the same, but the product ID is different. I\u0027ll probably add a comment about this, saying how this executable would probably work on NPDM8xx, but we\u0027d need to support a new PDID.",
+      "parentUuid": "858bb930_0dababf6",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 41
+      },
+      "revId": "1732c4b8dbca72d1efc5649ac80ab98d89135030",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
