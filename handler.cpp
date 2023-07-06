@@ -68,21 +68,59 @@ using namespace phosphor::logging;
 using InternalFailure =
     sdbusplus::xyz::openbmc_project::Common::Error::InternalFailure;
 
+static constexpr auto bm_drive_cleaning_flag_path =
+    "/run/bm-drive-cleaning.flag";
+static constexpr auto bm_drive_cleaning_done_flag_path =
+    "/run/bm-drive-cleaning-done.flag";
+static constexpr auto bm_drive_cleaning_done_ack_flag_path =
+    "/run/bm-drive-cleaning-done-ack.flag";
+
 uint8_t isBmcInBareMetalMode()
 {
 #if BARE_METAL
     return static_cast<uint8_t>(BmcMode::BM_MODE);
 #else
     std::error_code ec;
-    if (fs::exists(BM_SIGNAL_PATH, ec))
+
+    if (fs::exists(bm_drive_cleaning_done_ack_flag_path, ec))
     {
-        std::fprintf(stderr, "%s exists so we must be in BM mode\n",
-                     BM_SIGNAL_PATH);
+        std::fprintf(
+            stderr,
+            "%s exists so we acked cleaning done and must be in BM mode\n",
+            bm_drive_cleaning_done_ack_flag_path);
         return static_cast<uint8_t>(BmcMode::BM_MODE);
     }
 
-    std::fprintf(stderr, "Unable to find %s so we must not be in BM mode\n",
-                 BM_SIGNAL_PATH);
+    if (fs::exists(bm_drive_cleaning_done_flag_path, ec))
+    {
+        fs::rename(bm_drive_cleaning_done_flag_path,
+                   bm_drive_cleaning_done_ack_flag_path, ec);
+        std::fprintf(
+            stderr,
+            "%s exists so we just finished cleaning and must be in BM mode\n",
+            bm_drive_cleaning_done_flag_path);
+        return static_cast<uint8_t>(BmcMode::BM_MODE);
+    }
+
+    if (fs::exists(BM_SIGNAL_PATH, ec))
+    {
+        if (!fs::exists(bm_drive_cleaning_flag_path, ec))
+        {
+            std::ofstream ofs;
+            ofs.open(bm_drive_cleaning_flag_path, std::ofstream::out);
+            ofs.close();
+        }
+
+        std::fprintf(
+            stderr,
+            "%s exists and no done/ack flag, we must be in BM cleaning mode\n",
+            BM_SIGNAL_PATH);
+        return static_cast<uint8_t>(BmcMode::BM_CLEANING_MODE);
+    }
+
+    std::fprintf(
+        stderr,
+        "Unable to find any BM state files so we must not be in BM mode\n");
     return static_cast<uint8_t>(BmcMode::NON_BM_MODE);
 #endif
 }
