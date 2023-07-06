@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc855079_cc21296f",
+        "filename": "handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-07-06T19:56:29Z",
+      "side": 1,
+      "message": "flip the logoic to save horizontal space.\n\n```\nif (isBmcInBareMetalMode() !\u003d static_cast\u003cuint8_t\u003e(BmcMode::BM_MODE))\n{\n  return;\n}\n\n...\n```",
+      "range": {
+        "startLine": 640,
+        "startChar": 4,
+        "endLine": 640,
+        "endChar": 73
+      },
+      "revId": "704020de33140f1a57c487f8f88c4cb2695e0b45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c8f1a6b_cdfd9b07",
+        "filename": "handler.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-07-06T19:56:29Z",
+      "side": 1,
+      "message": "log the error?",
+      "range": {
+        "startLine": 656,
+        "startChar": 55,
+        "endLine": 656,
+        "endChar": 57
+      },
+      "revId": "704020de33140f1a57c487f8f88c4cb2695e0b45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b010d6ab_ce6e94af",
+        "filename": "linux_boot_done.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-07-06T19:56:29Z",
+      "side": 1,
+      "message": "nit: move this outside the try catch.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 68
+      },
+      "revId": "704020de33140f1a57c487f8f88c4cb2695e0b45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d4d1ae8_b6ed8fdd",
+        "filename": "linux_boot_done.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-07-06T19:56:29Z",
+      "side": 1,
+      "message": "2023. same with the others.",
+      "range": {
+        "startLine": 1,
+        "startChar": 13,
+        "endLine": 1,
+        "endChar": 17
+      },
+      "revId": "704020de33140f1a57c487f8f88c4cb2695e0b45",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
