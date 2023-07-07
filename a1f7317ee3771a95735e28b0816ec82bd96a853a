@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecb3bceb_bb3becf0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2023-07-07T22:17:00Z",
+      "side": 1,
+      "message": "nit: done",
+      "range": {
+        "startLine": 31,
+        "startChar": 24,
+        "endLine": 31,
+        "endChar": 28
+      },
+      "revId": "a1f7317ee3771a95735e28b0816ec82bd96a853a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "207dd713_7c650aa5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2023-07-07T22:17:00Z",
+      "side": 1,
+      "message": "Thanks for adding the tested section. Let\u0027s try to add unit test here or in the next CL to make sure we have coverage for this (as mentioned in the other comment)",
+      "revId": "a1f7317ee3771a95735e28b0816ec82bd96a853a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
