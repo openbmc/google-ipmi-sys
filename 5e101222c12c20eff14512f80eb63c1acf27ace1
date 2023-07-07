@@ -68,6 +68,30 @@
       },
       "revId": "5e101222c12c20eff14512f80eb63c1acf27ace1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4aa43cc3_47a105bb",
+        "filename": "handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001503
+      },
+      "writtenOn": "2023-07-07T17:20:53Z",
+      "side": 1,
+      "message": "Oh do you mean checking ec?\n\nI see this comment `// We\u0027re uninterested in the state of ec.` in other spot where ec is used. I guess this is intended? @Brandon",
+      "parentUuid": "faf8026b_6c4bf31f",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 61
+      },
+      "revId": "5e101222c12c20eff14512f80eb63c1acf27ace1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
