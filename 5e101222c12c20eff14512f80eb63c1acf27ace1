@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a5f8f15_27766f78",
+        "filename": "handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2023-07-07T00:26:03Z",
+      "side": 1,
+      "message": "Could we add unit tests? (apologies, this wasn\u0027t done in earlier changes). \n\nThey can be added separately in a later CL",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 30
+      },
+      "revId": "5e101222c12c20eff14512f80eb63c1acf27ace1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
