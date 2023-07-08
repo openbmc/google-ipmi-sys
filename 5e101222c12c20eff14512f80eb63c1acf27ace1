@@ -164,6 +164,30 @@
       },
       "revId": "5e101222c12c20eff14512f80eb63c1acf27ace1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2be22e5_c2db7060",
+        "filename": "handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001503
+      },
+      "writtenOn": "2023-07-08T00:22:37Z",
+      "side": 1,
+      "message": "Oh I see. Good point. \n\nActually that\u0027s why rename method with ec as the last argument is used since it guarantee noexcept. So even if this failed, it will continue return BM_MODE a few lines later. So I think this won\u0027t be a problem if I understand correctly",
+      "parentUuid": "5604934e_3a5879b9",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 97,
+        "endChar": 61
+      },
+      "revId": "5e101222c12c20eff14512f80eb63c1acf27ace1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
