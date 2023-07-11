@@ -29,6 +29,7 @@ tests = [
   'psu',
   'pcie_bifurcation',
   'bmc_mode',
+  'bm_mode_transition',
 ]
 
 foreach t : tests
