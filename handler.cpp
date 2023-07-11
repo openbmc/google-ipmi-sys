@@ -62,26 +62,19 @@ namespace google
 {
 namespace ipmi
 {
-namespace fs = std::filesystem;
 using Json = nlohmann::json;
 using namespace phosphor::logging;
 using InternalFailure =
     sdbusplus::xyz::openbmc_project::Common::Error::InternalFailure;
 
-static constexpr auto bmDriveCleaningFlagPath = "/run/bm-drive-cleaning.flag";
-static constexpr auto bmDriveCleaningDoneFlagPath =
-    "/run/bm-drive-cleaning-done.flag";
-static constexpr auto bmDriveCleaningDoneAckFlagPath =
-    "/run/bm-drive-cleaning-done-ack.flag";
-
-uint8_t isBmcInBareMetalMode()
+uint8_t isBmcInBareMetalMode(const std::shared_ptr<FileSystemInterface>& fs)
 {
 #if BARE_METAL
     return static_cast<uint8_t>(BmcMode::BM_MODE);
 #else
     std::error_code ec;
 
-    if (fs::exists(bmDriveCleaningDoneAckFlagPath, ec))
+    if (fs->exists(bmDriveCleaningDoneAckFlagPath, ec))
     {
         std::fprintf(
             stderr,
@@ -90,9 +83,9 @@ uint8_t isBmcInBareMetalMode()
         return static_cast<uint8_t>(BmcMode::BM_MODE);
     }
 
-    if (fs::exists(bmDriveCleaningDoneFlagPath, ec))
+    if (fs->exists(bmDriveCleaningDoneFlagPath, ec))
     {
-        fs::rename(bmDriveCleaningDoneFlagPath, bmDriveCleaningDoneAckFlagPath,
+        fs->rename(bmDriveCleaningDoneFlagPath, bmDriveCleaningDoneAckFlagPath,
                    ec);
         std::fprintf(
             stderr,
@@ -101,13 +94,11 @@ uint8_t isBmcInBareMetalMode()
         return static_cast<uint8_t>(BmcMode::BM_MODE);
     }
 
-    if (fs::exists(BM_SIGNAL_PATH, ec))
+    if (fs->exists(BM_SIGNAL_PATH, ec))
     {
-        if (!fs::exists(bmDriveCleaningFlagPath, ec))
+        if (!fs->exists(bmDriveCleaningFlagPath, ec))
         {
-            std::ofstream ofs;
-            ofs.open(bmDriveCleaningFlagPath, std::ofstream::out);
-            ofs.close();
+            fs->create(bmDriveCleaningFlagPath);
         }
 
         std::fprintf(
@@ -127,7 +118,7 @@ uint8_t isBmcInBareMetalMode()
 uint8_t Handler::getBmcMode()
 {
     // BM_CLEANING_MODE is not implemented yet
-    return isBmcInBareMetalMode();
+    return isBmcInBareMetalMode(this->fsPtr);
 }
 
 std::tuple<std::uint8_t, std::string>
@@ -157,7 +148,7 @@ std::int64_t Handler::getRxPackets(const std::string& name) const
     }
 
     std::error_code ec;
-    if (!fs::exists(path, ec))
+    if (!this->getFs()->exists(path, ec))
     {
         std::fprintf(stderr, "Path: '%s' doesn't exist.\n", path.c_str());
         throw IpmiException(::ipmi::ccInvalidFieldRequest);
@@ -187,7 +178,7 @@ VersionTuple Handler::getCpldVersion(unsigned int id) const
     // Check for file
 
     std::error_code ec;
-    if (!fs::exists(opath.str(), ec))
+    if (!this->getFs()->exists(opath.str(), ec))
     {
         std::fprintf(stderr, "Path: '%s' doesn't exist.\n",
                      opath.str().c_str());
@@ -480,6 +471,11 @@ sdbusplus::bus_t Handler::getDbus() const
     return sdbusplus::bus::new_default();
 }
 
+const std::shared_ptr<FileSystemInterface>& Handler::getFs() const
+{
+    return this->fsPtr;
+}
+
 uint32_t Handler::accelOobDeviceCount() const
 {
     ArrayOfObjectPathsAndTieredAnyTypeLists data;
@@ -674,7 +670,8 @@ static constexpr auto BARE_METAL_TARGET = "gbmc-bare-metal-active.target";
 
 void Handler::linuxBootDone() const
 {
-    if (isBmcInBareMetalMode() != static_cast<uint8_t>(BmcMode::BM_MODE))
+    if (isBmcInBareMetalMode(this->fsPtr) !=
+        static_cast<uint8_t>(BmcMode::BM_MODE))
     {
         return;
     }
