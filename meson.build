@@ -75,6 +75,7 @@ sys_lib = static_library(
   'pcie_i2c.cpp',
   'google_accel_oob.cpp',
   'pcie_bifurcation.cpp',
+  'file_system_wrapper.cpp',
   'psu.cpp',
   'util.cpp',
   implicit_include_directories: false,
