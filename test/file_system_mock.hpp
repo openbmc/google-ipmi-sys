@@ -14,23 +14,27 @@
 
 #pragma once
 
-#include <cstdint>
+#include "file_system_wrapper.hpp"
+
+#include <gmock/gmock.h>
 
 namespace google
 {
 namespace ipmi
 {
-inline constexpr auto bmDriveCleaningFlagPath = "/run/bm-drive-cleaning.flag";
-inline constexpr auto bmDriveCleaningDoneFlagPath =
-    "/run/bm-drive-cleaning-done.flag";
-inline constexpr auto bmDriveCleaningDoneAckFlagPath =
-    "/run/bm-drive-cleaning-done-ack.flag";
+namespace fs = std::filesystem;
 
-enum class BmcMode : uint8_t
+class FileSystemMock : public FileSystemInterface
 {
-    NON_BM_MODE = 0,
-    BM_MODE,
-    BM_CLEANING_MODE
+  public:
+    ~FileSystemMock() = default;
+
+    MOCK_METHOD(bool, exists, (const fs::path&, std::error_code&),
+                (const, override));
+    MOCK_METHOD(void, rename,
+                (const fs::path&, const fs::path&, std::error_code&),
+                (const, override));
+    MOCK_METHOD(void, create, (const char*), (const, override));
 };
 
 } // namespace ipmi

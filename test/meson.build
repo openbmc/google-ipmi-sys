@@ -30,6 +30,7 @@ tests = [
   'pcie_bifurcation',
   'bmc_mode',
   'linux_boot_done',
+  'bm_mode_transition',
 ]
 
 foreach t : tests

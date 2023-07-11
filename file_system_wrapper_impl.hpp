@@ -1,4 +1,4 @@
-// Copyright 2022 Google LLC
+// Copyright 2023 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,23 +14,21 @@
 
 #pragma once
 
-#include <cstdint>
+#include "file_system_wrapper.hpp"
 
 namespace google
 {
 namespace ipmi
 {
-inline constexpr auto bmDriveCleaningFlagPath = "/run/bm-drive-cleaning.flag";
-inline constexpr auto bmDriveCleaningDoneFlagPath =
-    "/run/bm-drive-cleaning-done.flag";
-inline constexpr auto bmDriveCleaningDoneAckFlagPath =
-    "/run/bm-drive-cleaning-done-ack.flag";
+namespace fs = std::filesystem;
 
-enum class BmcMode : uint8_t
+class FileSystemWrapper : public FileSystemInterface
 {
-    NON_BM_MODE = 0,
-    BM_MODE,
-    BM_CLEANING_MODE
+  public:
+    bool exists(const fs::path& path, std::error_code& ec) const;
+    void rename(const fs::path& oldPath, const fs::path& newPath,
+                std::error_code& ec) const;
+    void create(const char* path) const;
 };
 
 } // namespace ipmi
