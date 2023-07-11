@@ -15,6 +15,7 @@
 #pragma once
 
 #include "bifurcation.hpp"
+#include "file_system_wrapper_impl.hpp"
 #include "handler.hpp"
 
 #include <nlohmann/json.hpp>
@@ -22,6 +23,7 @@
 
 #include <cstdint>
 #include <map>
+#include <memory>
 #include <string>
 #include <string_view>
 #include <tuple>
@@ -39,12 +41,13 @@ class Handler : public HandlerInterface
 {
   public:
     explicit Handler(const std::string& entityConfigPath = defaultConfigFile) :
+        fsPtr(std::make_shared<FileSystemWrapper>()),
         _configFile(entityConfigPath),
         bifurcationHelper(BifurcationStatic::createBifurcation()){};
     Handler(std::reference_wrapper<BifurcationInterface> bifurcationHelper,
             const std::string& entityConfigPath = defaultConfigFile) :
-        _configFile(entityConfigPath),
-        bifurcationHelper(bifurcationHelper){};
+        fsPtr(std::make_shared<FileSystemWrapper>()),
+        _configFile(entityConfigPath), bifurcationHelper(bifurcationHelper){};
     ~Handler() = default;
 
     uint8_t getBmcMode() override;
@@ -72,9 +75,12 @@ class Handler : public HandlerInterface
                        uint8_t num_bytes, uint64_t data) const override;
     void linuxBootDone() const override;
 
+    std::shared_ptr<FileSystemInterface> fsPtr;
+
   protected:
     // Exposed for dependency injection
     virtual sdbusplus::bus_t getDbus() const;
+    virtual const std::shared_ptr<FileSystemInterface> getFs() const;
 
   private:
     std::string _configFile;

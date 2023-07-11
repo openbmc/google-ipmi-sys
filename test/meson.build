@@ -29,7 +29,11 @@ tests = [
   'psu',
   'pcie_bifurcation',
   'bmc_mode',
+<<<<<<< HEAD
   'linux_boot_done',
+=======
+  'bm_mode_transition',
+>>>>>>> 714f7c6 (File System: Dependency Injection and Mock)
 ]
 
 foreach t : tests
