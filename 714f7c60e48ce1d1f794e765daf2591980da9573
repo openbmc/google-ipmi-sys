@@ -95,6 +95,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "381496a4_c5655280",
+        "filename": "handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2023-07-12T22:20:05Z",
+      "side": 1,
+      "message": "I don\u0027t think you need more than a reference right now, we don\u0027t need to actually share ownership.",
+      "revId": "714f7c60e48ce1d1f794e765daf2591980da9573",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6d867256_4cc5160e",
         "filename": "handler_impl.hpp",
         "patchSetId": 3
