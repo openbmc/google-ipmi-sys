@@ -1,0 +1,8 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+2: Brandon Kim <brandonkim@google.com>
+Code-Review+2: Willy Tu <wltu@google.com>
+Submitted-by: John Wedig <johnwedig@google.com>
+Submitted-at: Wed, 12 Jul 2023 17:14:09 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/google-ipmi-sys/+/64689
+Project: openbmc/google-ipmi-sys
+Branch: refs/heads/master
