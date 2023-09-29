@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f2f3717_2318e533",
+        "filename": "bifurcation/bifurcation.cpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-09-29T18:08:49Z",
+      "side": 1,
+      "message": "The expected output is in vector\u003cuint8_t\u003e, so at the end of the day we will hit the same issue.",
+      "parentUuid": "def60698_ae353f30",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "163e5122_76575dc5",
         "filename": "bifurcation/bifurcation.cpp",
         "patchSetId": 20
@@ -247,6 +265,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "481e1a5e_f213d09a",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-09-29T18:08:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b3f76e7_36e212a6",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9799b26_9e53c6ed",
@@ -296,6 +332,24 @@
       "side": 1,
       "message": "It seems `getBifurcation` isn\u0027t used anywhere?",
       "parentUuid": "7c63b8e0_87d2fc27",
+      "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f9fb6f3_e9c6663e",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-09-29T18:08:49Z",
+      "side": 1,
+      "message": "not sued anymore.",
+      "parentUuid": "6d320422_f82d3b46",
       "revId": "c805160fee9041f290c39f7dd7e6b3519ddc8eb3",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },

@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "400ff233_c57b0056",
+        "filename": "bifurcation/bifurcation.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-09-29T18:08:49Z",
+      "side": 1,
+      "message": "outdated.",
+      "parentUuid": "7d449180_b02a5c4c",
+      "range": {
+        "startLine": 183,
+        "startChar": 57,
+        "endLine": 183,
+        "endChar": 58
+      },
+      "revId": "7bd6d073eba75040795c941f89617385e9da189d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "505d50bc_234aad9e",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-04-12T21:45:30Z",
       "side": 1,
       "message": "oh whoa, just realized this is recursive due to walkI2CTreeBifurcation-\u003ewalkMux -\u003ewalkChannel-\u003ewalkI2CTreeBifurcation\n\nIs this intended? Might be good to call it out in the comment in doxygen",
+      "range": {
+        "startLine": 190,
+        "startChar": 15,
+        "endLine": 190,
+        "endChar": 37
+      },
+      "revId": "7bd6d073eba75040795c941f89617385e9da189d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d612b996_6062b3ad",
+        "filename": "bifurcation/bifurcation.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-09-29T18:08:49Z",
+      "side": 1,
+      "message": "outdated and removed.",
+      "parentUuid": "505d50bc_234aad9e",
       "range": {
         "startLine": 190,
         "startChar": 15,
@@ -142,6 +190,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92cc86a0_d27d5ca2",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-09-29T18:08:49Z",
+      "side": 1,
+      "message": "removed.",
+      "parentUuid": "98970f83_7d328ec2",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 52
+      },
+      "revId": "7bd6d073eba75040795c941f89617385e9da189d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "46dfa2e1_50e0d3a0",
@@ -155,6 +227,30 @@
       "writtenOn": "2022-04-12T21:45:30Z",
       "side": 1,
       "message": "nit: doxygen comment.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 5
+      },
+      "revId": "7bd6d073eba75040795c941f89617385e9da189d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1bd7c78_cb8e5805",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-09-29T18:08:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46dfa2e1_50e0d3a0",
       "range": {
         "startLine": 61,
         "startChar": 0,
@@ -188,6 +284,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fb10fe3_81127285",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-09-29T18:08:49Z",
+      "side": 1,
+      "message": "rm.",
+      "parentUuid": "a0aec7c3_fabdb6ea",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 27
+      },
+      "revId": "7bd6d073eba75040795c941f89617385e9da189d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "934b8dde_cbde609f",
@@ -201,6 +321,30 @@
       "writtenOn": "2022-04-12T21:45:30Z",
       "side": 1,
       "message": "Any particular reason why we declare these in private?",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 0
+      },
+      "revId": "7bd6d073eba75040795c941f89617385e9da189d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e091c8d0_fca65050",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-09-29T18:08:49Z",
+      "side": 1,
+      "message": "moved out of private.",
+      "parentUuid": "934b8dde_cbde609f",
       "range": {
         "startLine": 82,
         "startChar": 0,
@@ -234,6 +378,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89711a38_d068af82",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-09-29T18:08:49Z",
+      "side": 1,
+      "message": "rmed.",
+      "parentUuid": "d8eb02d5_4afabaed",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 80
+      },
+      "revId": "7bd6d073eba75040795c941f89617385e9da189d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f10b6680_2f5e4e3c",
@@ -247,6 +415,30 @@
       "writtenOn": "2022-04-12T21:45:30Z",
       "side": 1,
       "message": "take out?",
+      "range": {
+        "startLine": 714,
+        "startChar": 46,
+        "endLine": 715,
+        "endChar": 51
+      },
+      "revId": "7bd6d073eba75040795c941f89617385e9da189d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8317ac2b_c22bfaeb",
+        "filename": "test/handler_unittest.cpp",
+        "patchSetId": 29
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-09-29T18:08:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f10b6680_2f5e4e3c",
       "range": {
         "startLine": 714,
         "startChar": 46,
