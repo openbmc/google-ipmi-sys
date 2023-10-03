@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a49bfb40_1ad8d501",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-10-03T16:48:49Z",
+      "side": 1,
+      "message": "unused?",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 2
+      },
+      "revId": "6ac75b36b770a649577613f3146f3a32fe2be644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9932921_8a8e7645",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-10-03T16:48:49Z",
+      "side": 1,
+      "message": "nit: \"bus\"",
+      "range": {
+        "startLine": 68,
+        "startChar": 19,
+        "endLine": 68,
+        "endChar": 22
+      },
+      "revId": "6ac75b36b770a649577613f3146f3a32fe2be644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22a3a1bc_c6fcea14",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-10-03T16:48:49Z",
+      "side": 1,
+      "message": "nit: \"contained_by\"",
+      "range": {
+        "startLine": 96,
+        "startChar": 36,
+        "endLine": 96,
+        "endChar": 49
+      },
+      "revId": "6ac75b36b770a649577613f3146f3a32fe2be644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b6021de_1e0723a5",
+        "filename": "bifurcation/bifurcation_dynamic.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-10-03T16:48:49Z",
+      "side": 1,
+      "message": "unused?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "6ac75b36b770a649577613f3146f3a32fe2be644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62723466_5aeb9adf",
+        "filename": "handler.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-10-03T16:48:49Z",
+      "side": 1,
+      "message": "Not sure if we can make this assumption about PCIe slots always being called \"/PE{#}\"\n\nI thought that the instance number would be the same as the parameter from IPMI though",
+      "revId": "6ac75b36b770a649577613f3146f3a32fe2be644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0cc7555_1936df5c",
+        "filename": "handler.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 1000233
+      },
+      "writtenOn": "2023-10-03T16:48:49Z",
+      "side": 1,
+      "message": "const?",
+      "range": {
+        "startLine": 704,
+        "startChar": 27,
+        "endLine": 704,
+        "endChar": 29
+      },
+      "revId": "6ac75b36b770a649577613f3146f3a32fe2be644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
