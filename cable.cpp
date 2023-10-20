@@ -19,6 +19,7 @@
 #include "handler.hpp"
 
 #include <ipmid/api-types.hpp>
+#include <stdplus/print.hpp>
 
 #include <cstdint>
 #include <cstring>
@@ -49,8 +50,8 @@ Resp cableCheck(std::span<const uint8_t> data, const HandlerInterface* handler)
     // data should have [len][ifName]
     if (data.size() < sizeof(struct CableRequest))
     {
-        std::fprintf(stderr, "Invalid command length: %u\n",
-                     static_cast<uint32_t>(data.size()));
+        stdplus::print(stderr, "Invalid command length: %u\n",
+                       static_cast<uint32_t>(data.size()));
         return ::ipmi::responseReqDataLenInvalid();
     }
 
@@ -60,16 +61,16 @@ Resp cableCheck(std::span<const uint8_t> data, const HandlerInterface* handler)
     // Sanity check the object contents.
     if (request->ifNameLength == 0)
     {
-        std::fprintf(stderr, "Invalid string length: %d\n",
-                     request->ifNameLength);
+        stdplus::print(stderr, "Invalid string length: %d\n",
+                       request->ifNameLength);
         return ::ipmi::responseReqDataLenInvalid();
     }
 
     // Verify the request buffer contains the object and the string.
     if (data.size() < (sizeof(struct CableRequest) + request->ifNameLength))
     {
-        std::fprintf(stderr, "*dataLen too small: %u\n",
-                     static_cast<uint32_t>(data.size()));
+        stdplus::print(stderr, "*dataLen too small: %u\n",
+                       static_cast<uint32_t>(data.size()));
         return ::ipmi::responseReqDataLenInvalid();
     }
 

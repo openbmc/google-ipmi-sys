@@ -21,6 +21,7 @@
 #include <nlohmann/json.hpp>
 #include <sdbusplus/message.hpp>
 #include <sdbusplus/test/sdbus_mock.hpp>
+#include <stdplus/print.hpp>
 
 #include <charconv>
 #include <filesystem>
@@ -164,12 +165,13 @@ ACTION_TEMPLATE(AssignReadVal, HAS_1_TEMPLATE_PARAMS(typename, T),
 
 ACTION_P(TraceDbus, msg)
 {
-    std::fprintf(stderr, "%s\n", msg);
+    stdplus::print(stderr, "%s\n", msg);
 }
 
 ACTION_P(TraceDbus2, msg)
 {
-    std::fprintf(stderr, "%s(%02x)\n", msg, *static_cast<const uint8_t*>(arg2));
+    stdplus::print(stderr, "%s(%02x)\n", msg,
+                   *static_cast<const uint8_t*>(arg2));
 }
 
 constexpr char object_path[] = "/com/google/customAccel/test/path";
