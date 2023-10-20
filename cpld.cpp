@@ -19,6 +19,7 @@
 #include "handler.hpp"
 
 #include <ipmid/api-types.hpp>
+#include <stdplus/print.hpp>
 
 #include <cstring>
 #include <span>
@@ -43,8 +44,8 @@ Resp cpldVersion(std::span<const uint8_t> data, const HandlerInterface* handler)
 
     if (data.size() < sizeof(request))
     {
-        std::fprintf(stderr, "Invalid command length: %u\n",
-                     static_cast<uint32_t>(data.size()));
+        stdplus::print(stderr, "Invalid command length: %u\n",
+                       static_cast<uint32_t>(data.size()));
         return ::ipmi::responseReqDataLenInvalid();
     }
 

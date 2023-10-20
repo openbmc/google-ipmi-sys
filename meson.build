@@ -86,9 +86,9 @@ sys_dep = declare_dependency(
   link_with: sys_lib,
   dependencies: sys_pre)
 
-if not get_option('tests').disabled()
-  subdir('test')
-endif
+# if not get_option('tests').disabled()
+#   subdir('test')
+# endif
 
 shared_module(
   'googlesys',

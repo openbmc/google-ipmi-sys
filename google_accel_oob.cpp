@@ -17,6 +17,7 @@
 #include "commands.hpp"
 
 #include <sdbusplus/bus.hpp>
+#include <stdplus/print.hpp>
 
 #include <cstdint>
 #include <cstring>
@@ -50,17 +51,18 @@ Resp accelOobDeviceCount(std::span<const uint8_t> data,
 
     if (data.size_bytes() < sizeof(Request))
     {
-        std::fprintf(stderr, "AccelOob DeviceCount command too small: %zu\n",
-                     data.size_bytes());
+        stdplus::print(stderr, "AccelOob DeviceCount command too small: %zu\n",
+                       data.size_bytes());
         return ::ipmi::responseReqDataLenInvalid();
     }
 
     if (data.size_bytes() + sizeof(Reply) > MAX_IPMI_BUFFER)
     {
-        std::fprintf(stderr,
-                     "AccelOob DeviceCount command too large for reply buffer: "
-                     "command=%zuB, payload=%zuB, max=%dB\n",
-                     data.size_bytes(), sizeof(Reply), MAX_IPMI_BUFFER);
+        stdplus::print(
+            stderr,
+            "AccelOob DeviceCount command too large for reply buffer: "
+            "command=%zuB, payload=%zuB, max=%dB\n",
+            data.size_bytes(), sizeof(Reply), MAX_IPMI_BUFFER);
         return ::ipmi::responseReqDataLenExceeded();
     }
 
@@ -90,17 +92,18 @@ Resp accelOobDeviceName(std::span<const uint8_t> data,
 
     if (data.size_bytes() < sizeof(Request))
     {
-        std::fprintf(stderr, "AccelOob DeviceName command too small: %zu\n",
-                     data.size_bytes());
+        stdplus::print(stderr, "AccelOob DeviceName command too small: %zu\n",
+                       data.size_bytes());
         return ::ipmi::responseReqDataLenInvalid();
     }
 
     if (data.size_bytes() + sizeof(Reply) > MAX_IPMI_BUFFER)
     {
-        std::fprintf(stderr,
-                     "AccelOob DeviceName command too large for reply buffer: "
-                     "command=%zuB, payload=%zuB, max=%dB\n",
-                     data.size_bytes(), sizeof(Reply), MAX_IPMI_BUFFER);
+        stdplus::print(
+            stderr,
+            "AccelOob DeviceName command too large for reply buffer: "
+            "command=%zuB, payload=%zuB, max=%dB\n",
+            data.size_bytes(), sizeof(Reply), MAX_IPMI_BUFFER);
         return ::ipmi::responseReqDataLenExceeded();
     }
 
@@ -109,10 +112,10 @@ Resp accelOobDeviceName(std::span<const uint8_t> data,
 
     if (name.size() > MAX_NAME_SIZE)
     {
-        std::fprintf(stderr,
-                     "AccelOob: name was too long. "
-                     "'%s' len must be <= %zu\n",
-                     name.c_str(), MAX_NAME_SIZE);
+        stdplus::print(stderr,
+                       "AccelOob: name was too long. "
+                       "'%s' len must be <= %zu\n",
+                       name.c_str(), MAX_NAME_SIZE);
         return ::ipmi::responseReqDataTruncated();
     }
 
@@ -192,10 +195,10 @@ Resp accelOobRead(std::span<const uint8_t> data, HandlerInterface* handler)
         uint64_t data;
     } __attribute__((packed));
 
-    std::fprintf(stderr,
-                 "AccelOob Read command sizes: "
-                 "command=%zuB, payload=%zuB, max=%dB\n",
-                 data.size_bytes(), sizeof(Reply), MAX_IPMI_BUFFER);
+    stdplus::print(stderr,
+                   "AccelOob Read command sizes: "
+                   "command=%zuB, payload=%zuB, max=%dB\n",
+                   data.size_bytes(), sizeof(Reply), MAX_IPMI_BUFFER);
 
     std::string name;
     const uint8_t* payload;
@@ -204,17 +207,17 @@ Resp accelOobRead(std::span<const uint8_t> data, HandlerInterface* handler)
                                      sizeof(Request), &name, &payload);
     if (min_size != 0)
     {
-        std::fprintf(stderr, "AccelOob Read command too small: %zuB < %zuB\n",
-                     data.size_bytes(), min_size);
+        stdplus::print(stderr, "AccelOob Read command too small: %zuB < %zuB\n",
+                       data.size_bytes(), min_size);
         return ::ipmi::responseReqDataLenInvalid();
     }
 
     if (data.size_bytes() + sizeof(Reply) > MAX_IPMI_BUFFER)
     {
-        std::fprintf(stderr,
-                     "AccelOob Read command too large for reply buffer: "
-                     "command=%zuB, payload=%zuB, max=%dB\n",
-                     data.size_bytes(), sizeof(Reply), MAX_IPMI_BUFFER);
+        stdplus::print(stderr,
+                       "AccelOob Read command too large for reply buffer: "
+                       "command=%zuB, payload=%zuB, max=%dB\n",
+                       data.size_bytes(), sizeof(Reply), MAX_IPMI_BUFFER);
         return ::ipmi::responseReqDataLenExceeded();
     }
 
@@ -256,17 +259,18 @@ Resp accelOobWrite(std::span<const uint8_t> data, HandlerInterface* handler)
                                      sizeof(Request), &name, &payload);
     if (min_size != 0)
     {
-        std::fprintf(stderr, "AccelOob Write command too small: %zuB < %zuB\n",
-                     data.size_bytes(), min_size);
+        stdplus::print(stderr,
+                       "AccelOob Write command too small: %zuB < %zuB\n",
+                       data.size_bytes(), min_size);
         return ::ipmi::responseReqDataLenInvalid();
     }
 
     if (data.size_bytes() + sizeof(Reply) > MAX_IPMI_BUFFER)
     {
-        std::fprintf(stderr,
-                     "AccelOob Write command too large for reply buffer: "
-                     "command=%zuB, payload=%zuB, max=%dB\n",
-                     data.size_bytes(), sizeof(Reply), MAX_IPMI_BUFFER);
+        stdplus::print(stderr,
+                       "AccelOob Write command too large for reply buffer: "
+                       "command=%zuB, payload=%zuB, max=%dB\n",
+                       data.size_bytes(), sizeof(Reply), MAX_IPMI_BUFFER);
         return ::ipmi::responseReqDataLenExceeded();
     }
 
