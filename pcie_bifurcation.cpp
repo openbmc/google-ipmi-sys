@@ -23,6 +23,7 @@
 #include <fmt/format.h>
 
 #include <ipmid/api-types.hpp>
+#include <stdplus/print.hpp>
 
 #include <span>
 #include <vector>
@@ -59,7 +60,7 @@ Resp pcieBifurcation(std::span<const uint8_t> data, HandlerInterface* handler)
 
     if (length > MAX_IPMI_BUFFER)
     {
-        std::fprintf(stderr, "Response would overflow response buffer\n");
+        stdplus::print(stderr, "Response would overflow response buffer\n");
         return ::ipmi::responseInvalidCommand();
     }
 
