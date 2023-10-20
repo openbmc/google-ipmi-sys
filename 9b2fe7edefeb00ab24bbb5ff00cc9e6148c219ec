@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f73c76a2_190afb27",
+        "filename": "handler.hpp",
+        "patchSetId": 52
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2023-10-20T12:31:46Z",
+      "side": 1,
+      "message": "`@param[in] ctx - .......`",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 6
+      },
+      "revId": "9b2fe7edefeb00ab24bbb5ff00cc9e6148c219ec",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
