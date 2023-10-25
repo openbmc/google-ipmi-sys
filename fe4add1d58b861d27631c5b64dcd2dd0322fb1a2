@@ -22,6 +22,30 @@
       },
       "revId": "fe4add1d58b861d27631c5b64dcd2dd0322fb1a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4129200c_235c9855",
+        "filename": "main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-10-25T14:11:41Z",
+      "side": 1,
+      "message": "I think it should be `{:#08x}` and `{:#04x}`.\n\nI tested it in https://gerrit.openbmc.org/c/openbmc/phosphor-ipmi-ethstats/+/67160",
+      "parentUuid": "20a736a4_dd3a96aa",
+      "range": {
+        "startLine": 50,
+        "startChar": 33,
+        "endLine": 50,
+        "endChar": 59
+      },
+      "revId": "fe4add1d58b861d27631c5b64dcd2dd0322fb1a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
