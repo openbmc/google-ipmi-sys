@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20a736a4_dd3a96aa",
+        "filename": "main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2023-10-25T09:26:59Z",
+      "side": 1,
+      "message": "Originally `[%#08X]` will print something like `[0X123456]` instead of `[0X00123456]` because `0X` also counts as part of 8 digits.\nI think that\u0027s a typo so I changed it to `[0X{:08X}]`. (`[{:#010X}]` also works)",
+      "range": {
+        "startLine": 50,
+        "startChar": 33,
+        "endLine": 50,
+        "endChar": 59
+      },
+      "revId": "fe4add1d58b861d27631c5b64dcd2dd0322fb1a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
