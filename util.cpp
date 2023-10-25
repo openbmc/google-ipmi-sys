@@ -16,6 +16,7 @@
 
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/elog-errors.hpp>
+#include <stdplus/print.hpp>
 #include <xyz/openbmc_project/Common/error.hpp>
 
 #include <cstdint>
@@ -81,7 +82,7 @@ std::string readPropertyFile(const std::string& fileName)
         }
         else
         {
-            std::fprintf(stderr, "Unable to read file %s.\n", fileName.c_str());
+            stdplus::print(stderr, "Unable to read file {}.\n", fileName);
         }
     }
 

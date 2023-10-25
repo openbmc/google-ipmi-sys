@@ -57,6 +57,7 @@ sys_pre = declare_dependency(
     dependency('phosphor-dbus-interfaces'),
     dependency('phosphor-logging'),
     dependency('sdbusplus'),
+    dependency('stdplus'),
     bifurcation_dep,
   ])
 

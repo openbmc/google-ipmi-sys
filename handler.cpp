@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 #include "handler.hpp"
 
 #include "bm_config.h"
@@ -31,6 +32,7 @@
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
 #include <sdbusplus/bus.hpp>
+#include <stdplus/print.hpp>
 #include <xyz/openbmc_project/Common/error.hpp>
 
 #include <cinttypes>
@@ -76,9 +78,9 @@ uint8_t isBmcInBareMetalMode(const std::unique_ptr<FileSystemInterface>& fs)
 
     if (fs->exists(bmDriveCleaningDoneAckFlagPath, ec))
     {
-        std::fprintf(
+        stdplus::print(
             stderr,
-            "%s exists so we acked cleaning done and must be in BM mode\n",
+            "{} exists so we acked cleaning done and must be in BM mode\n",
             bmDriveCleaningDoneAckFlagPath);
         return static_cast<uint8_t>(BmcMode::BM_MODE);
     }
@@ -87,9 +89,9 @@ uint8_t isBmcInBareMetalMode(const std::unique_ptr<FileSystemInterface>& fs)
     {
         fs->rename(bmDriveCleaningDoneFlagPath, bmDriveCleaningDoneAckFlagPath,
                    ec);
-        std::fprintf(
+        stdplus::print(
             stderr,
-            "%s exists so we just finished cleaning and must be in BM mode\n",
+            "{} exists so we just finished cleaning and must be in BM mode\n",
             bmDriveCleaningDoneFlagPath);
         return static_cast<uint8_t>(BmcMode::BM_MODE);
     }
@@ -101,14 +103,14 @@ uint8_t isBmcInBareMetalMode(const std::unique_ptr<FileSystemInterface>& fs)
             fs->create(bmDriveCleaningFlagPath);
         }
 
-        std::fprintf(
+        stdplus::print(
             stderr,
-            "%s exists and no done/ack flag, we must be in BM cleaning mode\n",
+            "{} exists and no done/ack flag, we must be in BM cleaning mode\n",
             BM_SIGNAL_PATH);
         return static_cast<uint8_t>(BmcMode::BM_CLEANING_MODE);
     }
 
-    std::fprintf(
+    stdplus::print(
         stderr,
         "Unable to find any BM state files so we must not be in BM mode\n");
     return static_cast<uint8_t>(BmcMode::NON_BM_MODE);
@@ -143,14 +145,14 @@ std::int64_t Handler::getRxPackets(const std::string& name) const
     // Basically you can't easily inject ../ or /../ into the path below.
     if (name.find("/") != std::string::npos)
     {
-        std::fprintf(stderr, "Invalid or illegal name: '%s'\n", name.c_str());
+        stdplus::print(stderr, "Invalid or illegal name: '{}'\n", name);
         throw IpmiException(::ipmi::ccInvalidFieldRequest);
     }
 
     std::error_code ec;
     if (!this->getFs()->exists(path, ec))
     {
-        std::fprintf(stderr, "Path: '%s' doesn't exist.\n", path.c_str());
+        stdplus::print(stderr, "Path: '{}' doesn't exist.\n", path);
         throw IpmiException(::ipmi::ccInvalidFieldRequest);
     }
     // We're uninterested in the state of ec.
@@ -180,8 +182,7 @@ VersionTuple Handler::getCpldVersion(unsigned int id) const
     std::error_code ec;
     if (!this->getFs()->exists(opath.str(), ec))
     {
-        std::fprintf(stderr, "Path: '%s' doesn't exist.\n",
-                     opath.str().c_str());
+        stdplus::print(stderr, "Path: '{}' doesn't exist.\n", opath.str());
         throw IpmiException(::ipmi::ccInvalidFieldRequest);
     }
     // We're uninterested in the state of ec.
@@ -209,7 +210,7 @@ VersionTuple Handler::getCpldVersion(unsigned int id) const
                                  &std::get<2>(version), &std::get<3>(version));
     if (num_fields == 0)
     {
-        std::fprintf(stderr, "Invalid version.\n");
+        stdplus::print(stderr, "Invalid version.\n");
         throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
@@ -228,14 +229,14 @@ void Handler::psuResetDelay(std::uint32_t delay) const
     ofs.open(TIME_DELAY_FILENAME, std::ofstream::out);
     if (!ofs.good())
     {
-        std::fprintf(stderr, "Unable to open file for output.\n");
+        stdplus::print(stderr, "Unable to open file for output.\n");
         throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
     ofs << "PSU_HARDRESET_DELAY=" << delay << std::endl;
     if (ofs.fail())
     {
-        std::fprintf(stderr, "Write failed\n");
+        stdplus::print(stderr, "Write failed\n");
         ofs.close();
         throw IpmiException(::ipmi::ccUnspecifiedError);
     }
@@ -270,7 +271,7 @@ void Handler::psuResetOnShutdown() const
     ofs.open(RESET_ON_SHUTDOWN_FILENAME, std::ofstream::out);
     if (!ofs.good())
     {
-        std::fprintf(stderr, "Unable to open file for output.\n");
+        stdplus::print(stderr, "Unable to open file for output.\n");
         throw IpmiException(::ipmi::ccUnspecifiedError);
     }
     ofs.close();
@@ -331,7 +332,7 @@ std::string Handler::getMachineName()
     std::ifstream ifs(path);
     if (ifs.fail())
     {
-        std::fprintf(stderr, "Failed to open: %s\n", path);
+        stdplus::print(stderr, "Failed to open: {}\n", path);
         throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
@@ -341,13 +342,13 @@ std::string Handler::getMachineName()
         std::getline(ifs, line);
         if (ifs.eof())
         {
-            std::fprintf(stderr, "Failed to find OPENBMC_TARGET_MACHINE: %s\n",
-                         path);
+            stdplus::print(stderr,
+                           "Failed to find OPENBMC_TARGET_MACHINE: {}\n", path);
             throw IpmiException(::ipmi::ccInvalidCommand);
         }
         if (ifs.fail())
         {
-            std::fprintf(stderr, "Failed to read: %s\n", path);
+            stdplus::print(stderr, "Failed to read: {}\n", path);
             throw IpmiException(::ipmi::ccUnspecifiedError);
         }
         std::string_view lineView(line);
@@ -376,7 +377,7 @@ void Handler::hostPowerOffDelay(std::uint32_t delay) const
     ofs.open(HOST_TIME_DELAY_FILENAME, std::ofstream::out);
     if (!ofs.good())
     {
-        std::fprintf(stderr, "Unable to open file for output.\n");
+        stdplus::print(stderr, "Unable to open file for output.\n");
         throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 
@@ -384,7 +385,7 @@ void Handler::hostPowerOffDelay(std::uint32_t delay) const
     ofs.close();
     if (ofs.fail())
     {
-        std::fprintf(stderr, "Write failed\n");
+        stdplus::print(stderr, "Write failed\n");
         throw IpmiException(::ipmi::ccUnspecifiedError);
     }
 

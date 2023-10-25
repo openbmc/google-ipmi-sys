@@ -18,6 +18,7 @@
 #include "handler.hpp"
 
 #include <ipmid/api-types.hpp>
+#include <stdplus/print.hpp>
 
 #include <cstdint>
 #include <cstring>
@@ -46,13 +47,13 @@ Resp getEthDevice(std::span<const uint8_t> data,
     std::string device = std::get<1>(details);
     if (device.length() == 0)
     {
-        std::fprintf(stderr, "Invalid eth string\n");
+        stdplus::print(stderr, "Invalid eth string\n");
         return ::ipmi::responseReqDataLenInvalid();
     }
 
     if ((sizeof(struct EthDeviceReply) + device.length()) > MAX_IPMI_BUFFER)
     {
-        std::fprintf(stderr, "Response would overflow response buffer\n");
+        stdplus::print(stderr, "Response would overflow response buffer\n");
         return ::ipmi::responseRetBytesUnavailable();
     }
 

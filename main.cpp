@@ -20,6 +20,7 @@
 #include <ipmid/api-types.hpp>
 #include <ipmid/handler.hpp>
 #include <ipmid/iana.hpp>
+#include <stdplus/print.hpp>
 
 #include <cstdint>
 #include <cstdio>
@@ -45,9 +46,9 @@ void setupGoogleOemSysCommands()
 {
     static Handler handlerImpl;
 
-    std::fprintf(stderr,
-                 "Registering OEM:[%#08X], Cmd:[%#04X] for Sys Commands\n",
-                 oem::googOemNumber, oem::google::sysCmd);
+    stdplus::print(
+        stderr, "Registering OEM:[0X{:08X}], Cmd:[0X{:04X}] for Sys Commands\n",
+        oem::googOemNumber, oem::google::sysCmd);
 
     ::ipmi::registerOemHandler(::ipmi::prioOemBase, oem::googOemNumber,
                                oem::google::sysCmd, ::ipmi::Privilege::User,
