@@ -19,6 +19,7 @@
 #include "handler.hpp"
 
 #include <ipmid/api-types.hpp>
+#include <stdplus/print.hpp>
 
 #include <cstdint>
 #include <cstring>
@@ -37,8 +38,7 @@ Resp psuHardReset(std::span<const uint8_t> data,
 
     if (data.size() < sizeof(request))
     {
-        std::fprintf(stderr, "Invalid command length: %u\n",
-                     static_cast<uint32_t>(data.size()));
+        stdplus::print(stderr, "Invalid command length: {}\n", data.size());
         return ::ipmi::responseReqDataLenInvalid();
     }
 

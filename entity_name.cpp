@@ -19,6 +19,7 @@
 #include "handler.hpp"
 
 #include <ipmid/api-types.hpp>
+#include <stdplus/print.hpp>
 
 #include <cstdint>
 #include <cstring>
@@ -53,8 +54,7 @@ Resp getEntityName(std::span<const uint8_t> data, HandlerInterface* handler)
 
     if (data.size() < sizeof(request))
     {
-        std::fprintf(stderr, "Invalid command length: %u\n",
-                     static_cast<uint32_t>(data.size()));
+        stdplus::print(stderr, "Invalid command length: {}\n", data.size());
         return ::ipmi::responseReqDataLenInvalid();
     }
 
@@ -75,7 +75,7 @@ Resp getEntityName(std::span<const uint8_t> data, HandlerInterface* handler)
     // TODO (jaghu) : Add a call to get getChannelMaxTransferSize.
     if (length > MAX_IPMI_BUFFER)
     {
-        std::fprintf(stderr, "Response would overflow response buffer\n");
+        stdplus::print(stderr, "Response would overflow response buffer\n");
         return ::ipmi::responseInvalidCommand();
     }
 

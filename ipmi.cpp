@@ -34,6 +34,7 @@
 
 #include <ipmid/api-types.hpp>
 #include <ipmid/message.hpp>
+#include <stdplus/print.hpp>
 
 #include <cstdint>
 #include <cstdio>
@@ -87,7 +88,7 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr,
         case SysLinuxBootDone:
             return linuxBootDone(data, handler);
         default:
-            std::fprintf(stderr, "Invalid subcommand: 0x%x\n", cmd);
+            stdplus::print(stderr, "Invalid subcommand: {:#x}\n", cmd);
             return ::ipmi::responseInvalidCommand();
     }
 }
