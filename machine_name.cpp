@@ -18,6 +18,7 @@
 #include "errors.hpp"
 
 #include <ipmid/api-types.hpp>
+#include <stdplus/print.hpp>
 
 #include <cstddef>
 #include <cstdio>
@@ -50,7 +51,7 @@ Resp getMachineName(std::span<const uint8_t>, HandlerInterface* handler)
     size_t len = sizeof(struct GetMachineNameReply) + machineName->size();
     if (len > MAX_IPMI_BUFFER)
     {
-        std::fprintf(stderr, "Response would overflow response buffer\n");
+        stdplus::print(stderr, "Response would overflow response buffer\n");
         return ::ipmi::responseInvalidCommand();
     }
 
