@@ -46,6 +46,30 @@
       },
       "revId": "fe4add1d58b861d27631c5b64dcd2dd0322fb1a2",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8948e0d7_dfd957e4",
+        "filename": "main.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000937
+      },
+      "writtenOn": "2023-10-26T06:29:16Z",
+      "side": 1,
+      "message": "Oh I see. `OEM` really have 3 bytes only. And `Cmd` only has 1 byte.\nSo `{:#08x}` and `{:#04x}` already includes `0X`\n\nFixed",
+      "parentUuid": "4129200c_235c9855",
+      "range": {
+        "startLine": 50,
+        "startChar": 33,
+        "endLine": 50,
+        "endChar": 59
+      },
+      "revId": "fe4add1d58b861d27631c5b64dcd2dd0322fb1a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
