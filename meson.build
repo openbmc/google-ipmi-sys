@@ -112,3 +112,11 @@ if systemd_dep.found()
     'gbmc-psu-hardreset-time.service',
     install_dir: systemd_dep.get_variable('systemdsystemunitdir'))
 endif
+
+import('fs').copyfile(
+  'gbmc-delay-powercycle.sh',
+  'gbmc-delay-powercycle.sh',
+  install: true,
+  install_dir: get_option('bindir'),
+  install_mode: 'rwxr-xr-x'
+)
