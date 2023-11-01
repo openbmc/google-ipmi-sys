@@ -34,30 +34,17 @@ meson.get_compiler('cpp').has_header_symbol(
   'nlohmann::json',
   dependencies: json_dep)
 
-fmt_dep = dependency('fmt', required: false)
-if not fmt_dep.found()
-  fmt_proj = import('cmake').subproject(
-    'fmt',
-    cmake_options: [
-      '-DCMAKE_POSITION_INDEPENDENT_CODE=ON',
-      '-DMASTER_PROJECT=OFF'
-    ],
-    required: false)
-  assert(fmt_proj.found(), 'fmtlib is required')
-  fmt_dep = fmt_proj.dependency('fmt')
-endif
-
+stdplus = dependency('stdplus')
 subdir('bifurcation')
 
 sys_pre = declare_dependency(
   include_directories: root_inc,
   dependencies: [
     json_dep,
-    fmt_dep,
     dependency('phosphor-dbus-interfaces'),
     dependency('phosphor-logging'),
     dependency('sdbusplus'),
-    dependency('stdplus'),
+    stdplus,
     bifurcation_dep,
   ])
 

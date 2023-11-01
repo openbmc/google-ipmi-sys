@@ -20,8 +20,6 @@
 #include "errors.hpp"
 #include "handler.hpp"
 
-#include <fmt/format.h>
-
 #include <ipmid/api-types.hpp>
 #include <stdplus/print.hpp>
 
@@ -49,8 +47,8 @@ Resp pcieBifurcation(std::span<const uint8_t> data, HandlerInterface* handler)
 {
     if (data.size() < sizeof(struct PcieBifurcationRequest))
     {
-        fmt::print(stderr, "Invalid command length: {}\n",
-                   static_cast<uint32_t>(data.size()));
+        stdplus::print(stderr, "Invalid command length: {}\n",
+                       static_cast<uint32_t>(data.size()));
         return ::ipmi::responseReqDataLenInvalid();
     }
 
