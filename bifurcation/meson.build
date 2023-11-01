@@ -1,7 +1,7 @@
 bifurcation_inc = include_directories('.')
 
 bifurcation_deps = [
-  fmt_dep,
+  stdplus,
 ]
 
 bifurcation_lib = static_library(

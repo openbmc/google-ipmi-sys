@@ -15,9 +15,8 @@
 
 #include "bifurcation.hpp"
 
-#include <fmt/format.h>
-
 #include <nlohmann/json.hpp>
+#include <stdplus/print.hpp>
 
 #include <charconv>
 #include <filesystem>
@@ -50,8 +49,8 @@ std::optional<std::vector<uint8_t>>
     std::ifstream jsonFile(bifurcationFile.c_str());
     if (!jsonFile.is_open())
     {
-        fmt::print(stderr, "Unable to open file {} for bifurcation.\n",
-                   bifurcationFile.data());
+        stdplus::print(stderr, "Unable to open file {} for bifurcation.\n",
+                       bifurcationFile.data());
         return std::nullopt;
     }
 
@@ -62,7 +61,7 @@ std::optional<std::vector<uint8_t>>
     }
     catch (const nlohmann::json::parse_error& ex)
     {
-        fmt::print(
+        stdplus::print(
             stderr,
             "Failed to parse the static config. Parse error at byte {}\n",
             ex.byte);
@@ -78,8 +77,8 @@ std::optional<std::vector<uint8_t>>
     }
     catch (const std::exception& e)
     {
-        fmt::print(stderr,
-                   "Failed to convert bifurcation value to vec[uin8_t]\n");
+        stdplus::print(stderr,
+                       "Failed to convert bifurcation value to vec[uin8_t]\n");
         return std::nullopt;
     }
 
