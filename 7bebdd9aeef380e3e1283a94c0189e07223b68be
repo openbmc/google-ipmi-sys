@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "affa3d82_5fc34680",
+        "filename": "gbmc-delay-powercycle.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2023-11-02T18:46:56Z",
+      "side": 1,
+      "message": "This is missing the shebang `#!/bin/sh`",
+      "revId": "7bebdd9aeef380e3e1283a94c0189e07223b68be",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
