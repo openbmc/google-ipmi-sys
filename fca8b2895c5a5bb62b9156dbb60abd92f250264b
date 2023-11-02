@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89344118_ec95c01b",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2023-11-02T10:01:08Z",
+      "side": 1,
+      "message": "I think you normally just use install_data( here?",
+      "revId": "fca8b2895c5a5bb62b9156dbb60abd92f250264b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
