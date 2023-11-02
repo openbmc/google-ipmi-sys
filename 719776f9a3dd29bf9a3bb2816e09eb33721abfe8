@@ -16,6 +16,24 @@
       "message": "nit: `Tested`.\nAlthough it\u0027s a trivial change, but having `Tested` label still good.",
       "revId": "719776f9a3dd29bf9a3bb2816e09eb33721abfe8",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c02267e_7fe7ed97",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2023-11-02T18:39:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7f87ce6_ec9e7d0f",
+      "revId": "719776f9a3dd29bf9a3bb2816e09eb33721abfe8",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
