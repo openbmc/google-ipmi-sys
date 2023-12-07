@@ -28,19 +28,13 @@ meson.get_compiler('cpp').has_header_symbol(
   'ipmid/api.h',
   'ipmid_get_sd_bus_connection')
 
-json_dep = dependency('nlohmann_json', required: false)
-meson.get_compiler('cpp').has_header_symbol(
-  'nlohmann/json.hpp',
-  'nlohmann::json',
-  dependencies: json_dep)
-
 stdplus = dependency('stdplus')
 subdir('bifurcation')
 
 sys_pre = declare_dependency(
   include_directories: root_inc,
   dependencies: [
-    json_dep,
+    dependency('nlohmann_json', include_type: 'system'),
     dependency('phosphor-dbus-interfaces'),
     dependency('phosphor-logging'),
     dependency('sdbusplus'),
