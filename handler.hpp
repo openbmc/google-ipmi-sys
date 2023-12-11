@@ -211,6 +211,8 @@ class HandlerInterface
      * untrusted OS.
      */
     virtual void linuxBootDone() const = 0;
+
+    virtual void accelIdlePowerMode() const = 0;
 };
 
 } // namespace ipmi
