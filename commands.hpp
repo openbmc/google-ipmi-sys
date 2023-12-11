@@ -57,6 +57,8 @@ enum SysOEMCommands
     SysGetBmcMode = 16,
     // The Sys Linux Boot Done command
     SysLinuxBootDone = 17,
+    // Google CustomAccel PowerMode
+    SysAccelPowerMode = 18,
 };
 
 } // namespace ipmi

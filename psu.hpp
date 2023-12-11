@@ -41,5 +41,9 @@ Resp psuHardReset(std::span<const uint8_t> data,
 Resp psuHardResetOnShutdown(std::span<const uint8_t> data,
                             const HandlerInterface* handler);
 
+
+// Arm for PSU hard reset on host shutdown.
+Resp accelIdlePowerMode(std::span<const uint8_t> data,
+                            const HandlerInterface* handler);
 } // namespace ipmi
 } // namespace google

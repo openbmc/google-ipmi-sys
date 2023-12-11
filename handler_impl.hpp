@@ -74,6 +74,7 @@ class Handler : public HandlerInterface
     void accelOobWrite(std::string_view name, uint64_t address,
                        uint8_t num_bytes, uint64_t data) const override;
     void linuxBootDone() const override;
+    void accelIdlePowerMode() const override;
 
   protected:
     // Exposed for dependency injection

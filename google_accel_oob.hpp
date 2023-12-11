@@ -36,5 +36,6 @@ Resp accelOobRead(std::span<const uint8_t> data, HandlerInterface* handler);
 
 Resp accelOobWrite(std::span<const uint8_t> data, HandlerInterface* handler);
 
+Resp accelIdlePowerMode(std::span<const uint8_t> data, HandlerInterface* handler);
 } // namespace ipmi
 } // namespace google

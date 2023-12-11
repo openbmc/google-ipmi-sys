@@ -699,5 +699,51 @@ void Handler::linuxBootDone() const
     }
 }
 
+void Handler::accelIdlePowerMode() const
+{
+
+    try
+    {
+        auto bus = getDbus();
+        auto method = bus.new_method_call("xyz.openbmc_project.PowerCap", "/xyz/openbmc_project/control/host0/power_cap",
+                                          "org.freedesktop.DBus.Properties",
+                                          "Set");
+
+    method.append("xyz.openbmc_project.Control.Power.Mode", "PowerMode", 2);
+
+    if (!bus.call(method))
+    {
+        log<level::ERR>("Failed to set property");
+            throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+
+
+//        auto bus = getDbus();
+//    auto mapperCall = bus.new_method_call("xyz.openbmc_project.ObjectMapper",
+//                                          "/xyz/openbmc_project/object_mapper",
+ //                                         "xyz.openbmc_project.ObjectMapper",
+ //                                         "GetSubTree", "/", 0, interfaces);
+
+//        auto mapperResponseMsg = bus.call(mapperCall);
+
+       // std::map<std::string, std::vector<std::string>> mapperResponse;
+       // mapperResponseMsg.read(mapperResponse);
+
+//        if (mapperResponse.begin() == mapperResponse.end())
+ //       {
+//            log<level::ERR>("mapperResponse is empty");
+//            throw IpmiException(::ipmi::ccUnspecifiedError);
+//        }
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        log<level::ERR>(
+            "Failed to call GetObject",
+            entry("WHAT=%s", ex.what()));
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+
+    return;
+}
 } // namespace ipmi
 } // namespace google

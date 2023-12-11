@@ -87,6 +87,8 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr,
             return pcieBifurcation(data, handler);
         case SysLinuxBootDone:
             return linuxBootDone(data, handler);
+        case SysAccelPowerMode:
+            return accelIdlePowerMode(data, handler);
         default:
             stdplus::print(stderr, "Invalid subcommand: {:#x}\n", cmd);
             return ::ipmi::responseInvalidCommand();

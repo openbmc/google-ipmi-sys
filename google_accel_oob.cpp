@@ -15,6 +15,8 @@
 #include "google_accel_oob.hpp"
 
 #include "commands.hpp"
+#include "errors.hpp"
+#include "handler.hpp"
 
 #include <sdbusplus/bus.hpp>
 #include <stdplus/print.hpp>
@@ -282,5 +284,18 @@ Resp accelOobWrite(std::span<const uint8_t> data, HandlerInterface* handler)
     return ::ipmi::responseSuccess(SysOEMCommands::SysAccelOobWrite, replyBuf);
 }
 
+Resp accelIdlePowerMode (std::span<const uint8_t>, HandlerInterface* handler)
+{
+    try
+    {
+        handler->accelIdlePowerMode();
+    }
+    catch (const IpmiException& e)
+    {
+        return ::ipmi::response(e.getIpmiError());
+    }
+    return ::ipmi::responseSuccess(SysOEMCommands::SysAccelIdlePowerMode,
+                                   std::vector<uint8_t>{});
+}
 } // namespace ipmi
 } // namespace google
