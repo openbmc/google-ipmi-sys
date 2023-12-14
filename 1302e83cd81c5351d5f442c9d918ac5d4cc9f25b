@@ -1,0 +1,8 @@
+Code-Review+1: John Wedig <johnwedig@google.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+2: William A. Kennington III <wak@google.com>
+Submitted-by: Yuxiao Zhang <yuxiaozhang@google.com>
+Submitted-at: Thu, 14 Dec 2023 00:55:32 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/google-ipmi-sys/+/68276
+Project: openbmc/google-ipmi-sys
+Branch: refs/heads/master
