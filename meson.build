@@ -86,7 +86,6 @@ shared_module(
 systemd_dep = dependency('systemd')
 if systemd_dep.found()
   install_data(
-    'gbmc-bare-metal-active.target',
     'gbmc-host-poweroff.target',
     'gbmc-psu-hardreset.target',
     'gbmc-psu-hardreset-pre.target',
