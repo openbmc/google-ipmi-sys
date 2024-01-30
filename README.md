@@ -456,3 +456,62 @@ Response (if applicable)
 | Byte(s) | Value | Data       |
 | ------- | ----- | ---------- |
 | 0x00    | 0x11  | Subcommand |
+
+### SysGetAccelVrSettings - SubCommand 0x12
+
+Get the accel's VR setting value for the given chip and settings ID
+
+Currently 3 settings are supported.
+0. IdleMode
+1. PowerBreak
+2. Loadline
+
+On success, the response contains 2 bytes containing the setting value.
+
+If not enough data is proveded, `IPMI_CC_REQ_DATA_LEN_INVALID` is returned.
+
+Request
+
+| Byte(s)    | Value | Data           |
+| -------    | ----- | -------------- |
+| 0x00       | 0x12  | Subcommand     |
+| 0x01       |       | Chip ID        |
+| 0x02       |       | SettingsID     |
+
+Response (if applicable)
+
+| Byte(s)       | Value | Data           |
+| -------       | ----- | -------------- |
+| 0x00          | 0x12  | Subcommand     |
+| 0x01..0x02    | 0x12  | Settings Value |
+
+### SysSetAccelVrSettings - SubCommand 0x13
+
+Update the VR settings of a given accel device for a specific settings id.
+
+Currently 3 settings are supported.
+0. IdleMode
+1. PowerBreak
+2. Loadline
+
+The settings value parameter is a 2 byte value and is expected in
+little endian format
+
+On success, `IPMI_CC_OK` is returned.
+
+If not enough data is proveded, `IPMI_CC_REQ_DATA_LEN_INVALID` is returned.
+
+Request
+
+| Byte(s)    | Value | Data           |
+| -------    | ----- | -------------- |
+| 0x00       | 0x13  | Subcommand     |
+| 0x01       |       | Chip ID        |
+| 0x02       |       | Settings ID    |
+| 0x03..0x04 | 0x13  | Settings Value |
+
+Response (if applicable)
+
+| Byte(s) | Value | Data       |
+| ------- | ----- | ---------- |
+| 0x00    | 0x13  | Subcommand |

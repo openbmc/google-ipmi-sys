@@ -27,6 +27,7 @@ namespace ipmi
 {
 
 using ::testing::Return;
+using ::testing::_;
 
 TEST(GoogleAccelOobTest, DeviceCount_Success)
 {
@@ -235,5 +236,94 @@ TEST(GoogleAccelOobTest, Write_Success)
     EXPECT_EQ(reply->data, kTestData);
 }
 
+TEST(GoogleAccelOobTest, SetVrSettings_Success)
+{
+    ::testing::StrictMock<HandlerMock> h;
+    constexpr uint8_t kChipId = 2;
+    constexpr uint8_t kSettingsId = 1;
+    constexpr uint16_t kTestValue = 0xAABB;
+
+    std::vector<uint8_t> testData = {kChipId, kSettingsId, 0xBB, 0xAA};
+
+    EXPECT_CALL(h, accelSetVrSettings(kChipId, kSettingsId, kTestValue)).WillOnce(Return());
+
+    Resp r = accelSetVrSettings(testData, &h);
+
+    const auto response = std::get<0>(r);
+    EXPECT_EQ(response, IPMI_CC_OK);
+
+    const auto payload = std::get<1>(r);
+    ASSERT_EQ(payload.has_value(), true);
+    const auto payload_tuple = payload.value();
+    const auto reply_cmd = std::get<0>(payload_tuple);
+    EXPECT_EQ(reply_cmd, SysSetAccelVrSettings);
+    const auto reply_buff = std::get<1>(payload_tuple);
+    ASSERT_EQ(reply_buff.size(), 0);
+}
+
+TEST(GoogleAccelOobTest, SetVrSettings_HandleIncorrectDataSize)
+{
+    ::testing::StrictMock<HandlerMock> h;
+    constexpr uint8_t kChipId = 2;
+    uint8_t kSettingsId = 1;
+
+    std::vector<uint8_t> testData = {kChipId, kSettingsId};
+
+    EXPECT_CALL(h, accelSetVrSettings(_, _, _)).Times(0);
+
+    Resp r = accelSetVrSettings(testData, &h);
+
+    const auto response = std::get<0>(r);
+    EXPECT_EQ(response, IPMI_CC_REQ_DATA_LEN_INVALID);
+
+    const auto payload = std::get<1>(r);
+    ASSERT_EQ(payload.has_value(), false);
+}
+
+TEST(GoogleAccelOobTest, GetVrSettings_Success)
+{
+    ::testing::StrictMock<HandlerMock> h;
+    constexpr uint8_t kChipId = 3;
+    constexpr uint8_t kSettingsId = 2;
+
+    std::vector<uint8_t> testData = {kChipId, kSettingsId};
+
+    EXPECT_CALL(h, accelGetVrSettings(kChipId, kSettingsId)).WillOnce(Return(0xAABB));
+
+    Resp r = accelGetVrSettings(testData, &h);
+
+    const auto response = std::get<0>(r);
+    EXPECT_EQ(response, IPMI_CC_OK);
+
+    const auto payload = std::get<1>(r);
+    ASSERT_EQ(payload.has_value(), true);
+    const auto payload_tuple = payload.value();
+    const auto reply_cmd = std::get<0>(payload_tuple);
+    EXPECT_EQ(reply_cmd, SysGetAccelVrSettings);
+    const auto reply_buff = std::get<1>(payload_tuple);
+    ASSERT_EQ(reply_buff.size(), 2);
+
+    EXPECT_EQ(reply_buff.at(0), 0xBB);
+    EXPECT_EQ(reply_buff.at(1), 0xAA);
+}
+
+TEST(GoogleAccelOobTest, GetVrSettings_HandleIncorrectDataSize)
+{
+    ::testing::StrictMock<HandlerMock> h;
+    constexpr uint8_t kChipId = 2;
+    uint8_t kSettingsId = 1;
+
+    std::vector<uint8_t> testData = {kChipId, kSettingsId, 0xCC};
+
+    EXPECT_CALL(h, accelGetVrSettings(_, _)).Times(0);
+
+    Resp r = accelSetVrSettings(testData, &h);
+
+    const auto response = std::get<0>(r);
+    EXPECT_EQ(response, IPMI_CC_REQ_DATA_LEN_INVALID);
+
+    const auto payload = std::get<1>(r);
+    ASSERT_EQ(payload.has_value(), false);
+}
 } // namespace ipmi
 } // namespace google
