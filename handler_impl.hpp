@@ -74,6 +74,10 @@ class Handler : public HandlerInterface
     void accelOobWrite(std::string_view name, uint64_t address,
                        uint8_t num_bytes, uint64_t data) const override;
     void linuxBootDone() const override;
+    void accelSetVrSettings(uint8_t chip_id, uint8_t settings_id,
+                            uint16_t value) const override;
+    uint16_t accelGetVrSettings(uint8_t chip_id,
+                                uint8_t settings_id) const override;
 
   protected:
     // Exposed for dependency injection
@@ -101,6 +105,9 @@ class Handler : public HandlerInterface
         {0x1D, "fan"},
         {0x1E, "cooling_unit"},
         {0x20, "memory_device"}};
+
+    const std::map<uint8_t, std::string> _vrSettingsMap{
+        {0, "idle_mode_"}, {1, "power_break_"}, {2, "loadline_"}};
 
     nlohmann::json _entityConfig{};
 
