@@ -36,5 +36,10 @@ Resp accelOobRead(std::span<const uint8_t> data, HandlerInterface* handler);
 
 Resp accelOobWrite(std::span<const uint8_t> data, HandlerInterface* handler);
 
+// Handle the accel power setting command
+Resp accelSetVrSettings(::ipmi::Context::ptr ctx, std::span<const uint8_t> data,
+                        HandlerInterface* handler);
+Resp accelGetVrSettings(::ipmi::Context::ptr ctx, std::span<const uint8_t> data,
+                        HandlerInterface* handler);
 } // namespace ipmi
 } // namespace google

@@ -16,6 +16,8 @@
 
 #include "handler.hpp"
 
+#include <ipmid/message.hpp>
+
 #include <cstddef>
 #include <cstdint>
 #include <string>
@@ -64,6 +66,11 @@ class HandlerMock : public HandlerInterface
     MOCK_METHOD(std::vector<uint8_t>, pcieBifurcation, (uint8_t), (override));
     MOCK_METHOD(uint8_t, getBmcMode, (), (override));
     MOCK_METHOD(void, linuxBootDone, (), (const, override));
+    MOCK_METHOD(void, accelSetVrSettings,
+                (::ipmi::Context::ptr, uint8_t, uint8_t, uint16_t),
+                (const, override));
+    MOCK_METHOD(uint16_t, accelGetVrSettings,
+                (::ipmi::Context::ptr, uint8_t, uint8_t), (const, override));
 };
 
 } // namespace ipmi

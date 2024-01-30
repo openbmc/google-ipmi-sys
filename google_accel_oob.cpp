@@ -15,6 +15,8 @@
 #include "google_accel_oob.hpp"
 
 #include "commands.hpp"
+#include "errors.hpp"
+#include "handler.hpp"
 
 #include <sdbusplus/bus.hpp>
 #include <stdplus/print.hpp>
@@ -282,5 +284,57 @@ Resp accelOobWrite(std::span<const uint8_t> data, HandlerInterface* handler)
     return ::ipmi::responseSuccess(SysOEMCommands::SysAccelOobWrite, replyBuf);
 }
 
+Resp accelGetVrSettings(::ipmi::Context::ptr ctx, std::span<const uint8_t> data,
+                        HandlerInterface* handler)
+{
+    uint16_t value;
+    if (data.size_bytes() != 2)
+    {
+        stdplus::println(
+            stderr,
+            "accelGetVrSettings command has incorrect size: %zuB != %dB\n",
+            data.size_bytes(), 2);
+        return ::ipmi::responseReqDataLenInvalid();
+    }
+
+    try
+    {
+        value = handler->accelGetVrSettings(ctx, /*chip_id*/ data[0],
+                                            /*settings_id*/ data[1]);
+    }
+    catch (const IpmiException& e)
+    {
+        return ::ipmi::response(e.getIpmiError());
+    }
+    return ::ipmi::responseSuccess(
+        SysOEMCommands::SysGetAccelVrSettings,
+        std::vector<uint8_t>{static_cast<uint8_t>(value),
+                             static_cast<uint8_t>(value >> 8)});
+}
+
+Resp accelSetVrSettings(::ipmi::Context::ptr ctx, std::span<const uint8_t> data,
+                        HandlerInterface* handler)
+{
+    if (data.size_bytes() != 4)
+    {
+        stdplus::println(
+            stderr,
+            "accelSetVrSettings command has incorrect size: %zuB != %dB\n",
+            data.size_bytes(), 4);
+        return ::ipmi::responseReqDataLenInvalid();
+    }
+    uint16_t value = static_cast<uint16_t>(data[2] | data[3] << 8);
+    try
+    {
+        handler->accelSetVrSettings(ctx, /*chip_id*/ data[0],
+                                    /*settings_id*/ data[1], /*value*/ value);
+    }
+    catch (const IpmiException& e)
+    {
+        return ::ipmi::response(e.getIpmiError());
+    }
+    return ::ipmi::responseSuccess(SysOEMCommands::SysSetAccelVrSettings,
+                                   std::vector<uint8_t>{});
+}
 } // namespace ipmi
 } // namespace google

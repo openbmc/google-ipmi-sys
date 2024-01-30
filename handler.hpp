@@ -15,6 +15,7 @@
 #pragma once
 
 #include <ipmid/api-types.hpp>
+#include <ipmid/message.hpp>
 
 #include <cstdint>
 #include <map>
@@ -211,6 +212,27 @@ class HandlerInterface
      * untrusted OS.
      */
     virtual void linuxBootDone() const = 0;
+
+    /**
+     * Update the VR settings for the given settings_id
+     *
+     * @param[in] chip_id    - Accel Device#
+     * @param[in] settings_id  - ID of the setting to update
+     * @param[in] value  - Value of the setting
+     */
+    virtual void accelSetVrSettings(::ipmi::Context::ptr ctx, uint8_t chip_id,
+                                    uint8_t settings_id,
+                                    uint16_t value) const = 0;
+
+    /**
+     * Read current VR settings value for the given settings_id
+     *
+     * @param[in] chip_id    - Accel Device#
+     * @param[in] settings_id  - ID of the setting to read
+     */
+    virtual uint16_t accelGetVrSettings(::ipmi::Context::ptr ctx,
+                                        uint8_t chip_id,
+                                        uint8_t settings_id) const = 0;
 };
 
 } // namespace ipmi

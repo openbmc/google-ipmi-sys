@@ -68,6 +68,7 @@ using Json = nlohmann::json;
 using namespace phosphor::logging;
 using InternalFailure =
     sdbusplus::xyz::openbmc_project::Common::Error::InternalFailure;
+using Value = std::variant<double>;
 
 uint8_t isBmcInBareMetalMode(const std::unique_ptr<FileSystemInterface>& fs)
 {
@@ -699,5 +700,72 @@ void Handler::linuxBootDone() const
     }
 }
 
+static constexpr char ACCEL_POWER_SERVICE[] = "xyz.openbmc_project.AccelPower";
+static constexpr char ACCEL_POWER_PATH_PREFIX[] =
+    "/xyz/openbmc_project/control/accel_power_";
+static constexpr char POWER_MODE_IFC[] =
+    "xyz.openbmc_project.Control.Power.Mode";
+
+void Handler::accelSetVrSettings(::ipmi::Context::ptr ctx, uint8_t chip_id,
+                                 uint8_t settings_id, uint16_t value) const
+{
+    int vrSettingsReq;
+    boost::system::error_code ec;
+    if (_vrSettingsMap.find(settings_id) == _vrSettingsMap.end())
+    {
+        log<level::ERR>("Settings ID is not supported",
+                        entry("settings_id=%d", settings_id));
+        throw IpmiException(::ipmi::ccParmOutOfRange);
+    }
+
+    vrSettingsReq = static_cast<int>(settings_id | value << 8);
+    std::string object_name(
+        std::format("{}{}", ACCEL_POWER_PATH_PREFIX, chip_id));
+
+    std::variant<int> val = vrSettingsReq;
+    ctx->bus->yield_method_call(ctx->yield, ec, ACCEL_POWER_SERVICE,
+                                object_name.c_str(),
+                                "org.freedesktop.DBus.Properties", "Set",
+                                POWER_MODE_IFC, "PowerMode", val);
+    if (ec)
+    {
+        log<level::ERR>("Failed to set PowerMode property");
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+}
+
+static constexpr char EXTERNAL_SENSOR_SERVICE[] =
+    "xyz.openbmc_project.ExternalSensor";
+static constexpr char EXTERNAL_SENSOR_PATH_PREFIX[] =
+    "/xyz/openbmc_project/sensors/power/";
+static constexpr char SENSOR_VALUE_IFC[] = "xyz.openbmc_project.Sensor.Value";
+
+uint16_t Handler::accelGetVrSettings(::ipmi::Context::ptr ctx, uint8_t chip_id,
+                                     uint8_t settings_id) const
+{
+    Value value;
+    boost::system::error_code ec;
+    std::string object_name(std::format("{}{}{}", EXTERNAL_SENSOR_PATH_PREFIX,
+                                        _vrSettingsMap.at(settings_id),
+                                        chip_id));
+
+    if (_vrSettingsMap.find(settings_id) == _vrSettingsMap.end())
+    {
+        log<level::ERR>("Settings ID is not supported",
+                        entry("settings_id=%d", settings_id));
+        throw IpmiException(::ipmi::ccParmOutOfRange);
+    }
+
+    value = ctx->bus->yield_method_call<std::variant<double>>(
+        ctx->yield, ec, EXTERNAL_SENSOR_SERVICE, object_name.c_str(),
+        "org.freedesktop.DBus.Properties", "Get", SENSOR_VALUE_IFC, "Value");
+    if (ec)
+    {
+        log<level::ERR>("accelGetVrSettings: Failed to call GetObject ");
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+
+    return static_cast<uint16_t>(std::get<double>(value));
+}
 } // namespace ipmi
 } // namespace google
