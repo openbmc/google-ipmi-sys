@@ -46,7 +46,7 @@ namespace google
 namespace ipmi
 {
 
-Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr,
+Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr ctx,
                       uint8_t cmd, std::span<const uint8_t> data)
 {
     switch (cmd)
@@ -87,6 +87,10 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr,
             return pcieBifurcation(data, handler);
         case SysLinuxBootDone:
             return linuxBootDone(data, handler);
+        case SysGetAccelVrSettings:
+            return accelGetVrSettings(ctx, data, handler);
+        case SysSetAccelVrSettings:
+            return accelSetVrSettings(ctx, data, handler);
         default:
             stdplus::print(stderr, "Invalid subcommand: {:#x}\n", cmd);
             return ::ipmi::responseInvalidCommand();
