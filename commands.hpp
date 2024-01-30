@@ -57,6 +57,10 @@ enum SysOEMCommands
     SysGetBmcMode = 16,
     // The Sys Linux Boot Done command
     SysLinuxBootDone = 17,
+    // Google CustomAccel Get VR Settings
+    SysGetAccelVrSettings = 18,
+    // Google CustomAccel Set VR Settings
+    SysSetAccelVrSettings = 19,
 };
 
 } // namespace ipmi
