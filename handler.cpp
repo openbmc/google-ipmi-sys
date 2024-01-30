@@ -68,6 +68,7 @@ using Json = nlohmann::json;
 using namespace phosphor::logging;
 using InternalFailure =
     sdbusplus::xyz::openbmc_project::Common::Error::InternalFailure;
+using Value = std::variant<double>;
 
 uint8_t isBmcInBareMetalMode(const std::unique_ptr<FileSystemInterface>& fs)
 {
@@ -699,5 +700,95 @@ void Handler::linuxBootDone() const
     }
 }
 
+static constexpr char ACCEL_POWER_SERVICE[] = "xyz.openbmc_project.AccelPower";
+static constexpr char ACCEL_POWER_PATH_PREFIX[] =
+    "/xyz/openbmc_project/control/accel_power_";
+static constexpr char POWER_MODE_IFC[] =
+    "xyz.openbmc_project.Control.Power.Mode";
+
+void Handler::accelSetVrSettings(uint8_t chip_id, uint8_t settings_id,
+                                 uint16_t value) const
+{
+    int vrSettingsReq;
+    if (_vrSettingsMap.find(settings_id) == _vrSettingsMap.end())
+    {
+        log<level::ERR>("Settings ID is not supported",
+                        entry("settings_id=%d", settings_id));
+        throw IpmiException(::ipmi::ccParmOutOfRange);
+    }
+
+    vrSettingsReq = static_cast<int>(settings_id | value << 8);
+    std::string object_name(ACCEL_POWER_PATH_PREFIX);
+    object_name.append(std::to_string(int(chip_id)));
+
+    std::cerr << "accelSetVrSettings: Chip id: " << int(chip_id)
+              << " settings_id: " << int(settings_id)
+              << " Value: " << int(value) << std::endl;
+    std::variant<int> val = vrSettingsReq;
+    try
+    {
+        auto bus = getDbus();
+        auto method =
+            bus.new_method_call(ACCEL_POWER_SERVICE, object_name.c_str(),
+                                "org.freedesktop.DBus.Properties", "Set");
+
+        method.append(POWER_MODE_IFC, "PowerMode", val);
+
+        if (!bus.call(method))
+        {
+            log<level::ERR>("Failed to set PowerMode property");
+            throw IpmiException(::ipmi::ccUnspecifiedError);
+        }
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        std::cerr << "accelSetVrSettings: Failed to call SetObject "
+                  << ex.what() << std::endl;
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+
+    return;
+}
+
+static constexpr char EXTERNAL_SENSOR_SERVICE[] =
+    "xyz.openbmc_project.ExternalSensor";
+static constexpr char EXTERNAL_SENSOR_PATH_PREFIX[] =
+    "/xyz/openbmc_project/sensors/power/";
+static constexpr char SENSOR_VALUE_IFC[] = "xyz.openbmc_project.Sensor.Value";
+
+uint8_t Handler::accelGetVrSettings(uint8_t chip_id, uint8_t settings_id) const
+{
+    Value value;
+    std::string object_name(EXTERNAL_SENSOR_PATH_PREFIX);
+    object_name.append(_vrSettingsMap.at(settings_id));
+    object_name.append(std::to_string(int(chip_id)));
+
+    if (_vrSettingsMap.find(settings_id) == _vrSettingsMap.end())
+    {
+        log<level::ERR>("Settings ID is not supported",
+                        entry("settings_id=%d", settings_id));
+        throw IpmiException(::ipmi::ccParmOutOfRange);
+    }
+
+    try
+    {
+        auto bus = getDbus();
+        auto method =
+            bus.new_method_call(EXTERNAL_SENSOR_SERVICE, object_name.c_str(),
+                                "org.freedesktop.DBus.Properties", "Get");
+
+        method.append(SENSOR_VALUE_IFC, "Value");
+
+        bus.call(method).read(value);
+    }
+    catch (const sdbusplus::exception::SdBusError& ex)
+    {
+        std::cerr << "accelGetVrSettings: Failed to call GetObject "
+                  << ex.what() << std::endl;
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+
+    return static_cast<uint16_t>(std::get<double>(value));
+}
 } // namespace ipmi
 } // namespace google
