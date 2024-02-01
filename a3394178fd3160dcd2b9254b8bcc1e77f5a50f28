@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acc40b2f_b92e7249",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-02-01T23:15:58Z",
+      "side": 1,
+      "message": "stdplus::println\n\nSame with the others.",
+      "range": {
+        "startLine": 293,
+        "startChar": 9,
+        "endLine": 293,
+        "endChar": 20
+      },
+      "revId": "a3394178fd3160dcd2b9254b8bcc1e77f5a50f28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "179da263_cfadb91d",
+        "filename": "handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-02-01T23:15:58Z",
+      "side": 1,
+      "message": "std::format",
+      "range": {
+        "startLine": 759,
+        "startChar": 16,
+        "endLine": 761,
+        "endChar": 53
+      },
+      "revId": "a3394178fd3160dcd2b9254b8bcc1e77f5a50f28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca67b55d_fa1c6e88",
+        "filename": "handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-02-01T23:15:58Z",
+      "side": 1,
+      "message": "you should be getting the bus from `::ipmi::Context::ptr ctx`.\n\nhttps://gerrit.openbmc.org/c/openbmc/google-ipmi-sys/+/47712 has example of it.",
+      "range": {
+        "startLine": 772,
+        "startChar": 8,
+        "endLine": 772,
+        "endChar": 29
+      },
+      "revId": "a3394178fd3160dcd2b9254b8bcc1e77f5a50f28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1412c9a3_da47d323",
+        "filename": "handler_impl.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-02-01T23:15:58Z",
+      "side": 1,
+      "message": "unordered_map",
+      "range": {
+        "startLine": 109,
+        "startChar": 15,
+        "endLine": 109,
+        "endChar": 18
+      },
+      "revId": "a3394178fd3160dcd2b9254b8bcc1e77f5a50f28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
