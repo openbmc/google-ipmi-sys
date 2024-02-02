@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e1a6b65_95e72624",
+        "filename": "google_accel_oob.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000985
+      },
+      "writtenOn": "2024-02-02T07:05:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acc40b2f_b92e7249",
+      "range": {
+        "startLine": 293,
+        "startChar": 9,
+        "endLine": 293,
+        "endChar": 20
+      },
+      "revId": "a3394178fd3160dcd2b9254b8bcc1e77f5a50f28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "179da263_cfadb91d",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-02-01T23:15:58Z",
       "side": 1,
       "message": "std::format",
+      "range": {
+        "startLine": 759,
+        "startChar": 16,
+        "endLine": 761,
+        "endChar": 53
+      },
+      "revId": "a3394178fd3160dcd2b9254b8bcc1e77f5a50f28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f512602e_3c8218ba",
+        "filename": "handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1000985
+      },
+      "writtenOn": "2024-02-02T07:05:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "179da263_cfadb91d",
       "range": {
         "startLine": 759,
         "startChar": 16,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "62206032_aedf1f60",
+        "filename": "handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 1000985
+      },
+      "writtenOn": "2024-02-02T07:05:04Z",
+      "side": 1,
+      "message": "the ctx ptr is provided by the ipmi handleSysCommand in your cl, currently the parameter is unused. Do you want me to add the ctx paramter and use it?\n\nI am currently using the same method `getDbus` as other methods in accel_oob file. Is there any advantage of getting the bus from `::ipmi::Context::ptr`",
+      "parentUuid": "ca67b55d_fa1c6e88",
+      "range": {
+        "startLine": 772,
+        "startChar": 8,
+        "endLine": 772,
+        "endChar": 29
+      },
+      "revId": "a3394178fd3160dcd2b9254b8bcc1e77f5a50f28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1412c9a3_da47d323",
         "filename": "handler_impl.hpp",
         "patchSetId": 9
@@ -83,6 +155,30 @@
       "writtenOn": "2024-02-01T23:15:58Z",
       "side": 1,
       "message": "unordered_map",
+      "range": {
+        "startLine": 109,
+        "startChar": 15,
+        "endLine": 109,
+        "endChar": 18
+      },
+      "revId": "a3394178fd3160dcd2b9254b8bcc1e77f5a50f28",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe6a9034_fe469677",
+        "filename": "handler_impl.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000985
+      },
+      "writtenOn": "2024-02-02T07:05:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1412c9a3_da47d323",
       "range": {
         "startLine": 109,
         "startChar": 15,
