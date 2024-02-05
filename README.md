@@ -457,7 +457,7 @@ Response (if applicable)
 | ------- | ----- | ---------- |
 | 0x00    | 0x11  | Subcommand |
 
-### SysGetAccelVrSettings - SubCommand 0x12
+### SysGetAccelVrSettings - SubCommand 0x15
 
 Get the accel's VR setting value for the given chip and settings ID
 
@@ -471,7 +471,7 @@ Request
 
 | Byte(s) | Value | Data       |
 | ------- | ----- | ---------- |
-| 0x00    | 0x12  | Subcommand |
+| 0x00    | 0x15  | Subcommand |
 | 0x01    |       | Chip ID    |
 | 0x02    |       | SettingsID |
 
@@ -479,10 +479,10 @@ Response (if applicable)
 
 | Byte(s)    | Value | Data           |
 | ---------- | ----- | -------------- |
-| 0x00       | 0x12  | Subcommand     |
-| 0x01..0x02 | 0x12  | Settings Value |
+| 0x00       | 0x15  | Subcommand     |
+| 0x01..0x02 | 0x15  | Settings Value |
 
-### SysSetAccelVrSettings - SubCommand 0x13
+### SysSetAccelVrSettings - SubCommand 0x16
 
 Update the VR settings of a given accel device for a specific settings id.
 
@@ -499,13 +499,13 @@ Request
 
 | Byte(s)    | Value | Data           |
 | ---------- | ----- | -------------- |
-| 0x00       | 0x13  | Subcommand     |
+| 0x00       | 0x16  | Subcommand     |
 | 0x01       |       | Chip ID        |
 | 0x02       |       | Settings ID    |
-| 0x03..0x04 | 0x13  | Settings Value |
+| 0x03..0x04 | 0x16  | Settings Value |
 
 Response (if applicable)
 
 | Byte(s) | Value | Data       |
 | ------- | ----- | ---------- |
-| 0x00    | 0x13  | Subcommand |
+| 0x00    | 0x16  | Subcommand |
