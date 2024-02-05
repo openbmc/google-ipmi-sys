@@ -57,10 +57,16 @@ enum SysOEMCommands
     SysGetBmcMode = 16,
     // The Sys Linux Boot Done command
     SysLinuxBootDone = 17,
+    // Send reboot checkpoint to BMC to monitor the reboot process.
+    SysSendRebootCheckpoint = 18,
+    // Send reboot end event to BMC to notify BMC the reboot is completed.
+    SysSendRebootComplete = 19,
+    // Send Additional duration to BMC to monitor the reboot process.
+    SysSendRebootAdditionalDuration = 20,
     // Google CustomAccel Get VR Settings
-    SysGetAccelVrSettings = 18,
+    SysGetAccelVrSettings = 21,
     // Google CustomAccel Set VR Settings
-    SysSetAccelVrSettings = 19,
+    SysSetAccelVrSettings = 22,
 };
 
 } // namespace ipmi
