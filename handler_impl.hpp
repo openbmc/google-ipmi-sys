@@ -107,7 +107,7 @@ class Handler : public HandlerInterface
         {0x20, "memory_device"}};
 
     const std::unordered_map<uint8_t, std::string> _vrSettingsMap{
-        {0, "idle_mode_"}, {1, "power_break_"}, {2, "loadline_"}};
+        {0, "idle_mode_"}, {1, "power_brake_"}, {2, "loadline_"}};
 
     nlohmann::json _entityConfig{};
 
