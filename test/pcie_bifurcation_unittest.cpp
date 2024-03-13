@@ -46,7 +46,8 @@ TEST(PcieBifurcationCommandTest, ValidRequest)
     std::vector<uint8_t> expectedOutput = {4, 8, 1, 2};
 
     HandlerMock hMock;
-    EXPECT_CALL(hMock, pcieBifurcation(5)).WillOnce(Return(expectedOutput));
+    EXPECT_CALL(hMock, pcieBifurcationByIndex(5))
+        .WillOnce(Return(expectedOutput));
 
     auto reply = pcieBifurcation(request, &hMock);
     auto result = ValidateReply(reply);
@@ -65,7 +66,8 @@ TEST(PcieBifurcationCommandTest, ReplyExceddedMaxValue)
     std::vector<uint8_t> expectedOutput(64, 1);
 
     HandlerMock hMock;
-    EXPECT_CALL(hMock, pcieBifurcation(5)).WillOnce(Return(expectedOutput));
+    EXPECT_CALL(hMock, pcieBifurcationByIndex(5))
+        .WillOnce(Return(expectedOutput));
     EXPECT_EQ(::ipmi::responseInvalidCommand(),
               pcieBifurcation(request, &hMock));
 }

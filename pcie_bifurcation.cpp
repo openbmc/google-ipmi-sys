@@ -52,7 +52,17 @@ Resp pcieBifurcation(std::span<const uint8_t> data, HandlerInterface* handler)
         return ::ipmi::responseReqDataLenInvalid();
     }
 
-    auto bifurcation = handler->pcieBifurcation(/*index=*/data[0]);
+    std::vector<uint8_t> bifurcation;
+
+    if (data.size() == sizeof(struct PcieBifurcationRequest))
+    {
+        bifurcation = handler->pcieBifurcationByIndex(/*index=*/data[0]);
+    }
+    else
+    {
+        bifurcation = handler->pcieBifurcationByName(
+            /*name=*/std::string(data.begin(), data.end()));
+    }
 
     int length = sizeof(struct PcieBifurcationReply) + bifurcation.size();
 
