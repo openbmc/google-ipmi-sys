@@ -402,12 +402,19 @@ Response
 
 Sys command to return the highest level of bifurcation for the target PCIe Slot.
 
-Request
+Request with PCIe slot index
 
 | Byte(s) | Value          | Data                 |
 | ------- | -------------- | -------------------- |
 | 0x00    | 0x0F           | Subcommand           |
 | 0x01    | PE slot number | Index of the PE slot |
+
+Request with PCIe slot name
+
+| Byte(s) | Value          | Data                 |
+| ------- | -------------- | -------------------- |
+| 0x00    | 0x0F           | Subcommand           |
+| 0x01..n | PE slot name   | Name PCIe Slot       |
 
 Response
 

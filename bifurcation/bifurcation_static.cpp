@@ -15,6 +15,7 @@
 
 #include "bifurcation.hpp"
 
+#include <ipmid/message.hpp>
 #include <nlohmann/json.hpp>
 #include <stdplus/print.hpp>
 
@@ -39,12 +40,12 @@ BifurcationStatic::BifurcationStatic(std::string_view bifurcationFile) :
 {}
 
 std::optional<std::vector<uint8_t>>
-    BifurcationStatic::getBifurcation(uint8_t index) noexcept
+    BifurcationStatic::getBifurcation(std::string_view name) noexcept
 {
     // Example valid data:
     // {
-    //     "1": [8,8],
-    //     "2": [4, 4, 12]
+    //     "/PE1": [8,8],
+    //     "/PE2": [4, 4, 12]
     // }
     std::ifstream jsonFile(bifurcationFile.c_str());
     if (!jsonFile.is_open())
@@ -71,8 +72,7 @@ std::optional<std::vector<uint8_t>>
     std::vector<uint8_t> vec;
     try
     {
-        std::string key = std::to_string(index);
-        auto value = jsonData[key];
+        auto value = jsonData[name];
         value.get_to(vec);
     }
     catch (const std::exception& e)

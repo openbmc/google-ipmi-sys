@@ -598,15 +598,15 @@ TEST(HandlerTest, accelOobWrite_Fail)
                  IpmiException);
 }
 
-TEST(HandlerTest, PcieBifurcation)
+TEST(HandlerTest, PcieBifurcationStatic)
 {
     const std::string& testJson = "/tmp/test-json";
     auto j = R"(
         {
-            "1": [ 1, 3 ],
-            "3": [ 3, 6 ],
-            "4": [ 3, 4, 1 ],
-            "6": [ 8 ]
+            "/PE1": [ 1, 3 ],
+            "/PE3": [ 3, 6 ],
+            "/PE4": [ 3, 4, 1 ],
+            "/PE6": [ 8 ]
         }
     )"_json;
 
@@ -624,12 +624,12 @@ TEST(HandlerTest, PcieBifurcation)
 
     for (const auto& [bus, output] : expectedMapping)
     {
-        EXPECT_THAT(h.pcieBifurcation(bus), ContainerEq(output));
+        EXPECT_THAT(h.pcieBifurcationByIndex(bus), ContainerEq(output));
     }
 
     for (const auto& bus : invalidBus)
     {
-        EXPECT_TRUE(h.pcieBifurcation(bus).empty());
+        EXPECT_TRUE(h.pcieBifurcationByIndex(bus).empty());
     }
 
     std::filesystem::remove(testJson.data());
@@ -637,7 +637,7 @@ TEST(HandlerTest, PcieBifurcation)
     Handler h2(std::ref(bifurcationHelper));
     for (uint8_t i = 0; i < 8; ++i)
     {
-        auto bifurcation = h2.pcieBifurcation(i);
+        auto bifurcation = h2.pcieBifurcationByIndex(i);
         EXPECT_TRUE(bifurcation.empty());
     }
 }

@@ -38,7 +38,22 @@ class BifurcationInterface
      * @return the bifurcation at the i2c bus
      */
     virtual std::optional<std::vector<uint8_t>>
-        getBifurcation(uint8_t bus) noexcept = 0;
+        getBifurcation([[maybe_unused]] uint8_t bus) noexcept
+    {
+        return std::nullopt;
+    };
+
+    /**
+     * Get the Bifurcation of the device with the PEIe name
+     *
+     * @param[in] name   PEIe Device Name
+     * @return the bifurcation at the i2c bus
+     */
+    virtual std::optional<std::vector<uint8_t>>
+        getBifurcation([[maybe_unused]] std::string_view name) noexcept
+    {
+        return std::nullopt;
+    };
 };
 
 class BifurcationStatic : public BifurcationInterface
@@ -54,7 +69,7 @@ class BifurcationStatic : public BifurcationInterface
     BifurcationStatic(std::string_view bifurcationFile);
 
     std::optional<std::vector<uint8_t>>
-        getBifurcation(uint8_t index) noexcept override;
+        getBifurcation(std::string_view name) noexcept override;
 
   protected:
     BifurcationStatic();
