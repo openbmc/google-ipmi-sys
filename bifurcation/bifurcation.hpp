@@ -32,13 +32,13 @@ class BifurcationInterface
     virtual ~BifurcationInterface() = default;
 
     /**
-     * Get the Bifurcation of the device at the i2c bus
+     * Get the Bifurcation of the device
      *
-     * @param[in] bus    - I2C bus of the device
-     * @return the bifurcation at the i2c bus
+     * @param[in] name    PCIe Device Name
+     * @return the bifurcation with the PCIe Device
      */
     virtual std::optional<std::vector<uint8_t>>
-        getBifurcation(uint8_t bus) noexcept = 0;
+        getBifurcation(std::string_view name) noexcept = 0;
 };
 
 class BifurcationStatic : public BifurcationInterface
@@ -54,7 +54,7 @@ class BifurcationStatic : public BifurcationInterface
     BifurcationStatic(std::string_view bifurcationFile);
 
     std::optional<std::vector<uint8_t>>
-        getBifurcation(uint8_t index) noexcept override;
+        getBifurcation(std::string_view name) noexcept override;
 
   protected:
     BifurcationStatic();
