@@ -63,8 +63,11 @@ class HandlerMock : public HandlerInterface
     MOCK_METHOD(void, accelOobWrite,
                 (std::string_view, uint64_t, uint8_t, uint64_t),
                 (const, override));
-    MOCK_METHOD(std::vector<uint8_t>, pcieBifurcation, (uint8_t), (override));
     MOCK_METHOD(uint8_t, getBmcMode, (), (override));
+    MOCK_METHOD(std::vector<uint8_t>, pcieBifurcationByIndex, (uint8_t),
+                (override));
+    MOCK_METHOD(std::vector<uint8_t>, pcieBifurcationByName, (std::string_view),
+                (override));
     MOCK_METHOD(void, linuxBootDone, (), (const, override));
     MOCK_METHOD(void, accelSetVrSettings,
                 (::ipmi::Context::ptr, uint8_t, uint8_t, uint16_t),

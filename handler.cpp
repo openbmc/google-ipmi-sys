@@ -28,6 +28,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+#include <ipmid/message.hpp>
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
@@ -38,12 +39,15 @@
 #include <cinttypes>
 #include <cstdio>
 #include <filesystem>
+#include <format>
 #include <fstream>
 #include <map>
+#include <memory>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <tuple>
+#include <unordered_set>
 #include <variant>
 
 #ifndef NCSI_IF_NAME
@@ -669,9 +673,14 @@ void Handler::accelOobWrite(std::string_view name, uint64_t address,
     }
 }
 
-std::vector<uint8_t> Handler::pcieBifurcation(uint8_t index)
+std::vector<uint8_t> Handler::pcieBifurcationByIndex(uint8_t index)
 {
-    return bifurcationHelper.get().getBifurcation(index).value_or(
+    return pcieBifurcationByName(std::format("/PE{}", index));
+}
+
+std::vector<uint8_t> Handler::pcieBifurcationByName(std::string_view name)
+{
+    return bifurcationHelper.get().getBifurcation(name).value_or(
         std::vector<uint8_t>{});
 }
 

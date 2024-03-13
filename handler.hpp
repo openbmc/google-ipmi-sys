@@ -200,10 +200,25 @@ class HandlerInterface
     /**
      * Parse the I2C tree to get the highest level of bifurcation in target bus.
      *
+     * This function assume that the PCIe Slots are in the format of PE{index}.
+     * Please use pcieBifurcationByName to support different name format.
+     *
      * @param[in] index    - PCIe Slot Index
-     * @return list of lanes taken by each device.
+     * @return list of lanes taken by each device. Sorted by highest to lowest.
      */
-    virtual std::vector<uint8_t> pcieBifurcation(uint8_t index) = 0;
+    virtual std::vector<uint8_t> pcieBifurcationByIndex(uint8_t index) = 0;
+
+    /**
+     * Parse the I2C tree to get the highest level of bifurcation in target bus.
+     *
+     * This function will use the full name of the PCIe slot to get the
+     * bifurcation info.
+     *
+     * @param[in] index    - PCIe Slot Index
+     * @return list of lanes taken by each device. Sorted by highest to lowest.
+     */
+    virtual std::vector<uint8_t>
+        pcieBifurcationByName(std::string_view name) = 0;
 
     /**
      * Prepare for OS boot.
