@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37c631d5_99b6867f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 57
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-03-13T20:44:01Z",
+      "side": 1,
+      "message": "I believe we\u0027ve been using this patch internally for a long time now right?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 0
+      },
+      "revId": "31df59bd6fb73c305348ba060278670c84dce208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1e2fd09_d1a85f85",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-03-13T20:44:01Z",
+      "side": 1,
+      "message": "Oh, why don\u0027t we have it as pure virtual?",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 6
+      },
+      "revId": "31df59bd6fb73c305348ba060278670c84dce208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
