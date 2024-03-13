@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbc310de_bfe2caf4",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-03-13T17:31:01Z",
+      "side": 1,
+      "message": "rm\u0027ed",
+      "parentUuid": "a49bfb40_1ad8d501",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 2
+      },
+      "revId": "6ac75b36b770a649577613f3146f3a32fe2be644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9932921_8a8e7645",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-03T16:48:49Z",
       "side": 1,
       "message": "nit: \"bus\"",
+      "range": {
+        "startLine": 68,
+        "startChar": 19,
+        "endLine": 68,
+        "endChar": 22
+      },
+      "revId": "6ac75b36b770a649577613f3146f3a32fe2be644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2d849d0_988b9924",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-03-13T17:31:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9932921_8a8e7645",
       "range": {
         "startLine": 68,
         "startChar": 19,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdb4fe4b_2ca21020",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-03-13T17:31:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22a3a1bc_c6fcea14",
+      "range": {
+        "startLine": 96,
+        "startChar": 36,
+        "endLine": 96,
+        "endChar": 49
+      },
+      "revId": "6ac75b36b770a649577613f3146f3a32fe2be644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b6021de_1e0723a5",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-10-03T16:48:49Z",
       "side": 1,
       "message": "unused?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "6ac75b36b770a649577613f3146f3a32fe2be644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6802ed11_e8526978",
+        "filename": "bifurcation/bifurcation_dynamic.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-03-13T17:31:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b6021de_1e0723a5",
       "range": {
         "startLine": 23,
         "startChar": 0,
@@ -112,6 +208,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24ba6437_3a1a8526",
+        "filename": "handler.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-03-13T17:31:01Z",
+      "side": 1,
+      "message": "do you just mean the instance number that the BIOS will use to fetch the name from https://github.com/openbmc/google-ipmi-sys?tab\u003dreadme-ov-file#getentityname---subcommand-0x06?\n\nI think what I can do is support both PE index and full name so that we still support older system that uses the index while having them migrate to full name.\n\nAdding it in https://gerrit.openbmc.org/c/openbmc/google-ipmi-sys/+/70029",
+      "parentUuid": "62723466_5aeb9adf",
+      "revId": "6ac75b36b770a649577613f3146f3a32fe2be644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c0cc7555_1936df5c",
         "filename": "handler.cpp",
         "patchSetId": 50
@@ -123,6 +237,30 @@
       "writtenOn": "2023-10-03T16:48:49Z",
       "side": 1,
       "message": "const?",
+      "range": {
+        "startLine": 704,
+        "startChar": 27,
+        "endLine": 704,
+        "endChar": 29
+      },
+      "revId": "6ac75b36b770a649577613f3146f3a32fe2be644",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b40a5ba1_04b9a8af",
+        "filename": "handler.cpp",
+        "patchSetId": 50
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-03-13T17:31:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0cc7555_1936df5c",
       "range": {
         "startLine": 704,
         "startChar": 27,
