@@ -598,15 +598,15 @@ TEST(HandlerTest, accelOobWrite_Fail)
                  IpmiException);
 }
 
-TEST(HandlerTest, PcieBifurcation)
+TEST(HandlerTest, PcieBifurcationStatic)
 {
     const std::string& testJson = "/tmp/test-json";
     auto j = R"(
         {
-            "1": [ 1, 3 ],
-            "3": [ 3, 6 ],
-            "4": [ 3, 4, 1 ],
-            "6": [ 8 ]
+            "/PE1": [ 1, 3 ],
+            "/PE3": [ 3, 6 ],
+            "/PE4": [ 3, 4, 1 ],
+            "/PE6": [ 8 ]
         }
     )"_json;
 
@@ -615,21 +615,41 @@ TEST(HandlerTest, PcieBifurcation)
     bifurcationJson.flush();
     bifurcationJson.close();
 
+    const char* testFilename = "test.json";
+    std::string contents = R"(
+        {
+            "add_in_card": [
+                {"instance": 11, "name": "/PE1"},
+                {"instance": 13, "name": "/PE3"},
+                {"instance": 14, "name": "/PE4"},
+                {"instance": 16, "name": "/PE6"}
+            ]
+        }
+    )";
+    std::ofstream outputJson(testFilename);
+    outputJson << contents;
+    outputJson.flush();
+    outputJson.close();
+
     BifurcationStatic bifurcationHelper(testJson);
-    Handler h(std::ref(bifurcationHelper));
+    Handler h(std::ref(bifurcationHelper), testFilename);
 
     std::unordered_map<uint8_t, std::vector<uint8_t>> expectedMapping = {
         {1, {1, 3}}, {3, {3, 6}}, {4, {3, 4, 1}}, {6, {8}}};
-    std::vector<uint8_t> invalidBus = {0, 2, 5, 7};
+    std::vector<uint8_t> invalidIndex = {0, 2, 5, 7};
 
-    for (const auto& [bus, output] : expectedMapping)
+    for (const auto& [index, output] : expectedMapping)
     {
-        EXPECT_THAT(h.pcieBifurcation(bus), ContainerEq(output));
+        EXPECT_THAT(h.pcieBifurcationByIndex(index), ContainerEq(output));
+        EXPECT_THAT(h.pcieBifurcationByName(std::format("/PE{}", index)),
+                    ContainerEq(output));
     }
 
-    for (const auto& bus : invalidBus)
+    for (const auto& index : invalidIndex)
     {
-        EXPECT_TRUE(h.pcieBifurcation(bus).empty());
+        EXPECT_TRUE(h.pcieBifurcationByIndex(index).empty());
+        EXPECT_TRUE(
+            h.pcieBifurcationByName(std::format("/PE{}", index)).empty());
     }
 
     std::filesystem::remove(testJson.data());
@@ -637,7 +657,7 @@ TEST(HandlerTest, PcieBifurcation)
     Handler h2(std::ref(bifurcationHelper));
     for (uint8_t i = 0; i < 8; ++i)
     {
-        auto bifurcation = h2.pcieBifurcation(i);
+        auto bifurcation = h2.pcieBifurcationByIndex(i);
         EXPECT_TRUE(bifurcation.empty());
     }
 }
