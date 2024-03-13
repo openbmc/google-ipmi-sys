@@ -14,10 +14,13 @@
 
 #pragma once
 
+#include "config.h"
+
 #include "bifurcation.hpp"
 #include "file_system_wrapper_impl.hpp"
 #include "handler.hpp"
 
+#include <ipmid/message.hpp>
 #include <nlohmann/json.hpp>
 #include <sdbusplus/bus.hpp>
 
@@ -43,7 +46,13 @@ class Handler : public HandlerInterface
     explicit Handler(const std::string& entityConfigPath = defaultConfigFile) :
         fsPtr(std::make_unique<FileSystemWrapper>()),
         _configFile(entityConfigPath),
-        bifurcationHelper(BifurcationStatic::createBifurcation()){};
+        bifurcationHelper(
+#if DYNAMIC_BIFURCATION
+            BifurcationDynamic::createBifurcation()
+#else
+            BifurcationStatic::createBifurcation()
+#endif
+        ){};
     Handler(std::reference_wrapper<BifurcationInterface> bifurcationHelper,
             const std::string& entityConfigPath = defaultConfigFile) :
         fsPtr(std::make_unique<FileSystemWrapper>()),
@@ -65,7 +74,8 @@ class Handler : public HandlerInterface
     void hostPowerOffDelay(std::uint32_t delay) const override;
     std::tuple<std::uint32_t, std::string>
         getI2cEntry(unsigned int entry) const override;
-    std::vector<uint8_t> pcieBifurcation(uint8_t) override;
+    std::vector<uint8_t> pcieBifurcationByIndex(uint8_t index) override;
+    std::vector<uint8_t> pcieBifurcationByName(std::string_view name) override;
 
     uint32_t accelOobDeviceCount() const override;
     std::string accelOobDeviceName(size_t index) const override;
