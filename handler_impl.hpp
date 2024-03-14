@@ -40,10 +40,7 @@ constexpr char defaultConfigFile[] =
 class Handler : public HandlerInterface
 {
   public:
-    explicit Handler(const std::string& entityConfigPath = defaultConfigFile) :
-        fsPtr(std::make_unique<FileSystemWrapper>()),
-        _configFile(entityConfigPath),
-        bifurcationHelper(BifurcationStatic::createBifurcation()){};
+    explicit Handler(const std::string& entityConfigPath = defaultConfigFile);
     Handler(std::reference_wrapper<BifurcationInterface> bifurcationHelper,
             const std::string& entityConfigPath = defaultConfigFile) :
         fsPtr(std::make_unique<FileSystemWrapper>()),

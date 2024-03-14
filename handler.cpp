@@ -136,6 +136,22 @@ std::tuple<std::uint8_t, std::string>
     return std::make_tuple(::ipmi::getChannelByName(intf), std::move(intf));
 }
 
+Handler::Handler(const std::string& entityConfigPath) :
+    fsPtr(std::make_unique<FileSystemWrapper>()), _configFile(entityConfigPath),
+    bifurcationHelper(BifurcationStatic::createBifurcation())
+{
+    try
+    {
+        // Parse the JSON config file.
+        _entityConfig = parseConfig(_configFile);
+        _entityConfigParsed = true;
+    }
+    catch (InternalFailure& e)
+    {
+        stdplus::println(stderr, "Parsing Entity Config failed: {}", e.what());
+    }
+}
+
 std::int64_t Handler::getRxPackets(const std::string& name) const
 {
     std::ostringstream opath;
@@ -305,25 +321,16 @@ std::string Handler::getEntityName(std::uint8_t id, std::uint8_t instance)
     }
 
     std::string entityName;
-    try
-    {
-        // Parse the JSON config file.
-        if (!_entityConfigParsed)
-        {
-            _entityConfig = parseConfig(_configFile);
-            _entityConfigParsed = true;
-        }
-
-        // Find the "entity id:entity instance" mapping to entity name.
-        entityName = readNameFromConfig(it->second, instance, _entityConfig);
-        if (entityName.empty())
-        {
-            throw IpmiException(::ipmi::ccInvalidFieldRequest);
-        }
-    }
-    catch (InternalFailure& e)
+    if (!_entityConfigParsed)
     {
         throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+
+    // Find the "entity id:entity instance" mapping to entity name.
+    entityName = readNameFromConfig(it->second, instance, _entityConfig);
+    if (entityName.empty())
+    {
+        throw IpmiException(::ipmi::ccInvalidFieldRequest);
     }
 
     return entityName;
