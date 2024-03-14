@@ -45,6 +45,30 @@
       },
       "revId": "31df59bd6fb73c305348ba060278670c84dce208",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad9d79ea_295b9e7a",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-03-14T01:53:05Z",
+      "side": 1,
+      "message": "I was able to clean it up more now.",
+      "parentUuid": "b1e2fd09_d1a85f85",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 6
+      },
+      "revId": "31df59bd6fb73c305348ba060278670c84dce208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
