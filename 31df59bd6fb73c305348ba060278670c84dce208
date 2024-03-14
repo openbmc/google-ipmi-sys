@@ -69,6 +69,30 @@
       },
       "revId": "31df59bd6fb73c305348ba060278670c84dce208",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "532d48f3_5a92a9ec",
+        "filename": "bifurcation/bifurcation.hpp",
+        "patchSetId": 57
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-03-14T03:11:35Z",
+      "side": 1,
+      "message": "ah it was just a question since I wasn\u0027t sure - looks like it is simpler but we moved the logic to `getBifurcation` function instead",
+      "parentUuid": "ad9d79ea_295b9e7a",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 6
+      },
+      "revId": "31df59bd6fb73c305348ba060278670c84dce208",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }

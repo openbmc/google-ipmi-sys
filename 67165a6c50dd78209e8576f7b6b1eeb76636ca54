@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f9982b66_1d71b58f",
+        "filename": "bifurcation/bifurcation_dynamic.cpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-03-14T03:11:35Z",
+      "side": 1,
+      "message": "I see that we used to keep track of when it was parsed to avoid parsing every time - how often does this get called and is the regression in performance meaningful?",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 60
+      },
+      "revId": "67165a6c50dd78209e8576f7b6b1eeb76636ca54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
