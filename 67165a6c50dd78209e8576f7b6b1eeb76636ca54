@@ -22,6 +22,30 @@
       },
       "revId": "67165a6c50dd78209e8576f7b6b1eeb76636ca54",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e254588_9a990d95",
+        "filename": "bifurcation/bifurcation_dynamic.cpp",
+        "patchSetId": 58
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-03-14T16:30:10Z",
+      "side": 1,
+      "message": "as the json config gets larger and more bifurcation requests then it can become an issue. The require in our system gets called maybe around 6-8 times at boot.\n\nI have tried to clean it up in https://gerrit.openbmc.org/c/openbmc/google-ipmi-sys/+/70053 so we parse at daemon startup and can pass the data around.",
+      "parentUuid": "f9982b66_1d71b58f",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 187,
+        "endChar": 60
+      },
+      "revId": "67165a6c50dd78209e8576f7b6b1eeb76636ca54",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
