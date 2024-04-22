@@ -16,6 +16,24 @@
       "message": "nit: Just make it bash and avoid subshelling `[[ $delay !\u003d PSU_HARDRESET_DELAY\u003d* ]]`",
       "revId": "dcfad2f35df79d703ffc0d2606926bee80319905",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d336d6b_eca5159f",
+        "filename": "gbmc-enqueue-powercycle.sh",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-04-22T19:50:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56bef70f_d5f81ed6",
+      "revId": "dcfad2f35df79d703ffc0d2606926bee80319905",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
