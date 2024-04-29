@@ -45,8 +45,7 @@ class MockFsHandler : public Handler
 {
   public:
     MockFsHandler(std::unique_ptr<FileSystemMock> mock,
-                  const std::string& config = "") :
-        Handler(config)
+                  const std::string& config = "") : Handler(config)
     {
         fsPtr_ = move(mock);
     }

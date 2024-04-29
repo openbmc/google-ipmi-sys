@@ -142,8 +142,7 @@ class MockDbusHandler : public Handler
   public:
     MockDbusHandler(sdbusplus::SdBusMock& mock,
                     const std::string& config = "") :
-        Handler(config),
-        mock_(&mock)
+        Handler(config), mock_(&mock)
     {}
 
   protected:
