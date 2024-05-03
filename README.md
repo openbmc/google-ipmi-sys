@@ -509,3 +509,25 @@ Response (if applicable)
 | Byte(s) | Value | Data       |
 | ------- | ----- | ---------- |
 | 0x00    | 0x16  | Subcommand |
+
+### GetBMInstanceProperty - SubCommand 0x17
+
+Read a BM instance property, specify the property to read following the enum.
+
+The response contains the length of the property string to read in bytes
+followed by the property string which does **NOT** have a NULL terminator.
+
+Request
+
+| Byte(s) | Value | Data                                                                                                |
+| ------- | ----- | --------------------------------------------------------------------------------------------------- |
+| 0x00    | 0x17  | Subcommand                                                                                          |
+| 0x01    |       | 0x0: ProductName <br>0x1: SerialNumber <br>0x2: UUID <br>0x3: SKU <br>0x4: Family <br>0x5: AssetTag |
+
+Response
+
+| Byte(s)           | Value              | Data                                                             |
+| ----------------- | ------------------ | ---------------------------------------------------------------- |
+| 0x00              | 0x17               | Subcommand                                                       |
+| 0x01              | String Length (N)  | Number of bytes to read for property string - Size limited to 64 |
+| 0x2..0x02 + N - 1 | String of property | String, not null-terminated                                      |
