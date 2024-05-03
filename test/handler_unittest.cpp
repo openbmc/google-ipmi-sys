@@ -642,6 +642,18 @@ TEST(HandlerTest, PcieBifurcation)
     }
 }
 
+TEST(HandlerTest, BmInstanceFailCase)
+{
+    StrictMock<sdbusplus::SdBusMock> mock;
+    MockDbusHandler h(mock);
+
+    // Invalid enum
+    EXPECT_THROW(h.getBMInstanceProperty(0x07), IpmiException);
+
+    // Valid enum but no path exists
+    EXPECT_THROW(h.getBMInstanceProperty(0x00), IpmiException);
+}
+
 // TODO: Add checks for other functions of handler.
 
 } // namespace ipmi
