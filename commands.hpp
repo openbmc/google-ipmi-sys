@@ -67,6 +67,8 @@ enum SysOEMCommands
     SysGetAccelVrSettings = 21,
     // Google CustomAccel Set VR Settings
     SysSetAccelVrSettings = 22,
+    // Get BM instance property info
+    SysGetBMInstanceProperty = 23,
 };
 
 } // namespace ipmi

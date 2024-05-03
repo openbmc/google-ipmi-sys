@@ -142,8 +142,7 @@ class MockDbusHandler : public Handler
   public:
     MockDbusHandler(sdbusplus::SdBusMock& mock,
                     const std::string& config = "") :
-        Handler(config),
-        mock_(&mock)
+        Handler(config), mock_(&mock)
     {}
 
   protected:
@@ -640,6 +639,18 @@ TEST(HandlerTest, PcieBifurcation)
         auto bifurcation = h2.pcieBifurcation(i);
         EXPECT_TRUE(bifurcation.empty());
     }
+}
+
+TEST(HandlerTest, BmInstanceFailCase)
+{
+    StrictMock<sdbusplus::SdBusMock> mock;
+    MockDbusHandler h(mock);
+
+    // Invalid enum
+    EXPECT_THROW(h.getBMInstanceProperty(0x07), IpmiException);
+
+    // Valid enum but no path exists
+    EXPECT_THROW(h.getBMInstanceProperty(0x00), IpmiException);
 }
 
 // TODO: Add checks for other functions of handler.

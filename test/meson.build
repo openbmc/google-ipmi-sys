@@ -31,6 +31,7 @@ tests = [
   'bmc_mode',
   'linux_boot_done',
   'bm_mode_transition',
+  'bm_instance',
 ]
 
 foreach t : tests
