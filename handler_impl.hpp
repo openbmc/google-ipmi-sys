@@ -43,11 +43,11 @@ class Handler : public HandlerInterface
     explicit Handler(const std::string& entityConfigPath = defaultConfigFile) :
         fsPtr(std::make_unique<FileSystemWrapper>()),
         _configFile(entityConfigPath),
-        bifurcationHelper(BifurcationStatic::createBifurcation()){};
+        bifurcationHelper(BifurcationStatic::createBifurcation()) {};
     Handler(std::reference_wrapper<BifurcationInterface> bifurcationHelper,
             const std::string& entityConfigPath = defaultConfigFile) :
         fsPtr(std::make_unique<FileSystemWrapper>()),
-        _configFile(entityConfigPath), bifurcationHelper(bifurcationHelper){};
+        _configFile(entityConfigPath), bifurcationHelper(bifurcationHelper) {};
     ~Handler() = default;
 
     uint8_t getBmcMode() override;
@@ -78,6 +78,7 @@ class Handler : public HandlerInterface
                             uint8_t settings_id, uint16_t value) const override;
     uint16_t accelGetVrSettings(::ipmi::Context::ptr ctx, uint8_t chip_id,
                                 uint8_t settings_id) const override;
+    std::string getBMInstanceProperty(uint8_t propertyType) const override;
 
   protected:
     // Exposed for dependency injection
@@ -108,6 +109,10 @@ class Handler : public HandlerInterface
 
     const std::unordered_map<uint8_t, std::string> _vrSettingsMap{
         {0, "idle_mode_"}, {1, "power_brake_"}, {2, "loadline_"}};
+
+    const std::unordered_map<uint8_t, std::string> bmInstanceTypeStringMap = {
+        {0x00, "product-name"}, {0x01, "serial-number"}, {0x02, "uuid"},
+        {0x03, "sku"},          {0x04, "family"},        {0x05, "asset-tag"}};
 
     nlohmann::json _entityConfig{};
 
