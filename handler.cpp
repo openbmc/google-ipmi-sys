@@ -16,6 +16,7 @@
 
 #include "bm_config.h"
 
+#include "bm_instance.hpp"
 #include "bmc_mode_enum.hpp"
 #include "errors.hpp"
 #include "handler_impl.hpp"
@@ -39,6 +40,7 @@
 #include <cstdio>
 #include <filesystem>
 #include <fstream>
+#include <iomanip>
 #include <map>
 #include <sstream>
 #include <string>
@@ -767,5 +769,48 @@ uint16_t Handler::accelGetVrSettings(::ipmi::Context::ptr ctx, uint8_t chip_id,
 
     return static_cast<uint16_t>(std::get<double>(value));
 }
+
+std::string Handler::getBMInstanceProperty(uint8_t propertyType) const
+{
+    std::ostringstream opath;
+    std::string propertyTypeString;
+    if (auto it = bmInstanceTypeStringMap.find(propertyType);
+        it == bmInstanceTypeStringMap.end())
+    {
+        stdplus::print(stderr, "PropertyType: '{}' is invalid.\n",
+                       propertyType);
+        throw IpmiException(::ipmi::ccInvalidFieldRequest);
+    }
+    else
+    {
+        propertyTypeString = it->second;
+    }
+    opath << "/run/bm_instance/" << propertyTypeString;
+    // Check for file
+
+    std::error_code ec;
+    if (!this->getFs()->exists(opath.str(), ec))
+    {
+        stdplus::print(stderr, "Path: '{}' doesn't exist.\n", opath.str());
+        throw IpmiException(::ipmi::ccInvalidFieldRequest);
+    }
+
+    // If file exists, read up to 64 bytes (normally shouldn't be more than 32)
+    std::ifstream ifs;
+    ifs.exceptions(std::ifstream::failbit);
+    std::string property;
+    try
+    {
+        ifs.open(opath.str());
+        ifs >> std::setw(64) >> property;
+    }
+    catch (std::ios_base::failure& fail)
+    {
+        stdplus::print(stderr, "Failed to read: '{}'.\n", opath.str());
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+    return property;
+}
+
 } // namespace ipmi
 } // namespace google

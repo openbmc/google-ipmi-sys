@@ -14,6 +14,7 @@
 
 #include "ipmi.hpp"
 
+#include "bm_instance.hpp"
 #include "bmc_mode.hpp"
 #include "cable.hpp"
 #include "commands.hpp"
@@ -91,6 +92,8 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr ctx,
             return accelGetVrSettings(ctx, data, handler);
         case SysSetAccelVrSettings:
             return accelSetVrSettings(ctx, data, handler);
+        case SysGetBMInstanceProperty:
+            return getBMInstanceProperty(data, handler);
         default:
             stdplus::print(stderr, "Invalid subcommand: {:#x}\n", cmd);
             return ::ipmi::responseInvalidCommand();
