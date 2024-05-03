@@ -233,6 +233,14 @@ class HandlerInterface
     virtual uint16_t accelGetVrSettings(::ipmi::Context::ptr ctx,
                                         uint8_t chip_id,
                                         uint8_t settings_id) const = 0;
+
+    /**
+     * Get the BM instance property from /run/<propertyType>
+     *
+     * @param[in] propertyType  - BM instance property type
+     * @return - string of the requested BM instance property
+     */
+    virtual std::string getBMInstanceProperty(uint8_t propertyType) const = 0;
 };
 
 } // namespace ipmi
