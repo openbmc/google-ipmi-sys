@@ -71,6 +71,7 @@ class HandlerMock : public HandlerInterface
                 (const, override));
     MOCK_METHOD(uint16_t, accelGetVrSettings,
                 (::ipmi::Context::ptr, uint8_t, uint8_t), (const, override));
+    MOCK_METHOD(std::string, getBMInstanceProperty(uint8_t), (const, override));
 };
 
 } // namespace ipmi
