@@ -110,6 +110,30 @@
       },
       "revId": "5f777cfa4bcd1cf5ad7041d3b876a46af4965553",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64069495_c0f9aee5",
+        "filename": "bm_instance.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-05-06T17:23:31Z",
+      "side": 1,
+      "message": "It will work fine if the size of `bmInstanceProperty` is less than 255. It will only start failing after it overflow.\n\noh, I guess you are only saying `uint8_t` worth of size and if that\u0027s the limit, then this will work as expected.",
+      "parentUuid": "a84ab5e4_5d0cc9cb",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 50
+      },
+      "revId": "5f777cfa4bcd1cf5ad7041d3b876a46af4965553",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
