@@ -41,6 +41,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9288b36d_f77cee7c",
+        "filename": "bm_instance.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-05-06T02:23:13Z",
+      "side": 1,
+      "message": "Ah, I didn\u0027t push my latest - meant to do reserve(length) the variable created above",
+      "parentUuid": "8f74dc4d_07aa4995",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 26
+      },
+      "revId": "5f777cfa4bcd1cf5ad7041d3b876a46af4965553",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "65a44614_c278d1be",
@@ -54,6 +78,30 @@
       "writtenOn": "2024-05-03T21:06:42Z",
       "side": 1,
       "message": "also, this will just create one element. Instead of multiple `uint8_t`s. I am guessing that\u0027s what you were trying to do.",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 50
+      },
+      "revId": "5f777cfa4bcd1cf5ad7041d3b876a46af4965553",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a84ab5e4_5d0cc9cb",
+        "filename": "bm_instance.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-05-06T02:23:13Z",
+      "side": 1,
+      "message": "This is the size element then the insert after is the uint8_t bytes and it seems to work from testing - I\u0027ll add unit testes.",
+      "parentUuid": "65a44614_c278d1be",
       "range": {
         "startLine": 68,
         "startChar": 4,
