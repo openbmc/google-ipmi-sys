@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44b7a016_0e0daa8c",
+        "filename": "handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-05-20T20:19:34Z",
+      "side": 1,
+      "message": "could just do `std::format(\"/run/bm-instance/{}\", propertyTypeString)` instead.",
+      "range": {
+        "startLine": 788,
+        "startChar": 4,
+        "endLine": 788,
+        "endChar": 55
+      },
+      "revId": "215f414180911195de69c8f1b1637c66b4d8f9d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0ab4654_af89b6f3",
+        "filename": "handler.cpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-05-20T20:19:34Z",
+      "side": 1,
+      "message": "prefer to use stdplus fd managed if possible\n\nhttp://github.com/openbmc/stdplus/blob/2f6affd1fdfe52c747a7e0917ab11ccdfa3866a8/include-fd/stdplus/fd/managed.hpp + https://github.com/openbmc/stdplus/blob/2f6affd1fdfe52c747a7e0917ab11ccdfa3866a8/include-fd/stdplus/fd/ops.hpp#L28\n\nCan passing a span of size 64 and it will only read up to that size. But maybe that won\u0027t work as you wanted it.",
+      "range": {
+        "startLine": 799,
+        "startChar": 0,
+        "endLine": 811,
+        "endChar": 5
+      },
+      "revId": "215f414180911195de69c8f1b1637c66b4d8f9d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
