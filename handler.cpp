@@ -795,14 +795,13 @@ std::string Handler::getBMInstanceProperty(uint8_t propertyType) const
         throw IpmiException(::ipmi::ccInvalidFieldRequest);
     }
 
-    // If file exists, read up to 64 bytes (normally shouldn't be more than 32)
     std::ifstream ifs;
     ifs.exceptions(std::ifstream::failbit);
     std::string property;
     try
     {
         ifs.open(opath);
-        ifs >> std::setw(64) >> property;
+        std::getline(ifs, property);
     }
     catch (std::ios_base::failure& fail)
     {
