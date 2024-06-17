@@ -266,7 +266,7 @@ The name of the device is exactly as it appears in DBus, except for the common
 the IPMI packet.
 
 DBus requires all element names to be non-empty strings of ASCII characters
-"[A-Z][a-z][0-9]\_", seperated by ASCII '/'. Therefore, all device names will be
+"[A-Z][a-z][0-9]\_", separated by ASCII '/'. Therefore, all device names will be
 valid ASCII strings (1 byte/character).
 
 For convenience, the name string is followed by a single 0x00 (NULL terminator)

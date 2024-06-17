@@ -32,7 +32,7 @@ namespace google
 namespace ipmi
 {
 
-// TOOD(venture): The ipmid.h has this macro, which is a header we
+// TODO(venture): The ipmid.h has this macro, which is a header we
 // can't normally access.
 #ifndef MAX_IPMI_BUFFER
 #define MAX_IPMI_BUFFER 64
