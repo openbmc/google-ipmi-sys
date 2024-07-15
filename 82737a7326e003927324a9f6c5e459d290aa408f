@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e63388d_f5a6ca9c",
+        "filename": "handler.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-07-15T21:47:41Z",
+      "side": 1,
+      "message": "I guess the only concern is, if we somehow failed to read in the constructor, we will always fail after - should we somehow have a retry mechanism?",
+      "range": {
+        "startLine": 324,
+        "startChar": 0,
+        "endLine": 324,
+        "endChar": 29
+      },
+      "revId": "82737a7326e003927324a9f6c5e459d290aa408f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
