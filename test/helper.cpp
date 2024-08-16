@@ -25,9 +25,8 @@ namespace google
 namespace ipmi
 {
 
-std::pair<std::uint8_t, std::vector<std::uint8_t>>
-    ValidateReply(::ipmi::RspType<std::uint8_t, std::vector<uint8_t>> reply,
-                  bool hasData)
+std::pair<std::uint8_t, std::vector<std::uint8_t>> ValidateReply(
+    ::ipmi::RspType<std::uint8_t, std::vector<uint8_t>> reply, bool hasData)
 {
     // Reply is in the form of
     // std::tuple<ipmi::Cc, std::optional<std::tuple<RetTypes...>>>

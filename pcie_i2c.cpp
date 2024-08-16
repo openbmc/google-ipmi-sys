@@ -97,8 +97,8 @@ Resp pcieSlotI2cBusMapping(std::span<const uint8_t> data,
     }
 
     std::vector<std::uint8_t> reply;
-    reply.reserve(pcie_slot_name.length() +
-                  sizeof(struct PcieSlotI2cBusMappingReply));
+    reply.reserve(
+        pcie_slot_name.length() + sizeof(struct PcieSlotI2cBusMappingReply));
     // Copy the i2c bus number and the pcie slot name to the reply struct.
     reply.emplace_back(i2c_bus_number);          /* i2c_bus_number */
     reply.emplace_back(pcie_slot_name.length()); /* pcie_slot_name length */

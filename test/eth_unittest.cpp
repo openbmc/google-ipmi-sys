@@ -53,9 +53,9 @@ TEST(EthCommandTest, ValidRequestReturnsSuccess)
     EXPECT_EQ(SysOEMCommands::SysGetEthDevice, result.first);
     EXPECT_EQ(expectedChannel, data[0]);
     EXPECT_EQ(expectedAnswer.size(), data[1]);
-    EXPECT_EQ(
-        expectedAnswer.data(),
-        std::string(data.begin() + sizeof(struct EthDeviceReply), data.end()));
+    EXPECT_EQ(expectedAnswer.data(),
+              std::string(data.begin() + sizeof(struct EthDeviceReply),
+                          data.end()));
 }
 
 TEST(EthCommandTest, ValidPopulatedReturnsSuccess)
@@ -77,9 +77,9 @@ TEST(EthCommandTest, ValidPopulatedReturnsSuccess)
     EXPECT_EQ(SysOEMCommands::SysGetEthDevice, result.first);
     EXPECT_EQ(expectedChannel, data[0]);
     EXPECT_EQ(expectedAnswer.size(), data[1]);
-    EXPECT_EQ(
-        expectedAnswer.data(),
-        std::string(data.begin() + sizeof(struct EthDeviceReply), data.end()));
+    EXPECT_EQ(expectedAnswer.data(),
+              std::string(data.begin() + sizeof(struct EthDeviceReply),
+                          data.end()));
 }
 } // namespace ipmi
 } // namespace google

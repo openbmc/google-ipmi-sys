@@ -142,8 +142,7 @@ class MockDbusHandler : public Handler
   public:
     MockDbusHandler(sdbusplus::SdBusMock& mock,
                     const std::string& config = "") :
-        Handler(config),
-        mock_(&mock)
+        Handler(config), mock_(&mock)
     {}
 
   protected:
@@ -305,11 +304,11 @@ void ExpectSdBusError(StrictMock<sdbusplus::SdBusMock>& mock,
                       const std::string& service, const std::string& objPath,
                       const std::string& interface, const std::string& function)
 {
-    EXPECT_CALL(
-        mock, sd_bus_message_new_method_call(_,         // sd_bus *bus,
-                                             NotNull(), // sd_bus_message **m
-                                             StrEq(service), StrEq(objPath),
-                                             StrEq(interface), StrEq(function)))
+    EXPECT_CALL(mock, sd_bus_message_new_method_call(
+                          _,         // sd_bus *bus,
+                          NotNull(), // sd_bus_message **m
+                          StrEq(service), StrEq(objPath), StrEq(interface),
+                          StrEq(function)))
         .WillOnce(Return(-ENOTCONN));
 }
 
@@ -383,11 +382,11 @@ void ExpectRead(StrictMock<sdbusplus::SdBusMock>& mock, uint64_t address,
                           StrEq("com.google.custom_accel.BAR"), StrEq("Read")))
         .WillOnce(DoAll(SetArgPointee<1>(method), Return(0)));
 
-    EXPECT_CALL(
-        mock, sd_bus_message_append_basic(
-                  method, SD_BUS_TYPE_UINT64,
-                  MatcherCast<const void*>(
-                      SafeMatcherCast<const uint64_t*>(Pointee(Eq(address))))))
+    EXPECT_CALL(mock,
+                sd_bus_message_append_basic(
+                    method, SD_BUS_TYPE_UINT64,
+                    MatcherCast<const void*>(SafeMatcherCast<const uint64_t*>(
+                        Pointee(Eq(address))))))
         .WillOnce(Return(1));
 
     EXPECT_CALL(mock,
@@ -515,11 +514,11 @@ void ExpectWrite(StrictMock<sdbusplus::SdBusMock>& mock, uint64_t address,
         .WillOnce(DoAll(TraceDbus("sd_bus_message_new_method_call"),
                         SetArgPointee<1>(method), Return(0)));
 
-    EXPECT_CALL(
-        mock, sd_bus_message_append_basic(
-                  method, SD_BUS_TYPE_UINT64,
-                  MatcherCast<const void*>(
-                      SafeMatcherCast<const uint64_t*>(Pointee(Eq(address))))))
+    EXPECT_CALL(mock,
+                sd_bus_message_append_basic(
+                    method, SD_BUS_TYPE_UINT64,
+                    MatcherCast<const void*>(SafeMatcherCast<const uint64_t*>(
+                        Pointee(Eq(address))))))
         .WillOnce(DoAll(TraceDbus("sd_bus_message_append_basic(address) -> 1"),
                         Return(1)));
 

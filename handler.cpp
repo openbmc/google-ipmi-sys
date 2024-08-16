@@ -207,10 +207,10 @@ VersionTuple Handler::getCpldVersion(unsigned int id) const
     // If value parses as expected, return version.
     VersionTuple version = std::make_tuple(0, 0, 0, 0);
 
-    int num_fields = std::sscanf(value.c_str(),
-                                 "%" SCNu8 ".%" SCNu8 ".%" SCNu8 ".%" SCNu8,
-                                 &std::get<0>(version), &std::get<1>(version),
-                                 &std::get<2>(version), &std::get<3>(version));
+    int num_fields =
+        std::sscanf(value.c_str(), "%" SCNu8 ".%" SCNu8 ".%" SCNu8 ".%" SCNu8,
+                    &std::get<0>(version), &std::get<1>(version),
+                    &std::get<2>(version), &std::get<3>(version));
     if (num_fields == 0)
     {
         stdplus::print(stderr, "Invalid version.\n");
@@ -725,10 +725,10 @@ void Handler::accelSetVrSettings(::ipmi::Context::ptr ctx, uint8_t chip_id,
         std::format("{}{}", ACCEL_POWER_PATH_PREFIX, chip_id));
 
     std::variant<int> val = vrSettingsReq;
-    ctx->bus->yield_method_call(ctx->yield, ec, ACCEL_POWER_SERVICE,
-                                object_name.c_str(),
-                                "org.freedesktop.DBus.Properties", "Set",
-                                POWER_MODE_IFC, "PowerMode", val);
+    ctx->bus->yield_method_call(
+        ctx->yield, ec, ACCEL_POWER_SERVICE, object_name.c_str(),
+        "org.freedesktop.DBus.Properties", "Set", POWER_MODE_IFC, "PowerMode",
+        val);
     if (ec)
     {
         log<level::ERR>("Failed to set PowerMode property");
@@ -747,9 +747,9 @@ uint16_t Handler::accelGetVrSettings(::ipmi::Context::ptr ctx, uint8_t chip_id,
 {
     Value value;
     boost::system::error_code ec;
-    std::string object_name(std::format("{}{}{}", EXTERNAL_SENSOR_PATH_PREFIX,
-                                        _vrSettingsMap.at(settings_id),
-                                        chip_id));
+    std::string object_name(
+        std::format("{}{}{}", EXTERNAL_SENSOR_PATH_PREFIX,
+                    _vrSettingsMap.at(settings_id), chip_id));
 
     if (_vrSettingsMap.find(settings_id) == _vrSettingsMap.end())
     {

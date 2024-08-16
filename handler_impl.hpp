@@ -43,11 +43,11 @@ class Handler : public HandlerInterface
     explicit Handler(const std::string& entityConfigPath = defaultConfigFile) :
         fsPtr(std::make_unique<FileSystemWrapper>()),
         _configFile(entityConfigPath),
-        bifurcationHelper(BifurcationStatic::createBifurcation()){};
+        bifurcationHelper(BifurcationStatic::createBifurcation()) {};
     Handler(std::reference_wrapper<BifurcationInterface> bifurcationHelper,
             const std::string& entityConfigPath = defaultConfigFile) :
         fsPtr(std::make_unique<FileSystemWrapper>()),
-        _configFile(entityConfigPath), bifurcationHelper(bifurcationHelper){};
+        _configFile(entityConfigPath), bifurcationHelper(bifurcationHelper) {};
     ~Handler() = default;
 
     uint8_t getBmcMode() override;

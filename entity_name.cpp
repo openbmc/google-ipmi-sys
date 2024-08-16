@@ -62,8 +62,8 @@ Resp getEntityName(std::span<const uint8_t> data, HandlerInterface* handler)
     std::string entityName;
     try
     {
-        entityName = handler->getEntityName(request.entityId,
-                                            request.entityInstance);
+        entityName =
+            handler->getEntityName(request.entityId, request.entityInstance);
     }
     catch (const IpmiException& e)
     {

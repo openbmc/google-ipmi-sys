@@ -46,9 +46,9 @@ Resp getFlashSize(std::span<const uint8_t>, HandlerInterface* handler)
     flashSize = htole32(flashSize);
     return ::ipmi::responseSuccess(
         SysOEMCommands::SysGetFlashSize,
-        std::vector<std::uint8_t>((std::uint8_t*)&(flashSize),
-                                  (std::uint8_t*)&(flashSize) +
-                                      sizeof(std::uint32_t)));
+        std::vector<std::uint8_t>(
+            (std::uint8_t*)&(flashSize),
+            (std::uint8_t*)&(flashSize) + sizeof(std::uint32_t)));
 }
 } // namespace ipmi
 } // namespace google

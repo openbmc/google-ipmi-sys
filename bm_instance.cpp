@@ -54,8 +54,8 @@ Resp getBMInstanceProperty(std::span<const uint8_t> data,
     std::string bmInstanceProperty =
         handler->getBMInstanceProperty(/*type=*/data[0]);
 
-    const size_t length = sizeof(struct BMInstancePropertyReply) +
-                          bmInstanceProperty.size();
+    const size_t length =
+        sizeof(struct BMInstancePropertyReply) + bmInstanceProperty.size();
 
     if (length > MAX_IPMI_BUFFER)
     {
