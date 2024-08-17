@@ -69,6 +69,8 @@ enum SysOEMCommands
     SysSetAccelVrSettings = 22,
     // Get BM instance property info
     SysGetBMInstanceProperty = 23,
+    // Read OEM BIOS Setting
+    SysReadOemBiosSetting = 24,
 };
 
 } // namespace ipmi
