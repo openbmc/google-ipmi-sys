@@ -2,7 +2,7 @@ gtest = dependency('gtest', main: true, disabler: true, required: get_option('te
 gmock = dependency('gmock', disabler: true, required: get_option('tests'))
 
 tests_pre = declare_dependency(
-  dependencies: [sys_dep, gtest, gmock])
+  dependencies: [sys_dep, gtest, gmock, dependency('stdplus-gtest')])
 
 tests_lib = static_library(
   'common',
@@ -32,6 +32,7 @@ tests = [
   'linux_boot_done',
   'bm_mode_transition',
   'bm_instance',
+  'bios_setting',
 ]
 
 foreach t : tests
