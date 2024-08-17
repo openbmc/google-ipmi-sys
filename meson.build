@@ -44,6 +44,7 @@ sys_pre = declare_dependency(
 
 sys_lib = static_library(
   'sys',
+  'bios_setting.cpp',
   'bm_instance.cpp',
   'bmc_mode.cpp',
   'cable.cpp',
