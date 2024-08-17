@@ -14,6 +14,7 @@
 
 #include "ipmi.hpp"
 
+#include "bios_setting.hpp"
 #include "bm_instance.hpp"
 #include "bmc_mode.hpp"
 #include "cable.hpp"
@@ -94,6 +95,8 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr ctx,
             return accelSetVrSettings(ctx, data, handler);
         case SysGetBMInstanceProperty:
             return getBMInstanceProperty(data, handler);
+        case SysReadBiosSetting:
+            return readBiosSetting(data, handler);
         default:
             stdplus::print(stderr, "Invalid subcommand: {:#x}\n", cmd);
             return ::ipmi::responseInvalidCommand();
