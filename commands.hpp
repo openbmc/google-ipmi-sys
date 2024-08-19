@@ -71,6 +71,8 @@ enum SysOEMCommands
     SysGetBMInstanceProperty = 23,
     // Read OEM BIOS Setting
     SysReadBiosSetting = 24,
+    // Write OEM BIOS Setting
+    SysWriteBiosSetting = 25,
 };
 
 } // namespace ipmi
