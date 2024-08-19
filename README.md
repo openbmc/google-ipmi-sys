@@ -552,3 +552,25 @@ Response
 | 0x00              | 0x18          | Subcommand                                   |
 | 0x01              | Length (N)    | Number of payload bytes - Size limited to 64 |
 | 0x2..0x02 + N - 1 | Payload bytes | Payload bytes                                |
+
+### WriteBiosSetting - SubCommand 0x19
+
+Write a BIOS setting, set at `/run/oem_bios_setting`.
+
+The response contains the length of the BIOS setting followed by the BIOS
+setting bytes read.
+
+Request
+
+| Byte(s)           | Value         | Data                                         |
+| ----------------- | ------------- | -------------------------------------------- |
+| 0x00              | 0x19          | Subcommand                                   |
+| 0x01              | Length (N)    | Number of payload bytes - Size limited to 64 |
+| 0x2..0x02 + N - 1 | Payload bytes | Payload bytes                                |
+
+Response
+
+| Byte(s)           | Value         | Data                                 |
+| ----------------- | ------------- | ------------------------------------ |
+| 0x00              | 0x19          | Subcommand                           |
+| 0x01              | Length (N)    | Number of bytes successfully written |

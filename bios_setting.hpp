@@ -33,6 +33,9 @@ constexpr size_t MAX_PAYLOAD_SIZE = MAX_IPMI_BUFFER - 1;
 Resp readBiosSetting(
     std::span<const uint8_t> data, HandlerInterface* handler,
     std::string_view biosSettingPath = "/run/oem_bios_setting");
+Resp writeBiosSetting(
+    std::span<const uint8_t> data, HandlerInterface* handler,
+    std::string_view biosSettingPath = "/run/oem_bios_setting");
 
 } // namespace ipmi
 } // namespace google
