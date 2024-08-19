@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba5b9e0a_a66c73b7",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-08-19T23:28:04Z",
+      "side": 1,
+      "message": "should do like\n\n```\nstdplus::ManagedFd managedFd \u003d stdplus::fd::open(\n        biosSettingPath,\n        stdplus::fd::OpenFlags(stdplus::fd::OpenAccess::ReadOnly));\n```\n\nand then https://github.com/openbmc/stdplus/blob/ea1dc9348636e5d84331cc4e6a2eaa3d55680afc/include-fd/stdplus/fd/ops.hpp#L28",
+      "range": {
+        "startLine": 38,
+        "startChar": 3,
+        "endLine": 42,
+        "endChar": 5
+      },
+      "revId": "f245982bfecd7cd6d45e6e3c88df96cd391be44a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0da0154a_18acfbc5",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-08-19T23:28:04Z",
+      "side": 1,
+      "message": "should do\n\n```\nreturn ::responseRetBytesUnavailable();\n```\ninstead.",
+      "range": {
+        "startLine": 89,
+        "startChar": 8,
+        "endLine": 89,
+        "endChar": 59
+      },
+      "revId": "f245982bfecd7cd6d45e6e3c88df96cd391be44a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
