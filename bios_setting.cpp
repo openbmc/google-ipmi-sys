@@ -98,5 +98,56 @@ Resp readBiosSetting(std::span<const uint8_t>, HandlerInterface*)
                                    reply);
 }
 
+Resp writeBiosSetting(std::span<const uint8_t> data, HandlerInterface*)
+{
+    struct WriteBiosSettingRequest
+    {
+        uint8_t length;
+        uint8_t buffer[MAX_PAYLOAD_SIZE];
+    } __attribute__((packed));
+
+    struct WriteBiosSettingResponse
+    {
+        uint8_t written;
+    } __attribute__((packed));
+
+    if (data.empty())
+    {
+        stdplus::print(stderr, "Payload empty\n");
+        return ::ipmi::responseReqDataLenInvalid();
+    }
+    size_t payloadSize = data[0];
+    if (payloadSize > sizeof(WriteBiosSettingRequest) ||
+        data.size() - 1 != payloadSize)
+    {
+        stdplus::print(stderr, "Invalid command length {} vs. payloadSize {}\n",
+                       static_cast<uint32_t>(data.size()),
+                       static_cast<uint32_t>(payloadSize));
+        return ::ipmi::responseReqDataLenInvalid();
+    }
+
+    // Write the payload (skipping the first byte, which is the size)
+    std::ofstream ofs;
+    ofs.open("/run/oem_bios_setting", std::ios::trunc | std::ios::binary);
+    ofs.write(reinterpret_cast<const char*>(data.last(payloadSize).data()),
+              payloadSize);
+    ofs.close();
+
+    // Read back the setting to ensure the length is correct
+    std::vector<uint8_t> biosSettings = readBiosSettings();
+    size_t settingsLength = biosSettings.size();
+    if (settingsLength == 0)
+    {
+        throw IpmiException(::ipmi::ccRetBytesUnavailable);
+    }
+
+    std::vector<std::uint8_t> reply;
+    reply.reserve(1);
+    reply.emplace_back(static_cast<uint8_t>(settingsLength));
+
+    return ::ipmi::responseSuccess(SysOEMCommands::SysWriteOemBiosSetting,
+                                   reply);
+}
+
 } // namespace ipmi
 } // namespace google
