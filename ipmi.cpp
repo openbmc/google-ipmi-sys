@@ -97,6 +97,8 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr ctx,
             return getBMInstanceProperty(data, handler);
         case SysReadOemBiosSetting:
             return readBiosSetting(data, handler);
+        case SysWriteOemBiosSetting:
+            return writeBiosSetting(data, handler);
         default:
             stdplus::print(stderr, "Invalid subcommand: {:#x}\n", cmd);
             return ::ipmi::responseInvalidCommand();
