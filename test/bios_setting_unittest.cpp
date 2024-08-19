@@ -80,5 +80,74 @@ TEST(ReadBiosSettingTest, SuccessfulRead)
     std::remove(biosSettingPath);
 }
 
+TEST(ReadBiosSettingTest, InvalidRequestWrite)
+{
+    // Empty request
+    std::vector<uint8_t> request = {};
+
+    HandlerMock hMock;
+    EXPECT_EQ(::ipmi::responseReqDataLenInvalid(),
+              writeBiosSetting(request, &hMock));
+
+    // Request with payload size 1 but no payload
+    request = {0x01};
+    EXPECT_EQ(::ipmi::responseReqDataLenInvalid(),
+              writeBiosSetting(request, &hMock));
+
+    // Request with payload size 1 but actual payload size of 2 bytes
+    request = {0x01, 0x02, 0x03};
+    EXPECT_EQ(::ipmi::responseReqDataLenInvalid(),
+              writeBiosSetting(request, &hMock));
+
+    // Request with payload size 2 but actual payload of 1 byte
+    request = {0x02, 0x02};
+    EXPECT_EQ(::ipmi::responseReqDataLenInvalid(),
+              writeBiosSetting(request, &hMock));
+}
+
+TEST(ReadBiosSettingTest, SuccessfulWrite)
+{
+    std::vector<uint8_t> request = {0x02, 0xDE, 0xAD};
+
+    HandlerMock hMock;
+    auto reply = writeBiosSetting(request, &hMock);
+    auto result = ValidateReply(reply);
+    auto& data = result.second;
+
+    EXPECT_EQ(SysOEMCommands::SysWriteBiosSetting, result.first);
+    EXPECT_EQ(std::vector<uint8_t>{2}, data);
+
+    // Validate the payload is correct
+    reply = readBiosSetting(request, &hMock);
+    result = ValidateReply(reply);
+    data = result.second;
+
+    EXPECT_EQ(SysOEMCommands::SysReadBiosSetting, result.first);
+    EXPECT_EQ(request.size() - 1, data.front());
+    EXPECT_EQ(request, data);
+
+    // Verify that we can write a shorter string and it'll replace the original
+    // content of the file
+    request = {0x01, 0x0A};
+
+    reply = writeBiosSetting(request, &hMock);
+    result = ValidateReply(reply);
+    data = result.second;
+
+    EXPECT_EQ(SysOEMCommands::SysWriteBiosSetting, result.first);
+    EXPECT_EQ(std::vector<uint8_t>{1}, data);
+
+    // Validate the payload is correct
+    reply = readBiosSetting(request, &hMock);
+    result = ValidateReply(reply);
+    data = result.second;
+
+    EXPECT_EQ(SysOEMCommands::SysReadBiosSetting, result.first);
+    EXPECT_EQ(request.size() - 1, data.front());
+    EXPECT_EQ(request, data);
+    // Cleanup the settings file
+    std::remove(biosSettingPath);
+}
+
 } // namespace ipmi
 } // namespace google
