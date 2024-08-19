@@ -72,5 +72,47 @@ Resp readBiosSetting(std::span<const uint8_t>, HandlerInterface*,
     return ::ipmi::responseSuccess(SysOEMCommands::SysReadBiosSetting, reply);
 }
 
+Resp writeBiosSetting(std::span<const uint8_t> data, HandlerInterface*,
+                      const std::string& biosSettingPath)
+{
+    if (data.empty())
+    {
+        stdplus::print(stderr, "Payload empty\n");
+        return ::ipmi::responseReqDataLenInvalid();
+    }
+    size_t payloadSize = data[0];
+    if (data.size() - 1 != payloadSize)
+    {
+        stdplus::print(stderr, "Invalid command length {} vs. payloadSize {}\n",
+                       static_cast<uint32_t>(data.size()),
+                       static_cast<uint32_t>(payloadSize));
+        return ::ipmi::responseReqDataLenInvalid();
+    }
+
+    std::span<const uint8_t> payload = data.subspan(1, payloadSize);
+    // Write the setting
+    try
+    {
+        stdplus::ManagedFd managedFd = stdplus::fd::open(
+            biosSettingPath,
+            stdplus::fd::OpenFlags(stdplus::fd::OpenAccess::WriteOnly)
+                .set(stdplus::fd::OpenFlag::Trunc)
+                .set(stdplus::fd::OpenFlag::Create));
+        stdplus::fd::writeExact(managedFd, payload);
+    }
+    catch (const std::exception& e)
+    {
+        stdplus::print(stderr, "Write unsuccessful: {}\n", e.what());
+        return ::ipmi::responseRetBytesUnavailable();
+    }
+
+    // Reply format is: Length of the payload written
+    std::vector<std::uint8_t> reply;
+    reply.reserve(1);
+    reply.emplace_back(static_cast<uint8_t>(payloadSize));
+
+    return ::ipmi::responseSuccess(SysOEMCommands::SysWriteBiosSetting, reply);
+}
+
 } // namespace ipmi
 } // namespace google
