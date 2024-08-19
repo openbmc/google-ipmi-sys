@@ -22,7 +22,9 @@
 #include <stdplus/fd/create.hpp>
 #include <stdplus/fd/managed.hpp>
 #include <stdplus/fd/ops.hpp>
+#include <stdplus/numeric/endian.hpp>
 #include <stdplus/print.hpp>
+#include <stdplus/raw.hpp>
 
 #include <filesystem>
 #include <fstream>
@@ -70,6 +72,55 @@ Resp readBiosSetting(std::span<const uint8_t>, HandlerInterface*,
     reply.insert(reply.end(), biosSettings.begin(), biosSettings.end());
 
     return ::ipmi::responseSuccess(SysOEMCommands::SysReadBiosSetting, reply);
+}
+
+Resp writeBiosSetting(std::span<const uint8_t> data, HandlerInterface*,
+                      const std::string& biosSettingPath)
+{
+    std::uint8_t payloadSize;
+    try
+    {
+        // This subspans the data automatically
+        payloadSize = stdplus::raw::extract<
+            stdplus::EndianPacked<decltype(payloadSize), std::endian::little>>(
+            data);
+    }
+    catch (const std::exception& e)
+    {
+        stdplus::print(stderr, "Extracting payload failed: {}\n", e.what());
+        return ::ipmi::responseReqDataLenInvalid();
+    }
+
+    if (data.size() != payloadSize)
+    {
+        stdplus::print(stderr, "Invalid command length {} vs. payloadSize {}\n",
+                       static_cast<uint32_t>(data.size()),
+                       static_cast<uint32_t>(payloadSize));
+        return ::ipmi::responseReqDataLenInvalid();
+    }
+
+    // Write the setting
+    try
+    {
+        stdplus::ManagedFd managedFd = stdplus::fd::open(
+            biosSettingPath,
+            stdplus::fd::OpenFlags(stdplus::fd::OpenAccess::WriteOnly)
+                .set(stdplus::fd::OpenFlag::Trunc)
+                .set(stdplus::fd::OpenFlag::Create));
+        stdplus::fd::writeExact(managedFd, data);
+    }
+    catch (const std::exception& e)
+    {
+        stdplus::print(stderr, "Write unsuccessful: {}\n", e.what());
+        return ::ipmi::responseRetBytesUnavailable();
+    }
+
+    // Reply format is: Length of the payload written
+    std::vector<std::uint8_t> reply;
+    reply.reserve(1);
+    reply.emplace_back(static_cast<uint8_t>(payloadSize));
+
+    return ::ipmi::responseSuccess(SysOEMCommands::SysWriteBiosSetting, reply);
 }
 
 } // namespace ipmi
