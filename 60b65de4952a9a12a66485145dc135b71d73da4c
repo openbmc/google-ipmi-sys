@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14a2b964_f061302d",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-08-19T23:30:07Z",
+      "side": 1,
+      "message": "should try `ManagedFd` + https://github.com/openbmc/stdplus/blob/ea1dc9348636e5d84331cc4e6a2eaa3d55680afc/include-fd/stdplus/fd/ops.hpp#L143-L147",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 16
+      },
+      "revId": "60b65de4952a9a12a66485145dc135b71d73da4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "302434e5_acf5471c",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2024-08-19T23:30:07Z",
+      "side": 1,
+      "message": "should return the ec instead of throw.",
+      "range": {
+        "startLine": 141,
+        "startChar": 8,
+        "endLine": 141,
+        "endChar": 59
+      },
+      "revId": "60b65de4952a9a12a66485145dc135b71d73da4c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
