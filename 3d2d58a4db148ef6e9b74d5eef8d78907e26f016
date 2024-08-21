@@ -22,6 +22,30 @@
       },
       "revId": "3d2d58a4db148ef6e9b74d5eef8d78907e26f016",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dd42427_7c04d582",
+        "filename": "test/bios_setting_unittest.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-08-21T22:57:26Z",
+      "side": 1,
+      "message": "Right, yeah I passed out before fixing it. William suggested that I may be able to use `stdplus::gtest::TestWithTmp` so I\u0027ll give that a try.\n\nIf we want to pull it internally btw, it looks like the recent style change made it so it broke the bifurcation patch 😞",
+      "parentUuid": "d33275ca_80516485",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 53
+      },
+      "revId": "3d2d58a4db148ef6e9b74d5eef8d78907e26f016",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
