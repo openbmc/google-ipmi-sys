@@ -46,6 +46,30 @@
       },
       "revId": "3d2d58a4db148ef6e9b74d5eef8d78907e26f016",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4493ac8_22294bcc",
+        "filename": "test/bios_setting_unittest.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-08-22T00:43:16Z",
+      "side": 1,
+      "message": "Hmmmm passing locally but failing still here.. trying to debug why",
+      "parentUuid": "0dd42427_7c04d582",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 53
+      },
+      "revId": "3d2d58a4db148ef6e9b74d5eef8d78907e26f016",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
