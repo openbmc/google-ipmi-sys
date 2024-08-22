@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e08bea6b_2eff24b8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-08-22T01:15:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "396c8b41_f5363fe0",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 26
+      },
+      "revId": "30d29c206ea3aff7b5e40e34b269864dc278cc05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b5636543_c0dc6116",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-08-21T18:53:37Z",
       "side": 1,
       "message": "May be worth commenting that prior file contents are removed (e.g. previous second byte); we\u0027re not just overwriting individual bytes and keeping previous content.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 25
+      },
+      "revId": "30d29c206ea3aff7b5e40e34b269864dc278cc05",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fb13366_d3b9022d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-08-22T01:15:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5636543_c0dc6116",
       "range": {
         "startLine": 32,
         "startChar": 0,
