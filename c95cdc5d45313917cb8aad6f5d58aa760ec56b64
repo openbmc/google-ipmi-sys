@@ -18,6 +18,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fcd903d_15b17979",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-08-23T20:55:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0fdccbf_93a7770b",
+      "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b027a6ea_a91e1b4c",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-08-23T20:29:30Z",
       "side": 1,
       "message": "Not used, I think it\u0027s probably trivial to understand the response format without it",
+      "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1ad0158_8a181149",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-08-23T20:55:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b027a6ea_a91e1b4c",
       "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -54,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f617b2d_05adf332",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-08-23T20:55:52Z",
+      "side": 1,
+      "message": "I was doing data.empty() check before accessing data[0] to get the length - are you saying we don\u0027t need to worry about data being empty?",
+      "parentUuid": "606f0c60_01f7e488",
+      "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9d14c597_09a8188d",
         "filename": "bios_setting.cpp",
         "patchSetId": 17
@@ -65,6 +119,24 @@
       "writtenOn": "2024-08-23T20:29:30Z",
       "side": 1,
       "message": "I don\u0027t think you need to worry about it being too large, the function that writes it out later can just accept all the bytes.",
+      "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7430ce8_6200a5f9",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-08-23T20:55:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "9d14c597_09a8188d",
       "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -82,6 +154,24 @@
       "writtenOn": "2024-08-23T20:29:30Z",
       "side": 1,
       "message": "Should we just ignore extra padded data? Why even have a length prefix at all if you can tell the data length from the ipmi message?",
+      "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cae5a62_4df0d561",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-08-23T20:55:52Z",
+      "side": 1,
+      "message": "Right yea, we will just do a `data.size() - 1 !\u003d payloadSize` check (I think that\u0027s what you mean?)",
+      "parentUuid": "2e38d2d8_62857939",
       "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
@@ -138,6 +228,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9dd79430_c5089f51",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-08-23T20:55:52Z",
+      "side": 1,
+      "message": "Ah, ok - yeah Hao suggested this offline but I thought .last would be cleaner. Let me just do a subspan instead.",
+      "parentUuid": "10da630c_23e9cf90",
+      "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "511f8ff2_ef18030d",
@@ -151,6 +259,24 @@
       "writtenOn": "2024-08-23T20:29:30Z",
       "side": 1,
       "message": "You shouldn\u0027t need to re-read the contents. We need to have some trust the system correctly writes files.",
+      "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d2347eb_90a6804c",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-08-23T20:55:52Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "511f8ff2_ef18030d",
       "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
