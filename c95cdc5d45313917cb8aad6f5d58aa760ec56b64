@@ -3,6 +3,91 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d0fdccbf_93a7770b",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2024-08-23T20:29:30Z",
+      "side": 1,
+      "message": "I don\u0027t think you need the struct here either since you don\u0027t instantiate it. Just a length variable.",
+      "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b027a6ea_a91e1b4c",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2024-08-23T20:29:30Z",
+      "side": 1,
+      "message": "Not used, I think it\u0027s probably trivial to understand the response format without it",
+      "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "606f0c60_01f7e488",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2024-08-23T20:29:30Z",
+      "side": 1,
+      "message": "Technically this is safe because `sizeof(length) \u003d\u003d 1`. But it would be preferrable to check if `data.size() \u003c sizeof(length)` as that\u0027s the semantics if length were a different size.",
+      "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d14c597_09a8188d",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2024-08-23T20:29:30Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to worry about it being too large, the function that writes it out later can just accept all the bytes.",
+      "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e38d2d8_62857939",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2024-08-23T20:29:30Z",
+      "side": 1,
+      "message": "Should we just ignore extra padded data? Why even have a length prefix at all if you can tell the data length from the ipmi message?",
+      "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "72d70280_c7103d4a",
         "filename": "bios_setting.cpp",
         "patchSetId": 17
@@ -32,6 +117,40 @@
       "side": 1,
       "message": "1. Yes, the MAX_PAYLOAD_SIZE is common across all the OEM handlers (I believe as part of the IPMI spec\n2. Right, that\u0027s what we agreed upon in the README.md between the consumer / user of this IPMI command and it\u0027s common to have a size byte followed by the payload bytes.",
       "parentUuid": "72d70280_c7103d4a",
+      "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10da630c_23e9cf90",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2024-08-23T20:29:30Z",
+      "side": 1,
+      "message": "It would be preferrable to have this be `payload.subspan(1, payloadSize)`, as last would behave differently if you allowed extra data.",
+      "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "511f8ff2_ef18030d",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2024-08-23T20:29:30Z",
+      "side": 1,
+      "message": "You shouldn\u0027t need to re-read the contents. We need to have some trust the system correctly writes files.",
       "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
