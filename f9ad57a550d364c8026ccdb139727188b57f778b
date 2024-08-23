@@ -16,6 +16,23 @@
       "message": "This is good to go",
       "revId": "f9ad57a550d364c8026ccdb139727188b57f778b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5982ce90_f1f5b179",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001503
+      },
+      "writtenOn": "2024-08-23T00:56:29Z",
+      "side": 1,
+      "message": "nit: maybe `readBiosSettingsFromFile` is a better name?",
+      "revId": "f9ad57a550d364c8026ccdb139727188b57f778b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
