@@ -16,6 +16,24 @@
       "message": "Do we need to distinguish the difference between an empty file and a non-existent file?\n\nOr actually, should the lack of a settings file just return empty bytes here too?",
       "revId": "93a4c0abee7839f794aa8375c7c62f2204895577",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aba4a0d1_48f01c6f",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-08-23T21:48:39Z",
+      "side": 1,
+      "message": "I asked this to Claire who\u0027s doing the overall design and we agreed upon just sending out an error message is sufficient (as in \"normal\" usage, the BIOS setting should be set via redfish if this is to be used).",
+      "parentUuid": "2001259e_44194cd1",
+      "revId": "93a4c0abee7839f794aa8375c7c62f2204895577",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
