@@ -70,6 +70,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2ac4ac0_0113598e",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-08-23T20:36:46Z",
+      "side": 1,
+      "message": "Ah yeah, I added the \\n in the following commit. I\u0027ll bring it here.",
+      "parentUuid": "641b7f45_b809999d",
+      "revId": "f9ad57a550d364c8026ccdb139727188b57f778b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cfa20b9_5aa8e18e",
@@ -87,6 +105,24 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbeef6f2_89e91030",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-08-23T20:36:46Z",
+      "side": 1,
+      "message": "Yeah, it seems some other handlers just have it so I just added it for ease of read. I\u0027ll just take it out and add a small blurb",
+      "parentUuid": "6cfa20b9_5aa8e18e",
+      "revId": "f9ad57a550d364c8026ccdb139727188b57f778b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb5d379a_3728c143",
@@ -100,6 +136,24 @@
       "writtenOn": "2024-08-23T20:15:05Z",
       "side": 1,
       "message": "Why not just `writeTmpFile({})`? For brevity",
+      "revId": "f9ad57a550d364c8026ccdb139727188b57f778b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "111b9090_34c40456",
+        "filename": "test/bios_setting_unittest.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000388
+      },
+      "writtenOn": "2024-08-23T20:36:46Z",
+      "side": 1,
+      "message": "Yeah I can do that",
+      "parentUuid": "fb5d379a_3728c143",
       "revId": "f9ad57a550d364c8026ccdb139727188b57f778b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
