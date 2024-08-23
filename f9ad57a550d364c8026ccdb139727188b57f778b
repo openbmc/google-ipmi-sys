@@ -51,6 +51,57 @@
       "parentUuid": "5982ce90_f1f5b179",
       "revId": "f9ad57a550d364c8026ccdb139727188b57f778b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "641b7f45_b809999d",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2024-08-23T20:15:05Z",
+      "side": 1,
+      "message": "probably add the error message to the string? `\"Read unsuccessful: {}\\n\", e.what()`. Also the newline is necessary in `stdplus::print`",
+      "revId": "f9ad57a550d364c8026ccdb139727188b57f778b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cfa20b9_5aa8e18e",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2024-08-23T20:15:05Z",
+      "side": 1,
+      "message": "You can remove this, it\u0027s unused. Probably you could just comment about the format above the reply generation code if you feel it\u0027s not understandable (although it\u0027s a length prepended format so it looks obvious imo)",
+      "revId": "f9ad57a550d364c8026ccdb139727188b57f778b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb5d379a_3728c143",
+        "filename": "test/bios_setting_unittest.cpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2024-08-23T20:15:05Z",
+      "side": 1,
+      "message": "Why not just `writeTmpFile({})`? For brevity",
+      "revId": "f9ad57a550d364c8026ccdb139727188b57f778b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
