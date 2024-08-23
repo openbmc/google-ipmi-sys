@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8d6c85e_21e5b4eb",
+        "filename": "bios_setting.cpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000188
+      },
+      "writtenOn": "2024-08-23T21:42:47Z",
+      "side": 1,
+      "message": "I\u0027m just saying you are special casing it to work on a `uint8_t`, the check wouldn\u0027t work for any larger integer type.\n\n```\nusing PayloadSize \u003d std::uint8_t;\nif (data.size() \u003c sizeof(PayloadSize))\n{\n    return ::ipmi::responseReqDataLenInvalid();\n}\nPayloadSize payloadSize \u003d data[0];\nauto payload \u003d data.subspan(1, payloadSize);\n```\n\nYou could also use `stdplus::extract()`, which can check the size and pull the data off the front, resizing the span in the process.\n```\n#include \u003cstdplus/raw.hpp\u003e\n#include \u003cstdplus/numeric/endian.hpp\u003e\n\nstd::uint8_t payloadSize;\ntry\n{\n    payloadSize \u003d stdplus::extract\u003cstdplus::EndianPacked\u003cdecltype(payloadSize), std::endian::little\u003e\u003e(data);\n}\ncatch (...)\n{\n    return ::ipmi::responseReqDataLenInvalid();\n}\n// data is now payload\n```",
+      "parentUuid": "3f617b2d_05adf332",
+      "revId": "c95cdc5d45313917cb8aad6f5d58aa760ec56b64",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9d14c597_09a8188d",
         "filename": "bios_setting.cpp",
         "patchSetId": 17
