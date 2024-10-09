@@ -702,11 +702,10 @@ void Handler::linuxBootDone() const
     }
 }
 
-static constexpr char ACCEL_POWER_SERVICE[] = "xyz.openbmc_project.AccelPower";
+static constexpr char ACCEL_POWER_SERVICE[] = "com.google.AccelPower";
 static constexpr char ACCEL_POWER_PATH_PREFIX[] =
-    "/xyz/openbmc_project/control/accel_power_";
-static constexpr char POWER_MODE_IFC[] =
-    "xyz.openbmc_project.Control.Power.Mode";
+    "/com/google/accelPower/accel_power_";
+static constexpr char POWER_MODE_IFC[] = "com.google.accelPower.Mode";
 
 void Handler::accelSetVrSettings(::ipmi::Context::ptr ctx, uint8_t chip_id,
                                  uint8_t settings_id, uint16_t value) const
