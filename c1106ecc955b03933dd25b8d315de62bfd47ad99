@@ -22,6 +22,30 @@
       },
       "revId": "c1106ecc955b03933dd25b8d315de62bfd47ad99",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f000c3ad_75d3b425",
+        "filename": "handler.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1000985
+      },
+      "writtenOn": "2024-10-16T15:34:16Z",
+      "side": 1,
+      "message": "yes that\u0027s how it\u0027s done currently but making the interface common across different use cases make more sense",
+      "parentUuid": "4736467a_80b43b6e",
+      "range": {
+        "startLine": 705,
+        "startChar": 0,
+        "endLine": 708,
+        "endChar": 70
+      },
+      "revId": "c1106ecc955b03933dd25b8d315de62bfd47ad99",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     }
   ]
 }
