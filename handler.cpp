@@ -670,7 +670,7 @@ std::vector<uint8_t> Handler::pcieBifurcation(uint8_t index)
         std::vector<uint8_t>{});
 }
 
-static constexpr auto BARE_METAL_TARGET = "gbmc-bare-metal-active.target";
+static constexpr auto BARE_METAL_TARGET = "gbmc-bare-metal-active@0.target";
 
 void Handler::linuxBootDone() const
 {
