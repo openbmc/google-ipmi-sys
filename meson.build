@@ -70,7 +70,7 @@ sys_dep = declare_dependency(
   link_with: sys_lib,
   dependencies: sys_pre)
 
-if not get_option('tests').disabled()
+if get_option('tests').allowed()
   subdir('test')
 endif
 
