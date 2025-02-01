@@ -30,9 +30,9 @@ namespace ipmi
 
 // Validate the return code and the data for the IPMI reply.
 // Returns the subcommand and the optional information.
-std::pair<std::uint8_t, std::vector<std::uint8_t>>
-    ValidateReply(::ipmi::RspType<std::uint8_t, std::vector<uint8_t>> reply,
-                  bool hasData = true);
+std::pair<std::uint8_t, std::vector<std::uint8_t>> ValidateReply(
+    ::ipmi::RspType<std::uint8_t, std::vector<uint8_t>> reply,
+    bool hasData = true);
 
 } // namespace ipmi
 } // namespace google

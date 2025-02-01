@@ -126,8 +126,8 @@ uint8_t Handler::getBmcMode()
     return isBmcInBareMetalMode(this->getFs());
 }
 
-std::tuple<std::uint8_t, std::string>
-    Handler::getEthDetails(std::string intf) const
+std::tuple<std::uint8_t, std::string> Handler::getEthDetails(
+    std::string intf) const
 {
     if (intf.empty())
     {
@@ -447,8 +447,8 @@ size_t Handler::getI2cPcieMappingSize() const
     return _pcie_i2c_map.size();
 }
 
-std::tuple<std::uint32_t, std::string>
-    Handler::getI2cEntry(unsigned int entry) const
+std::tuple<std::uint32_t, std::string> Handler::getI2cEntry(
+    unsigned int entry) const
 {
     return _pcie_i2c_map[entry];
 }

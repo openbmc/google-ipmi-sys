@@ -52,8 +52,8 @@ class HandlerInterface
      *
      * @return tuple of ethernet details (channel, if name).
      */
-    virtual std::tuple<std::uint8_t, std::string>
-        getEthDetails(std::string intf) const = 0;
+    virtual std::tuple<std::uint8_t, std::string> getEthDetails(
+        std::string intf) const = 0;
 
     /**
      * Return the value of rx_packets, given a if_name.
@@ -136,8 +136,8 @@ class HandlerInterface
      * @param[in] entry - the index into the vector.
      * @return the tuple at that index.
      */
-    virtual std::tuple<std::uint32_t, std::string>
-        getI2cEntry(unsigned int entry) const = 0;
+    virtual std::tuple<std::uint32_t, std::string> getI2cEntry(
+        unsigned int entry) const = 0;
 
     /**
      * Set the Host Power Off delay.
