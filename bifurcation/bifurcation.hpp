@@ -37,8 +37,8 @@ class BifurcationInterface
      * @param[in] bus    - I2C bus of the device
      * @return the bifurcation at the i2c bus
      */
-    virtual std::optional<std::vector<uint8_t>>
-        getBifurcation(uint8_t bus) noexcept = 0;
+    virtual std::optional<std::vector<uint8_t>> getBifurcation(
+        uint8_t bus) noexcept = 0;
 };
 
 class BifurcationStatic : public BifurcationInterface
@@ -53,8 +53,8 @@ class BifurcationStatic : public BifurcationInterface
 
     BifurcationStatic(std::string_view bifurcationFile);
 
-    std::optional<std::vector<uint8_t>>
-        getBifurcation(uint8_t index) noexcept override;
+    std::optional<std::vector<uint8_t>> getBifurcation(
+        uint8_t index) noexcept override;
 
   protected:
     BifurcationStatic();

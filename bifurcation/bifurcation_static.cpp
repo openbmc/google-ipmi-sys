@@ -38,8 +38,8 @@ BifurcationStatic::BifurcationStatic(std::string_view bifurcationFile) :
     bifurcationFile(bifurcationFile)
 {}
 
-std::optional<std::vector<uint8_t>>
-    BifurcationStatic::getBifurcation(uint8_t index) noexcept
+std::optional<std::vector<uint8_t>> BifurcationStatic::getBifurcation(
+    uint8_t index) noexcept
 {
     // Example valid data:
     // {

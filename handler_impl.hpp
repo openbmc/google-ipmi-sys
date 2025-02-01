@@ -51,8 +51,8 @@ class Handler : public HandlerInterface
     ~Handler() = default;
 
     uint8_t getBmcMode() override;
-    std::tuple<std::uint8_t, std::string>
-        getEthDetails(std::string intf) const override;
+    std::tuple<std::uint8_t, std::string> getEthDetails(
+        std::string intf) const override;
     std::int64_t getRxPackets(const std::string& name) const override;
     VersionTuple getCpldVersion(unsigned int id) const override;
     void psuResetDelay(std::uint32_t delay) const override;
@@ -63,8 +63,8 @@ class Handler : public HandlerInterface
     void buildI2cPcieMapping() override;
     size_t getI2cPcieMappingSize() const override;
     void hostPowerOffDelay(std::uint32_t delay) const override;
-    std::tuple<std::uint32_t, std::string>
-        getI2cEntry(unsigned int entry) const override;
+    std::tuple<std::uint32_t, std::string> getI2cEntry(
+        unsigned int entry) const override;
     std::vector<uint8_t> pcieBifurcation(uint8_t) override;
 
     uint32_t accelOobDeviceCount() const override;
