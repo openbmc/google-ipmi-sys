@@ -461,7 +461,8 @@ Response (if applicable)
 
 Get the accel's VR setting value for the given chip and settings ID
 
-Currently 3 settings are supported. [0] IdleMode [1] PowerBrake [2] Loadline
+Currently 3 settings are supported. [0] IdleMode [1] PowerBrake [2] Loadline [3]
+VoltageMargin
 
 On success, the response contains 2 bytes containing the setting value.
 
