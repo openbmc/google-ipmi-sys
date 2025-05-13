@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5235189_990452d0",
+        "filename": "meson.build",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2025-05-13T06:18:01Z",
+      "side": 1,
+      "message": "this breaks https://github.com/openbmc/openbmc-build-scripts/blob/1c28d9699c070e0ae1a7d865b2a0f12c5cc128fd/scripts/unit-test.py#L844\n\nSeems like we just need https://gerrit.openbmc.org/c/openbmc/openbmc-build-scripts/+/80251 to fix it.",
+      "range": {
+        "startLine": 78,
+        "startChar": 4,
+        "endLine": 78,
+        "endChar": 52
+      },
+      "revId": "4d6a7b313e761a79572bb4d9e181464d11ca65b2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
