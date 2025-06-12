@@ -1,8 +1,10 @@
-### Sys Commands (0x32)
+# google-ipmi-sys
+
+## Sys Commands (0x32)
 
 There are and will be a variety of sys specific commands.
 
-#### Cablecheck - SubCommand 0x00
+### Cablecheck - SubCommand 0x00
 
 The cablecheck command checks whether the BMC is seeing traffic between itself
 and the host's NIC. Sys specifies which if_name is expected to be connected. The
@@ -25,7 +27,7 @@ Response
 | 0x00    | 0x00      | Subcommand              |
 | 0x01    | 0x00/0x01 | 0 for false, 1 for true |
 
-#### CpldVersion - SubCommand 0x01
+### CpldVersion - SubCommand 0x01
 
 Any CPLD on the system that can only be read directly via the BMC can have its
 version exported to Sys via the cpld version command.
@@ -50,7 +52,7 @@ Response
 **Per the above, if the version number doesn't fit in a byte it'll be cast to
 size.**
 
-#### GetEthDevice - SubCommand 0x02
+### GetEthDevice - SubCommand 0x02
 
 The BMC itself must have hard-coded into the image, which ethernet device is
 connected to the host NIC. This is true also in the mapping of ethernet device
@@ -77,7 +79,7 @@ Response
 | 0x02    | if_name length | The length of the if_name in bytes.                                                                                         |
 | 0x03... | if_name        | The interface name, not null-terminated                                                                                     |
 
-#### DelayedHardReset - SubCommand 0x03
+### DelayedHardReset - SubCommand 0x03
 
 Sys needs to be able to tell the BMC to reset the host but given a delay in
 seconds.
@@ -95,7 +97,7 @@ Response
 | ------- | ----- | ---------- |
 | 0x00    | 0x03  | Subcommand |
 
-### GetPCIeSlotsCount - SubCommand 0x04
+## GetPCIeSlotsCount - SubCommand 0x04
 
 Sys can get the total number of PCIe slots from BMC using this command. When BMC
 receives this command, BMC can enumerate over all the PCIe slots and create a
@@ -115,7 +117,7 @@ Response
 | 0x00    | 0x04                       | Subcommand                 |
 | 0x01    | Total number of PCIe slots | Total number of PCIe slots |
 
-### GetPCIeSlotI2cBusMapping - SubCommand 0x05
+## GetPCIeSlotI2cBusMapping - SubCommand 0x05
 
 If Sys gets N total slots as part of the above command, then Sys can send this
 command N times with Entry IDs ranging from 0 to N - 1. Say, Sys sends this
@@ -139,7 +141,7 @@ Response
 | 0x02    | PCIe slot name length | The PCIe slot name length                                |
 | 0x03... | PCIe slot name        | The PCIe slot name without null terminator               |
 
-### GetEntityName - SubCommand 0x06
+## GetEntityName - SubCommand 0x06
 
 Gsys can get the "Entity ID:Entity Instance" to Entity name mapping from BMC
 using this command. When BMC receives this command, BMC can check the related
@@ -162,7 +164,7 @@ Response
 | 0x01                | Entity name length (say N) | Entity name length                  |
 | 0x02...0x02 + N - 1 | Entity name                | Entity name without null terminator |
 
-### GetMachineName - SubCommand 0x07
+## GetMachineName - SubCommand 0x07
 
 The BMC parses /etc/os-release for the OPENBMC_TARGET_MACHINE field and returns
 its value.
@@ -181,7 +183,7 @@ Response
 | 0x01                | Model name length (say N) | Model name length                  |
 | 0x02...0x02 + N - 1 | Model name                | Model name without null terminator |
 
-### HardResetOnShutdown - SubCommand 0x08
+## HardResetOnShutdown - SubCommand 0x08
 
 Tells the BMC to powercycle the next time the host shuts down.
 
@@ -197,7 +199,7 @@ Response
 | ------- | ----- | ---------- |
 | 0x00    | 0x08  | Subcommand |
 
-### GetFlashSize - SubCommand 0x09
+## GetFlashSize - SubCommand 0x09
 
 Request the physical size of the BMC flash.
 
@@ -214,7 +216,7 @@ Response
 | 0x00        | 0x09       | Subcommand |
 | 0x01...0x04 | Flash size | Flash size |
 
-### HostPowerOff - SubCommand 0x0A
+## HostPowerOff - SubCommand 0x0A
 
 Sys command needs to be able to let the BMC knows host attempt S5 shutdown, it
 need power-off the Host gracefully and disable the watchdog with given time
@@ -233,7 +235,7 @@ Response
 | ------- | ----- | ---------- |
 | 0x00    | 0x0A  | Subcommand |
 
-### AccelOobDeviceCount - SubCommand 0x0B
+## AccelOobDeviceCount - SubCommand 0x0B
 
 Query the number of available devices from the google-accel-oob service.
 
@@ -252,7 +254,7 @@ Response
 | 0x00       | 0x0B  | Subcommand                  |
 | 0x01..0x04 |       | Number of devices available |
 
-### AccelOobDeviceName - SubCommand 0x0C
+## AccelOobDeviceName - SubCommand 0x0C
 
 Query the name of a single device from the google-accel-oob service.
 
@@ -266,7 +268,7 @@ The name of the device is exactly as it appears in DBus, except for the common
 the IPMI packet.
 
 DBus requires all element names to be non-empty strings of ASCII characters
-"[A-Z][a-z][0-9]\_", separated by ASCII '/'. Therefore, all device names will be
+`[A-Z][a-z][0-9]\_`, separated by ASCII `/`. Therefore, all device names will be
 valid ASCII strings (1 byte/character).
 
 For convenience, the name string is followed by a single 0x00 (NULL terminator)
@@ -304,7 +306,7 @@ Response
 | 0x05       |       | Length of the name  |
 | 0x06..n    |       | Name of the device  |
 
-### AccelOobRead - SubCommand 0x0D
+## AccelOobRead - SubCommand 0x0D
 
 Read a PCIe CSR from a device.
 
@@ -356,7 +358,7 @@ Response
 | n+11       |       | Number of bytes                       |
 | n+12..n+20 |       | Data                                  |
 
-### AccelOobWrite - SubCommand 0x0E
+## AccelOobWrite - SubCommand 0x0E
 
 Write a PCIe CSR from a device.
 
@@ -398,7 +400,7 @@ Response
 | n+11       |       | Number of bytes                       |
 | n+12..n+20 |       | Data                                  |
 
-### PCIe Bifurcation - SubCommand 0x0F
+## PCIe Bifurcation - SubCommand 0x0F
 
 Sys command to return the highest level of bifurcation for the target PCIe Slot.
 
@@ -417,7 +419,7 @@ Response
 | 0x01               | Config length (N) | Number of bytes needed for the bifurcation config                                 |
 | 0x02..0x02 + N - 1 | Lanes per device  | Each byte represents the number of lanes bonded together for each endpoint device |
 
-### GetBmcMode - SubCommand 0x10
+## GetBmcMode - SubCommand 0x10
 
 Request the operational mode of the BMC.
 
@@ -429,12 +431,12 @@ Request
 
 Response
 
-| Byte(s) | Value            | Data                                                                                                          |
-| ------- | ---------------- | ------------------------------------------------------------------------------------------------------------- |
-| 0x00    | 0x10             | Subcommand                                                                                                    |
-| 0x01    | Current BMC MODE | <ul><li>0 -> Non Bare Metal Mode</li><li>1 -> Bare Metal Mode</li><li>2 -> Bare Metal Cleaning Mode</li></ul> |
+| Byte(s) | Value            | Data                                                                                  |
+| ------- | ---------------- | ------------------------------------------------------------------------------------- |
+| 0x00    | 0x10             | Subcommand                                                                            |
+| 0x01    | Current BMC MODE | **0 -> Non Bare Metal Mode**<br>1 -> Bare Metal Mode<br>2 -> Bare Metal Cleaning Mode |
 
-### LinuxBootDone - SubCommand 0x11
+## LinuxBootDone - SubCommand 0x11
 
 Notify the BMC that LinuxBoot is finished and will kexec into the OS
 momentarily.
@@ -457,7 +459,7 @@ Response (if applicable)
 | ------- | ----- | ---------- |
 | 0x00    | 0x11  | Subcommand |
 
-### SysGetAccelVrSettings - SubCommand 0x15
+## SysGetAccelVrSettings - SubCommand 0x15
 
 Get the accel's VR setting value for the given chip and settings ID
 
@@ -483,7 +485,7 @@ Response (if applicable)
 | 0x00       | 0x15  | Subcommand     |
 | 0x01..0x02 | 0x15  | Settings Value |
 
-### SysSetAccelVrSettings - SubCommand 0x16
+## SysSetAccelVrSettings - SubCommand 0x16
 
 Update the VR settings of a given accel device for a specific settings id.
 
@@ -511,7 +513,7 @@ Response (if applicable)
 | ------- | ----- | ---------- |
 | 0x00    | 0x16  | Subcommand |
 
-### GetBMInstanceProperty - SubCommand 0x17
+## GetBMInstanceProperty - SubCommand 0x17
 
 Read a BM instance property, specify the property to read following the enum.
 
@@ -533,7 +535,7 @@ Response
 | 0x01              | String Length (N)  | Number of bytes to read for property string - Size limited to 64 |
 | 0x2..0x02 + N - 1 | String of property | String, not null-terminated                                      |
 
-### ReadBiosSetting - SubCommand 0x18
+## ReadBiosSetting - SubCommand 0x18
 
 Read a BIOS setting, set at `/run/oem_bios_setting`.
 
@@ -554,7 +556,7 @@ Response
 | 0x01              | Length (N)    | Number of payload bytes - Size limited to 64 |
 | 0x2..0x02 + N - 1 | Payload bytes | Payload bytes                                |
 
-### WriteBiosSetting - SubCommand 0x19
+## WriteBiosSetting - SubCommand 0x19
 
 Write a BIOS setting, set at `/run/oem_bios_setting`.
 
