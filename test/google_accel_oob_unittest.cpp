@@ -47,7 +47,7 @@ TEST(GoogleAccelOobTest, DeviceCount_Success)
     Resp r = accelOobDeviceCount(reqBuf, &h);
 
     const auto response = std::get<0>(r);
-    EXPECT_EQ(response, IPMI_CC_OK);
+    EXPECT_EQ(response, ::ipmi::ccSuccess);
 
     const auto payload = std::get<1>(r);
     ASSERT_EQ(payload.has_value(), true);
@@ -89,7 +89,7 @@ TEST(GoogleAccelOobTest, DeviceName_Success)
         &h);
 
     const auto response = std::get<0>(r);
-    EXPECT_EQ(response, IPMI_CC_OK);
+    EXPECT_EQ(response, ::ipmi::ccSuccess);
 
     const auto payload = std::get<1>(r);
     ASSERT_EQ(payload.has_value(), true);
@@ -150,7 +150,7 @@ TEST(GoogleAccelOobTest, Read_Success)
         &h);
 
     const auto response = std::get<0>(r);
-    EXPECT_EQ(response, IPMI_CC_OK);
+    EXPECT_EQ(response, ::ipmi::ccSuccess);
 
     const auto payload = std::get<1>(r);
     ASSERT_EQ(payload.has_value(), true);
@@ -216,7 +216,7 @@ TEST(GoogleAccelOobTest, Write_Success)
         &h);
 
     const auto response = std::get<0>(r);
-    EXPECT_EQ(response, IPMI_CC_OK);
+    EXPECT_EQ(response, ::ipmi::ccSuccess);
 
     const auto payload = std::get<1>(r);
     ASSERT_EQ(payload.has_value(), true);
@@ -251,7 +251,7 @@ TEST(GoogleAccelOobTest, SetVrSettings_Success)
     Resp r = accelSetVrSettings(nullptr, testData, &h);
 
     const auto response = std::get<0>(r);
-    EXPECT_EQ(response, IPMI_CC_OK);
+    EXPECT_EQ(response, ::ipmi::ccSuccess);
 
     const auto payload = std::get<1>(r);
     ASSERT_EQ(payload.has_value(), true);
@@ -275,7 +275,7 @@ TEST(GoogleAccelOobTest, SetVrSettings_HandleIncorrectDataSize)
     Resp r = accelSetVrSettings(nullptr, testData, &h);
 
     const auto response = std::get<0>(r);
-    EXPECT_EQ(response, IPMI_CC_REQ_DATA_LEN_INVALID);
+    EXPECT_EQ(response, ipmi::ccReqDataLenInvalid);
 
     const auto payload = std::get<1>(r);
     ASSERT_EQ(payload.has_value(), false);
@@ -295,7 +295,7 @@ TEST(GoogleAccelOobTest, GetVrSettings_Success)
     Resp r = accelGetVrSettings(nullptr, testData, &h);
 
     const auto response = std::get<0>(r);
-    EXPECT_EQ(response, IPMI_CC_OK);
+    EXPECT_EQ(response, ::ipmi::ccSuccess);
 
     const auto payload = std::get<1>(r);
     ASSERT_EQ(payload.has_value(), true);
@@ -322,7 +322,7 @@ TEST(GoogleAccelOobTest, GetVrSettings_HandleIncorrectDataSize)
     Resp r = accelGetVrSettings(nullptr, testData, &h);
 
     const auto response = std::get<0>(r);
-    EXPECT_EQ(response, IPMI_CC_REQ_DATA_LEN_INVALID);
+    EXPECT_EQ(response, ipmi::ccReqDataLenInvalid);
 
     const auto payload = std::get<1>(r);
     ASSERT_EQ(payload.has_value(), false);
