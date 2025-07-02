@@ -237,7 +237,7 @@ Response
 
 Query the number of available devices from the google-accel-oob service.
 
-If not enough data is proveded, `IPMI_CC_REQ_DATA_LEN_INVALID` is returned.
+If not enough data is proveded, `ipmi::ccReqDataLenInvalid` is returned.
 
 Request
 
@@ -277,14 +277,14 @@ including the trailing NULL terminator byte).
 
 The maximum length for any name is 43 bytes (not including the trailing NULL).
 
-If a name is longer than 43 bytes, `IPMI_CC_REQ_DATA_TRUNCATED` is returned.
+If a name is longer than 43 bytes, `ipmi::ccReqDataTruncated` is returned.
 These names will not be usable in the rest of the API. Changing the name
 requires code changes to the `managed_acceld` service binary.
 
-If not enough data is proveded, `IPMI_CC_REQ_DATA_LEN_INVALID` is returned.
+If not enough data is proveded, `ipmi::ccReqDataLenInvalid` is returned.
 
 If a name does not begin with the expected "/com/google/customAccel/" prefix,
-`IPMI_CC_INVALID` is returned. This indicates a change in the DBus API for the
+`ipmi::ccInvalidCommand` is returned. This indicates a change in the DBus API for the
 google-accel-oob service that requires a matching code change in the handler.
 
 Request
@@ -329,9 +329,9 @@ If fewer than than 8 bytes are read, the MSBs are padded with 0s.
 On success, the response ends with the data read as a single uint64.
 
 If the number of bytes requested would not fit in a single IPMI payload,
-`IPMI_CC_REQUESTED_TOO_MANY_BYTES` is returned.
+`ipmi::ccRetBytesUnavailable` is returned.
 
-If not enough data is proveded, `IPMI_CC_REQ_DATA_LEN_INVALID` is returned.
+If not enough data is proveded, `ipmi::ccReqDataLenInvalid` is returned.
 
 Request
 
@@ -370,9 +370,9 @@ MSBs will be ignored.
 
 All fields returned in the Response are simply a copy of the Request.
 
-On success, `IPMI_CC_OK` is returned.
+On success, `ipmi::ccSuccess` is returned.
 
-If not enough data is proveded, `IPMI_CC_REQ_DATA_LEN_INVALID` is returned.
+If not enough data is proveded, `ipmi::ccReqDataLenInvalid` is returned.
 
 Request
 
@@ -466,7 +466,7 @@ VoutMargin
 
 On success, the response contains 2 bytes containing the setting value.
 
-If not enough data is proveded, `IPMI_CC_REQ_DATA_LEN_INVALID` is returned.
+If not enough data is proveded, `ipmi::ccReqDataLenInvalid` is returned.
 
 Request
 
@@ -492,9 +492,9 @@ Currently 3 settings are supported. [0] IdleMode [1] PowerBrake [2] Loadline
 The settings value parameter is a 2 byte value and is expected in little endian
 format
 
-On success, `IPMI_CC_OK` is returned.
+On success, `ipmi::ccSuccess` is returned.
 
-If not enough data is proveded, `IPMI_CC_REQ_DATA_LEN_INVALID` is returned.
+If not enough data is proveded, `ipmi::ccReqDataLenInvalid` is returned.
 
 Request
 
