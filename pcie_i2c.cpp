@@ -89,7 +89,7 @@ Resp pcieSlotI2cBusMapping(std::span<const uint8_t> data,
                  pcie_slot_name.length();
 
     // TODO (jaghu) : Add a way to dynamically receive the MAX_IPMI_BUFFER
-    // value and change error to IPMI_CC_REQUESTED_TOO_MANY_BYTES.
+    // value and change error to ipmi::ccRetBytesUnavailable.
     if (length > MAX_IPMI_BUFFER)
     {
         stdplus::print(stderr, "Response would overflow response buffer\n");
