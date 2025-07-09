@@ -89,6 +89,6 @@ systemd_dep = dependency('systemd')
 if systemd_dep.found()
     install_data(
         'gbmc-host-poweroff.target',
-        install_dir: systemd_dep.get_variable('systemdsystemunitdir'),
+        install_dir: systemd_dep.get_variable('systemd_system_unit_dir'),
     )
 endif
