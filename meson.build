@@ -87,7 +87,7 @@ if systemd_dep.found()
         'gbmc-psu-hardreset.target',
         'gbmc-psu-hardreset-pre.target',
         'gbmc-psu-hardreset-time.service',
-        install_dir: systemd_dep.get_variable('systemdsystemunitdir'),
+        install_dir: systemd_dep.get_variable('systemd_system_unit_dir'),
     )
 endif
 
