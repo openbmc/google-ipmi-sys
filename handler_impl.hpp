@@ -111,7 +111,9 @@ class Handler : public HandlerInterface
         {0, "idle_mode_"},
         {1, "power_brake_"},
         {2, "loadline_"},
-        {3, "vout_margin_"}};
+        {3, "vout_margin_"},
+        {3, "vout_setpoint_"},
+        {3, "nominal_target_vout_"}};
 
     const std::unordered_map<uint8_t, std::string> bmInstanceTypeStringMap = {
         {0x00, "asset-tag"}, {0x01, "board-serial-number"},
