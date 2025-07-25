@@ -407,30 +407,28 @@ void ExpectRead(StrictMock<sdbusplus::SdBusMock>& mock, uint64_t address,
 
     if (sd_bus_call_return_value >= 0)
     {
-        EXPECT_CALL(mock,
-                    sd_bus_message_enter_container(msg, SD_BUS_TYPE_ARRAY,
-                                                   StrEq(SD_BUS_TYPE_BYTE_STR)))
-            .WillOnce(Return(1));
-
         if (num_bytes_returned == NUM_BYTES_RETURNED_EQ_NUM_BYTES)
         {
             num_bytes_returned = num_bytes;
         }
-        for (auto i = num_bytes_returned - 1; i >= 0; --i)
-        {
-            EXPECT_CALL(mock, sd_bus_message_at_end(msg, 0))
-                .WillOnce(Return(0));
 
-            const uint8_t byte = (i >= 8) ? 0 : (data >> (8 * i)) & 0xff;
-            EXPECT_CALL(mock, sd_bus_message_read_basic(msg, SD_BUS_TYPE_BYTE,
-                                                        NotNull()))
-                .WillOnce(DoAll(AssignReadVal<uint8_t>(byte), Return(1)));
+        uint64_t updatedData = 0;
+        for (size_t i = 0; i < num_bytes_returned; ++i)
+        {
+            updatedData <<= 8;
+            updatedData += (i >= 8) ? 0 : (data >> (i * 8)) & 0xff;
         }
 
-        EXPECT_CALL(mock, sd_bus_message_at_end(msg, 0)).WillOnce(Return(1));
+        auto read_array_callback =
+            [updatedData, num_bytes_returned](sd_bus_message*, char,
+                                              const void** p, size_t* sz) {
+                *p = &updatedData;
+                *sz = num_bytes_returned;
+            };
 
-        EXPECT_CALL(mock, sd_bus_message_exit_container(msg))
-            .WillOnce(Return(1));
+        EXPECT_CALL(mock, sd_bus_message_read_array(nullptr, SD_BUS_TYPE_BYTE,
+                                                    testing::_, testing::_))
+            .WillOnce(DoAll(testing::Invoke(read_array_callback), Return(0)));
     }
 }
 
@@ -497,8 +495,13 @@ TEST(HandlerTest, accelOobRead_TooManyBytesReturned)
                  IpmiException);
 }
 
+static int on_array_append(sd_bus_message*, char, const void*, size_t)
+{
+    return 0;
+}
+
 void ExpectWrite(StrictMock<sdbusplus::SdBusMock>& mock, uint64_t address,
-                 uint8_t num_bytes, uint64_t data, int sd_bus_call_return_value)
+                 uint8_t num_bytes, uint64_t, int sd_bus_call_return_value)
 {
     ::testing::InSequence s;
 
@@ -522,28 +525,10 @@ void ExpectWrite(StrictMock<sdbusplus::SdBusMock>& mock, uint64_t address,
         .WillOnce(DoAll(TraceDbus("sd_bus_message_append_basic(address) -> 1"),
                         Return(1)));
 
-    EXPECT_CALL(mock,
-                sd_bus_message_open_container(method, SD_BUS_TYPE_ARRAY,
-                                              StrEq(SD_BUS_TYPE_BYTE_STR)))
-        .WillOnce(DoAll(TraceDbus("sd_bus_message_open_container(a, y) -> 0"),
-                        Return(0)));
-
-    for (auto i = 0; i < num_bytes; ++i)
-    {
-        const uint8_t byte = (data >> (8 * i)) & 0xff;
-
-        EXPECT_CALL(
-            mock, sd_bus_message_append_basic(
-                      method, SD_BUS_TYPE_BYTE,
-                      MatcherCast<const void*>(
-                          SafeMatcherCast<const uint8_t*>(Pointee(Eq(byte))))))
-            .WillOnce(
-                DoAll(TraceDbus2("sd_bus_message_append_basic"), Return(1)));
-    }
-
-    EXPECT_CALL(mock, sd_bus_message_close_container(method))
-        .WillOnce(DoAll(TraceDbus("sd_bus_message_close_container() -> 0"),
-                        Return(0)));
+    EXPECT_CALL(
+        mock, sd_bus_message_append_array(nullptr, SD_BUS_TYPE_BYTE, testing::_,
+                                          num_bytes * sizeof(std::byte)))
+        .WillOnce(testing::Invoke(on_array_append));
 
     EXPECT_CALL(mock, sd_bus_call(_,         // sd_bus *bus,
                                   method,    // sd_bus_message *m
