@@ -84,15 +84,6 @@ systemd_dep = dependency('systemd')
 if systemd_dep.found()
     install_data(
         'gbmc-host-poweroff.target',
-        'gbmc-psu-hardreset.target',
-        'gbmc-psu-hardreset-pre.target',
-        'gbmc-psu-hardreset-time.service',
         install_dir: systemd_dep.get_variable('systemdsystemunitdir'),
     )
 endif
-
-install_data(
-    'gbmc-enqueue-powercycle.sh',
-    install_dir: get_option('bindir'),
-    install_mode: 'rwxr-xr-x',
-)
