@@ -638,6 +638,13 @@ TEST(HandlerTest, BmInstanceFailCase)
     EXPECT_THROW(h.getBMInstanceProperty(0x00), IpmiException);
 }
 
+TEST(HandlerTest, GetCoreCountFileDoesNotExist)
+{
+    Handler h;
+    // Assuming /run/cpu_config.json doesn't exist in the test environment
+    EXPECT_EQ(h.getCoreCount(), 0);
+}
+
 // TODO: Add checks for other functions of handler.
 
 } // namespace ipmi
