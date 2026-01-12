@@ -20,6 +20,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <tuple>
@@ -73,6 +74,7 @@ class HandlerMock : public HandlerInterface
                 (::ipmi::Context::ptr, uint8_t, uint8_t), (const, override));
     MOCK_METHOD(std::string, getBMInstanceProperty, (uint8_t),
                 (const, override));
+    MOCK_METHOD(std::optional<uint16_t>, getCoreCount, (), (const, override));
 };
 
 } // namespace ipmi
