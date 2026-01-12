@@ -99,6 +99,11 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr ctx,
             return readBiosSetting(data, handler);
         case SysWriteBiosSetting:
             return writeBiosSetting(data, handler);
+        case SysGetCoreCount: {
+            int coreCount = handler->getCoreCount();
+            return ::ipmi::responseSuccess(
+                static_cast<uint8_t>(coreCount)); // Assuming core count fits in uint8_t
+        }
         default:
             stdplus::print(stderr, "Invalid subcommand: {:#x}\n", cmd);
             return ::ipmi::responseInvalidCommand();
