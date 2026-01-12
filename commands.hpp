@@ -73,6 +73,8 @@ enum SysOEMCommands
     SysReadBiosSetting = 24,
     // Write OEM BIOS Setting
     SysWriteBiosSetting = 25,
+    // Get Core Count
+    SysGetCoreCount = 30,
 };
 
 } // namespace ipmi

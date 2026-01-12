@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "config.h"
+
 #include "handler.hpp"
 
 #include "bm_config.h"
@@ -29,6 +31,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+#include <ipmid/message.hpp>
 #include <nlohmann/json.hpp>
 #include <phosphor-logging/elog-errors.hpp>
 #include <phosphor-logging/log.hpp>
@@ -39,14 +42,18 @@
 #include <cinttypes>
 #include <cstdio>
 #include <filesystem>
+#include <format>
 #include <fstream>
 #include <iomanip>
 #include <map>
+#include <memory>
 #include <sstream>
 #include <string>
 #include <string_view>
 #include <tuple>
+#include <unordered_set>
 #include <variant>
+#include <optional>
 
 #ifndef NCSI_IF_NAME
 #define NCSI_IF_NAME eth0
@@ -664,9 +671,56 @@ void Handler::accelOobWrite(std::string_view name, uint64_t address,
     }
 }
 
-std::vector<uint8_t> Handler::pcieBifurcation(uint8_t index)
+std::vector<uint8_t> Handler::pcieBifurcation(::ipmi::Context::ptr ctx,
+                                              uint8_t index, bool dynamic)
 {
-    return bifurcationHelper.get().getBifurcation(index).value_or(
+    if (!dynamic)
+    {
+        return bifurcationHelper.get()
+            .getBifurcation(ctx, index)
+            .value_or(std::vector<uint8_t>{});
+    }
+
+    // Dynamic Configuration needs to lookup the i2c bus from the PCIe slot
+    // index.
+    static const std::vector<Json> empty{};
+    std::string name;
+    std::optional<uint8_t> bus;
+
+    try
+    {
+        // Parse the JSON config file.
+        if (!_entityConfigParsed)
+        {
+            _entityConfig = parseConfig(_configFile);
+            _entityConfigParsed = true;
+        }
+
+        std::vector<Json> readings = _entityConfig.value("add_in_card", empty);
+
+        for (const auto& j : readings)
+        {
+            name = j.value("name", "");
+            auto num = j.value("instance", 0);
+
+            if (name == std::format("/PE{}", index))
+            {
+                bus = num;
+                break;
+            }
+        }
+    }
+    catch (InternalFailure& e)
+    {
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+
+    if (bus == std::nullopt)
+    {
+        return {};
+    }
+
+    return bifurcationHelper.get().getBifurcation(ctx, *bus).value_or(
         std::vector<uint8_t>{});
 }
 
@@ -807,7 +861,63 @@ std::string Handler::getBMInstanceProperty(uint8_t propertyType) const
         stdplus::print(stderr, "Failed to read: '{}'.\n", opath);
         throw IpmiException(::ipmi::ccUnspecifiedError);
     }
+
     return property;
+}
+
+std::optional<uint16_t> Handler::getCoreCount() const
+{
+    const char* path = CPU_CONFIG_PATH;
+    std::error_code ec;
+    if (!this->getFs()->exists(path, ec))
+    {
+        log<level::INFO>("CPU config file not found", entry("PATH=%s", path));
+        return std::nullopt;
+    }
+
+    std::ifstream ifs(path);
+    if (!ifs.is_open())
+    {
+        log<level::ERR>("Failed to open CPU config file",
+                        entry("PATH=%s", path));
+        return std::nullopt;
+    }
+
+    try
+    {
+        Json data = Json::parse(ifs);
+        if (data.contains("cpu_core_count") &&
+            data["cpu_core_count"].is_number_integer())
+        {
+            int coreCountInt = data["cpu_core_count"].get<int>();
+            if (coreCountInt < 0 || coreCountInt > UINT16_MAX)
+            {
+                log<level::ERR>("Core count out of range for uint16_t",
+                                entry("PATH=%s", path),
+                                entry("VALUE=%d", coreCountInt));
+                return std::nullopt;
+            }
+            return static_cast<uint16_t>(coreCountInt);
+        }
+        else
+        {
+            log<level::ERR>("Invalid format in CPU config file",
+                            entry("PATH=%s", path));
+            return std::nullopt;
+        }
+    }
+    catch (Json::parse_error& e)
+    {
+        log<level::ERR>("Failed to parse CPU config file",
+                        entry("PATH=%s", path), entry("WHAT=%s", e.what()));
+        return std::nullopt;
+    }
+    catch (...)
+    {
+        log<level::ERR>("Unknown error reading CPU config file",
+                        entry("PATH=%s", path));
+        return std::nullopt;
+    }
 }
 
 } // namespace ipmi
