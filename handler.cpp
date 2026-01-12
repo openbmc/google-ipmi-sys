@@ -15,6 +15,7 @@
 #include "handler.hpp"
 
 #include "bm_config.h"
+#include "config.h"
 
 #include "bm_instance.hpp"
 #include "bmc_mode_enum.hpp"
@@ -807,7 +808,55 @@ std::string Handler::getBMInstanceProperty(uint8_t propertyType) const
         stdplus::print(stderr, "Failed to read: '{}'.\n", opath);
         throw IpmiException(::ipmi::ccUnspecifiedError);
     }
+
     return property;
+}
+
+int Handler::getCoreCount() const
+{
+    const char* path = CPU_CONFIG_PATH;
+    std::error_code ec;
+    if (!this->getFs()->exists(path, ec))
+    {
+        log<level::INFO>("CPU config file not found, returning 0 cores",
+                         entry("PATH=%s", path));
+        return 0;
+    }
+
+    std::ifstream ifs(path);
+    if (!ifs.is_open())
+    {
+        log<level::ERR>("Failed to open CPU config file",
+                        entry("PATH=%s", path));
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+
+    try
+    {
+        Json data = Json::parse(ifs);
+        if (data.contains("cpu_core_count") && data["cpu_core_count"].is_number_integer())
+        {
+            return data["cpu_core_count"].get<int>();
+        }
+        else
+        {
+            log<level::ERR>("Invalid format in CPU config file",
+                            entry("PATH=%s", path));
+            throw IpmiException(::ipmi::ccUnspecifiedError);
+        }
+    }
+    catch (Json::parse_error& e)
+    {
+        log<level::ERR>("Failed to parse CPU config file",
+                        entry("PATH=%s", path), entry("WHAT=%s", e.what()));
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
+    catch (...)
+    {
+        log<level::ERR>("Unknown error reading CPU config file",
+                        entry("PATH=%s", path));
+        throw IpmiException(::ipmi::ccUnspecifiedError);
+    }
 }
 
 } // namespace ipmi
