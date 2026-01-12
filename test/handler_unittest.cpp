@@ -27,6 +27,7 @@
 #include <filesystem>
 #include <fstream>
 #include <functional>
+#include <optional>
 #include <string>
 #include <tuple>
 
@@ -636,6 +637,89 @@ TEST(HandlerTest, BmInstanceFailCase)
 
     // Valid enum but no path exists
     EXPECT_THROW(h.getBMInstanceProperty(0x00), IpmiException);
+}
+
+TEST(HandlerTest, GetCoreCountFileDoesNotExist)
+{
+    Handler h;
+    EXPECT_EQ(h.getCoreCount("non_existent_file.json"), std::nullopt);
+}
+
+TEST(HandlerTest, GetCoreCountValidFile)
+{
+    const char* testFilename = "cpu_config_valid.json";
+    std::string contents = R"({"cpu_core_count": 64})";
+    std::ofstream outputJson(testFilename);
+    outputJson << contents;
+    outputJson.close();
+
+    Handler h;
+    EXPECT_EQ(h.getCoreCount(testFilename), 64);
+    std::remove(testFilename);
+}
+
+TEST(HandlerTest, GetCoreCountEmptyFile)
+{
+    const char* testFilename = "cpu_config_empty.json";
+    std::ofstream outputJson(testFilename);
+    outputJson.close();
+
+    Handler h;
+    EXPECT_EQ(h.getCoreCount(testFilename), std::nullopt);
+    std::remove(testFilename);
+}
+
+TEST(HandlerTest, GetCoreCountInvalidJson)
+{
+    const char* testFilename = "cpu_config_invalid.json";
+    std::string contents = R"({"cpu_core_count": "not an int"})";
+    std::ofstream outputJson(testFilename);
+    outputJson << contents;
+    outputJson.close();
+
+    Handler h;
+    EXPECT_EQ(h.getCoreCount(testFilename), std::nullopt);
+    std::remove(testFilename);
+}
+
+TEST(HandlerTest, GetCoreCountMissingKey)
+{
+    const char* testFilename = "cpu_config_missing_key.json";
+    std::string contents = R"({"other_key": 12})";
+    std::ofstream outputJson(testFilename);
+    outputJson << contents;
+    outputJson.close();
+
+    Handler h;
+    EXPECT_EQ(h.getCoreCount(testFilename), std::nullopt);
+    std::remove(testFilename);
+}
+
+TEST(HandlerTest, GetCoreCountOutOfRange)
+{
+    const char* testFilename = "cpu_config_range.json";
+    std::string contents = R"({"cpu_core_count": 70000})";
+    std::ofstream outputJson(testFilename);
+    outputJson << contents;
+    outputJson.close();
+
+    Handler h;
+    EXPECT_EQ(h.getCoreCount(testFilename), std::nullopt);
+    std::remove(testFilename);
+}
+
+TEST(HandlerTest, GetCoreCountWithExtraKeys)
+{
+    const char* testFilename = "cpu_config_extra_keys.json";
+    std::string contents =
+        R"({"other_key": "some_value", "cpu_core_count": 32, "another_key": 123})";
+    std::ofstream outputJson(testFilename);
+    outputJson << contents;
+    outputJson.close();
+
+    Handler h;
+    EXPECT_EQ(h.getCoreCount(testFilename), 32);
+    std::remove(testFilename);
 }
 
 // TODO: Add checks for other functions of handler.

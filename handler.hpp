@@ -19,6 +19,7 @@
 
 #include <cstdint>
 #include <map>
+#include <optional>
 #include <span>
 #include <string>
 #include <string_view>
@@ -241,6 +242,15 @@ class HandlerInterface
      * @return - string of the requested BM instance property
      */
     virtual std::string getBMInstanceProperty(uint8_t propertyType) const = 0;
+
+    /**
+     * Return the number of CPU cores.
+     *
+     * @return the number of CPU cores.
+     * @throw IpmiException on failure.
+     */
+    virtual std::optional<uint16_t> getCoreCount(
+        const std::string& filePath) const = 0;
 };
 
 } // namespace ipmi
