@@ -241,6 +241,14 @@ class HandlerInterface
      * @return - string of the requested BM instance property
      */
     virtual std::string getBMInstanceProperty(uint8_t propertyType) const = 0;
+
+    /**
+     * Return the number of CPU cores.
+     *
+     * @return the number of CPU cores.
+     * @throw IpmiException on failure.
+     */
+    virtual int getCoreCount() const = 0;
 };
 
 } // namespace ipmi

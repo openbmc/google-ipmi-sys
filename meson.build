@@ -47,6 +47,7 @@ sys_lib = static_library(
     'bmc_mode.cpp',
     'cable.cpp',
     'cpld.cpp',
+    'cpu_config.cpp',
     'entity_name.cpp',
     'eth.cpp',
     'flash_size.cpp',
