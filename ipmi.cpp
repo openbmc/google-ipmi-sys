@@ -99,10 +99,29 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr ctx,
             return readBiosSetting(data, handler);
         case SysWriteBiosSetting:
             return writeBiosSetting(data, handler);
+        case SysGetCoreCount:
+            return getCoreCount(data, handler);
         default:
             stdplus::print(stderr, "Invalid subcommand: {:#x}\n", cmd);
             return ::ipmi::responseInvalidCommand();
     }
+}
+
+Resp getCoreCount(std::span<const uint8_t> data, HandlerInterface* handler)
+{
+    // data is not used in this function but is kept for consistency with other handlers.
+    (void)data;
+    int coreCountInt = handler->getCoreCount();
+    if (coreCountInt < 0 || coreCountInt > UINT16_MAX) {
+        // Log error or return an IPMI error code if the count is out of range
+        stdplus::print(stderr, "Core count out of range for uint16_t: {}\n", coreCountInt);
+        return ::ipmi::responseUnspecifiedError();
+    }
+    uint16_t coreCount = static_cast<uint16_t>(coreCountInt);
+    std::vector<uint8_t> reply;
+    reply.push_back(static_cast<uint8_t>(coreCount & 0xFF)); // LSB
+    reply.push_back(static_cast<uint8_t>((coreCount >> 8) & 0xFF)); // MSB
+    return ::ipmi::responseSuccess(SysOEMCommands::SysGetCoreCount, reply);
 }
 
 } // namespace ipmi
