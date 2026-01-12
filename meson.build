@@ -13,6 +13,7 @@ conf_data.set_quoted(
     'STATIC_BIFURCATION_CONFIG',
     get_option('static-bifurcation'),
 )
+conf_data.set_quoted('CPU_CONFIG_PATH', get_option('cpu-config-path'))
 conf_h = configure_file(output: 'config.h', configuration: conf_data)
 
 bm_conf_data = configuration_data()
@@ -47,6 +48,7 @@ sys_lib = static_library(
     'bmc_mode.cpp',
     'cable.cpp',
     'cpld.cpp',
+    'cpu_config.cpp',
     'entity_name.cpp',
     'eth.cpp',
     'flash_size.cpp',
