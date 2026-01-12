@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include "config.h"
+
 #include "handler.hpp"
 
 #include "bm_config.h"
@@ -42,6 +44,7 @@
 #include <fstream>
 #include <iomanip>
 #include <map>
+#include <optional>
 #include <sstream>
 #include <string>
 #include <string_view>
@@ -807,7 +810,64 @@ std::string Handler::getBMInstanceProperty(uint8_t propertyType) const
         stdplus::print(stderr, "Failed to read: '{}'.\n", opath);
         throw IpmiException(::ipmi::ccUnspecifiedError);
     }
+
     return property;
+}
+
+std::optional<uint16_t> Handler::getCoreCount(const std::string& filePath) const
+{
+    std::error_code ec;
+    if (!this->getFs()->exists(filePath, ec))
+    {
+        log<level::INFO>("CPU config file not found",
+                         entry("PATH=%s", filePath.c_str()));
+        return std::nullopt;
+    }
+
+    std::ifstream ifs(filePath);
+    if (!ifs.is_open())
+    {
+        log<level::ERR>("Failed to open CPU config file",
+                        entry("PATH=%s", filePath.c_str()));
+        return std::nullopt;
+    }
+
+    try
+    {
+        Json data = Json::parse(ifs);
+        if (data.contains("cpu_core_count") &&
+            data["cpu_core_count"].is_number_integer())
+        {
+            int coreCountInt = data["cpu_core_count"].get<int>();
+            if (coreCountInt < 0 || coreCountInt > UINT16_MAX)
+            {
+                log<level::ERR>("Core count out of range for uint16_t",
+                                entry("PATH=%s", filePath.c_str()),
+                                entry("VALUE=%d", coreCountInt));
+                return std::nullopt;
+            }
+            return static_cast<uint16_t>(coreCountInt);
+        }
+        else
+        {
+            log<level::ERR>("Invalid format in CPU config file",
+                            entry("PATH=%s", filePath.c_str()));
+            return std::nullopt;
+        }
+    }
+    catch (Json::parse_error& e)
+    {
+        log<level::ERR>("Failed to parse CPU config file",
+                        entry("PATH=%s", filePath.c_str()),
+                        entry("WHAT=%s", e.what()));
+        return std::nullopt;
+    }
+    catch (...)
+    {
+        log<level::ERR>("Unknown error reading CPU config file",
+                        entry("PATH=%s", filePath.c_str()));
+        return std::nullopt;
+    }
 }
 
 } // namespace ipmi

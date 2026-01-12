@@ -24,6 +24,7 @@
 #include <cstdint>
 #include <map>
 #include <memory>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <tuple>
@@ -79,6 +80,8 @@ class Handler : public HandlerInterface
     uint16_t accelGetVrSettings(::ipmi::Context::ptr ctx, uint8_t chip_id,
                                 uint8_t settings_id) const override;
     std::string getBMInstanceProperty(uint8_t propertyType) const override;
+    std::optional<uint16_t> getCoreCount(
+        const std::string& filePath) const override;
 
   protected:
     // Exposed for dependency injection
