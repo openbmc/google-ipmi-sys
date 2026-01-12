@@ -29,6 +29,7 @@
 #include <functional>
 #include <string>
 #include <tuple>
+#include <optional>
 
 #include <gtest/gtest.h>
 
@@ -636,6 +637,13 @@ TEST(HandlerTest, BmInstanceFailCase)
 
     // Valid enum but no path exists
     EXPECT_THROW(h.getBMInstanceProperty(0x00), IpmiException);
+}
+
+TEST(HandlerTest, GetCoreCountFileDoesNotExist)
+{
+    Handler h;
+    // Assuming /run/cpu_config.json doesn't exist in the test environment
+    EXPECT_EQ(h.getCoreCount(), std::nullopt);
 }
 
 // TODO: Add checks for other functions of handler.
