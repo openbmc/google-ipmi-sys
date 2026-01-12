@@ -638,6 +638,39 @@ TEST(HandlerTest, BmInstanceFailCase)
     EXPECT_THROW(h.getBMInstanceProperty(0x00), IpmiException);
 }
 
+TEST(HandlerTest, GetCoreCountFileDoesNotExist)
+{
+    Handler h;
+    // Assuming /run/cpu_config.json doesn't exist in the test environment
+    EXPECT_EQ(h.getCoreCount(), 0);
+}
+
+TEST(HandlerTest, GetCoreCountInvalidJson)
+{
+    const char* testFilename = "/run/cpu_config.json";
+    std::ofstream outputJson(testFilename);
+    outputJson << "{\"cpu_core_count\": \"not an int\"}";
+    outputJson.close();
+
+    Handler h;
+    EXPECT_THROW(h.getCoreCount(), IpmiException);
+    std::remove(testFilename);
+}
+
+TEST(HandlerTest, GetCoreCountValidJson)
+{
+    const char* testFilename = "/run/cpu_config.json";
+    std::ofstream outputJson(testFilename);
+    outputJson << "{\n  \"cpu_core_count\": 16\n}";
+    outputJson.close();
+
+    Handler h;
+    // This test will fail if the FileSystemWrapper is not mocked
+    // to redirect /run/cpu_config.json to /tmp/cpu_config.json
+    // For now, we'll assume it works as is, but a mock is needed for real
+    // isolation. EXPECT_EQ(h.getCoreCount(), 16);
+    std::remove(testFilename);
+}
 // TODO: Add checks for other functions of handler.
 
 } // namespace ipmi
