@@ -579,3 +579,20 @@ Response
 | ------- | ---------- | ------------------------------------ |
 | 0x00    | 0x19       | Subcommand                           |
 | 0x01    | Length (N) | Number of bytes successfully written |
+
+## GetCoreCount - SubCommand 0x1E
+
+This command returns the number of CPU cores per socket.
+
+Request
+
+| Byte(s) | Value | Data       |
+| :------ | :---- | :--------- |
+| 0x00    | 0x1E  | Subcommand |
+
+Response
+
+| Byte(s)    | Value      | Data                                        |
+| :--------- | :--------- | :------------------------------------------ |
+| 0x00       | 0x1E       | Subcommand                                  |
+| 0x01..0x02 | Core Count | Number of cores/socket (uint16_t LSB first) |

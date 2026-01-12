@@ -17,3 +17,9 @@ option(
     value: '/run/bm-ready.flag',
     description: 'Path to the flag to indicate that BM mode is ready',
 )
+option(
+    'cpu-config-path',
+    type: 'string',
+    value: '/run/cpu_config.json',
+    description: 'Path to the CPU configuration JSON file',
+)
