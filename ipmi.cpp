@@ -20,6 +20,7 @@
 #include "cable.hpp"
 #include "commands.hpp"
 #include "cpld.hpp"
+#include "cpu_config.hpp"
 #include "entity_name.hpp"
 #include "eth.hpp"
 #include "flash_size.hpp"
@@ -99,6 +100,8 @@ Resp handleSysCommand(HandlerInterface* handler, ::ipmi::Context::ptr ctx,
             return readBiosSetting(data, handler);
         case SysWriteBiosSetting:
             return writeBiosSetting(data, handler);
+        case SysGetCoreCount:
+            return getCoreCount(data, handler);
         default:
             stdplus::print(stderr, "Invalid subcommand: {:#x}\n", cmd);
             return ::ipmi::responseInvalidCommand();
