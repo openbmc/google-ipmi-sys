@@ -70,6 +70,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ac9483f_77908915",
+        "filename": "handler.cpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1002821
+      },
+      "writtenOn": "2026-01-22T00:22:59Z",
+      "side": 1,
+      "message": "when an exception is thrown,  it is caught by framework and IPMI error response is sent to the caller. File not present means, core count is not explicitly set. This is not exactly an error scenario. If 0 is returned, host will use default value.",
+      "parentUuid": "f13119ab_0cf685f4",
+      "range": {
+        "startLine": 820,
+        "startChar": 0,
+        "endLine": 833,
+        "endChar": 5
+      },
+      "revId": "244a9e7c814a4e9fa786c377fdb86dd234b7ff36",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f4e9194_5f1515f8",
