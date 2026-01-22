@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54a058ea_7af49d32",
+        "filename": "cpu_config.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2026-01-22T23:47:06Z",
+      "side": 1,
+      "message": "rm",
+      "range": {
+        "startLine": 33,
+        "startChar": 43,
+        "endLine": 33,
+        "endChar": 47
+      },
+      "revId": "296bf3186a0a664ed9b7060990106a4595ed0a1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "058b4567_24c5d731",
+        "filename": "cpu_config.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2026-01-22T23:47:06Z",
+      "side": 1,
+      "message": "rm",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 15
+      },
+      "revId": "296bf3186a0a664ed9b7060990106a4595ed0a1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "018317fd_eea93424",
+        "filename": "cpu_config.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2026-01-22T23:47:06Z",
+      "side": 1,
+      "message": "```\n handler-\u003egetCoreCount(CPU_CONFIG_PATH);\n```",
+      "range": {
+        "startLine": 38,
+        "startChar": 42,
+        "endLine": 38,
+        "endChar": 67
+      },
+      "revId": "296bf3186a0a664ed9b7060990106a4595ed0a1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2516eba_118dbfa7",
+        "filename": "handler.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2026-01-22T23:47:06Z",
+      "side": 1,
+      "message": "```\nstd::optional\u003cuint16_t\u003e Handler::getCoreCount(std::string_view path) \n```",
+      "range": {
+        "startLine": 817,
+        "startChar": 0,
+        "endLine": 819,
+        "endChar": 39
+      },
+      "revId": "296bf3186a0a664ed9b7060990106a4595ed0a1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a921919_2c5d5dd8",
+        "filename": "handler.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2026-01-22T23:47:06Z",
+      "side": 1,
+      "message": "maybe no need to check if it exists?",
+      "range": {
+        "startLine": 820,
+        "startChar": 0,
+        "endLine": 834,
+        "endChar": 0
+      },
+      "revId": "296bf3186a0a664ed9b7060990106a4595ed0a1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84ef0571_113b5910",
+        "filename": "handler_impl.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2026-01-22T23:47:06Z",
+      "side": 1,
+      "message": "```\ngetCoreCount(std::string_view path \u003d CPU_CONFIG_PATH)\n```",
+      "range": {
+        "startLine": 83,
+        "startChar": 28,
+        "endLine": 83,
+        "endChar": 42
+      },
+      "revId": "296bf3186a0a664ed9b7060990106a4595ed0a1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ded292a_89eb6de4",
+        "filename": "test/handler_unittest.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1000885
+      },
+      "writtenOn": "2026-01-22T23:47:06Z",
+      "side": 1,
+      "message": "add actual test cases.\n\nCreate tmp file for the config and pass it in for testing purpose.",
+      "range": {
+        "startLine": 641,
+        "startChar": 0,
+        "endLine": 648,
+        "endChar": 0
+      },
+      "revId": "296bf3186a0a664ed9b7060990106a4595ed0a1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    }
+  ]
+}
