@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eea0ecbb_c74a6815",
+        "filename": "cpu_config.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1002821
+      },
+      "writtenOn": "2026-01-23T18:28:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54a058ea_7af49d32",
+      "range": {
+        "startLine": 33,
+        "startChar": 43,
+        "endLine": 33,
+        "endChar": 47
+      },
+      "revId": "296bf3186a0a664ed9b7060990106a4595ed0a1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "058b4567_24c5d731",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-01-22T23:47:06Z",
       "side": 1,
       "message": "rm",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 15
+      },
+      "revId": "296bf3186a0a664ed9b7060990106a4595ed0a1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d990b7d1_a400b6a7",
+        "filename": "cpu_config.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002821
+      },
+      "writtenOn": "2026-01-23T18:28:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "058b4567_24c5d731",
       "range": {
         "startLine": 37,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54962a11_4292fff2",
+        "filename": "cpu_config.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1002821
+      },
+      "writtenOn": "2026-01-23T18:28:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "018317fd_eea93424",
+      "range": {
+        "startLine": 38,
+        "startChar": 42,
+        "endLine": 38,
+        "endChar": 67
+      },
+      "revId": "296bf3186a0a664ed9b7060990106a4595ed0a1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c2516eba_118dbfa7",
@@ -83,6 +155,30 @@
       "writtenOn": "2026-01-22T23:47:06Z",
       "side": 1,
       "message": "```\nstd::optional\u003cuint16_t\u003e Handler::getCoreCount(std::string_view path) \n```",
+      "range": {
+        "startLine": 817,
+        "startChar": 0,
+        "endLine": 819,
+        "endChar": 39
+      },
+      "revId": "296bf3186a0a664ed9b7060990106a4595ed0a1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5ac2762_24d63dd8",
+        "filename": "handler.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1002821
+      },
+      "writtenOn": "2026-01-23T18:28:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2516eba_118dbfa7",
       "range": {
         "startLine": 817,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc49fad1_647c3060",
+        "filename": "handler.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1002821
+      },
+      "writtenOn": "2026-01-23T18:28:03Z",
+      "side": 1,
+      "message": "There is a good chance that the file does not exist. If user does not override the value, it does not exist. I would like to differentiate between unable to open the file vs file not existing.",
+      "parentUuid": "0a921919_2c5d5dd8",
+      "range": {
+        "startLine": 820,
+        "startChar": 0,
+        "endLine": 834,
+        "endChar": 0
+      },
+      "revId": "296bf3186a0a664ed9b7060990106a4595ed0a1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "84ef0571_113b5910",
@@ -139,6 +259,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51c8eda1_cb7e511f",
+        "filename": "handler_impl.hpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002821
+      },
+      "writtenOn": "2026-01-23T18:28:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84ef0571_113b5910",
+      "range": {
+        "startLine": 83,
+        "startChar": 28,
+        "endLine": 83,
+        "endChar": 42
+      },
+      "revId": "296bf3186a0a664ed9b7060990106a4595ed0a1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ded292a_89eb6de4",
@@ -152,6 +296,30 @@
       "writtenOn": "2026-01-22T23:47:06Z",
       "side": 1,
       "message": "add actual test cases.\n\nCreate tmp file for the config and pass it in for testing purpose.",
+      "range": {
+        "startLine": 641,
+        "startChar": 0,
+        "endLine": 648,
+        "endChar": 0
+      },
+      "revId": "296bf3186a0a664ed9b7060990106a4595ed0a1c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65430565_fe69cece",
+        "filename": "test/handler_unittest.cpp",
+        "patchSetId": 23
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 1002821
+      },
+      "writtenOn": "2026-01-23T18:28:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ded292a_89eb6de4",
       "range": {
         "startLine": 641,
         "startChar": 0,
