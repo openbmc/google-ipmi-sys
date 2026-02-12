@@ -14,6 +14,9 @@ conf_data.set_quoted(
     get_option('static-bifurcation'),
 )
 conf_data.set_quoted('CPU_CONFIG_PATH', get_option('cpu-config-path'))
+
+conf_data.set10('IPMI_ALLOWLIST', get_option('ipmi_allowlist'))
+
 conf_h = configure_file(output: 'config.h', configuration: conf_data)
 
 bm_conf_data = configuration_data()
