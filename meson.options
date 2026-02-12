@@ -23,3 +23,10 @@ option(
     value: '/run/cpu_config.json',
     description: 'Path to the CPU configuration JSON file',
 )
+
+option(
+    'ipmi_allowlist',
+    type: 'boolean',
+    value: false,
+    description: 'IPMI allowlist enablement Flag',
+)
