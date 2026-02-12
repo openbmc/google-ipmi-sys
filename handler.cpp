@@ -683,6 +683,12 @@ void Handler::linuxBootDone() const
         return;
     }
 
+#if IPMI_ALLOWLIST
+    log<level::INFO>("LinuxBootDone: IPMI allow list enabled in BM_MODE. Skipping IPMI disable.");
+    // This returned error is to interrupt LinuxBoot's check that IPMI was disabled.
+    throw IpmiException(::ipmi::ccUnspecifiedError);
+#else
+
     log<level::INFO>("LinuxBootDone: Disabling IPMI");
 
     // Start the bare metal active systemd target.
