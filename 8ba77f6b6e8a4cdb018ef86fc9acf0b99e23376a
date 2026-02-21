@@ -24,6 +24,30 @@
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85072834_a689f3dd",
+        "filename": "handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1002869
+      },
+      "writtenOn": "2026-02-21T00:33:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4422051e_1956a1e5",
+      "range": {
+        "startLine": 687,
+        "startChar": 15,
+        "endLine": 687,
+        "endChar": 19
+      },
+      "revId": "8ba77f6b6e8a4cdb018ef86fc9acf0b99e23376a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "588145b2_f04b3cd0",
@@ -37,6 +61,30 @@
       "writtenOn": "2026-02-20T23:14:43Z",
       "side": 1,
       "message": "Just to double check, we are intending to go this route right? https://github.com/openbmc/google-ipmi-sys/blob/4134c74bda1bef375e155e193bad98741912c252/linux_boot_done.cpp#L31-L41",
+      "range": {
+        "startLine": 689,
+        "startChar": 4,
+        "endLine": 690,
+        "endChar": 16
+      },
+      "revId": "8ba77f6b6e8a4cdb018ef86fc9acf0b99e23376a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91a52204_5702dadb",
+        "filename": "handler.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 1002869
+      },
+      "writtenOn": "2026-02-21T00:33:01Z",
+      "side": 1,
+      "message": "Yup!",
+      "parentUuid": "588145b2_f04b3cd0",
       "range": {
         "startLine": 689,
         "startChar": 4,
