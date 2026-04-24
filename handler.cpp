@@ -262,7 +262,7 @@ void Handler::psuResetDelay(std::uint32_t delay) const
     {
         bus.call_noreply(method);
     }
-    catch (const sdbusplus::exception::SdBusError& ex)
+    catch (const sdbusplus::exception::internal_exception& ex)
     {
         log<level::ERR>("Failed to call PSU hard reset");
         throw IpmiException(::ipmi::ccUnspecifiedError);
@@ -407,7 +407,7 @@ void Handler::hostPowerOffDelay(std::uint32_t delay) const
     {
         bus.call_noreply(method);
     }
-    catch (const sdbusplus::exception::SdBusError& ex)
+    catch (const sdbusplus::exception::internal_exception& ex)
     {
         log<level::ERR>("Failed to call Power Off",
                         entry("WHAT=%s", ex.what()));
@@ -495,7 +495,7 @@ uint32_t Handler::accelOobDeviceCount() const
                                           "GetManagedObjects");
         bus.call(method).read(data);
     }
-    catch (const sdbusplus::exception::SdBusError& ex)
+    catch (const sdbusplus::exception::internal_exception& ex)
     {
         log<level::ERR>(
             "Failed to call GetManagedObjects on com.google.custom_accel",
@@ -518,7 +518,7 @@ std::string Handler::accelOobDeviceName(size_t index) const
                                           "GetManagedObjects");
         bus.call(method).read(data);
     }
-    catch (const sdbusplus::exception::SdBusError& ex)
+    catch (const sdbusplus::exception::internal_exception& ex)
     {
         log<level::ERR>(
             "Failed to call GetManagedObjects on com.google.custom_accel",
@@ -562,7 +562,7 @@ uint64_t Handler::accelOobRead(std::string_view name, uint64_t address,
     {
         bus.call(method).read(bytes);
     }
-    catch (const sdbusplus::exception::SdBusError& ex)
+    catch (const sdbusplus::exception::internal_exception& ex)
     {
         log<level::ERR>("Failed to call Read on com.google.custom_accel",
                         entry("WHAT=%s", ex.what()),
@@ -652,7 +652,7 @@ void Handler::accelOobWrite(std::string_view name, uint64_t address,
         method.append(address, bytes);
         bus.call_noreply(method);
     }
-    catch (const sdbusplus::exception::SdBusError& ex)
+    catch (const sdbusplus::exception::internal_exception& ex)
     {
         log<level::ERR>("Failed to call Write on com.google.custom_accel",
                         entry("WHAT=%s", ex.what()),
@@ -705,7 +705,7 @@ void Handler::linuxBootDone() const
     {
         bus.call_noreply(method);
     }
-    catch (const sdbusplus::exception::SdBusError& ex)
+    catch (const sdbusplus::exception::internal_exception& ex)
     {
         log<level::ERR>("Failed to start bare metal active systemd target",
                         entry("WHAT=%s", ex.what()));
