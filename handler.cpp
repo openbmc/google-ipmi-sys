@@ -468,8 +468,8 @@ using AnyType = std::variant<std::string, uint8_t, uint32_t, uint64_t>;
 using AnyTypeList = std::vector<std::pair<std::string, AnyType>>;
 using NamedArrayOfAnyTypeLists =
     std::vector<std::pair<std::string, AnyTypeList>>;
-using ArrayOfObjectPathsAndTieredAnyTypeLists = std::vector<
-    std::pair<sdbusplus::message::object_path, NamedArrayOfAnyTypeLists>>;
+using ArrayOfObjectPathsAndTieredAnyTypeLists =
+    std::vector<std::pair<sdbusplus::object_path, NamedArrayOfAnyTypeLists>>;
 
 } // namespace
 
