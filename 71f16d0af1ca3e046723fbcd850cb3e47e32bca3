@@ -1,0 +1,7 @@
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+2: William A. Kennington III <wak@google.com>
+Submitted-by: Patrick Williams <patrick@stwcx.xyz>
+Submitted-at: Sun, 26 Apr 2026 07:33:31 +0000
+Reviewed-on: https://gerrit.openbmc.org/c/openbmc/google-ipmi-sys/+/89057
+Project: openbmc/google-ipmi-sys
+Branch: refs/heads/master
